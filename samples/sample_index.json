@@ -1,0 +1,141 @@
+{
+    "samples":[
+        {
+            "name": "0a0b5f95f37a91f99e849ab14a53c740198abca9b4fe3322e6ff9f34b810dfe7.sample",
+            "path": "samples/0a0b5f95f37a91f99e849ab14a53c740198abca9b4fe3322e6ff9f34b810dfe7.sample",
+            "obfuscation_methods": [
+                "base64"
+            ],
+            "layers":1
+        },
+        {
+            "name": "0b0988f4dff15d243c5c7283c2e8833050de97bda8f8e2b7b920b47d6839f77f.sample",
+            "path": "samples/0b0988f4dff15d243c5c7283c2e8833050de97bda8f8e2b7b920b47d6839f77f.sample",
+            "obfuscation_methods": [
+                "base64",
+                "concatenation"
+            ],
+            "layers":1
+        },
+        {
+            "name": "0b4208640831c9ef68a1bb3942cfc2d552f2971a7e3ab0baa7fe2f5e400506d3.sample",
+            "path": "samples/0b4208640831c9ef68a1bb3942cfc2d552f2971a7e3ab0baa7fe2f5e400506d3.sample",
+            "obfuscation_methods": [
+                "base64"
+            ],
+            "layers":1
+        },
+        {
+            "name": "0c9a8dad384b00ea30be586a083740f28d42c5f58544d8f2f3dac86f6ff0dffd.sample",
+            "path": "samples/0c9a8dad384b00ea30be586a083740f28d42c5f58544d8f2f3dac86f6ff0dffd.sample",
+            "obfuscation_methods": [
+                "base64"
+            ],
+            "layers":1
+        },
+        {
+            "name": "0c42a151babf7a4fd94564156245d0ac8e934282b996b3bb14cbe151f4233863.sample",
+            "path": "samples/0c42a151babf7a4fd94564156245d0ac8e934282b996b3bb14cbe151f4233863.sample",
+            "obfuscation_methods": [
+                "base64",
+                "object_renaming"
+            ],
+            "layers":2
+        },
+        {
+            "name": "0cc81d1e13103af100095ec09ba7fdcb8a837bd463686bb09402e0d23b3f622f.sample",
+            "path": "samples/0cc81d1e13103af100095ec09ba7fdcb8a837bd463686bb09402e0d23b3f622f.sample",
+            "obfuscation_methods": [
+                "base64"
+            ],
+            "layers":1
+        },
+        {
+            "name": "0e0b81f4d5a791840493297b29c6715fb391ae7ae07c665dede01507bb59352f.sample",
+            "path": "samples/0e0b81f4d5a791840493297b29c6715fb391ae7ae07c665dede01507bb59352f.sample",
+            "obfuscation_methods": [
+                "base64"
+            ],
+            "layers":1
+        },
+        {
+            "name": "0eb254d9e890cc98ef789293cfef3f127063ec2130cb02a9adeded544debaeb9.sample",
+            "path": "samples/0eb254d9e890cc98ef789293cfef3f127063ec2130cb02a9adeded544debaeb9.sample",
+            "obfuscation_methods": [
+                "base64"
+            ],
+            "layers":1
+        },
+        {
+            "name": "0eddca25fecf32891549287656e25867fa7b787e0245d5ee0a537b55299f78cf.sample",
+            "path": "samples/0eddca25fecf32891549287656e25867fa7b787e0245d5ee0a537b55299f78cf.sample",
+            "obfuscation_methods": [
+                "base64"
+            ],
+            "layers":1
+        },
+        {
+            "name": "0ee311f11c655bf10ee6b58c8aaba3c0d888aca264bca8bbe462d336fecfc7ee.sample",
+            "path": "samples/0ee311f11c655bf10ee6b58c8aaba3c0d888aca264bca8bbe462d336fecfc7ee.sample",
+            "obfuscation_methods": [
+                "base64",
+                "object_renaming"
+            ],
+            "layers":2
+        },
+        {
+            "name": "0f58742ab1e15f8aa0dfc32ac17b4c8178138f68e9948455369f1857a54847c0.sample",
+            "path": "samples/0f58742ab1e15f8aa0dfc32ac17b4c8178138f68e9948455369f1857a54847c0.sample",
+            "obfuscation_methods": [
+                "base64",
+                "concatenation"
+            ],
+            "layers":1
+        },
+        {
+            "name": "0f467133c23e3a2c7fa8f9c34ec1e642e7e9e3f5a30bbff39b992c28c2430759.sample",
+            "path": "samples/0f467133c23e3a2c7fa8f9c34ec1e642e7e9e3f5a30bbff39b992c28c2430759.sample",
+            "obfuscation_methods": [
+                "base64",
+                "object_renaming"
+            ],
+            "layers":2
+        },
+        {
+            "name": "1a133e3ef76033cdb1207d1edf59cad90d4e8a7309fff6419877ce77c78dd259.sample",
+            "path": "samples/1a133e3ef76033cdb1207d1edf59cad90d4e8a7309fff6419877ce77c78dd259.sample",
+            "obfuscation_methods": [
+                "object_renaming"
+            ],
+            "layers":1
+        },
+        {
+            "name": "01aa05cff6dcbd7c047a31dd81d94515c591eb9fb19659ef9ac7d2fd84fc7f42.sample",
+            "path": "samples/01aa05cff6dcbd7c047a31dd81d94515c591eb9fb19659ef9ac7d2fd84fc7f42.sample",
+            "obfuscation_methods": [
+                "object_renaming",
+                "base64",
+                "concatenation"
+            ],
+            "layers":2
+        },
+        {
+            "name": "1ab8a62202d1991253b308c16d147a8721aa1b71f9399eae0f44a407cfca8f84.sample",
+            "path": "samples/1ab8a62202d1991253b308c16d147a8721aa1b71f9399eae0f44a407cfca8f84.sample",
+            "obfuscation_methods": [
+                "base64"
+            ],
+            "layers":1
+        },
+        {
+            "name": "1b1ba49163765e2072e15f5b02598e88209e91c89f58d71ca99e2e2ee241dc44.sample",
+            "path": "samples/1b1ba49163765e2072e15f5b02598e88209e91c89f58d71ca99e2e2ee241dc44.sample",
+            "obfuscation_methods": [
+                "base64",
+                "concatenation",
+                "object_renaming"
+            ],
+            "layers":2
+        }
+    ]
+}

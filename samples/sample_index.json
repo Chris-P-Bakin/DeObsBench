@@ -351,7 +351,42 @@
                 "typecast_ascii"
             ],
             "layers":1
+        },
+        {
+            "name": "4bde5a02ae53de6a59e47d36017668edae762eccba830fbaa8fa9a68d44f6e2c.sample",
+            "path": "samples/4bde5a02ae53de6a59e47d36017668edae762eccba830fbaa8fa9a68d44f6e2c.sample",
+            "obfuscation_methods": [
+                "base64",
+                "object_renaming"
+            ],
+            "layers":2
+        },
+        {
+            "name": "004c132ffcd37650da7d319b82ec36f055fd6c5cec568b8d1898d5417693de02.sample",
+            "path": "samples/004c132ffcd37650da7d319b82ec36f055fd6c5cec568b8d1898d5417693de02.sample",
+            "obfuscation_methods": [
+                "base64"
+            ],
+            "layers":1
+        },
+        {
+            "name": "4c0246368346e30fad438c16f6e1f87c5913db5d068f2c33415c2b59c978c276.sample",
+            "path": "samples/4c0246368346e30fad438c16f6e1f87c5913db5d068f2c33415c2b59c978c276.sample",
+            "obfuscation_methods": [
+                "object_renaming",
+                "base64"
+            ],
+            "layers":1
+        },
+        {
+            "name": "4cfec7dc963c2c1d63978072b64b7ab8dd8b7cdf77c7b59470717954bac0f1c5.sample",
+            "path": "samples/4cfec7dc963c2c1d63978072b64b7ab8dd8b7cdf77c7b59470717954bac0f1c5.sample",
+            "obfuscation_methods": [
+                "reverse_strings",
+                "typecast_ascii",
+                "string_indexing"
+            ],
+            "layers":1
         }
-        
     ]
 }

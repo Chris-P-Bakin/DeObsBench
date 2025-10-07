@@ -1,392 +1,1616 @@
 {
-    "samples":[
-        {
-            "name": "0a0b5f95f37a91f99e849ab14a53c740198abca9b4fe3322e6ff9f34b810dfe7.sample",
-            "path": "samples/0a0b5f95f37a91f99e849ab14a53c740198abca9b4fe3322e6ff9f34b810dfe7.sample",
-            "obfuscation_methods": [
-                "base64"
-            ],
-            "layers":1
-        },
-        {
-            "name": "0b0988f4dff15d243c5c7283c2e8833050de97bda8f8e2b7b920b47d6839f77f.sample",
-            "path": "samples/0b0988f4dff15d243c5c7283c2e8833050de97bda8f8e2b7b920b47d6839f77f.sample",
-            "obfuscation_methods": [
-                "base64",
-                "concatenation"
-            ],
-            "layers":1
-        },
-        {
-            "name": "0b4208640831c9ef68a1bb3942cfc2d552f2971a7e3ab0baa7fe2f5e400506d3.sample",
-            "path": "samples/0b4208640831c9ef68a1bb3942cfc2d552f2971a7e3ab0baa7fe2f5e400506d3.sample",
-            "obfuscation_methods": [
-                "base64"
-            ],
-            "layers":1
-        },
-        {
-            "name": "0c9a8dad384b00ea30be586a083740f28d42c5f58544d8f2f3dac86f6ff0dffd.sample",
-            "path": "samples/0c9a8dad384b00ea30be586a083740f28d42c5f58544d8f2f3dac86f6ff0dffd.sample",
-            "obfuscation_methods": [
-                "base64"
-            ],
-            "layers":1
-        },
-        {
-            "name": "0c42a151babf7a4fd94564156245d0ac8e934282b996b3bb14cbe151f4233863.sample",
-            "path": "samples/0c42a151babf7a4fd94564156245d0ac8e934282b996b3bb14cbe151f4233863.sample",
-            "obfuscation_methods": [
-                "base64",
-                "object_renaming"
-            ],
-            "layers":2
-        },
-        {
-            "name": "0cc81d1e13103af100095ec09ba7fdcb8a837bd463686bb09402e0d23b3f622f.sample",
-            "path": "samples/0cc81d1e13103af100095ec09ba7fdcb8a837bd463686bb09402e0d23b3f622f.sample",
-            "obfuscation_methods": [
-                "base64"
-            ],
-            "layers":1
-        },
-        {
-            "name": "0e0b81f4d5a791840493297b29c6715fb391ae7ae07c665dede01507bb59352f.sample",
-            "path": "samples/0e0b81f4d5a791840493297b29c6715fb391ae7ae07c665dede01507bb59352f.sample",
-            "obfuscation_methods": [
-                "base64"
-            ],
-            "layers":1
-        },
-        {
-            "name": "0eb254d9e890cc98ef789293cfef3f127063ec2130cb02a9adeded544debaeb9.sample",
-            "path": "samples/0eb254d9e890cc98ef789293cfef3f127063ec2130cb02a9adeded544debaeb9.sample",
-            "obfuscation_methods": [
-                "base64"
-            ],
-            "layers":1
-        },
-        {
-            "name": "0eddca25fecf32891549287656e25867fa7b787e0245d5ee0a537b55299f78cf.sample",
-            "path": "samples/0eddca25fecf32891549287656e25867fa7b787e0245d5ee0a537b55299f78cf.sample",
-            "obfuscation_methods": [
-                "base64"
-            ],
-            "layers":1
-        },
-        {
-            "name": "0ee311f11c655bf10ee6b58c8aaba3c0d888aca264bca8bbe462d336fecfc7ee.sample",
-            "path": "samples/0ee311f11c655bf10ee6b58c8aaba3c0d888aca264bca8bbe462d336fecfc7ee.sample",
-            "obfuscation_methods": [
-                "base64",
-                "object_renaming"
-            ],
-            "layers":2
-        },
-        {
-            "name": "0f58742ab1e15f8aa0dfc32ac17b4c8178138f68e9948455369f1857a54847c0.sample",
-            "path": "samples/0f58742ab1e15f8aa0dfc32ac17b4c8178138f68e9948455369f1857a54847c0.sample",
-            "obfuscation_methods": [
-                "base64",
-                "concatenation"
-            ],
-            "layers":1
-        },
-        {
-            "name": "0f467133c23e3a2c7fa8f9c34ec1e642e7e9e3f5a30bbff39b992c28c2430759.sample",
-            "path": "samples/0f467133c23e3a2c7fa8f9c34ec1e642e7e9e3f5a30bbff39b992c28c2430759.sample",
-            "obfuscation_methods": [
-                "base64",
-                "object_renaming"
-            ],
-            "layers":2
-        },
-        {
-            "name": "1a133e3ef76033cdb1207d1edf59cad90d4e8a7309fff6419877ce77c78dd259.sample",
-            "path": "samples/1a133e3ef76033cdb1207d1edf59cad90d4e8a7309fff6419877ce77c78dd259.sample",
-            "obfuscation_methods": [
-                "object_renaming"
-            ],
-            "layers":1
-        },
-        {
-            "name": "01aa05cff6dcbd7c047a31dd81d94515c591eb9fb19659ef9ac7d2fd84fc7f42.sample",
-            "path": "samples/01aa05cff6dcbd7c047a31dd81d94515c591eb9fb19659ef9ac7d2fd84fc7f42.sample",
-            "obfuscation_methods": [
-                "object_renaming",
-                "base64",
-                "concatenation"
-            ],
-            "layers":2
-        },
-        {
-            "name": "1ab8a62202d1991253b308c16d147a8721aa1b71f9399eae0f44a407cfca8f84.sample",
-            "path": "samples/1ab8a62202d1991253b308c16d147a8721aa1b71f9399eae0f44a407cfca8f84.sample",
-            "obfuscation_methods": [
-                "base64"
-            ],
-            "layers":1
-        },
-        {
-            "name": "1b1ba49163765e2072e15f5b02598e88209e91c89f58d71ca99e2e2ee241dc44.sample",
-            "path": "samples/1b1ba49163765e2072e15f5b02598e88209e91c89f58d71ca99e2e2ee241dc44.sample",
-            "obfuscation_methods": [
-                "base64",
-                "concatenation",
-                "object_renaming"
-            ],
-            "layers":2
-        },
-        {
-            "name": "1bd928c17f49ac9b2e91738c97e7341940671662a136f0bb215acaf3c1eb4d48.sample",
-            "path": "samples/1bd928c17f49ac9b2e91738c97e7341940671662a136f0bb215acaf3c1eb4d48.sample",
-            "obfuscation_methods": [
-                "base64",
-                "concatenation",
-                "object_renaming"
-            ],
-            "layers":2
-        },
-        {
-            "name": "1c087a48e272726651fe5d50c109c1670aecf4d7320ccb30d09e786048b6212a.sample",
-            "path": "samples/1c087a48e272726651fe5d50c109c1670aecf4d7320ccb30d09e786048b6212a.sample",
-            "obfuscation_methods": [
-                "base64"
-            ],
-            "layers":1
-        },
-        {
-            "name": "1ccb9d6a0b855160528c7dbb5f2d12df49724c102c7238846c478f1c4fd02d32.sample",
-            "path": "samples/1ccb9d6a0b855160528c7dbb5f2d12df49724c102c7238846c478f1c4fd02d32.sample",
-            "obfuscation_methods": [
-                "base64",
-                "concatenation"
-            ],
-            "layers":2
-        },
-        {
-            "name": "1d9f60b7100431f3e9eb6bea0855c101289a3fb2c60d53ebccb6166491ad9d7a.sample",
-            "path": "samples/1d9f60b7100431f3e9eb6bea0855c101289a3fb2c60d53ebccb6166491ad9d7a.sample",
-            "obfuscation_methods": [
-                "base64"
-            ],
-            "layers":1
-        },
-        {
-            "name": "01e4fa6a0b5f7f8838fea407ff7177c0a49f8fe19b35e0eb90a7aee327cf7a7b.sample",
-            "path": "samples/01e4fa6a0b5f7f8838fea407ff7177c0a49f8fe19b35e0eb90a7aee327cf7a7b.sample",
-            "obfuscation_methods": [
-                "base64"
-            ],
-            "layers":1
-        },
-        {
-            "name": "1e303accaa28f4730d4fb5e21fdda1bb89b8ceb2acafcbfcc4dda301d46c5377.sample",
-            "path": "samples/1e303accaa28f4730d4fb5e21fdda1bb89b8ceb2acafcbfcc4dda301d46c5377.sample",
-            "obfuscation_methods": [
-                "base64",
-                "object_renaming"
-            ],
-            "layers":1
-        },
-        {
-            "name": "1efa9413f5aed5dcd15a9319e011c3efe7a16d8f0c3abdb437ae436684f3571b.sample",
-            "path": "samples/1efa9413f5aed5dcd15a9319e011c3efe7a16d8f0c3abdb437ae436684f3571b.sample",
-            "obfuscation_methods": [
-                "base64"
-            ],
-            "layers":1
-        },
-        {
-            "name": "1f45fdcf220c685872911587a8b4d89bb5eb720561d691a50a1338fdaf533d87.sample",
-            "path": "samples/1f45fdcf220c685872911587a8b4d89bb5eb720561d691a50a1338fdaf533d87.sample",
-            "obfuscation_methods": [
-                "base64"
-            ],
-            "layers":1
-        },
-        {
-            "name": "2a4e98b8d197ab3365c84f431a457c90f8ac34792c490af0c2287c3b28b3cbe3.sample",
-            "path": "samples/2a4e98b8d197ab3365c84f431a457c90f8ac34792c490af0c2287c3b28b3cbe3.sample",
-            "obfuscation_methods": [
-                "base64"
-            ],
-            "layers":1
-        },
-        {
-            "name": "2b21ed2780d69cea18217dc57e40056c18d70673dabec19675fcc7f71a70e5aa.sample",
-            "path": "samples/2b21ed2780d69cea18217dc57e40056c18d70673dabec19675fcc7f71a70e5aa.sample",
-            "obfuscation_methods": [
-                "base64"
-            ],
-            "layers":1
-        },
-        {
-            "name": "2b6572810e4bae8e8d1995917caf047a988b1a0f8407b677d6610d29782e9e19.sample",
-            "path": "samples/2b6572810e4bae8e8d1995917caf047a988b1a0f8407b677d6610d29782e9e19.sample",
-            "obfuscation_methods": [
-                "base64"
-            ],
-            "layers":1
-        },
-        {
-            "name": "2c1d6585c4e4e9d12f527d697f7a833ce15cfe7cc85904d8b89dd749aecf9090.sample",
-            "path": "samples/2c1d6585c4e4e9d12f527d697f7a833ce15cfe7cc85904d8b89dd749aecf9090.sample",
-            "obfuscation_methods": [
-                "base64"
-            ],
-            "layers":1
-        },
-        {
-            "name": "2d3a932260b3308d0e5f084baf3dd07633c4f0269ce85a268ba6e31778605e51.sample",
-            "path": "samples/2d3a932260b3308d0e5f084baf3dd07633c4f0269ce85a268ba6e31778605e51.sample",
-            "obfuscation_methods": [
-                "base64"
-            ],
-            "layers":1
-        },
-        {
-            "name": "2d28cbe79e0477307fa4a7a03524fffd10dffb515e38043546f70c4fa694e768.sample",
-            "path": "samples/2d28cbe79e0477307fa4a7a03524fffd10dffb515e38043546f70c4fa694e768.sample",
-            "obfuscation_methods": [
-                "base64"
-            ],
-            "layers":1
-        },
-        {
-            "name": "2d72f6bc11f9ae4d19743b760c4b4f537165672ef37d3db95cec5047100f255a.sample",
-            "path": "samples/2d72f6bc11f9ae4d19743b760c4b4f537165672ef37d3db95cec5047100f255a.sample",
-            "obfuscation_methods": [
-                "typecast_ascii",
-                "concatenation"
-            ],
-            "layers":2
-        },
-        {
-            "name": "2e054e7fcf74881cf97df42c4bd641bfd3ac04e65ad31aef44b7c83a1ecf8415.sample",
-            "path": "samples/2e054e7fcf74881cf97df42c4bd641bfd3ac04e65ad31aef44b7c83a1ecf8415.sample",
-            "obfuscation_methods": [
-                "base64",
-                "backticks"
-            ],
-            "layers":1
-        },
-        {
-            "name": "2ff2d31cc3004313c69dc3d35aea04e7888d702cc9eceac640bc12f94b2b236e.sample",
-            "path": "samples/2ff2d31cc3004313c69dc3d35aea04e7888d702cc9eceac640bc12f94b2b236e.sample",
-            "obfuscation_methods": [],
-            "layers":0
-        },
-        {
-            "name": "3ab06576949538089258232f6dd37714ecd1782acc14015d3dd52fa7ad6b073e.sample",
-            "path": "samples/3ab06576949538089258232f6dd37714ecd1782acc14015d3dd52fa7ad6b073e.sample",
-            "obfuscation_methods": [
-                "base64"
-            ],
-            "layers":1
-        },
-        {
-            "name": "3ad6decf6ea52b0304bab8d1dcb275882d686df9cc28ea3e76e528b987d6cde1.sample",
-            "path": "samples/3ad6decf6ea52b0304bab8d1dcb275882d686df9cc28ea3e76e528b987d6cde1.sample",
-            "obfuscation_methods": [
-                "base64",
-                "object_renaming"
-            ],
-            "layers":1
-        },
-        {
-            "name": "3b247ba63d6f746a88d0e9431787d38298c7a634c1f87754a25634b9c14d693d.sample",
-            "path": "samples/3b247ba63d6f746a88d0e9431787d38298c7a634c1f87754a25634b9c14d693d.sample",
-            "obfuscation_methods": [],
-            "layers":0
-        },
-        {
-            "name": "3ce4b35ec284bdc19ebecbf7f38519848b1964261c2ae95a4f3ebd0598305377.sample",
-            "path": "samples/3ce4b35ec284bdc19ebecbf7f38519848b1964261c2ae95a4f3ebd0598305377.sample",
-            "obfuscation_methods": [
-                "base64"
-            ],
-            "layers":1
-        },
-        {
-            "name": "3d9cf577eff98b291eb2da68542a33c5f2973353788953044fbad22999300982.sample",
-            "path": "samples/3d9cf577eff98b291eb2da68542a33c5f2973353788953044fbad22999300982.sample",
-            "obfuscation_methods": [
-                "base64"
-            ],
-            "layers":1
-        },
-        {
-            "name": "3ef8f0de3383fb1d3133919f85f3999038b191aca3877f86ffbac001eed26b66.sample",
-            "path": "samples/3ef8f0de3383fb1d3133919f85f3999038b191aca3877f86ffbac001eed26b66.sample",
-            "obfuscation_methods": [
-                "base64"
-            ],
-            "layers":1
-        },
-        {
-            "name": "3f9a3d8c99143b6faf589504b417c1fbc82df5fc574562e9d4c8a6acf4537049.sample",
-            "path": "samples/3f9a3d8c99143b6faf589504b417c1fbc82df5fc574562e9d4c8a6acf4537049.sample",
-            "obfuscation_methods": [
-                "base64",
-                "concatenation",
-                "object_renaming"
-            ],
-            "layers":2
-        },
-        {
-            "name": "4a8696dc7ff45e9d913ef68976b21fe8fa91c6e5b6a1d9d14e43c6da21db0fb5.sample",
-            "path": "samples/4a8696dc7ff45e9d913ef68976b21fe8fa91c6e5b6a1d9d14e43c6da21db0fb5.sample",
-            "obfuscation_methods": [
-                "base64",
-                "concatenation",
-                "object_renaming"
-            ],
-            "layers":2
-        },
-        {
-            "name": "4b56551812b4f12263778d284de42b1d3b5ffc52aa8f4b742a295f094660a6fd.sample",
-            "path": "samples/4b56551812b4f12263778d284de42b1d3b5ffc52aa8f4b742a295f094660a6fd.sample",
-            "obfuscation_methods": [
-                "typecast_ascii"
-            ],
-            "layers":1
-        },
-        {
-            "name": "4bde5a02ae53de6a59e47d36017668edae762eccba830fbaa8fa9a68d44f6e2c.sample",
-            "path": "samples/4bde5a02ae53de6a59e47d36017668edae762eccba830fbaa8fa9a68d44f6e2c.sample",
-            "obfuscation_methods": [
-                "base64",
-                "object_renaming"
-            ],
-            "layers":2
-        },
-        {
-            "name": "004c132ffcd37650da7d319b82ec36f055fd6c5cec568b8d1898d5417693de02.sample",
-            "path": "samples/004c132ffcd37650da7d319b82ec36f055fd6c5cec568b8d1898d5417693de02.sample",
-            "obfuscation_methods": [
-                "base64"
-            ],
-            "layers":1
-        },
-        {
-            "name": "4c0246368346e30fad438c16f6e1f87c5913db5d068f2c33415c2b59c978c276.sample",
-            "path": "samples/4c0246368346e30fad438c16f6e1f87c5913db5d068f2c33415c2b59c978c276.sample",
-            "obfuscation_methods": [
-                "object_renaming",
-                "base64"
-            ],
-            "layers":1
-        },
-        {
-            "name": "4cfec7dc963c2c1d63978072b64b7ab8dd8b7cdf77c7b59470717954bac0f1c5.sample",
-            "path": "samples/4cfec7dc963c2c1d63978072b64b7ab8dd8b7cdf77c7b59470717954bac0f1c5.sample",
-            "obfuscation_methods": [
-                "reverse_strings",
-                "typecast_ascii",
-                "string_indexing"
-            ],
-            "layers":1
-        }
+    "samples": [
+      {
+        "name": "0a0b5f95f37a91f99e849ab14a53c740198abca9b4fe3322e6ff9f34b810dfe7.sample",
+        "path": "samples/0a0b5f95f37a91f99e849ab14a53c740198abca9b4fe3322e6ff9f34b810dfe7.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "layers": 1,
+        "indicators": [
+          {
+            "indicator": "http://labid.com.my/spe/spendy.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "spendy.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "labid.com.my",
+            "obfuscated": "True"
+          }
+        ]
+      },
+      {
+        "name": "0b0988f4dff15d243c5c7283c2e8833050de97bda8f8e2b7b920b47d6839f77f.sample",
+        "path": "samples/0b0988f4dff15d243c5c7283c2e8833050de97bda8f8e2b7b920b47d6839f77f.sample",
+        "obfuscation_methods": [
+          "base64",
+          "concatenation"
+        ],
+        "layers": 1,
+        "indicators": [
+          {
+            "indicator": "https://www.upload.ee/download/18185044/443499c5a6c720cab622/vm.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "vm.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "upload.ee",
+            "obfuscated": "True"
+          }
+        ]
+      },
+      {
+        "name": "0b4208640831c9ef68a1bb3942cfc2d552f2971a7e3ab0baa7fe2f5e400506d3.sample",
+        "path": "samples/0b4208640831c9ef68a1bb3942cfc2d552f2971a7e3ab0baa7fe2f5e400506d3.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "layers": 1,
+        "indicators": [
+          {
+            "indicator": "http://cajos.in/0x/1.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "1.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "cajos.in",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "mess.exe",
+            "obfuscated": "True"
+          }
+        ]
+      },
+      {
+        "name": "0c42a151babf7a4fd94564156245d0ac8e934282b996b3bb14cbe151f4233863.sample",
+        "path": "samples/0c42a151babf7a4fd94564156245d0ac8e934282b996b3bb14cbe151f4233863.sample",
+        "obfuscation_methods": [
+          "base64",
+          "object_renaming"
+        ],
+        "layers": 2,
+        "indicators": [
+          {
+            "indicator": "wuauclt.exe",
+            "obfuscated": "True"
+          }
+        ]
+      },
+      {
+        "name": "0cc81d1e13103af100095ec09ba7fdcb8a837bd463686bb09402e0d23b3f622f.sample",
+        "path": "samples/0cc81d1e13103af100095ec09ba7fdcb8a837bd463686bb09402e0d23b3f622f.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "layers": 1,
+        "indicators": [
+          {
+            "indicator": "http://76.74.127.38/default-nco.html",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "76.74.127.38",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "default-nco.html",
+            "obfuscated": "True"
+          }
+        ]
+      },
+      {
+        "name": "0e0b81f4d5a791840493297b29c6715fb391ae7ae07c665dede01507bb59352f.sample",
+        "path": "samples/0e0b81f4d5a791840493297b29c6715fb391ae7ae07c665dede01507bb59352f.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "layers": 1,
+        "indicators": [
+          {
+            "indicator": "http://aircraftpns.com/_layout/images/sysmonitor.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "sysmonitor.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "aircraftpns.com",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "fleeble.exe",
+            "obfuscated": "True"
+          }
+        ]
+      },
+      {
+        "name": "0eb254d9e890cc98ef789293cfef3f127063ec2130cb02a9adeded544debaeb9.sample",
+        "path": "samples/0eb254d9e890cc98ef789293cfef3f127063ec2130cb02a9adeded544debaeb9.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "layers": 1,
+        "indicators": [
+          {
+            "indicator": "http://ddl7.data.hu/get/0/9552103/PFIfdp.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "PFIfdp.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "ddl7.data.hu",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "fleeble.exe",
+            "obfuscated": "True"
+          }
+        ]
+      },
+      {
+        "name": "0eddca25fecf32891549287656e25867fa7b787e0245d5ee0a537b55299f78cf.sample",
+        "path": "samples/0eddca25fecf32891549287656e25867fa7b787e0245d5ee0a537b55299f78cf.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "layers": 1,
+        "indicators": [
+          {
+            "indicator": "https://a.pomf.cat/vjadwb.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "a.pomf.cat",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "vjadwb.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "euioko.exe",
+            "obfuscated": "True"
+          }
+        ]
+      },
+      {
+        "name": "0ee311f11c655bf10ee6b58c8aaba3c0d888aca264bca8bbe462d336fecfc7ee.sample",
+        "path": "samples/0ee311f11c655bf10ee6b58c8aaba3c0d888aca264bca8bbe462d336fecfc7ee.sample",
+        "obfuscation_methods": [
+          "base64",
+          "object_renaming"
+        ],
+        "layers": 2,
+        "indicators": [
+          {
+            "indicator": "http://94.102.50.39/keyt.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "keyt.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "94.102.50.39",
+            "obfuscated": "True"
+          }
+        ]
+      },
+      {
+        "name": "0f58742ab1e15f8aa0dfc32ac17b4c8178138f68e9948455369f1857a54847c0.sample",
+        "path": "samples/0f58742ab1e15f8aa0dfc32ac17b4c8178138f68e9948455369f1857a54847c0.sample",
+        "obfuscation_methods": [
+          "base64",
+          "concatenation"
+        ],
+        "layers": 1,
+        "indicators": [
+          {
+            "indicator": "https://optimasolutions.store/XClient.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "optimasolutions.store",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "XClient.exe",
+            "obfuscated": "True"
+          }
+        ]
+      },
+      {
+        "name": "01aa05cff6dcbd7c047a31dd81d94515c591eb9fb19659ef9ac7d2fd84fc7f42.sample",
+        "path": "samples/01aa05cff6dcbd7c047a31dd81d94515c591eb9fb19659ef9ac7d2fd84fc7f42.sample",
+        "obfuscation_methods": [
+          "object_renaming",
+          "base64",
+          "concatenation"
+        ],
+        "layers": 2
+      },
+      {
+        "name": "1ab8a62202d1991253b308c16d147a8721aa1b71f9399eae0f44a407cfca8f84.sample",
+        "path": "samples/1ab8a62202d1991253b308c16d147a8721aa1b71f9399eae0f44a407cfca8f84.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "indicators": [
+          {
+            "indicator": "fleeble.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "http://ddl2.data.hu/get/0/9589621/k000.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "ddl2.data.hu",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "k000.exe",
+            "obfuscated": "True"
+          }
+        ],
+        "layers": 1
+      },
+      {
+        "name": "1b1ba49163765e2072e15f5b02598e88209e91c89f58d71ca99e2e2ee241dc44.sample",
+        "path": "samples/1b1ba49163765e2072e15f5b02598e88209e91c89f58d71ca99e2e2ee241dc44.sample",
+        "obfuscation_methods": [
+          "base64",
+          "concatenation",
+          "object_renaming"
+        ],
+        "indicators": [
+          {
+            "indicator": "https://dfiwod.com/2.php",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "https://www.python.org/ftp/python/3.11.8/python-3.11.8-embed-amd64.zip",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "https://bootstrap.pypa.io/get-pip.py",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "https://dfiwod.com/up.py",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "script.lock",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "up.py",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "finish.lock",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "py_embedded.zip",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "finish.lock",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "get-pip.py",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "python.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "py_embedded.zip",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "python-3.11.8-embed-amd64.zip",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "python311._pth",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "python.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "runagain.ps1",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "python.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "runagain.ps1",
+            "obfuscated": "False"
+          },
+          {
+            "indicator": "powershell.exe",
+            "obfuscated": "False"
+          },
+          {
+            "indicator": "dfiwod.com",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "www.python.org",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "bootstrap.pypa.io",
+            "obfuscated": "True"
+          }
+        ],
+        "layers": 2,
+        "comments": "Sample has a large number of indicators"
+      },
+      {
+        "name": "1bd928c17f49ac9b2e91738c97e7341940671662a136f0bb215acaf3c1eb4d48.sample",
+        "path": "samples/1bd928c17f49ac9b2e91738c97e7341940671662a136f0bb215acaf3c1eb4d48.sample",
+        "obfuscation_methods": [
+          "base64",
+          "concatenation",
+          "object_renaming"
+        ],
+        "indicators": [
+          {
+            "indicator": "arno.exe",
+            "obfuscated": "False"
+          },
+          {
+            "indicator": "MaCsqewOO.lnk",
+            "obfuscated": "False"
+          },
+          {
+            "indicator": "pcalua.exe",
+            "obfuscated": "False"
+          }
+        ],
+        "layers": 1
+      },
+      {
+        "name": "1c087a48e272726651fe5d50c109c1670aecf4d7320ccb30d09e786048b6212a.sample",
+        "path": "samples/1c087a48e272726651fe5d50c109c1670aecf4d7320ccb30d09e786048b6212a.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "indicators": [
+          {
+            "indicator": "http://worldnit.com/compu.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "compu.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "worldnit.com",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "fleeble.exe",
+            "obfuscated": "True"
+          }
+        ],
+        "layers": 1
+      },
+      {
+        "name": "1ccb9d6a0b855160528c7dbb5f2d12df49724c102c7238846c478f1c4fd02d32.sample",
+        "path": "samples/1ccb9d6a0b855160528c7dbb5f2d12df49724c102c7238846c478f1c4fd02d32.sample",
+        "obfuscation_methods": [
+          "base64",
+          "concatenation"
+        ],
+        "indicators": [
+          {
+            "indicator": "runhidden.vbs",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "https://github.com/filer404xyz/filer/raw/refs/heads/main/OneDrive.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "OneDrive.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "github.com",
+            "obfuscated": "True"
+          }
+        ],
+        "layers": 1
+      },
+      {
+        "name": "1d9f60b7100431f3e9eb6bea0855c101289a3fb2c60d53ebccb6166491ad9d7a.sample",
+        "path": "samples/1d9f60b7100431f3e9eb6bea0855c101289a3fb2c60d53ebccb6166491ad9d7a.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "indicators": [
+          {
+            "indicator": "fleeb.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "https://1fichier.com/?v8w3g736hj",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "1fichier.com",
+            "obfuscated": "True"
+          }
+        ],
+        "layers": 1
+      },
+      {
+        "name": "01e4fa6a0b5f7f8838fea407ff7177c0a49f8fe19b35e0eb90a7aee327cf7a7b.sample",
+        "path": "samples/01e4fa6a0b5f7f8838fea407ff7177c0a49f8fe19b35e0eb90a7aee327cf7a7b.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "indicators": [
+          {
+            "indicator": "mess.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "http://cajos.in/0x/1.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "cajos.in",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "1.exe",
+            "obfuscated": "True"
+          }
+        ],
+        "layers": 1
+      },
+      {
+        "name": "1e303accaa28f4730d4fb5e21fdda1bb89b8ceb2acafcbfcc4dda301d46c5377.sample",
+        "path": "samples/1e303accaa28f4730d4fb5e21fdda1bb89b8ceb2acafcbfcc4dda301d46c5377.sample",
+        "obfuscation_methods": [
+          "base64",
+          "object_renaming"
+        ],
+        "indicators": [
+          {
+            "indicator": "keyt.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "http://94.102.50.39/keyt.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "94.102.50.39",
+            "obfuscated": "True"
+          }
+        ],
+        "layers": 1
+      },
+      {
+        "name": "1efa9413f5aed5dcd15a9319e011c3efe7a16d8f0c3abdb437ae436684f3571b.sample",
+        "path": "samples/1efa9413f5aed5dcd15a9319e011c3efe7a16d8f0c3abdb437ae436684f3571b.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "indicators": [
+          {
+            "indicator": "fleeble.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "http://andersonken4791.pserver.ru/doc.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "andersonken4791.pserver.ru",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "doc.exe",
+            "obfuscated": "True"
+          }
+        ],
+        "layers": 1
+      },
+      {
+        "name": "1f45fdcf220c685872911587a8b4d89bb5eb720561d691a50a1338fdaf533d87.sample",
+        "path": "samples/1f45fdcf220c685872911587a8b4d89bb5eb720561d691a50a1338fdaf533d87.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "indicators": [
+          {
+            "indicator": "PrograminAdi.exe",
+            "obfuscated": "True"
+          }
+        ],
+        "layers": 1
+      },
+      {
+        "name": "2a4e98b8d197ab3365c84f431a457c90f8ac34792c490af0c2287c3b28b3cbe3.sample",
+        "path": "samples/2a4e98b8d197ab3365c84f431a457c90f8ac34792c490af0c2287c3b28b3cbe3.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "indicators": [
+          {
+            "indicator": "http://worldnit.com/nigga.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "nigga.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "worldnit.com",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "mess.exe",
+            "obfuscated": "True"
+          }
+        ],
+        "layers": 1
+      },
+      {
+        "name": "2b21ed2780d69cea18217dc57e40056c18d70673dabec19675fcc7f71a70e5aa.sample",
+        "path": "samples/2b21ed2780d69cea18217dc57e40056c18d70673dabec19675fcc7f71a70e5aa.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "indicators": [
+          {
+            "indicator": "https://www.upload.ee/download/18185044/443499c5a6c720cab622/vm.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "vm.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "upload.ee",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "SystemCache.exe",
+            "obfuscated": "False"
+          }
+        ],
+        "layers": 1
+      },
+      {
+        "name": "2b6572810e4bae8e8d1995917caf047a988b1a0f8407b677d6610d29782e9e19.sample",
+        "path": "samples/2b6572810e4bae8e8d1995917caf047a988b1a0f8407b677d6610d29782e9e19.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "indicators": [
+          {
+            "indicator": "http://worldnit.com/aba.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "aba.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "worldnit.com",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "fleeble.exe",
+            "obfuscated": "True"
+          }
+        ],
+        "layers": 1
+      },
+      {
+        "name": "2c1d6585c4e4e9d12f527d697f7a833ce15cfe7cc85904d8b89dd749aecf9090.sample",
+        "path": "samples/2c1d6585c4e4e9d12f527d697f7a833ce15cfe7cc85904d8b89dd749aecf9090.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "indicators": [
+          {
+            "indicator": "http://matkalv.5gbfree.com/loso/fasoo.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "fasoo.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "matkalv.5gbfree.com",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "fleeble.exe",
+            "obfuscated": "True"
+          }
+        ],
+        "layers": 1
+      },
+      {
+        "name": "2d3a932260b3308d0e5f084baf3dd07633c4f0269ce85a268ba6e31778605e51.sample",
+        "path": "samples/2d3a932260b3308d0e5f084baf3dd07633c4f0269ce85a268ba6e31778605e51.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "indicators": [
+          {
+            "indicator": "http://worldnit.com/com.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "com.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "worldnit.com",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "fleeble.exe",
+            "obfuscated": "True"
+          }
+        ],
+        "layers": 1
+      },
+      {
+        "name": "2d28cbe79e0477307fa4a7a03524fffd10dffb515e38043546f70c4fa694e768.sample",
+        "path": "samples/2d28cbe79e0477307fa4a7a03524fffd10dffb515e38043546f70c4fa694e768.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "indicators": [
+          {
+            "indicator": "http://doc.cherrycoffeeequipment.com/nw/logo.png",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "logo.png",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "cherrycoffeeequipment.com",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "grtsndebdgfsytewrw.exe",
+            "obfuscated": "True"
+          }
+        ],
+        "layers": 1
+      },
+      {
+        "name": "2d72f6bc11f9ae4d19743b760c4b4f537165672ef37d3db95cec5047100f255a.sample",
+        "path": "samples/2d72f6bc11f9ae4d19743b760c4b4f537165672ef37d3db95cec5047100f255a.sample",
+        "obfuscation_methods": [
+          "typecast_ascii",
+          "concatenation"
+        ],
+        "indicators": [
+          {
+            "indicator": "https://files.catbox.moe/3tjarr.secro013228973",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "files.catbox.moe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "3tjarr.secro013228973",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "https://files.catbox.moe/cfuoi8.fuk",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "cfuoi8.fuk",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "https://files.catbox.moe/n8nug3.fuck",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "n8nug3.fuck",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "https://files.catbox.moe/hbl2ig.secro",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "hbl2ig.secro",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "svhost2.exe",
+            "obfuscated": "False"
+          },
+          {
+            "indicator": "hbl2ig.secro",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "svhost1.exe",
+            "obfuscated": "False"
+          },
+          {
+            "indicator": "svhost0.exe",
+            "obfuscated": "False"
+          },
+          {
+            "indicator": "svchost.exe",
+            "obfuscated": "False"
+          }
+        ],
+        "comments": "Sample has a large number of indicators",
+        "layers": 2
+      },
+      {
+        "name": "2e054e7fcf74881cf97df42c4bd641bfd3ac04e65ad31aef44b7c83a1ecf8415.sample",
+        "path": "samples/2e054e7fcf74881cf97df42c4bd641bfd3ac04e65ad31aef44b7c83a1ecf8415.sample",
+        "obfuscation_methods": [
+          "base64",
+          "backticks"
+        ],
+        "indicators": [
+          {
+            "indicator": "KjGryNSu.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "rebrand.ly/openCaptcha",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "rebrand.ly",
+            "obfuscated": "True"
+          }
+        ],
+        "layers": 1
+      },
+      {
+        "name": "3ab06576949538089258232f6dd37714ecd1782acc14015d3dd52fa7ad6b073e.sample",
+        "path": "samples/3ab06576949538089258232f6dd37714ecd1782acc14015d3dd52fa7ad6b073e.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "indicators": [
+          {
+            "indicator": "allaivo.me/crypted.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "allaivo.me/script.ps1",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "update.exe",
+            "obfuscated": "False"
+          },
+          {
+            "indicator": "WindowsUpdate.ps1",
+            "obfuscated": "False"
+          },
+          {
+            "indicator": "allaivo.me",
+            "obfuscated": "True"
+          }
+        ],
+        "layers": 1
+      },
+      {
+        "name": "3ad6decf6ea52b0304bab8d1dcb275882d686df9cc28ea3e76e528b987d6cde1.sample",
+        "path": "samples/3ad6decf6ea52b0304bab8d1dcb275882d686df9cc28ea3e76e528b987d6cde1.sample",
+        "obfuscation_methods": [
+          "base64",
+          "object_renaming"
+        ],
+        "indicators": [
+          {
+            "indicator": "http://37.28.154.204/powershell_attack.txt",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "powershell_attack.txt",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "37.28.154.204",
+            "obfuscated": "True"
+          }
+        ],
+        "layers": 1
+      },
+      {
+        "name": "3d9cf577eff98b291eb2da68542a33c5f2973353788953044fbad22999300982.sample",
+        "path": "samples/3d9cf577eff98b291eb2da68542a33c5f2973353788953044fbad22999300982.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "indicators": [
+          {
+            "indicator": "task.xml",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "task2.xml",
+            "obfuscated": "True"
+          }
+        ],
+        "layers": 1
+      },
+      {
+        "name": "3ef8f0de3383fb1d3133919f85f3999038b191aca3877f86ffbac001eed26b66.sample",
+        "path": "samples/3ef8f0de3383fb1d3133919f85f3999038b191aca3877f86ffbac001eed26b66.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "indicators": [
+          {
+            "indicator": "http://www.bryonz.com/emotions/files/lnwe.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "lnwe.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "bryonz.com",
+            "obfuscated": "True"
+          }
+        ],
+        "layers": 1
+      },
+      {
+        "name": "3f9a3d8c99143b6faf589504b417c1fbc82df5fc574562e9d4c8a6acf4537049.sample",
+        "path": "samples/3f9a3d8c99143b6faf589504b417c1fbc82df5fc574562e9d4c8a6acf4537049.sample",
+        "obfuscation_methods": [
+          "base64",
+          "concatenation",
+          "object_renaming"
+        ],
+        "indicators": [
+          {
+            "indicator": "r1.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "cmd.exe",
+            "obfuscated": "False"
+          },
+          {
+            "indicator": "pcalua.exe",
+            "obfuscated": "False"
+          }
+        ],
+        "layers": 2
+      },
+      {
+        "name": "4a8696dc7ff45e9d913ef68976b21fe8fa91c6e5b6a1d9d14e43c6da21db0fb5.sample",
+        "path": "samples/4a8696dc7ff45e9d913ef68976b21fe8fa91c6e5b6a1d9d14e43c6da21db0fb5.sample",
+        "obfuscation_methods": [
+          "base64",
+          "concatenation",
+          "object_renaming"
+        ],
+        "layers": 2
+      },
+      {
+        "name": "4b56551812b4f12263778d284de42b1d3b5ffc52aa8f4b742a295f094660a6fd.sample",
+        "path": "samples/4b56551812b4f12263778d284de42b1d3b5ffc52aa8f4b742a295f094660a6fd.sample",
+        "obfuscation_methods": [
+          "typecast_ascii"
+        ],
+        "indicators": [
+          {
+            "indicator": "https://file.garden/aB0_peiHdjBBXCQF/Uninstall.dlx",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "j3owB.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "https://pixeldrain.com/api/file/um3Jorcz",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "SVrB5SO0.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "https://file.garden/aB0_peiHdjBBXCQF/sv.dlx",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "cZp98.exe",
+            "obfuscated": "True"
+          }
+        ],
+        "layers": 1
+      },
+      {
+        "name": "4bde5a02ae53de6a59e47d36017668edae762eccba830fbaa8fa9a68d44f6e2c.sample",
+        "path": "samples/4bde5a02ae53de6a59e47d36017668edae762eccba830fbaa8fa9a68d44f6e2c.sample",
+        "obfuscation_methods": [
+          "base64",
+          "object_renaming"
+        ],
+        "layers": 2
+      },
+      {
+        "name": "004c132ffcd37650da7d319b82ec36f055fd6c5cec568b8d1898d5417693de02.sample",
+        "path": "samples/004c132ffcd37650da7d319b82ec36f055fd6c5cec568b8d1898d5417693de02.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "indicators": [
+          {
+            "indicator": "http://www.wealthandhealthops.com/modules/mod_easyblogquickpost/lawdsijdoef.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "lawdsijdoef.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "wealthandhealthops.com",
+            "obfuscated": "True"
+          }
+        ],
+        "layers": 1
+      },
+      {
+        "name": "4c0246368346e30fad438c16f6e1f87c5913db5d068f2c33415c2b59c978c276.sample",
+        "path": "samples/4c0246368346e30fad438c16f6e1f87c5913db5d068f2c33415c2b59c978c276.sample",
+        "obfuscation_methods": [
+          "object_renaming",
+          "base64"
+        ],
+        "indicators": [
+          {
+            "indicator": "https://6e891bbd0ab48424c7027d5b21de443d.serveo.net/EkgYwGrhIqDpGsjVPFuD",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "serveo.net",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "Kernel32.dll",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "user32.dll",
+            "obfuscated": "True"
+          }
+        ],
+        "layers": 1
+      },
+      {
+        "name": "4cfec7dc963c2c1d63978072b64b7ab8dd8b7cdf77c7b59470717954bac0f1c5.sample",
+        "path": "samples/4cfec7dc963c2c1d63978072b64b7ab8dd8b7cdf77c7b59470717954bac0f1c5.sample",
+        "obfuscation_methods": [
+          "reverse_strings",
+          "typecast_ascii",
+          "string_indexing"
+        ],
+        "indicators": [
+          {
+            "indicator": "https://raw.githubusercontent.com/drkst-shdw/tests/refs/heads/main/stage5.ps1",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "stage5.ps1",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "githubusercontent.com",
+            "obfuscated": "True"
+          }
+        ],
+        "layers": 3
+      },
+      {
+        "name": "4d24f57dad98ef27fb063d020fc7a072201806d6d1d0b4b431b59b28d6a69261.sample",
+        "path": "samples/4d24f57dad98ef27fb063d020fc7a072201806d6d1d0b4b431b59b28d6a69261.sample",
+        "obfuscation_methods": [
+          "concatenation",
+          "base64",
+          "object_renaming"
+        ],
+        "indicators": [
+          {
+            "indicator": "AudioCapture.dll",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "client32.exe",
+            "obfuscated": "False"
+          },
+          {
+            "indicator": "client32.ini",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "HTCTL32.DLL",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "msvcr100.dll",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "nskbfltr.inf",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "NSM.LIC",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "nsm_vpro.ini",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "pcicapi.dll",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "PCICHEK.DLL",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "PCICL32.DLL",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "remcmdstub.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "TCCTL32.DLL",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "pcalua.exe",
+            "obfuscated": "False"
+          },
+          {
+            "indicator": "cmd.exe",
+            "obfuscated": "False"
+          },
+          {
+            "indicator": "fbXZCLpxQAS.lnk",
+            "obfuscated": "False"
+          }
+        ],
+        "layers": 2,
+        "comments": "Sample has a large number of indicators"
+      },
+      {
+        "name": "4dac4a02fa8f07252c3932130865b68ef6b4b8e3bc2dc8fd32a735a716c9f72a.sample",
+        "path": "samples/4dac4a02fa8f07252c3932130865b68ef6b4b8e3bc2dc8fd32a735a716c9f72a.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "indicators": [
+          {
+            "indicator": "http://185.141.27.28/update.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "file2x86.exe",
+            "obfuscated": "True"
+          }
+        ],
+        "layers": 1,
+        "comments": ""
+      },
+      {
+        "name": "4ef94a07e217bac8b4c142a9f111d4b716f0dce37d89988abc67f5d6e8e816ff.sample",
+        "path": "samples/4ef94a07e217bac8b4c142a9f111d4b716f0dce37d89988abc67f5d6e8e816ff.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "layers": 1,
+        "indicators": [
+          {
+            "indicator": "https://github.com/melo1948/MELO12/raw/refs/heads/main/MELO1.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "payload.exe",
+            "obfuscated": "False"
+          }
+        ]
+      },
+      {
+        "name": "04f59b24b95072e26406cd750bafb516fdfab776ac8c8206c4d99616c8ceede7.sample",
+        "path": "samples/04f59b24b95072e26406cd750bafb516fdfab776ac8c8206c4d99616c8ceede7.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "layers": 0
+      },
+      {
+        "name": "4fac2e28190f67d01c83e715bf66b44fe0e12997922056943be7c95921890afe.sample",
+        "path": "samples/4fac2e28190f67d01c83e715bf66b44fe0e12997922056943be7c95921890afe.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "layers": 1,
+        "indicators": [
+          {
+            "indicator": "https://files.catbox.moe/xrcvo7.bin",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "files.catbox.moe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "xrcvo7.bin",
+            "obfuscated": "False"
+          },
+          {
+            "indicator": "xrcvo7.exe",
+            "obfuscated": "False"
+          }
+        ]
+      },
+      {
+        "name": "5ab5044f76b0427b94b3f883862feb42bf5bc22375ea5bcfdd1adc2069da47ad.sample",
+        "path": "samples/5ab5044f76b0427b94b3f883862feb42bf5bc22375ea5bcfdd1adc2069da47ad.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "layers": 1,
+        "indicators": [
+          {
+            "indicator": "http://www.wealthandhealthops.com/modules/mod_easyblogquickpost/lawdsijdoef.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "lawdsijdoef.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "wealthandhealthops.com",
+            "obfuscated": "True"
+          }
+        ]
+      },
+      {
+        "name": "5afb0d5681256a6af1ed0d31a2ff24b078c2416b76c6d4581aa4d1650cca0f08.sample",
+        "path": "samples/5afb0d5681256a6af1ed0d31a2ff24b078c2416b76c6d4581aa4d1650cca0f08.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "layers": 1,
+        "indicators": [
+          {
+            "indicator": "http://ddl7.data.hu/get/0/9507148/Patload.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "Patload.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "ddl7.data.hu",
+            "obfuscated": "True"
+          }
+        ]
+      },
+      {
+        "name": "5b27c53f9bf67dee6fab0e8c7994ec4b5cd772ab2df74ffe62e69a634aea3e46.sample",
+        "path": "samples/5b27c53f9bf67dee6fab0e8c7994ec4b5cd772ab2df74ffe62e69a634aea3e46.sample",
+        "obfuscation_methods": [
+          "base64",
+          "object_renaming",
+          "XOR"
+        ],
+        "layers": 3,
+        "indicators": [
+          {
+            "indicator": "kernel32.dll",
+            "obfuscated": "True"
+          }
+        ]
+      },
+      {
+        "name": "5c1938f0c03e4d07600cde8906b5793dd235b43d80613c1ad49934c3a2729b39.sample",
+        "path": "samples/5c1938f0c03e4d07600cde8906b5793dd235b43d80613c1ad49934c3a2729b39.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "layers": 1,
+        "indicators": [
+          {
+            "indicator": "kernel32.dll",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "https://gitllm.dev/crypted.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "https://gitllm.dev/code",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "gitllm.dev",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "crypted.exe",
+            "obfuscated": "False"
+          }
+        ]
+      },
+      {
+        "name": "5cb356c0abf945dd881ed6301509bb6d3289a47f9c35e36b65b94e1b0cc38edc.sample",
+        "path": "samples/5cb356c0abf945dd881ed6301509bb6d3289a47f9c35e36b65b94e1b0cc38edc.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "layers": 1,
+        "indicators": [
+          {
+            "indicator": "BookStore@radinbookstore.com",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "ftp://88.198.35.50",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "radinbookstore.com",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "cleanup_error_log.txt",
+            "obfuscated": "False"
+          }
+        ]
+      },
+      {
+        "name": "5ddbafbc30495e2853119135f2abf7b93f5457e9d39edd621237b52b38aa6837.sample",
+        "path": "samples/5ddbafbc30495e2853119135f2abf7b93f5457e9d39edd621237b52b38aa6837.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "layers": 1,
+        "indicators": [
+          {
+            "indicator": "http://matkalv.5gbfree.com/owee/owe.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "fleeble.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "matkalv.5gbfree.com",
+            "obfuscated": "True"
+          }
+        ]
+      },
+      {
+        "name": "5dfde4bff42949705c4bbce0b37dfc88b0fd5d447fd8f5aed00850b6264d1160.sample",
+        "path": "samples/5dfde4bff42949705c4bbce0b37dfc88b0fd5d447fd8f5aed00850b6264d1160.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "layers": 1,
+        "indicators": [
+          {
+            "indicator": "https://biteblob.com/Download/Oq75Rd3bFTiU4g/update.jpg",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "biteblob.com",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "update.jpg",
+            "obfuscated": "True"
+          }
+        ]
+      },
+      {
+        "name": "5fa1efefeeb492398f9ecf8bddd9234e9397ace0487c6d62d7b44ca2c768e966.sample",
+        "path": "samples/5fa1efefeeb492398f9ecf8bddd9234e9397ace0487c6d62d7b44ca2c768e966.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "layers": 1,
+        "indicators": [
+          {
+            "indicator": "http://lvrxd.3eeweb.com/nano/Calculator.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "test.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "lvrxd.3eeweb.com",
+            "obfuscated": "True"
+          }
+        ]
+      },
+      {
+        "name": "ff9c02e3d77c5e002a9c93a64fc33c184b94802642fa23eae8d6e88e18c41c35.sample",
+        "path": "samples/ff9c02e3d77c5e002a9c93a64fc33c184b94802642fa23eae8d6e88e18c41c35.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "layers": 1,
+        "indicators": [
+          {
+            "indicator": "www.londonoffices.website/download/startup.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "startup.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "londonoffices.website",
+            "obfuscated": "True"
+          }
+        ]
+      },
+      {
+        "name": "ff6bb9932a2c146b69d95f2c3a38baf4c7170a1bf3807636231eb653198b36d6.sample",
+        "path": "samples/ff6bb9932a2c146b69d95f2c3a38baf4c7170a1bf3807636231eb653198b36d6.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "layers": 1,
+        "indicators": [
+          {
+            "indicator": "http://YOUR_SERVER_IP:8080/u94g1n7x.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "http://YOUR_SERVER_IP:8080/q9h2k1s3.txt",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "u94g1n7x.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "q9h2k1s3.txt",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "helpctr.exe",
+            "obfuscated": "False"
+          }
+        ]
+      },
+      {
+        "name": "fea75fc54e0117e0c1f7caa00db61414c517fb162a898d43aa27f612324974d8.sample",
+        "path": "samples/fea75fc54e0117e0c1f7caa00db61414c517fb162a898d43aa27f612324974d8.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "layers": 1,
+        "indicators": [
+          {
+            "indicator": "http://toxicsolutions.ru/upload/praisefud.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "praisefud.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "fleeble.exe",
+            "obfuscated": "True"
+          }
+        ]
+      },
+      {
+        "name": "fdf1d959e3b07dfd9804f1e8e8783d5505c2030e24e98a1872f527f173910617.sample",
+        "path": "samples/fdf1d959e3b07dfd9804f1e8e8783d5505c2030e24e98a1872f527f173910617.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "layers": 1,
+        "indicators": [
+          {
+            "indicator": "main.exe",
+            "obfuscated": "False"
+          }
+        ],
+        "notes": "May be too long for some model's context window"
+      },
+      {
+        "name": "fc7bef03f846865a81209de2bf31ea78192a72f2f459ff633c57f8e2cff2a8a3.sample",
+        "path": "samples/fc7bef03f846865a81209de2bf31ea78192a72f2f459ff633c57f8e2cff2a8a3.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "layers": 1,
+        "indicators": [
+          {
+            "indicator": "http://net.gethost.pw/windro.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "fleeble.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "windro.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "net.gethost.pw",
+            "obfuscated": "True"
+          }
+        ],
+        "notes": ""
+      },
+      {
+        "name": "fbe36b0c463f99c13cbda03431c693050dedb057b55ffcce76bd433185f00450.sample",
+        "path": "samples/fbe36b0c463f99c13cbda03431c693050dedb057b55ffcce76bd433185f00450.sample",
+        "obfuscation_methods": [
+          "base64",
+          "concatenation"
+        ],
+        "layers": 2,
+        "indicators": [
+          {
+            "indicator": "91.92.66.242",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "8.8.8.8",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "certificate.cer",
+            "obfuscated": "True"
+          }
+        ],
+        "notes": "Unique method of obfuscation. Strings are individually Base64 encoded and then concatenated."
+      },
+      {
+        "name": "fbdd6850741bd495c5b5e21057eee523e9653267c82a8c093e83ab9b6d12c37e.sample",
+        "path": "samples/fbdd6850741bd495c5b5e21057eee523e9653267c82a8c093e83ab9b6d12c37e.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "layers": 1,
+        "indicators": [
+          {
+            "indicator": "http://ddl3.data.hu/get/0/9551162/ske.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "ske.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "ddl3.data.hu",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "fleeble.exe",
+            "obfuscated": "True"
+          }
+        ],
+        "notes": ""
+      },
+      {
+        "name": "fbcba7e01d26c06572fdc00530ee7345301fc8639a37ad48cf4be84b46bc8074.sample",
+        "path": "samples/fbcba7e01d26c06572fdc00530ee7345301fc8639a37ad48cf4be84b46bc8074.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "layers": 1,
+        "indicators": [
+          {
+            "indicator": "https://undo.sg/file.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "file.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "undo.sg",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "https://undo.sg/script.ps1",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "script.ps1",
+            "obfuscated": "False"
+          },
+          {
+            "indicator": "WindowsUpdate.ps1",
+            "obfuscated": "False"
+          },
+          {
+            "indicator": "updater.exe",
+            "obfuscated": "False"
+          },
+          {
+            "indicator": "powershell.exe",
+            "obfuscated": "False"
+          }
+        ]
+      },
+      {
+        "name": "fb6555c2a569fef4ca9b0f6a5a0ee18caa773e75cbf11a522fc64fd50084d38b.sample",
+        "path": "samples/fb6555c2a569fef4ca9b0f6a5a0ee18caa773e75cbf11a522fc64fd50084d38b.sample",
+        "obfuscation_methods": [
+          "base64"
+        ],
+        "layers": 1,
+        "indicators": [
+          {
+            "indicator": "http://boisedelariviere.com/backup/css/newconfig.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "newconfig.exe",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "boisedelariviere.com",
+            "obfuscated": "True"
+          },
+          {
+            "indicator": "neone6.exe",
+            "obfuscated": "True"
+          }
+        ]
+      }
     ]
-}
+  }

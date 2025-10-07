@@ -1,0 +1,48 @@
+# IOC Extraction Prompt Templates
+# This file contains the prompts used by the IOC extraction tool
+
+ioc_extraction:
+  system_role: "You are a cybersecurity analyst specializing in malware analysis and Indicators of Comrpomise (IOC) extraction."
+  
+  user_prompt_template: |
+    Analyze the following PowerShell script and extract the configured types of Indicators of Compromise (IOCs).
+
+    Sample Details:
+    - Name: {sample_name}
+
+    Script Content:
+    ```
+    {file_content}
+    ```
+
+    Please extract the following types of IOCs:
+
+    {categories_text}
+
+    For each IOC found:
+    - Provide the original value as found in the script
+    - If it's encoded/obfuscated, provide the decoded/cleaned value
+    - Use the appropriate type from the configured categories
+
+    Format your response as a JSON object with this structure:
+    {{
+        "iocs": [
+            {{
+                "type": "{type_examples_text}",
+                "original_value": "original string as found",
+                "decoded_value": "decoded/cleaned value if applicable",
+                "description": "brief description of what this IOC represents"
+            }}
+        ]
+    }}
+
+    If no IOCs are found, return:
+    {{
+        "iocs": []
+    }}
+
+# You can add more prompt templates here for different use cases
+# For example:
+# - ioc_extraction_simple: A simpler version of the above
+# - ioc_extraction_detailed: A more detailed version with additional fields
+# - ioc_extraction_batch: For processing multiple samples at once

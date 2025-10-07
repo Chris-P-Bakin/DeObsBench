@@ -1,0 +1,62 @@
+# IOC Extraction Configuration
+
+# OpenRouter Configuration
+openrouter:
+  temperature: 0.1  # Low temperature for consistent results
+  max_tokens: 2000  # Maximum tokens for response
+  timeout: 60  # API call timeout in seconds
+  use_structured_output: true  # Use OpenRouter's structured output feature
+  fallback_to_text: true  # Fallback to text parsing if structured output fails
+
+# File Processing Configuration
+processing:
+  max_file_size_mb: 100  # Maximum file size to process (in MB)
+  rate_limit_delay: 2  # Delay between API calls (in seconds)
+  max_retries: 3  # Maximum retry attempts for failed API calls
+  retry_delay: 2  # Delay between retry attempts (in seconds)
+
+# Output Configuration
+output:
+  results_file: "ioc_extraction_results.json"  # Main results file
+  log_file: "ioc_extraction.log"  # Log file
+  backup_results: true  # Create backup of previous results
+
+# Sample Configuration
+samples:
+  index_file: "samples/sample_index.json"  # Path to sample index
+  skip_existing_indicators: false  # Skip samples that already have indicators
+  only_process_with_indicators: true  # Only process samples that have defined indicators
+  enable_comparison: true  # Enable comparison with ground truth indicators for grading
+
+# IOC Categories to Extract
+ioc_categories:
+  url:
+    enabled: true
+    examples: ["https://badstuff.com", "http://stats.malware.net"]
+  ip:
+    enabled: true
+    examples: ["192.168.1.100", "10.0.0.1"]
+  domain:
+    enabled: true
+    examples: ["badstuff.com", "stats.malware.net"]
+  file_name:
+    enabled: true
+    examples: ["malicious.exe", "trojan.dll"]
+  file_path:
+    enabled: false
+    examples: ["C:\\Windows\\System32\\malware.exe", "/usr/bin/backdoor"]
+  registry:
+    enabled: false
+    examples: ["HKEY_LOCAL_MACHINE\\SOFTWARE\\Malware", "HKLM\\System\\CurrentControlSet\\Services\\EvilService"]
+  process:
+    enabled: false
+    examples: ["malware.exe", "backdoor", "trojan"]
+  command:
+    enabled: false
+    examples: ["powershell -enc", "cmd /c", "wget http://evil.com/malware"]
+  email:
+    enabled: false
+    examples: ["attacker@evil.com", "phishing@fake-bank.com"]
+  other:
+    enabled: false
+    examples: ["custom_ioc_pattern", "unique_identifier"]

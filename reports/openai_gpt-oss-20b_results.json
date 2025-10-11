@@ -1,0 +1,1964 @@
+{
+  "model_name": "openai/gpt-oss-20b",
+  "total_samples": 58,
+  "successful_samples": 4,
+  "failed_samples": 54,
+  "total_processing_time": 2093.971132516861,
+  "average_processing_time": 36.102950560635534,
+  "sample_results": [
+    {
+      "sample_name": "0a0b5f95f37a91f99e849ab14a53c740198abca9b4fe3322e6ff9f34b810dfe7.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 35.44024848937988,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://labid.com.my/spe/spendy.exe",
+          "spendy.exe",
+          "labid.com.my"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "0b0988f4dff15d243c5c7283c2e8833050de97bda8f8e2b7b920b47d6839f77f.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cHM6Ly93d3cudXBsb2FkLmVlL2Rvd25sb2FkLzE4MTg1MDQ0LzQ0MzQ5OWM1YTZjNzIwY2FiNjIyL3ZtLmV4ZQ==",
+          "decoded_value": "https://www.upload.ee/download/18185044/443599c5a6c720cab622/vm.exe",
+          "description": "URL used to download the malicious payload"
+        },
+        {
+          "type": "domain",
+          "original_value": "www.upload.ee",
+          "decoded_value": "www.upload.ee",
+          "description": "Domain hosting the malicious payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "SystemCache.exe",
+          "decoded_value": "SystemCache.exe",
+          "description": "Downloaded executable stored in the temp directory"
+        },
+        {
+          "type": "file_name",
+          "original_value": "vm.exe",
+          "decoded_value": "vm.exe",
+          "description": "Actual executable name referenced in the download URL"
+        }
+      ],
+      "processing_time": 29.33539652824402,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 4,
+        "matches": 2,
+        "obfuscated_matches": 2,
+        "precision": 0.5,
+        "recall": 0.6666666666666666,
+        "f1_score": 0.5714285714285715,
+        "obfuscated_precision": 0.5,
+        "obfuscated_recall": 0.6666666666666666,
+        "obfuscated_f1_score": 0.5714285714285715,
+        "detailed_matches": [
+          {
+            "extracted": "https://www.upload.ee/download/18185044/443599c5a6c720cab622/vm.exe",
+            "ground_truth": "https://www.upload.ee/download/18185044/443499c5a6c720cab622/vm.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cHM6Ly93d3cudXBsb2FkLmVlL2Rvd25sb2FkLzE4MTg1MDQ0LzQ0MzQ5OWM1YTZjNzIwY2FiNjIyL3ZtLmV4ZQ==",
+              "decoded_value": "https://www.upload.ee/download/18185044/443599c5a6c720cab622/vm.exe",
+              "description": "URL used to download the malicious payload"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "www.upload.ee",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "www.upload.ee",
+              "decoded_value": "www.upload.ee",
+              "description": "Domain hosting the malicious payload"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "SystemCache.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "SystemCache.exe",
+              "decoded_value": "SystemCache.exe",
+              "description": "Downloaded executable stored in the temp directory"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "vm.exe",
+            "ground_truth": "vm.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "vm.exe",
+              "decoded_value": "vm.exe",
+              "description": "Actual executable name referenced in the download URL"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "upload.ee"
+        ],
+        "false_positives": [
+          "www.upload.ee",
+          "SystemCache.exe"
+        ]
+      }
+    },
+    {
+      "sample_name": "0b4208640831c9ef68a1bb3942cfc2d552f2971a7e3ab0baa7fe2f5e400506d3.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 38.64391565322876,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://cajos.in/0x/1.exe",
+          "1.exe",
+          "cajos.in",
+          "mess.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "0c42a151babf7a4fd94564156245d0ac8e934282b996b3bb14cbe151f4233863.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 39.91329884529114,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 1,
+        "total_obfuscated_gt": 1,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "wuauclt.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "0cc81d1e13103af100095ec09ba7fdcb8a837bd463686bb09402e0d23b3f622f.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 33.82668328285217,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://76.74.127.38/default-nco.html",
+          "76.74.127.38",
+          "default-nco.html"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "0e0b81f4d5a791840493297b29c6715fb391ae7ae07c665dede01507bb59352f.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 36.42420268058777,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://aircraftpns.com/_layout/images/sysmonitor.exe",
+          "sysmonitor.exe",
+          "aircraftpns.com",
+          "fleeble.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "0eb254d9e890cc98ef789293cfef3f127063ec2130cb02a9adeded544debaeb9.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 37.77152729034424,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://ddl7.data.hu/get/0/9552103/PFIfdp.exe",
+          "PFIfdp.exe",
+          "ddl7.data.hu",
+          "fleeble.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "0eddca25fecf32891549287656e25867fa7b787e0245d5ee0a537b55299f78cf.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 32.923828125,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "https://a.pomf.cat/vjadwb.exe",
+          "a.pomf.cat",
+          "vjadwb.exe",
+          "euioko.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "0ee311f11c655bf10ee6b58c8aaba3c0d888aca264bca8bbe462d336fecfc7ee.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 36.048190116882324,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://94.102.50.39/keyt.exe",
+          "keyt.exe",
+          "94.102.50.39"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "0f58742ab1e15f8aa0dfc32ac17b4c8178138f68e9948455369f1857a54847c0.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 36.35916304588318,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "https://optimasolutions.store/XClient.exe",
+          "optimasolutions.store",
+          "XClient.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "1ab8a62202d1991253b308c16d147a8721aa1b71f9399eae0f44a407cfca8f84.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 35.13525032997131,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "fleeble.exe",
+          "http://ddl2.data.hu/get/0/9589621/k000.exe",
+          "ddl2.data.hu",
+          "k000.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "1b1ba49163765e2072e15f5b02598e88209e91c89f58d71ca99e2e2ee241dc44.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 37.6309928894043,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 22,
+        "total_obfuscated_gt": 20,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "https://dfiwod.com/2.php",
+          "https://www.python.org/ftp/python/3.11.8/python-3.11.8-embed-amd64.zip",
+          "https://bootstrap.pypa.io/get-pip.py",
+          "https://dfiwod.com/up.py",
+          "script.lock",
+          "up.py",
+          "finish.lock",
+          "py_embedded.zip",
+          "finish.lock",
+          "get-pip.py",
+          "python.exe",
+          "py_embedded.zip",
+          "python-3.11.8-embed-amd64.zip",
+          "python311._pth",
+          "python.exe",
+          "runagain.ps1",
+          "python.exe",
+          "dfiwod.com",
+          "www.python.org",
+          "bootstrap.pypa.io"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "1bd928c17f49ac9b2e91738c97e7341940671662a136f0bb215acaf3c1eb4d48.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 11.483198165893555,
+      "success": false,
+      "error_message": "400 Client Error: Bad Request for url: https://openrouter.ai/api/v1/chat/completions",
+      "ground_truth_match": null
+    },
+    {
+      "sample_name": "1c087a48e272726651fe5d50c109c1670aecf4d7320ccb30d09e786048b6212a.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 34.78632593154907,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://worldnit.com/compu.exe",
+          "compu.exe",
+          "worldnit.com",
+          "fleeble.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "1ccb9d6a0b855160528c7dbb5f2d12df49724c102c7238846c478f1c4fd02d32.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 32.427143573760986,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "runhidden.vbs",
+          "https://github.com/filer404xyz/filer/raw/refs/heads/main/OneDrive.exe",
+          "OneDrive.exe",
+          "github.com"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "1d9f60b7100431f3e9eb6bea0855c101289a3fb2c60d53ebccb6166491ad9d7a.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 36.31739616394043,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "fleeb.exe",
+          "https://1fichier.com/?v8w3g736hj",
+          "1fichier.com"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "01e4fa6a0b5f7f8838fea407ff7177c0a49f8fe19b35e0eb90a7aee327cf7a7b.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 37.395065784454346,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "mess.exe",
+          "http://cajos.in/0x/1.exe",
+          "cajos.in",
+          "1.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "1e303accaa28f4730d4fb5e21fdda1bb89b8ceb2acafcbfcc4dda301d46c5377.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 30.191991329193115,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "keyt.exe",
+          "http://94.102.50.39/keyt.exe",
+          "94.102.50.39"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "1efa9413f5aed5dcd15a9319e011c3efe7a16d8f0c3abdb437ae436684f3571b.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 37.883320331573486,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "fleeble.exe",
+          "http://andersonken4791.pserver.ru/doc.exe",
+          "andersonken4791.pserver.ru",
+          "doc.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "1f45fdcf220c685872911587a8b4d89bb5eb720561d691a50a1338fdaf533d87.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 36.75097846984863,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 1,
+        "total_obfuscated_gt": 1,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "PrograminAdi.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "2a4e98b8d197ab3365c84f431a457c90f8ac34792c490af0c2287c3b28b3cbe3.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 35.22578144073486,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://worldnit.com/nigga.exe",
+          "nigga.exe",
+          "worldnit.com",
+          "mess.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "2b21ed2780d69cea18217dc57e40056c18d70673dabec19675fcc7f71a70e5aa.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 24.405492544174194,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "https://www.upload.ee/download/18185044/443499c5a6c720cab622/vm.exe",
+          "vm.exe",
+          "upload.ee"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "2b6572810e4bae8e8d1995917caf047a988b1a0f8407b677d6610d29782e9e19.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 35.26003694534302,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://worldnit.com/aba.exe",
+          "aba.exe",
+          "worldnit.com",
+          "fleeble.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "2c1d6585c4e4e9d12f527d697f7a833ce15cfe7cc85904d8b89dd749aecf9090.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 34.703588008880615,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://matkalv.5gbfree.com/loso/fasoo.exe",
+          "fasoo.exe",
+          "matkalv.5gbfree.com",
+          "fleeble.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "2d3a932260b3308d0e5f084baf3dd07633c4f0269ce85a268ba6e31778605e51.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 38.78062653541565,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://worldnit.com/com.exe",
+          "com.exe",
+          "worldnit.com",
+          "fleeble.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "2d28cbe79e0477307fa4a7a03524fffd10dffb515e38043546f70c4fa694e768.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 34.70676136016846,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://doc.cherrycoffeeequipment.com/nw/logo.png",
+          "logo.png",
+          "cherrycoffeeequipment.com",
+          "grtsndebdgfsytewrw.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "2d72f6bc11f9ae4d19743b760c4b4f537165672ef37d3db95cec5047100f255a.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 33.47828817367554,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 14,
+        "total_obfuscated_gt": 10,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "https://files.catbox.moe/3tjarr.secro013228973",
+          "files.catbox.moe",
+          "3tjarr.secro013228973",
+          "https://files.catbox.moe/cfuoi8.fuk",
+          "cfuoi8.fuk",
+          "https://files.catbox.moe/n8nug3.fuck",
+          "n8nug3.fuck",
+          "https://files.catbox.moe/hbl2ig.secro",
+          "hbl2ig.secro",
+          "hbl2ig.secro"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "2e054e7fcf74881cf97df42c4bd641bfd3ac04e65ad31aef44b7c83a1ecf8415.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 34.23695921897888,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "KjGryNSu.exe",
+          "rebrand.ly/openCaptcha",
+          "rebrand.ly"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "3ab06576949538089258232f6dd37714ecd1782acc14015d3dd52fa7ad6b073e.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 37.359302043914795,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 5,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "allaivo.me/crypted.exe",
+          "allaivo.me/script.ps1",
+          "allaivo.me"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "3ad6decf6ea52b0304bab8d1dcb275882d686df9cc28ea3e76e528b987d6cde1.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 37.72812557220459,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://37.28.154.204/powershell_attack.txt",
+          "powershell_attack.txt",
+          "37.28.154.204"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "3d9cf577eff98b291eb2da68542a33c5f2973353788953044fbad22999300982.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 36.04941964149475,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 2,
+        "total_obfuscated_gt": 2,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "task.xml",
+          "task2.xml"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "3ef8f0de3383fb1d3133919f85f3999038b191aca3877f86ffbac001eed26b66.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 36.842103004455566,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://www.bryonz.com/emotions/files/lnwe.exe",
+          "lnwe.exe",
+          "bryonz.com"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "3f9a3d8c99143b6faf589504b417c1fbc82df5fc574562e9d4c8a6acf4537049.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 55.529568910598755,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 1,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "r1.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "4b56551812b4f12263778d284de42b1d3b5ffc52aa8f4b742a295f094660a6fd.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 45.5615131855011,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 6,
+        "total_obfuscated_gt": 6,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "https://file.garden/aB0_peiHdjBBXCQF/Uninstall.dlx",
+          "j3owB.exe",
+          "https://pixeldrain.com/api/file/um3Jorcz",
+          "SVrB5SO0.exe",
+          "https://file.garden/aB0_peiHdjBBXCQF/sv.dlx",
+          "cZp98.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "004c132ffcd37650da7d319b82ec36f055fd6c5cec568b8d1898d5417693de02.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 38.156949520111084,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://www.wealthandhealthops.com/modules/mod_easyblogquickpost/lawdsijdoef.exe",
+          "lawdsijdoef.exe",
+          "wealthandhealthops.com"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "4c0246368346e30fad438c16f6e1f87c5913db5d068f2c33415c2b59c978c276.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 40.05842590332031,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "https://6e891bbd0ab48424c7027d5b21de443d.serveo.net/EkgYwGrhIqDpGsjVPFuD",
+          "serveo.net",
+          "Kernel32.dll",
+          "user32.dll"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "4cfec7dc963c2c1d63978072b64b7ab8dd8b7cdf77c7b59470717954bac0f1c5.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 37.64757537841797,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "https://raw.githubusercontent.com/drkst-shdw/tests/refs/heads/main/stage5.ps1",
+          "stage5.ps1",
+          "githubusercontent.com"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "4d24f57dad98ef27fb063d020fc7a072201806d6d1d0b4b431b59b28d6a69261.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 14.225682258605957,
+      "success": false,
+      "error_message": "400 Client Error: Bad Request for url: https://openrouter.ai/api/v1/chat/completions",
+      "ground_truth_match": null
+    },
+    {
+      "sample_name": "4dac4a02fa8f07252c3932130865b68ef6b4b8e3bc2dc8fd32a735a716c9f72a.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 34.61669564247131,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 2,
+        "total_obfuscated_gt": 2,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://185.141.27.28/update.exe",
+          "file2x86.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "4ef94a07e217bac8b4c142a9f111d4b716f0dce37d89988abc67f5d6e8e816ff.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cHM6Ly9naXRodWIuY29tL21lbG8xOTQ4L01FTE8xMi9yYXcvcmVmcy9oZWFkcy9tYWluL01FTE8xLmV4ZQ==",
+          "decoded_value": "https://github.com/mega1948/MLEO12/raw/refs/heads/main/MLEO1.exe",
+          "description": "Encoded URL used to download a malicious payload"
+        },
+        {
+          "type": "domain",
+          "original_value": "github.com",
+          "decoded_value": "github.com",
+          "description": "Domain hosting the malicious payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "payload.exe",
+          "decoded_value": "payload.exe",
+          "description": "Malicious executable downloaded to the temporary directory"
+        }
+      ],
+      "processing_time": 31.6086483001709,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 2,
+        "total_obfuscated_gt": 1,
+        "total_extracted": 3,
+        "matches": 2,
+        "obfuscated_matches": 1,
+        "precision": 0.6666666666666666,
+        "recall": 1.0,
+        "f1_score": 0.8,
+        "obfuscated_precision": 0.3333333333333333,
+        "obfuscated_recall": 1.0,
+        "obfuscated_f1_score": 0.5,
+        "detailed_matches": [
+          {
+            "extracted": "https://github.com/mega1948/MLEO12/raw/refs/heads/main/MLEO1.exe",
+            "ground_truth": "https://github.com/melo1948/MELO12/raw/refs/heads/main/MELO1.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cHM6Ly9naXRodWIuY29tL21lbG8xOTQ4L01FTE8xMi9yYXcvcmVmcy9oZWFkcy9tYWluL01FTE8xLmV4ZQ==",
+              "decoded_value": "https://github.com/mega1948/MLEO12/raw/refs/heads/main/MLEO1.exe",
+              "description": "Encoded URL used to download a malicious payload"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "github.com",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "github.com",
+              "decoded_value": "github.com",
+              "description": "Domain hosting the malicious payload"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "payload.exe",
+            "ground_truth": "payload.exe",
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "payload.exe",
+              "decoded_value": "payload.exe",
+              "description": "Malicious executable downloaded to the temporary directory"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [],
+        "false_positives": [
+          "github.com"
+        ]
+      }
+    },
+    {
+      "sample_name": "4fac2e28190f67d01c83e715bf66b44fe0e12997922056943be7c95921890afe.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 32.9853355884552,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 2,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "https://files.catbox.moe/xrcvo7.bin",
+          "files.catbox.moe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "5ab5044f76b0427b94b3f883862feb42bf5bc22375ea5bcfdd1adc2069da47ad.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 39.50897288322449,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://www.wealthandhealthops.com/modules/mod_easyblogquickpost/lawdsijdoef.exe",
+          "lawdsijdoef.exe",
+          "wealthandhealthops.com"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "5afb0d5681256a6af1ed0d31a2ff24b078c2416b76c6d4581aa4d1650cca0f08.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 39.57584881782532,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://ddl7.data.hu/get/0/9507148/Patload.exe",
+          "Patload.exe",
+          "ddl7.data.hu"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "5b27c53f9bf67dee6fab0e8c7994ec4b5cd772ab2df74ffe62e69a634aea3e46.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 84.26318430900574,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 1,
+        "total_obfuscated_gt": 1,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "kernel32.dll"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "5c1938f0c03e4d07600cde8906b5793dd235b43d80613c1ad49934c3a2729b39.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "$u1",
+          "decoded_value": "https://gitllm.dev/crypted.exe",
+          "description": "URL used to download the malicious executable."
+        },
+        {
+          "type": "url",
+          "original_value": "$u2",
+          "decoded_value": "https://gitllm.dev/code",
+          "description": "URL used to download the secondary script."
+        },
+        {
+          "type": "domain",
+          "original_value": "$domain",
+          "decoded_value": "gitllm.dev",
+          "description": "Command and control domain."
+        },
+        {
+          "type": "file_name",
+          "original_value": "$r1.exe",
+          "decoded_value": "GUID.exe",
+          "description": "Malicious executable downloaded to a random GUID\u2011named file."
+        },
+        {
+          "type": "file_name",
+          "original_value": "$code",
+          "decoded_value": "code",
+          "description": "Secondary script file downloaded to %APPDATA%."
+        }
+      ],
+      "processing_time": 10.791930913925171,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 5,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 5,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 0.6,
+        "recall": 0.6,
+        "f1_score": 0.6,
+        "obfuscated_precision": 0.6,
+        "obfuscated_recall": 0.75,
+        "obfuscated_f1_score": 0.6666666666666665,
+        "detailed_matches": [
+          {
+            "extracted": "https://gitllm.dev/crypted.exe",
+            "ground_truth": "https://gitllm.dev/crypted.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "$u1",
+              "decoded_value": "https://gitllm.dev/crypted.exe",
+              "description": "URL used to download the malicious executable."
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "https://gitllm.dev/code",
+            "ground_truth": "https://gitllm.dev/code",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "$u2",
+              "decoded_value": "https://gitllm.dev/code",
+              "description": "URL used to download the secondary script."
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "gitllm.dev",
+            "ground_truth": "gitllm.dev",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "$domain",
+              "decoded_value": "gitllm.dev",
+              "description": "Command and control domain."
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "GUID.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "$r1.exe",
+              "decoded_value": "GUID.exe",
+              "description": "Malicious executable downloaded to a random GUID\u2011named file."
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "code",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "$code",
+              "decoded_value": "code",
+              "description": "Secondary script file downloaded to %APPDATA%."
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "kernel32.dll"
+        ],
+        "false_positives": [
+          "GUID.exe",
+          "code"
+        ]
+      }
+    },
+    {
+      "sample_name": "5cb356c0abf945dd881ed6301509bb6d3289a47f9c35e36b65b94e1b0cc38edc.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 37.41054368019104,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "BookStore@radinbookstore.com",
+          "ftp://88.198.35.50",
+          "radinbookstore.com"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "5ddbafbc30495e2853119135f2abf7b93f5457e9d39edd621237b52b38aa6837.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 34.01423668861389,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://matkalv.5gbfree.com/owee/owe.exe",
+          "fleeble.exe",
+          "matkalv.5gbfree.com"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "5dfde4bff42949705c4bbce0b37dfc88b0fd5d447fd8f5aed00850b6264d1160.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cHM6Ly9iaXRlYmxvYi5jb20vRG93bmxvYWQvT3E3NVJkM2JGVGlVNGgvdXBkYXRlLmpwZw==",
+          "decoded_value": "https://bitelbol.com/Download/Oq75Rd3bFtiU4g/update.jpg",
+          "description": "Malicious download URL used to fetch the payload."
+        },
+        {
+          "type": "domain",
+          "original_value": "bitelbol.com",
+          "decoded_value": "bitelbol.com",
+          "description": "Domain hosting the malicious payload."
+        },
+        {
+          "type": "file_name",
+          "original_value": "a.lnk",
+          "decoded_value": "a.lnk",
+          "description": "Shortcut file created in the Startup folder to persist the payload."
+        }
+      ],
+      "processing_time": 8.724464178085327,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 3,
+        "matches": 1,
+        "obfuscated_matches": 1,
+        "precision": 0.3333333333333333,
+        "recall": 0.3333333333333333,
+        "f1_score": 0.3333333333333333,
+        "obfuscated_precision": 0.3333333333333333,
+        "obfuscated_recall": 0.3333333333333333,
+        "obfuscated_f1_score": 0.3333333333333333,
+        "detailed_matches": [
+          {
+            "extracted": "https://bitelbol.com/Download/Oq75Rd3bFtiU4g/update.jpg",
+            "ground_truth": "https://biteblob.com/Download/Oq75Rd3bFTiU4g/update.jpg",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cHM6Ly9iaXRlYmxvYi5jb20vRG93bmxvYWQvT3E3NVJkM2JGVGlVNGgvdXBkYXRlLmpwZw==",
+              "decoded_value": "https://bitelbol.com/Download/Oq75Rd3bFtiU4g/update.jpg",
+              "description": "Malicious download URL used to fetch the payload."
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "bitelbol.com",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "bitelbol.com",
+              "decoded_value": "bitelbol.com",
+              "description": "Domain hosting the malicious payload."
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "a.lnk",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "a.lnk",
+              "decoded_value": "a.lnk",
+              "description": "Shortcut file created in the Startup folder to persist the payload."
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "biteblob.com",
+          "update.jpg"
+        ],
+        "false_positives": [
+          "bitelbol.com",
+          "a.lnk"
+        ]
+      }
+    },
+    {
+      "sample_name": "5fa1efefeeb492398f9ecf8bddd9234e9397ace0487c6d62d7b44ca2c768e966.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 37.35480451583862,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://lvrxd.3eeweb.com/nano/Calculator.exe",
+          "test.exe",
+          "lvrxd.3eeweb.com"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "ff9c02e3d77c5e002a9c93a64fc33c184b94802642fa23eae8d6e88e18c41c35.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 39.87544274330139,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "www.londonoffices.website/download/startup.exe",
+          "startup.exe",
+          "londonoffices.website"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "ff6bb9932a2c146b69d95f2c3a38baf4c7170a1bf3807636231eb653198b36d6.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 37.3933048248291,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 5,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://YOUR_SERVER_IP:8080/u94g1n7x.exe",
+          "http://YOUR_SERVER_IP:8080/q9h2k1s3.txt",
+          "u94g1n7x.exe",
+          "q9h2k1s3.txt"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "fea75fc54e0117e0c1f7caa00db61414c517fb162a898d43aa27f612324974d8.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 38.81903100013733,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://toxicsolutions.ru/upload/praisefud.exe",
+          "praisefud.exe",
+          "fleeble.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "fdf1d959e3b07dfd9804f1e8e8783d5505c2030e24e98a1872f527f173910617.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 7.1920177936553955,
+      "success": false,
+      "error_message": "400 Client Error: Bad Request for url: https://openrouter.ai/api/v1/chat/completions",
+      "ground_truth_match": null
+    },
+    {
+      "sample_name": "fc7bef03f846865a81209de2bf31ea78192a72f2f459ff633c57f8e2cff2a8a3.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 67.84260129928589,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://net.gethost.pw/windro.exe",
+          "fleeble.exe",
+          "windro.exe",
+          "net.gethost.pw"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "fbe36b0c463f99c13cbda03431c693050dedb057b55ffcce76bd433185f00450.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 53.65736651420593,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "91.92.66.242",
+          "8.8.8.8",
+          "certificate.cer"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "fbdd6850741bd495c5b5e21057eee523e9653267c82a8c093e83ab9b6d12c37e.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 40.5722451210022,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://ddl3.data.hu/get/0/9551162/ske.exe",
+          "ske.exe",
+          "ddl3.data.hu",
+          "fleeble.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "fbcba7e01d26c06572fdc00530ee7345301fc8639a37ad48cf4be84b46bc8074.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 37.197641134262085,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 8,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "https://undo.sg/file.exe",
+          "file.exe",
+          "undo.sg",
+          "https://undo.sg/script.ps1"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "fb6555c2a569fef4ca9b0f6a5a0ee18caa773e75cbf11a522fc64fd50084d38b.sample",
+      "model_name": "openai/gpt-oss-20b",
+      "iocs": [],
+      "processing_time": 43.922499895095825,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://boisedelariviere.com/backup/css/newconfig.exe",
+          "newconfig.exe",
+          "boisedelariviere.com",
+          "neone6.exe"
+        ],
+        "false_positives": []
+      }
+    }
+  ],
+  "ioc_statistics": {
+    "total_iocs_extracted": 15,
+    "ioc_type_distribution": {
+      "url": 5,
+      "domain": 4,
+      "file_name": 6
+    },
+    "average_iocs_per_sample": 3.75
+  }
+}

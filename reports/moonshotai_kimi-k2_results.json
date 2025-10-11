@@ -1,0 +1,5202 @@
+{
+  "model_name": "moonshotai/kimi-k2",
+  "total_samples": 58,
+  "successful_samples": 55,
+  "failed_samples": 3,
+  "total_processing_time": 668.5966937541962,
+  "average_processing_time": 11.527529202658554,
+  "sample_results": [
+    {
+      "sample_name": "0a0b5f95f37a91f99e849ab14a53c740198abca9b4fe3322e6ff9f34b810dfe7.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovL2xhYmlkLmNvbS5teS9zcGUvc3BlbmR5LmV4ZQ==",
+          "decoded_value": "http://labid.com.my/spe/spendy.exe",
+          "description": "Remote URL from which the second-stage executable is downloaded"
+        },
+        {
+          "type": "domain",
+          "original_value": "aHR0cDovL2xhYmlkLmNvbS5teS9zcGUvc3BlbmR5LmV4ZQ==",
+          "decoded_value": "labid.com.my",
+          "description": "Domain hosting the second-stage payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "c3BlbmR5LmV4ZQ==",
+          "decoded_value": "spendy.exe",
+          "description": "Name of the executable file downloaded and executed from %TEMP%"
+        }
+      ],
+      "processing_time": 30.054099559783936,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 1.0,
+        "obfuscated_f1_score": 1.0,
+        "detailed_matches": [
+          {
+            "extracted": "http://labid.com.my/spe/spendy.exe",
+            "ground_truth": "http://labid.com.my/spe/spendy.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovL2xhYmlkLmNvbS5teS9zcGUvc3BlbmR5LmV4ZQ==",
+              "decoded_value": "http://labid.com.my/spe/spendy.exe",
+              "description": "Remote URL from which the second-stage executable is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "labid.com.my",
+            "ground_truth": "labid.com.my",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "aHR0cDovL2xhYmlkLmNvbS5teS9zcGUvc3BlbmR5LmV4ZQ==",
+              "decoded_value": "labid.com.my",
+              "description": "Domain hosting the second-stage payload"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "spendy.exe",
+            "ground_truth": "spendy.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "c3BlbmR5LmV4ZQ==",
+              "decoded_value": "spendy.exe",
+              "description": "Name of the executable file downloaded and executed from %TEMP%"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "0b0988f4dff15d243c5c7283c2e8833050de97bda8f8e2b7b920b47d6839f77f.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cHM6Ly93d3cudXBsb2FkLmVlL2Rvd25sb2FkLzE4MTg1MDQ0LzQ0MzQ5OWM1YTZjNzIwY2FiNjIyL3ZtLmV4ZQ==",
+          "decoded_value": "https://www.upload.ee/download/18185044/443499c5a6c720cab622/vm.exe",
+          "description": "URL from which the second-stage payload is downloaded"
+        },
+        {
+          "type": "domain",
+          "original_value": "upload.ee",
+          "decoded_value": "upload.ee",
+          "description": "Domain hosting the second-stage payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "SystemCache.exe",
+          "decoded_value": "SystemCache.exe",
+          "description": "Filename used to save the downloaded payload in the %TEMP% directory"
+        }
+      ],
+      "processing_time": 3.388580799102783,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 3,
+        "matches": 2,
+        "obfuscated_matches": 2,
+        "precision": 0.6666666666666666,
+        "recall": 0.6666666666666666,
+        "f1_score": 0.6666666666666666,
+        "obfuscated_precision": 0.6666666666666666,
+        "obfuscated_recall": 0.6666666666666666,
+        "obfuscated_f1_score": 0.6666666666666666,
+        "detailed_matches": [
+          {
+            "extracted": "https://www.upload.ee/download/18185044/443499c5a6c720cab622/vm.exe",
+            "ground_truth": "https://www.upload.ee/download/18185044/443499c5a6c720cab622/vm.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cHM6Ly93d3cudXBsb2FkLmVlL2Rvd25sb2FkLzE4MTg1MDQ0LzQ0MzQ5OWM1YTZjNzIwY2FiNjIyL3ZtLmV4ZQ==",
+              "decoded_value": "https://www.upload.ee/download/18185044/443499c5a6c720cab622/vm.exe",
+              "description": "URL from which the second-stage payload is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "upload.ee",
+            "ground_truth": "upload.ee",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "upload.ee",
+              "decoded_value": "upload.ee",
+              "description": "Domain hosting the second-stage payload"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "SystemCache.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "SystemCache.exe",
+              "decoded_value": "SystemCache.exe",
+              "description": "Filename used to save the downloaded payload in the %TEMP% directory"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "vm.exe"
+        ],
+        "false_positives": [
+          "SystemCache.exe"
+        ]
+      }
+    },
+    {
+      "sample_name": "0b4208640831c9ef68a1bb3942cfc2d552f2971a7e3ab0baa7fe2f5e400506d3.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovL2Nham9zLmluLzB4LzEuZXhl",
+          "decoded_value": "http://cajos.in/0x/1.exe",
+          "description": "Remote executable downloaded by the script"
+        },
+        {
+          "type": "domain",
+          "original_value": "Y2Fqb3MuaW4=",
+          "decoded_value": "cajos.in",
+          "description": "Domain hosting the payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "bWVzcy5leGU=",
+          "decoded_value": "mess.exe",
+          "description": "Local filename used to save and execute the downloaded payload"
+        }
+      ],
+      "processing_time": 2.0052144527435303,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 0.75,
+        "f1_score": 0.8571428571428571,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 0.75,
+        "obfuscated_f1_score": 0.8571428571428571,
+        "detailed_matches": [
+          {
+            "extracted": "http://cajos.in/0x/1.exe",
+            "ground_truth": "http://cajos.in/0x/1.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovL2Nham9zLmluLzB4LzEuZXhl",
+              "decoded_value": "http://cajos.in/0x/1.exe",
+              "description": "Remote executable downloaded by the script"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "cajos.in",
+            "ground_truth": "cajos.in",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "Y2Fqb3MuaW4=",
+              "decoded_value": "cajos.in",
+              "description": "Domain hosting the payload"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "mess.exe",
+            "ground_truth": "mess.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "bWVzcy5leGU=",
+              "decoded_value": "mess.exe",
+              "description": "Local filename used to save and execute the downloaded payload"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "1.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "0c42a151babf7a4fd94564156245d0ac8e934282b996b3bb14cbe151f4233863.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "file_name",
+          "original_value": "d3VhY2x0LmV4ZQ==",
+          "decoded_value": "wuaclt.exe",
+          "description": "Executable name written to the Run registry key for persistence"
+        },
+        {
+          "type": "file_name",
+          "original_value": "d3VhY2x0LmV4ZQ==",
+          "decoded_value": "wuaclt.exe",
+          "description": "Executable name written to the Run registry key for persistence"
+        }
+      ],
+      "processing_time": 3.221402645111084,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 1,
+        "total_obfuscated_gt": 1,
+        "total_extracted": 2,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [
+          {
+            "extracted": "wuaclt.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "d3VhY2x0LmV4ZQ==",
+              "decoded_value": "wuaclt.exe",
+              "description": "Executable name written to the Run registry key for persistence"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "wuaclt.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "d3VhY2x0LmV4ZQ==",
+              "decoded_value": "wuaclt.exe",
+              "description": "Executable name written to the Run registry key for persistence"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "wuauclt.exe"
+        ],
+        "false_positives": [
+          "wuaclt.exe",
+          "wuaclt.exe"
+        ]
+      }
+    },
+    {
+      "sample_name": "0cc81d1e13103af100095ec09ba7fdcb8a837bd463686bb09402e0d23b3f622f.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovLzc2Ljc0LjEyNy4zOC9kZWZhdWx0LW5jby5odG1s",
+          "decoded_value": "http://76.74.127.38/default-nco.html",
+          "description": "Base64-encoded download URL used by the PowerShell script to fetch a payload"
+        },
+        {
+          "type": "ip",
+          "original_value": "NzYuNzQuMTI3LjM4",
+          "decoded_value": "76.74.127.38",
+          "description": "IP address extracted from the decoded download URL"
+        },
+        {
+          "type": "domain",
+          "original_value": "NzYuNzQuMTI3LjM4",
+          "decoded_value": "76.74.127.38",
+          "description": "Domain portion (IP address) from the decoded download URL"
+        },
+        {
+          "type": "file_name",
+          "original_value": "ZGVmYXVsdC1uY28uaHRtbA==",
+          "decoded_value": "default-nco.html",
+          "description": "File name of the payload to be downloaded"
+        }
+      ],
+      "processing_time": 35.86149454116821,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 4,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1_score": 0.8571428571428571,
+        "obfuscated_precision": 0.75,
+        "obfuscated_recall": 1.0,
+        "obfuscated_f1_score": 0.8571428571428571,
+        "detailed_matches": [
+          {
+            "extracted": "http://76.74.127.38/default-nco.html",
+            "ground_truth": "http://76.74.127.38/default-nco.html",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovLzc2Ljc0LjEyNy4zOC9kZWZhdWx0LW5jby5odG1s",
+              "decoded_value": "http://76.74.127.38/default-nco.html",
+              "description": "Base64-encoded download URL used by the PowerShell script to fetch a payload"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "76.74.127.38",
+            "ground_truth": "76.74.127.38",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "ip",
+              "original_value": "NzYuNzQuMTI3LjM4",
+              "decoded_value": "76.74.127.38",
+              "description": "IP address extracted from the decoded download URL"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "76.74.127.38",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "NzYuNzQuMTI3LjM4",
+              "decoded_value": "76.74.127.38",
+              "description": "Domain portion (IP address) from the decoded download URL"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "default-nco.html",
+            "ground_truth": "default-nco.html",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "ZGVmYXVsdC1uY28uaHRtbA==",
+              "decoded_value": "default-nco.html",
+              "description": "File name of the payload to be downloaded"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [],
+        "false_positives": [
+          "76.74.127.38"
+        ]
+      }
+    },
+    {
+      "sample_name": "0e0b81f4d5a791840493297b29c6715fb391ae7ae07c665dede01507bb59352f.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovL2FpcmNyYWZ0cG5zLmNvbS9fbGF5b3V0L2ltYWdlcy9zeXNtb25pdG9yLmV4ZQ==",
+          "decoded_value": "http://aircraftpns.com/_layout/images/sysmonitor.exe",
+          "description": "URL from which the second-stage payload is downloaded"
+        },
+        {
+          "type": "domain",
+          "original_value": "aGlyY3JhZnRwbnMuY29t",
+          "decoded_value": "aircraftpns.com",
+          "description": "Domain hosting the second-stage payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "ZmxlZWJsZS5leGU=",
+          "decoded_value": "fleeble.exe",
+          "description": "Local filename used to save and execute the downloaded payload"
+        }
+      ],
+      "processing_time": 4.120498180389404,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 0.75,
+        "f1_score": 0.8571428571428571,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 0.75,
+        "obfuscated_f1_score": 0.8571428571428571,
+        "detailed_matches": [
+          {
+            "extracted": "http://aircraftpns.com/_layout/images/sysmonitor.exe",
+            "ground_truth": "http://aircraftpns.com/_layout/images/sysmonitor.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovL2FpcmNyYWZ0cG5zLmNvbS9fbGF5b3V0L2ltYWdlcy9zeXNtb25pdG9yLmV4ZQ==",
+              "decoded_value": "http://aircraftpns.com/_layout/images/sysmonitor.exe",
+              "description": "URL from which the second-stage payload is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "aircraftpns.com",
+            "ground_truth": "aircraftpns.com",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "aGlyY3JhZnRwbnMuY29t",
+              "decoded_value": "aircraftpns.com",
+              "description": "Domain hosting the second-stage payload"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "fleeble.exe",
+            "ground_truth": "fleeble.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "ZmxlZWJsZS5leGU=",
+              "decoded_value": "fleeble.exe",
+              "description": "Local filename used to save and execute the downloaded payload"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "sysmonitor.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "0eb254d9e890cc98ef789293cfef3f127063ec2130cb02a9adeded544debaeb9.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovL2RkbDcuZGF0YS5odS9nZXQvMC85NTUyMTAzL1BGSWZkcC5leGU=",
+          "decoded_value": "http://ddl7.data.hu/get/0/9552103/PFIfdp.exe",
+          "description": "Remote URL from which the second-stage payload is downloaded"
+        },
+        {
+          "type": "domain",
+          "original_value": "aHR0cDovL2RkbDcuZGF0YS5odS9nZXQvMC85NTUyMTAzL1BGSWZkcC5leGU=",
+          "decoded_value": "ddl7.data.hu",
+          "description": "Domain hosting the second-stage payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "ZmxlZWJsZS5leGU=",
+          "decoded_value": "fleeble.exe",
+          "description": "Local filename used to save and execute the downloaded payload"
+        }
+      ],
+      "processing_time": 25.58941960334778,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 0.75,
+        "f1_score": 0.8571428571428571,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 0.75,
+        "obfuscated_f1_score": 0.8571428571428571,
+        "detailed_matches": [
+          {
+            "extracted": "http://ddl7.data.hu/get/0/9552103/PFIfdp.exe",
+            "ground_truth": "http://ddl7.data.hu/get/0/9552103/PFIfdp.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovL2RkbDcuZGF0YS5odS9nZXQvMC85NTUyMTAzL1BGSWZkcC5leGU=",
+              "decoded_value": "http://ddl7.data.hu/get/0/9552103/PFIfdp.exe",
+              "description": "Remote URL from which the second-stage payload is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "ddl7.data.hu",
+            "ground_truth": "ddl7.data.hu",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "aHR0cDovL2RkbDcuZGF0YS5odS9nZXQvMC85NTUyMTAzL1BGSWZkcC5leGU=",
+              "decoded_value": "ddl7.data.hu",
+              "description": "Domain hosting the second-stage payload"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "fleeble.exe",
+            "ground_truth": "fleeble.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "ZmxlZWJsZS5leGU=",
+              "decoded_value": "fleeble.exe",
+              "description": "Local filename used to save and execute the downloaded payload"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "PFIfdp.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "0eddca25fecf32891549287656e25867fa7b787e0245d5ee0a537b55299f78cf.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cHM6Ly9hLnBvbWYuY2F0L3ZqYWR3Yi5leGU=",
+          "decoded_value": "https://a.pomf.cat/vjadwb.exe",
+          "description": "Download URL for the second-stage payload"
+        },
+        {
+          "type": "domain",
+          "original_value": "a.pomf.cat",
+          "decoded_value": "a.pomf.cat",
+          "description": "Domain hosting the malicious executable"
+        },
+        {
+          "type": "file_name",
+          "original_value": "ZXVpb2tvLmV4ZQ==",
+          "decoded_value": "euioko.exe",
+          "description": "Name of the downloaded payload saved to %TEMP%"
+        }
+      ],
+      "processing_time": 2.834638833999634,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 0.75,
+        "f1_score": 0.8571428571428571,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 0.75,
+        "obfuscated_f1_score": 0.8571428571428571,
+        "detailed_matches": [
+          {
+            "extracted": "https://a.pomf.cat/vjadwb.exe",
+            "ground_truth": "https://a.pomf.cat/vjadwb.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cHM6Ly9hLnBvbWYuY2F0L3ZqYWR3Yi5leGU=",
+              "decoded_value": "https://a.pomf.cat/vjadwb.exe",
+              "description": "Download URL for the second-stage payload"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "a.pomf.cat",
+            "ground_truth": "a.pomf.cat",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "a.pomf.cat",
+              "decoded_value": "a.pomf.cat",
+              "description": "Domain hosting the malicious executable"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "euioko.exe",
+            "ground_truth": "euioko.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "ZXVpb2tvLmV4ZQ==",
+              "decoded_value": "euioko.exe",
+              "description": "Name of the downloaded payload saved to %TEMP%"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "vjadwb.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "0ee311f11c655bf10ee6b58c8aaba3c0d888aca264bca8bbe462d336fecfc7ee.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovLzk0LjEwMi41MC4zOS9rZXl0LmV4ZQ==",
+          "decoded_value": "http://94.102.50.39/keyt.exe",
+          "description": "Remote URL from which the payload is downloaded via BitsTransfer"
+        },
+        {
+          "type": "ip",
+          "original_value": "94.102.50.39",
+          "decoded_value": "94.102.50.39",
+          "description": "IP address hosting the payload file keyt.exe"
+        },
+        {
+          "type": "file_name",
+          "original_value": "a2V5dC5leGU=",
+          "decoded_value": "keyt.exe",
+          "description": "Name of the executable payload downloaded and executed"
+        }
+      ],
+      "processing_time": 19.079543590545654,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 1.0,
+        "obfuscated_f1_score": 1.0,
+        "detailed_matches": [
+          {
+            "extracted": "http://94.102.50.39/keyt.exe",
+            "ground_truth": "http://94.102.50.39/keyt.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovLzk0LjEwMi41MC4zOS9rZXl0LmV4ZQ==",
+              "decoded_value": "http://94.102.50.39/keyt.exe",
+              "description": "Remote URL from which the payload is downloaded via BitsTransfer"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "94.102.50.39",
+            "ground_truth": "94.102.50.39",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "ip",
+              "original_value": "94.102.50.39",
+              "decoded_value": "94.102.50.39",
+              "description": "IP address hosting the payload file keyt.exe"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "keyt.exe",
+            "ground_truth": "keyt.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "a2V5dC5leGU=",
+              "decoded_value": "keyt.exe",
+              "description": "Name of the executable payload downloaded and executed"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "0f58742ab1e15f8aa0dfc32ac17b4c8178138f68e9948455369f1857a54847c0.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cHM6Ly9vcHRpbWFzb2x1dGlvbnMuc3RvcmUvWENsaWVudC5leGU=",
+          "decoded_value": "https://optimasolutions.store/XClient.exe",
+          "description": "URL from which the second-stage payload (XClient.exe) is downloaded"
+        },
+        {
+          "type": "domain",
+          "original_value": "optimasolutions.store",
+          "decoded_value": "optimasolutions.store",
+          "description": "Domain hosting the second-stage payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "XClient.exe",
+          "decoded_value": "XClient.exe",
+          "description": "Name of the executable file downloaded and executed in-memory"
+        }
+      ],
+      "processing_time": 2.2134573459625244,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 1.0,
+        "obfuscated_f1_score": 1.0,
+        "detailed_matches": [
+          {
+            "extracted": "https://optimasolutions.store/XClient.exe",
+            "ground_truth": "https://optimasolutions.store/XClient.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cHM6Ly9vcHRpbWFzb2x1dGlvbnMuc3RvcmUvWENsaWVudC5leGU=",
+              "decoded_value": "https://optimasolutions.store/XClient.exe",
+              "description": "URL from which the second-stage payload (XClient.exe) is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "optimasolutions.store",
+            "ground_truth": "optimasolutions.store",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "optimasolutions.store",
+              "decoded_value": "optimasolutions.store",
+              "description": "Domain hosting the second-stage payload"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "XClient.exe",
+            "ground_truth": "XClient.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "XClient.exe",
+              "decoded_value": "XClient.exe",
+              "description": "Name of the executable file downloaded and executed in-memory"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "1ab8a62202d1991253b308c16d147a8721aa1b71f9399eae0f44a407cfca8f84.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovL2RkbDIuZGF0YS5odS9nZXQvMC85NTg5NjIxL2swMDAuZXhl",
+          "decoded_value": "http://ddl2.data.hu/get/0/9589621/k000.exe",
+          "description": "Remote URL from which the second-stage payload is downloaded"
+        },
+        {
+          "type": "domain",
+          "original_value": "ZGRsMi5kYXRhLmh1",
+          "decoded_value": "ddl2.data.hu",
+          "description": "Domain hosting the malicious payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "ZmxlZWJsZS5leGU=",
+          "decoded_value": "fleeble.exe",
+          "description": "Local filename used to save and execute the downloaded payload"
+        }
+      ],
+      "processing_time": 3.756667137145996,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 0.75,
+        "f1_score": 0.8571428571428571,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 0.75,
+        "obfuscated_f1_score": 0.8571428571428571,
+        "detailed_matches": [
+          {
+            "extracted": "http://ddl2.data.hu/get/0/9589621/k000.exe",
+            "ground_truth": "http://ddl2.data.hu/get/0/9589621/k000.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovL2RkbDIuZGF0YS5odS9nZXQvMC85NTg5NjIxL2swMDAuZXhl",
+              "decoded_value": "http://ddl2.data.hu/get/0/9589621/k000.exe",
+              "description": "Remote URL from which the second-stage payload is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "ddl2.data.hu",
+            "ground_truth": "ddl2.data.hu",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "ZGRsMi5kYXRhLmh1",
+              "decoded_value": "ddl2.data.hu",
+              "description": "Domain hosting the malicious payload"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "fleeble.exe",
+            "ground_truth": "fleeble.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "ZmxlZWJsZS5leGU=",
+              "decoded_value": "fleeble.exe",
+              "description": "Local filename used to save and execute the downloaded payload"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "k000.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "1b1ba49163765e2072e15f5b02598e88209e91c89f58d71ca99e2e2ee241dc44.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cHM6Ly9kZml3b2QuY29tLzIucGhw",
+          "decoded_value": "https://dfiwod.com/2.php",
+          "description": "First-stage C2 beacon URL invoked via Invoke-WebRequest"
+        },
+        {
+          "type": "url",
+          "original_value": "aHR0cHM6Ly93d3cucHl0aG9uLm9yZy9mdHAvcHl0aG9uLzMuMTEuOC9weXRob24tMy4xMS44LWVtYmVkLWFtZDY0LnppcA==",
+          "decoded_value": "https://www.python.org/ftp/python/3.11.8/python-3.11.8-embed-amd64.zip",
+          "description": "Legitimate Python 3.11.8 embeddable package download"
+        },
+        {
+          "type": "url",
+          "original_value": "aHR0cHM6Ly9ib290c3RyYXAucHlwYS5pby9nZXQtcGlwLnB5",
+          "decoded_value": "https://bootstrap.pypa.io/get-pip.py",
+          "description": "Official get-pip.py bootstrap script"
+        },
+        {
+          "type": "url",
+          "original_value": "aHR0cHM6Ly9kZml3b2QuY29tL3VwLnB5",
+          "decoded_value": "https://dfiwod.com/up.py",
+          "description": "Second-stage Python payload downloaded and executed"
+        },
+        {
+          "type": "domain",
+          "original_value": "dfiwod.com",
+          "decoded_value": "dfiwod.com",
+          "description": "Malicious domain hosting C2 scripts (2.php and up.py)"
+        },
+        {
+          "type": "domain",
+          "original_value": "python.org",
+          "decoded_value": "python.org",
+          "description": "Legitimate domain used to download Python runtime"
+        },
+        {
+          "type": "domain",
+          "original_value": "bootstrap.pypa.io",
+          "decoded_value": "bootstrap.pypa.io",
+          "description": "Official PyPA domain for pip bootstrap script"
+        },
+        {
+          "type": "file_name",
+          "original_value": "runme.ps1",
+          "decoded_value": "runme.ps1",
+          "description": "First-stage PowerShell payload dropped and executed from %APPDATA%\\Y4TFCR"
+        },
+        {
+          "type": "file_name",
+          "original_value": "runagain.ps1",
+          "decoded_value": "runagain.ps1",
+          "description": "Second-stage PowerShell payload dropped and executed via Run registry key"
+        },
+        {
+          "type": "file_name",
+          "original_value": "up.py",
+          "decoded_value": "up.py",
+          "description": "Python payload downloaded from dfiwod.com and executed"
+        },
+        {
+          "type": "file_name",
+          "original_value": "get-pip.py",
+          "decoded_value": "get-pip.py",
+          "description": "Temporary pip bootstrap script downloaded and removed"
+        },
+        {
+          "type": "file_name",
+          "original_value": "python-3.11.8-embed-amd64.zip",
+          "decoded_value": "python-3.11.8-embed-amd64.zip",
+          "description": "Python runtime archive downloaded and extracted"
+        },
+        {
+          "type": "file_name",
+          "original_value": "finish.lock",
+          "decoded_value": "finish.lock",
+          "description": "Lock file used to prevent re-execution"
+        }
+      ],
+      "processing_time": 60.16919279098511,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 22,
+        "total_obfuscated_gt": 20,
+        "total_extracted": 13,
+        "matches": 12,
+        "obfuscated_matches": 12,
+        "precision": 0.9230769230769231,
+        "recall": 0.5454545454545454,
+        "f1_score": 0.6857142857142856,
+        "obfuscated_precision": 0.9230769230769231,
+        "obfuscated_recall": 0.6,
+        "obfuscated_f1_score": 0.7272727272727274,
+        "detailed_matches": [
+          {
+            "extracted": "https://dfiwod.com/2.php",
+            "ground_truth": "https://dfiwod.com/2.php",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cHM6Ly9kZml3b2QuY29tLzIucGhw",
+              "decoded_value": "https://dfiwod.com/2.php",
+              "description": "First-stage C2 beacon URL invoked via Invoke-WebRequest"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "https://www.python.org/ftp/python/3.11.8/python-3.11.8-embed-amd64.zip",
+            "ground_truth": "https://www.python.org/ftp/python/3.11.8/python-3.11.8-embed-amd64.zip",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cHM6Ly93d3cucHl0aG9uLm9yZy9mdHAvcHl0aG9uLzMuMTEuOC9weXRob24tMy4xMS44LWVtYmVkLWFtZDY0LnppcA==",
+              "decoded_value": "https://www.python.org/ftp/python/3.11.8/python-3.11.8-embed-amd64.zip",
+              "description": "Legitimate Python 3.11.8 embeddable package download"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "https://bootstrap.pypa.io/get-pip.py",
+            "ground_truth": "https://bootstrap.pypa.io/get-pip.py",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cHM6Ly9ib290c3RyYXAucHlwYS5pby9nZXQtcGlwLnB5",
+              "decoded_value": "https://bootstrap.pypa.io/get-pip.py",
+              "description": "Official get-pip.py bootstrap script"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "https://dfiwod.com/up.py",
+            "ground_truth": "https://dfiwod.com/up.py",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cHM6Ly9kZml3b2QuY29tL3VwLnB5",
+              "decoded_value": "https://dfiwod.com/up.py",
+              "description": "Second-stage Python payload downloaded and executed"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "dfiwod.com",
+            "ground_truth": "dfiwod.com",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "dfiwod.com",
+              "decoded_value": "dfiwod.com",
+              "description": "Malicious domain hosting C2 scripts (2.php and up.py)"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "python.org",
+            "ground_truth": "www.python.org",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "python.org",
+              "decoded_value": "python.org",
+              "description": "Legitimate domain used to download Python runtime"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "bootstrap.pypa.io",
+            "ground_truth": "bootstrap.pypa.io",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "bootstrap.pypa.io",
+              "decoded_value": "bootstrap.pypa.io",
+              "description": "Official PyPA domain for pip bootstrap script"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "runme.ps1",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "runme.ps1",
+              "decoded_value": "runme.ps1",
+              "description": "First-stage PowerShell payload dropped and executed from %APPDATA%\\Y4TFCR"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "runagain.ps1",
+            "ground_truth": "runagain.ps1",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "runagain.ps1",
+              "decoded_value": "runagain.ps1",
+              "description": "Second-stage PowerShell payload dropped and executed via Run registry key"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "up.py",
+            "ground_truth": "up.py",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "up.py",
+              "decoded_value": "up.py",
+              "description": "Python payload downloaded from dfiwod.com and executed"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "get-pip.py",
+            "ground_truth": "get-pip.py",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "get-pip.py",
+              "decoded_value": "get-pip.py",
+              "description": "Temporary pip bootstrap script downloaded and removed"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "python-3.11.8-embed-amd64.zip",
+            "ground_truth": "python-3.11.8-embed-amd64.zip",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "python-3.11.8-embed-amd64.zip",
+              "decoded_value": "python-3.11.8-embed-amd64.zip",
+              "description": "Python runtime archive downloaded and extracted"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "finish.lock",
+            "ground_truth": "finish.lock",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "finish.lock",
+              "decoded_value": "finish.lock",
+              "description": "Lock file used to prevent re-execution"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "script.lock",
+          "py_embedded.zip",
+          "finish.lock",
+          "python.exe",
+          "py_embedded.zip",
+          "python311._pth",
+          "python.exe",
+          "python.exe"
+        ],
+        "false_positives": [
+          "runme.ps1"
+        ]
+      }
+    },
+    {
+      "sample_name": "1bd928c17f49ac9b2e91738c97e7341940671662a136f0bb215acaf3c1eb4d48.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [],
+      "processing_time": 11.440200090408325,
+      "success": false,
+      "error_message": "400 Client Error: Bad Request for url: https://openrouter.ai/api/v1/chat/completions",
+      "ground_truth_match": null
+    },
+    {
+      "sample_name": "1c087a48e272726651fe5d50c109c1670aecf4d7320ccb30d09e786048b6212a.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovL3dvcmxkbml0LmNvbS9jb21wdS5leGU=",
+          "decoded_value": "http://worldnit.com/compu.exe",
+          "description": "Remote URL from which the second-stage payload is downloaded"
+        },
+        {
+          "type": "domain",
+          "original_value": "worldnit.com",
+          "decoded_value": "worldnit.com",
+          "description": "Domain hosting the downloaded executable"
+        },
+        {
+          "type": "file_name",
+          "original_value": "ZmxlZWJsZS5leGU=",
+          "decoded_value": "fleeble.exe",
+          "description": "Name given to the downloaded file on disk"
+        }
+      ],
+      "processing_time": 9.513148069381714,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 0.75,
+        "f1_score": 0.8571428571428571,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 0.75,
+        "obfuscated_f1_score": 0.8571428571428571,
+        "detailed_matches": [
+          {
+            "extracted": "http://worldnit.com/compu.exe",
+            "ground_truth": "http://worldnit.com/compu.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovL3dvcmxkbml0LmNvbS9jb21wdS5leGU=",
+              "decoded_value": "http://worldnit.com/compu.exe",
+              "description": "Remote URL from which the second-stage payload is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "worldnit.com",
+            "ground_truth": "worldnit.com",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "worldnit.com",
+              "decoded_value": "worldnit.com",
+              "description": "Domain hosting the downloaded executable"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "fleeble.exe",
+            "ground_truth": "fleeble.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "ZmxlZWJsZS5leGU=",
+              "decoded_value": "fleeble.exe",
+              "description": "Name given to the downloaded file on disk"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "compu.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "1ccb9d6a0b855160528c7dbb5f2d12df49724c102c7238846c478f1c4fd02d32.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aAB0AHQAcABzADoALwAvAGcAaQB0AGgAdQBiAC4AYwBvAG0ALwBmAGkAbABlAHIANAAwADQAeAB5AHoALwBmAGkAbABlAHIALwByAGEAdwAvAHIAZQBmAHMALwBoAGUAYQBkAHMALwBtAGEAaQBuAC8ATwBuAGUARAByAGkAdgBlAC4AZQB4AGUAIgA=",
+          "decoded_value": "https://github.com/filer404xyz/filer/raw/refs/heads/main/OneDrive.exe",
+          "description": "Download URL for the next-stage payload (OneDrive.exe)"
+        },
+        {
+          "type": "file_name",
+          "original_value": "T25lRHJpdmUuZXhl",
+          "decoded_value": "OneDrive.exe",
+          "description": "Name of the executable file downloaded and executed"
+        },
+        {
+          "type": "file_name",
+          "original_value": "cnVuaGlkZGVuLnZicw==",
+          "decoded_value": "runhidden.vbs",
+          "description": "Name of the VBScript file created to launch the downloaded executable"
+        }
+      ],
+      "processing_time": 11.457834959030151,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 0.75,
+        "f1_score": 0.8571428571428571,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 0.75,
+        "obfuscated_f1_score": 0.8571428571428571,
+        "detailed_matches": [
+          {
+            "extracted": "https://github.com/filer404xyz/filer/raw/refs/heads/main/OneDrive.exe",
+            "ground_truth": "https://github.com/filer404xyz/filer/raw/refs/heads/main/OneDrive.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aAB0AHQAcABzADoALwAvAGcAaQB0AGgAdQBiAC4AYwBvAG0ALwBmAGkAbABlAHIANAAwADQAeAB5AHoALwBmAGkAbABlAHIALwByAGEAdwAvAHIAZQBmAHMALwBoAGUAYQBkAHMALwBtAGEAaQBuAC8ATwBuAGUARAByAGkAdgBlAC4AZQB4AGUAIgA=",
+              "decoded_value": "https://github.com/filer404xyz/filer/raw/refs/heads/main/OneDrive.exe",
+              "description": "Download URL for the next-stage payload (OneDrive.exe)"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "OneDrive.exe",
+            "ground_truth": "OneDrive.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "T25lRHJpdmUuZXhl",
+              "decoded_value": "OneDrive.exe",
+              "description": "Name of the executable file downloaded and executed"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "runhidden.vbs",
+            "ground_truth": "runhidden.vbs",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "cnVuaGlkZGVuLnZicw==",
+              "decoded_value": "runhidden.vbs",
+              "description": "Name of the VBScript file created to launch the downloaded executable"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "github.com"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "1d9f60b7100431f3e9eb6bea0855c101289a3fb2c60d53ebccb6166491ad9d7a.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cHM6Ly8xZmljaGllci5jb20vP3Y4dzNnNzM2aGo=",
+          "decoded_value": "https://1fichier.com/?v8w3g736hj",
+          "description": "Download URL embedded in base64-encoded PowerShell command"
+        },
+        {
+          "type": "domain",
+          "original_value": "MWZpY2hpZXIuY29t",
+          "decoded_value": "1fichier.com",
+          "description": "Domain extracted from the decoded download URL"
+        },
+        {
+          "type": "file_name",
+          "original_value": "ZmxlZWIuZXhl",
+          "decoded_value": "fleeb.exe",
+          "description": "Filename of the payload that will be downloaded and executed"
+        }
+      ],
+      "processing_time": 3.385010004043579,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 1.0,
+        "obfuscated_f1_score": 1.0,
+        "detailed_matches": [
+          {
+            "extracted": "https://1fichier.com/?v8w3g736hj",
+            "ground_truth": "https://1fichier.com/?v8w3g736hj",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cHM6Ly8xZmljaGllci5jb20vP3Y4dzNnNzM2aGo=",
+              "decoded_value": "https://1fichier.com/?v8w3g736hj",
+              "description": "Download URL embedded in base64-encoded PowerShell command"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "1fichier.com",
+            "ground_truth": "1fichier.com",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "MWZpY2hpZXIuY29t",
+              "decoded_value": "1fichier.com",
+              "description": "Domain extracted from the decoded download URL"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "fleeb.exe",
+            "ground_truth": "fleeb.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "ZmxlZWIuZXhl",
+              "decoded_value": "fleeb.exe",
+              "description": "Filename of the payload that will be downloaded and executed"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "01e4fa6a0b5f7f8838fea407ff7177c0a49f8fe19b35e0eb90a7aee327cf7a7b.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovL2Nham9zLmluLzB4LzEuZXhl",
+          "decoded_value": "http://cajos.in/0x/1.exe",
+          "description": "Malicious payload download URL"
+        },
+        {
+          "type": "domain",
+          "original_value": "Y2Fqb3MuaW4=",
+          "decoded_value": "cajos.in",
+          "description": "Domain hosting the malicious payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "bWVzcy5leGU=",
+          "decoded_value": "mess.exe",
+          "description": "Name of the downloaded executable file"
+        }
+      ],
+      "processing_time": 1.9355578422546387,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 0.75,
+        "f1_score": 0.8571428571428571,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 0.75,
+        "obfuscated_f1_score": 0.8571428571428571,
+        "detailed_matches": [
+          {
+            "extracted": "http://cajos.in/0x/1.exe",
+            "ground_truth": "http://cajos.in/0x/1.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovL2Nham9zLmluLzB4LzEuZXhl",
+              "decoded_value": "http://cajos.in/0x/1.exe",
+              "description": "Malicious payload download URL"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "cajos.in",
+            "ground_truth": "cajos.in",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "Y2Fqb3MuaW4=",
+              "decoded_value": "cajos.in",
+              "description": "Domain hosting the malicious payload"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "mess.exe",
+            "ground_truth": "mess.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "bWVzcy5leGU=",
+              "decoded_value": "mess.exe",
+              "description": "Name of the downloaded executable file"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "1.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "1e303accaa28f4730d4fb5e21fdda1bb89b8ceb2acafcbfcc4dda301d46c5377.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovLzk0LjEwMi41MC4zOS9rZXl0LmV4ZQ==",
+          "decoded_value": "http://94.102.50.39/keyt.exe",
+          "description": "Remote URL from which the payload is downloaded via BitsTransfer"
+        },
+        {
+          "type": "ip",
+          "original_value": "94.102.50.39",
+          "decoded_value": "94.102.50.39",
+          "description": "IP address hosting the remote payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "a2V5dC5leGU=",
+          "decoded_value": "keyt.exe",
+          "description": "Name of the executable file downloaded and executed"
+        }
+      ],
+      "processing_time": 17.272106647491455,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 1.0,
+        "obfuscated_f1_score": 1.0,
+        "detailed_matches": [
+          {
+            "extracted": "http://94.102.50.39/keyt.exe",
+            "ground_truth": "http://94.102.50.39/keyt.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovLzk0LjEwMi41MC4zOS9rZXl0LmV4ZQ==",
+              "decoded_value": "http://94.102.50.39/keyt.exe",
+              "description": "Remote URL from which the payload is downloaded via BitsTransfer"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "94.102.50.39",
+            "ground_truth": "94.102.50.39",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "ip",
+              "original_value": "94.102.50.39",
+              "decoded_value": "94.102.50.39",
+              "description": "IP address hosting the remote payload"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "keyt.exe",
+            "ground_truth": "keyt.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "a2V5dC5leGU=",
+              "decoded_value": "keyt.exe",
+              "description": "Name of the executable file downloaded and executed"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "1efa9413f5aed5dcd15a9319e011c3efe7a16d8f0c3abdb437ae436684f3571b.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovL2FuZGVyc29ua2VuNDc5MS5wc2VydmVyLnJ1L2RvYy5leGU=",
+          "decoded_value": "http://andersonken4791.pserver.ru/doc.exe",
+          "description": "Remote URL from which the second-stage payload is downloaded"
+        },
+        {
+          "type": "domain",
+          "original_value": "aHR0cDovL2FuZGVyc29ua2VuNDc5MS5wc2VydmVyLnJ1L2RvYy5leGU=",
+          "decoded_value": "andersonken4791.pserver.ru",
+          "description": "Domain hosting the second-stage payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "ZmxlZWJsZS5leGU=",
+          "decoded_value": "fleeble.exe",
+          "description": "Name of the downloaded executable file that is executed"
+        }
+      ],
+      "processing_time": 3.261117696762085,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 0.75,
+        "f1_score": 0.8571428571428571,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 0.75,
+        "obfuscated_f1_score": 0.8571428571428571,
+        "detailed_matches": [
+          {
+            "extracted": "http://andersonken4791.pserver.ru/doc.exe",
+            "ground_truth": "http://andersonken4791.pserver.ru/doc.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovL2FuZGVyc29ua2VuNDc5MS5wc2VydmVyLnJ1L2RvYy5leGU=",
+              "decoded_value": "http://andersonken4791.pserver.ru/doc.exe",
+              "description": "Remote URL from which the second-stage payload is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "andersonken4791.pserver.ru",
+            "ground_truth": "andersonken4791.pserver.ru",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "aHR0cDovL2FuZGVyc29ua2VuNDc5MS5wc2VydmVyLnJ1L2RvYy5leGU=",
+              "decoded_value": "andersonken4791.pserver.ru",
+              "description": "Domain hosting the second-stage payload"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "fleeble.exe",
+            "ground_truth": "fleeble.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "ZmxlZWJsZS5leGU=",
+              "decoded_value": "fleeble.exe",
+              "description": "Name of the downloaded executable file that is executed"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "doc.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "1f45fdcf220c685872911587a8b4d89bb5eb720561d691a50a1338fdaf533d87.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "file_name",
+          "original_value": "QzpcUHJvZ3JhbSBGaWxlcmluZ1xVeHlkdWx1bWFLbGFzb3J1XFByb2dyYW1pbkFkaS5leGU=",
+          "decoded_value": "C:\\Program Filerin\\UxydulumaKlasoru\\PrograminAdi.exe",
+          "description": "Malware adds this executable to Windows Defender exclusions so it can run undetected."
+        }
+      ],
+      "processing_time": 12.837713241577148,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 1,
+        "total_obfuscated_gt": 1,
+        "total_extracted": 1,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [
+          {
+            "extracted": "C:\\Program Filerin\\UxydulumaKlasoru\\PrograminAdi.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "QzpcUHJvZ3JhbSBGaWxlcmluZ1xVeHlkdWx1bWFLbGFzb3J1XFByb2dyYW1pbkFkaS5leGU=",
+              "decoded_value": "C:\\Program Filerin\\UxydulumaKlasoru\\PrograminAdi.exe",
+              "description": "Malware adds this executable to Windows Defender exclusions so it can run undetected."
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "PrograminAdi.exe"
+        ],
+        "false_positives": [
+          "C:\\Program Filerin\\UxydulumaKlasoru\\PrograminAdi.exe"
+        ]
+      }
+    },
+    {
+      "sample_name": "2a4e98b8d197ab3365c84f431a457c90f8ac34792c490af0c2287c3b28b3cbe3.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovL3dvcmxkbml0LmNvbS9uaWdnYS5leGU=",
+          "decoded_value": "http://worldnit.com/nigga.exe",
+          "description": "Base64-encoded URL from which the second-stage payload is downloaded"
+        },
+        {
+          "type": "domain",
+          "original_value": "worldnit.com",
+          "decoded_value": "worldnit.com",
+          "description": "Domain hosting the downloaded executable"
+        },
+        {
+          "type": "file_name",
+          "original_value": "mess.exe",
+          "decoded_value": "mess.exe",
+          "description": "Local filename used to save and execute the downloaded payload"
+        }
+      ],
+      "processing_time": 4.075460195541382,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 0.75,
+        "f1_score": 0.8571428571428571,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 0.75,
+        "obfuscated_f1_score": 0.8571428571428571,
+        "detailed_matches": [
+          {
+            "extracted": "http://worldnit.com/nigga.exe",
+            "ground_truth": "http://worldnit.com/nigga.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovL3dvcmxkbml0LmNvbS9uaWdnYS5leGU=",
+              "decoded_value": "http://worldnit.com/nigga.exe",
+              "description": "Base64-encoded URL from which the second-stage payload is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "worldnit.com",
+            "ground_truth": "worldnit.com",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "worldnit.com",
+              "decoded_value": "worldnit.com",
+              "description": "Domain hosting the downloaded executable"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "mess.exe",
+            "ground_truth": "mess.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "mess.exe",
+              "decoded_value": "mess.exe",
+              "description": "Local filename used to save and execute the downloaded payload"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "nigga.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "2b21ed2780d69cea18217dc57e40056c18d70673dabec19675fcc7f71a70e5aa.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cHM6Ly93d3cudXBsb2FkLmVlL2Rvd25sb2FkLzE4MTg1MDQ0LzQ0MzQ5OWM1YTZjNzIwY2FiNjIyL3ZtLmV4ZQ==",
+          "decoded_value": "https://www.upload.ee/download/18185044/443499c5a6c720cab622/vm.exe",
+          "description": "Base64-encoded URL from which the second-stage payload is downloaded"
+        },
+        {
+          "type": "domain",
+          "original_value": "upload.ee",
+          "decoded_value": "upload.ee",
+          "description": "Domain hosting the second-stage payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "SystemCache.exe",
+          "decoded_value": "SystemCache.exe",
+          "description": "Local filename used to save the downloaded payload in %TEMP%"
+        }
+      ],
+      "processing_time": 26.728997707366943,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 2,
+        "precision": 1.0,
+        "recall": 0.75,
+        "f1_score": 0.8571428571428571,
+        "obfuscated_precision": 0.6666666666666666,
+        "obfuscated_recall": 0.6666666666666666,
+        "obfuscated_f1_score": 0.6666666666666666,
+        "detailed_matches": [
+          {
+            "extracted": "https://www.upload.ee/download/18185044/443499c5a6c720cab622/vm.exe",
+            "ground_truth": "https://www.upload.ee/download/18185044/443499c5a6c720cab622/vm.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cHM6Ly93d3cudXBsb2FkLmVlL2Rvd25sb2FkLzE4MTg1MDQ0LzQ0MzQ5OWM1YTZjNzIwY2FiNjIyL3ZtLmV4ZQ==",
+              "decoded_value": "https://www.upload.ee/download/18185044/443499c5a6c720cab622/vm.exe",
+              "description": "Base64-encoded URL from which the second-stage payload is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "upload.ee",
+            "ground_truth": "upload.ee",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "upload.ee",
+              "decoded_value": "upload.ee",
+              "description": "Domain hosting the second-stage payload"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "SystemCache.exe",
+            "ground_truth": "SystemCache.exe",
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "SystemCache.exe",
+              "decoded_value": "SystemCache.exe",
+              "description": "Local filename used to save the downloaded payload in %TEMP%"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "vm.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "2b6572810e4bae8e8d1995917caf047a988b1a0f8407b677d6610d29782e9e19.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovL3dvcmxkbml0LmNvbS9hYmEuZXhl",
+          "decoded_value": "http://worldnit.com/aba.exe",
+          "description": "URL from which the second-stage payload is downloaded"
+        },
+        {
+          "type": "domain",
+          "original_value": "d29ybGRuaXQuY29t",
+          "decoded_value": "worldnit.com",
+          "description": "Domain hosting the downloaded executable"
+        },
+        {
+          "type": "file_name",
+          "original_value": "ZmxlZWJsZS5leGU=",
+          "decoded_value": "fleeble.exe",
+          "description": "Name given to the downloaded file on disk and the process started"
+        }
+      ],
+      "processing_time": 4.254301309585571,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 0.75,
+        "f1_score": 0.8571428571428571,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 0.75,
+        "obfuscated_f1_score": 0.8571428571428571,
+        "detailed_matches": [
+          {
+            "extracted": "http://worldnit.com/aba.exe",
+            "ground_truth": "http://worldnit.com/aba.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovL3dvcmxkbml0LmNvbS9hYmEuZXhl",
+              "decoded_value": "http://worldnit.com/aba.exe",
+              "description": "URL from which the second-stage payload is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "worldnit.com",
+            "ground_truth": "worldnit.com",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "d29ybGRuaXQuY29t",
+              "decoded_value": "worldnit.com",
+              "description": "Domain hosting the downloaded executable"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "fleeble.exe",
+            "ground_truth": "fleeble.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "ZmxlZWJsZS5leGU=",
+              "decoded_value": "fleeble.exe",
+              "description": "Name given to the downloaded file on disk and the process started"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "aba.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "2c1d6585c4e4e9d12f527d697f7a833ce15cfe7cc85904d8b89dd749aecf9090.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovL21hdGthbHYuNWdiZnJlZS5jb20vbG9zby9mYXNvby5leGU=",
+          "decoded_value": "http://matkalv.5gbfree.com/loso/fasoo.exe",
+          "description": "Remote payload URL from which the second-stage executable is downloaded"
+        },
+        {
+          "type": "domain",
+          "original_value": "bWF0a2Fsdi41Z2JmcmVlLmNvbQ==",
+          "decoded_value": "matkalv.5gbfree.com",
+          "description": "Domain hosting the second-stage payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "ZmFzb28uZXhl",
+          "decoded_value": "fasoo.exe",
+          "description": "Name of the remote executable file that is downloaded"
+        },
+        {
+          "type": "file_name",
+          "original_value": "ZmxlZWJsZS5leGU=",
+          "decoded_value": "fleeble.exe",
+          "description": "Local filename under which the downloaded payload is saved and executed"
+        }
+      ],
+      "processing_time": 8.862174987792969,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 4,
+        "matches": 4,
+        "obfuscated_matches": 4,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 1.0,
+        "obfuscated_f1_score": 1.0,
+        "detailed_matches": [
+          {
+            "extracted": "http://matkalv.5gbfree.com/loso/fasoo.exe",
+            "ground_truth": "http://matkalv.5gbfree.com/loso/fasoo.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovL21hdGthbHYuNWdiZnJlZS5jb20vbG9zby9mYXNvby5leGU=",
+              "decoded_value": "http://matkalv.5gbfree.com/loso/fasoo.exe",
+              "description": "Remote payload URL from which the second-stage executable is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "matkalv.5gbfree.com",
+            "ground_truth": "matkalv.5gbfree.com",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "bWF0a2Fsdi41Z2JmcmVlLmNvbQ==",
+              "decoded_value": "matkalv.5gbfree.com",
+              "description": "Domain hosting the second-stage payload"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "fasoo.exe",
+            "ground_truth": "fasoo.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "ZmFzb28uZXhl",
+              "decoded_value": "fasoo.exe",
+              "description": "Name of the remote executable file that is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "fleeble.exe",
+            "ground_truth": "fleeble.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "ZmxlZWJsZS5leGU=",
+              "decoded_value": "fleeble.exe",
+              "description": "Local filename under which the downloaded payload is saved and executed"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "2d3a932260b3308d0e5f084baf3dd07633c4f0269ce85a268ba6e31778605e51.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovL3dvcmxkbml0LmNvbS9jb20uZXhl",
+          "decoded_value": "http://worldnit.com/com.exe",
+          "description": "Remote URL from which the second-stage payload is downloaded"
+        },
+        {
+          "type": "domain",
+          "original_value": "d29ybGRuaXQuY29t",
+          "decoded_value": "worldnit.com",
+          "description": "Domain hosting the malicious executable"
+        },
+        {
+          "type": "file_name",
+          "original_value": "ZmxlZWJsZS5leGU=",
+          "decoded_value": "fleeble.exe",
+          "description": "Name of the downloaded executable file that is subsequently executed"
+        }
+      ],
+      "processing_time": 4.14180326461792,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 0.75,
+        "f1_score": 0.8571428571428571,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 0.75,
+        "obfuscated_f1_score": 0.8571428571428571,
+        "detailed_matches": [
+          {
+            "extracted": "http://worldnit.com/com.exe",
+            "ground_truth": "http://worldnit.com/com.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovL3dvcmxkbml0LmNvbS9jb20uZXhl",
+              "decoded_value": "http://worldnit.com/com.exe",
+              "description": "Remote URL from which the second-stage payload is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "worldnit.com",
+            "ground_truth": "worldnit.com",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "d29ybGRuaXQuY29t",
+              "decoded_value": "worldnit.com",
+              "description": "Domain hosting the malicious executable"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "fleeble.exe",
+            "ground_truth": "fleeble.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "ZmxlZWJsZS5leGU=",
+              "decoded_value": "fleeble.exe",
+              "description": "Name of the downloaded executable file that is subsequently executed"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "com.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "2d28cbe79e0477307fa4a7a03524fffd10dffb515e38043546f70c4fa694e768.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovL2RvYy5jaGVycnljb2ZmZWVlcXVpcG1lbnQuY29tL253L2xvZ28ucG5n",
+          "decoded_value": "http://doc.cherrycoffeeequipment.com/nw/logo.png",
+          "description": "Remote URL from which the second-stage payload is downloaded"
+        },
+        {
+          "type": "domain",
+          "original_value": "aHR0cDovL2RvYy5jaGVycnljb2ZmZWVlcXVpcG1lbnQuY29tL253L2xvZ28ucG5n",
+          "decoded_value": "doc.cherrycoffeeequipment.com",
+          "description": "Domain hosting the second-stage payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "Z3J0c25kZWJkZ2ZzeXRld3J3LmV4ZQ==",
+          "decoded_value": "grtsndebdgfsytewrw.exe",
+          "description": "Filename used to save and execute the downloaded payload in %TEMP%"
+        }
+      ],
+      "processing_time": 32.6213641166687,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 0.75,
+        "f1_score": 0.8571428571428571,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 0.75,
+        "obfuscated_f1_score": 0.8571428571428571,
+        "detailed_matches": [
+          {
+            "extracted": "http://doc.cherrycoffeeequipment.com/nw/logo.png",
+            "ground_truth": "http://doc.cherrycoffeeequipment.com/nw/logo.png",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovL2RvYy5jaGVycnljb2ZmZWVlcXVpcG1lbnQuY29tL253L2xvZ28ucG5n",
+              "decoded_value": "http://doc.cherrycoffeeequipment.com/nw/logo.png",
+              "description": "Remote URL from which the second-stage payload is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "doc.cherrycoffeeequipment.com",
+            "ground_truth": "cherrycoffeeequipment.com",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "aHR0cDovL2RvYy5jaGVycnljb2ZmZWVlcXVpcG1lbnQuY29tL253L2xvZ28ucG5n",
+              "decoded_value": "doc.cherrycoffeeequipment.com",
+              "description": "Domain hosting the second-stage payload"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "grtsndebdgfsytewrw.exe",
+            "ground_truth": "grtsndebdgfsytewrw.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "Z3J0c25kZWJkZ2ZzeXRld3J3LmV4ZQ==",
+              "decoded_value": "grtsndebdgfsytewrw.exe",
+              "description": "Filename used to save and execute the downloaded payload in %TEMP%"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "logo.png"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "2d72f6bc11f9ae4d19743b760c4b4f537165672ef37d3db95cec5047100f255a.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "https://files.catbox.moe/3tjarr.secro013228973",
+          "decoded_value": "https://files.catbox.moe/3tjarr.secro013228973",
+          "description": "First-stage payload download URL (appears twice in the script)"
+        },
+        {
+          "type": "url",
+          "original_value": "https://files.catbox.moe/cfuo8.fuk",
+          "decoded_value": "https://files.catbox.moe/cfuo8.fuk",
+          "description": "Second-stage payload download URL"
+        },
+        {
+          "type": "url",
+          "original_value": "https://files.catbox.moe/n8nug3.fuck",
+          "decoded_value": "https://files.catbox.moe/n8nug3.fuck",
+          "description": "Third-stage payload download URL"
+        },
+        {
+          "type": "url",
+          "original_value": "https://files.catbox.moe/hbl2ig.secro",
+          "decoded_value": "https://files.catbox.moe/hbl2ig.secro",
+          "description": "Fourth-stage payload download URL"
+        },
+        {
+          "type": "domain",
+          "original_value": "files.catbox.moe",
+          "decoded_value": "files.catbox.moe",
+          "description": "Common hosting domain used for all payload downloads"
+        },
+        {
+          "type": "file_name",
+          "original_value": "svchost.exe",
+          "decoded_value": "svchost.exe",
+          "description": "First-stage payload filename written to %PUBLIC%"
+        },
+        {
+          "type": "file_name",
+          "original_value": "svhost0.exe",
+          "decoded_value": "svhost0.exe",
+          "description": "Second-stage payload filename written to %PUBLIC%"
+        },
+        {
+          "type": "file_name",
+          "original_value": "svhost1.exe",
+          "decoded_value": "svhost1.exe",
+          "description": "Third-stage payload filename written to %PUBLIC%"
+        },
+        {
+          "type": "file_name",
+          "original_value": "svhost2.exe",
+          "decoded_value": "svhost2.exe",
+          "description": "Fourth-stage payload filename written to %PUBLIC%"
+        }
+      ],
+      "processing_time": 7.703523635864258,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 14,
+        "total_obfuscated_gt": 10,
+        "total_extracted": 9,
+        "matches": 9,
+        "obfuscated_matches": 5,
+        "precision": 1.0,
+        "recall": 0.6428571428571429,
+        "f1_score": 0.782608695652174,
+        "obfuscated_precision": 0.5555555555555556,
+        "obfuscated_recall": 0.5,
+        "obfuscated_f1_score": 0.5263157894736842,
+        "detailed_matches": [
+          {
+            "extracted": "https://files.catbox.moe/3tjarr.secro013228973",
+            "ground_truth": "https://files.catbox.moe/3tjarr.secro013228973",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "https://files.catbox.moe/3tjarr.secro013228973",
+              "decoded_value": "https://files.catbox.moe/3tjarr.secro013228973",
+              "description": "First-stage payload download URL (appears twice in the script)"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "https://files.catbox.moe/cfuo8.fuk",
+            "ground_truth": "https://files.catbox.moe/cfuoi8.fuk",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "https://files.catbox.moe/cfuo8.fuk",
+              "decoded_value": "https://files.catbox.moe/cfuo8.fuk",
+              "description": "Second-stage payload download URL"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "https://files.catbox.moe/n8nug3.fuck",
+            "ground_truth": "https://files.catbox.moe/n8nug3.fuck",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "https://files.catbox.moe/n8nug3.fuck",
+              "decoded_value": "https://files.catbox.moe/n8nug3.fuck",
+              "description": "Third-stage payload download URL"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "https://files.catbox.moe/hbl2ig.secro",
+            "ground_truth": "https://files.catbox.moe/hbl2ig.secro",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "https://files.catbox.moe/hbl2ig.secro",
+              "decoded_value": "https://files.catbox.moe/hbl2ig.secro",
+              "description": "Fourth-stage payload download URL"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "files.catbox.moe",
+            "ground_truth": "files.catbox.moe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "files.catbox.moe",
+              "decoded_value": "files.catbox.moe",
+              "description": "Common hosting domain used for all payload downloads"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "svchost.exe",
+            "ground_truth": "svchost.exe",
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "svchost.exe",
+              "decoded_value": "svchost.exe",
+              "description": "First-stage payload filename written to %PUBLIC%"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "svhost0.exe",
+            "ground_truth": "svhost0.exe",
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "svhost0.exe",
+              "decoded_value": "svhost0.exe",
+              "description": "Second-stage payload filename written to %PUBLIC%"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "svhost1.exe",
+            "ground_truth": "svhost1.exe",
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "svhost1.exe",
+              "decoded_value": "svhost1.exe",
+              "description": "Third-stage payload filename written to %PUBLIC%"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "svhost2.exe",
+            "ground_truth": "svhost2.exe",
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "svhost2.exe",
+              "decoded_value": "svhost2.exe",
+              "description": "Fourth-stage payload filename written to %PUBLIC%"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "3tjarr.secro013228973",
+          "cfuoi8.fuk",
+          "n8nug3.fuck",
+          "hbl2ig.secro",
+          "hbl2ig.secro"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "2e054e7fcf74881cf97df42c4bd641bfd3ac04e65ad31aef44b7c83a1ecf8415.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "domain",
+          "original_value": "cmVicmFuZC5seS9vcGVuQ2FwdGNoYQ==",
+          "decoded_value": "rebrand.ly/openCaptcha",
+          "description": "Remote URL from which a secondary payload is downloaded"
+        },
+        {
+          "type": "file_name",
+          "original_value": "S2pHcnlOU3UuZXhl",
+          "decoded_value": "KjGrNyNSu.exe",
+          "description": "Name of the downloaded executable file dropped in %TEMP%"
+        }
+      ],
+      "processing_time": 1.3219578266143799,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 2,
+        "matches": 1,
+        "obfuscated_matches": 1,
+        "precision": 0.5,
+        "recall": 0.3333333333333333,
+        "f1_score": 0.4,
+        "obfuscated_precision": 0.5,
+        "obfuscated_recall": 0.3333333333333333,
+        "obfuscated_f1_score": 0.4,
+        "detailed_matches": [
+          {
+            "extracted": "rebrand.ly/openCaptcha",
+            "ground_truth": "rebrand.ly/openCaptcha",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "cmVicmFuZC5seS9vcGVuQ2FwdGNoYQ==",
+              "decoded_value": "rebrand.ly/openCaptcha",
+              "description": "Remote URL from which a secondary payload is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "KjGrNyNSu.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "S2pHcnlOU3UuZXhl",
+              "decoded_value": "KjGrNyNSu.exe",
+              "description": "Name of the downloaded executable file dropped in %TEMP%"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "KjGryNSu.exe",
+          "rebrand.ly"
+        ],
+        "false_positives": [
+          "KjGrNyNSu.exe"
+        ]
+      }
+    },
+    {
+      "sample_name": "3ab06576949538089258232f6dd37714ecd1782acc14015d3dd52fa7ad6b073e.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "YWxsYWl2by5tZS9jcnlwdGVkLmV4ZQ==",
+          "decoded_value": "https://allaivo.me/encrypted.exe",
+          "description": "Base64-encoded URL used to download the main payload (encrypted.exe)"
+        },
+        {
+          "type": "url",
+          "original_value": "YWxsYWl2by5tZS9zY3JpcHQucHMx",
+          "decoded_value": "https://allaivo.me/script.ps1",
+          "description": "Base64-encoded URL used to download the persistence PowerShell script (script.ps1)"
+        },
+        {
+          "type": "domain",
+          "original_value": "YWxsYWl2by5tZQ==",
+          "decoded_value": "allaivo.me",
+          "description": "Base64-encoded domain serving both the payload and the persistence script"
+        },
+        {
+          "type": "file_name",
+          "original_value": "updater.exe",
+          "decoded_value": "updater.exe",
+          "description": "Local filename used to save the downloaded payload before execution"
+        },
+        {
+          "type": "file_name",
+          "original_value": "WindowsUpdate.ps1",
+          "decoded_value": "WindowsUpdate.ps1",
+          "description": "Local filename used for the persistence PowerShell script stored in UpdateCache folder"
+        }
+      ],
+      "processing_time": 35.195427656173706,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 5,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 5,
+        "matches": 4,
+        "obfuscated_matches": 3,
+        "precision": 0.8,
+        "recall": 0.8,
+        "f1_score": 0.8000000000000002,
+        "obfuscated_precision": 0.6,
+        "obfuscated_recall": 1.0,
+        "obfuscated_f1_score": 0.7499999999999999,
+        "detailed_matches": [
+          {
+            "extracted": "https://allaivo.me/encrypted.exe",
+            "ground_truth": "allaivo.me/crypted.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "YWxsYWl2by5tZS9jcnlwdGVkLmV4ZQ==",
+              "decoded_value": "https://allaivo.me/encrypted.exe",
+              "description": "Base64-encoded URL used to download the main payload (encrypted.exe)"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "https://allaivo.me/script.ps1",
+            "ground_truth": "allaivo.me/script.ps1",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "YWxsYWl2by5tZS9zY3JpcHQucHMx",
+              "decoded_value": "https://allaivo.me/script.ps1",
+              "description": "Base64-encoded URL used to download the persistence PowerShell script (script.ps1)"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "allaivo.me",
+            "ground_truth": "allaivo.me",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "YWxsYWl2by5tZQ==",
+              "decoded_value": "allaivo.me",
+              "description": "Base64-encoded domain serving both the payload and the persistence script"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "updater.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "updater.exe",
+              "decoded_value": "updater.exe",
+              "description": "Local filename used to save the downloaded payload before execution"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "WindowsUpdate.ps1",
+            "ground_truth": "WindowsUpdate.ps1",
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "WindowsUpdate.ps1",
+              "decoded_value": "WindowsUpdate.ps1",
+              "description": "Local filename used for the persistence PowerShell script stored in UpdateCache folder"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [],
+        "false_positives": [
+          "updater.exe"
+        ]
+      }
+    },
+    {
+      "sample_name": "3ad6decf6ea52b0304bab8d1dcb275882d686df9cc28ea3e76e528b987d6cde1.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovLzM3LjI4LjE1NC4yMDQvcG93ZXJzaGVsbF9hdHRhY2sudHh0",
+          "decoded_value": "http://37.28.154.204/powershell_attack.txt",
+          "description": "Remote payload URL downloaded via Net.WebClient"
+        },
+        {
+          "type": "ip",
+          "original_value": "37.28.154.204",
+          "decoded_value": "37.28.154.204",
+          "description": "IP address hosting the second-stage payload"
+        },
+        {
+          "type": "domain",
+          "original_value": "37.28.154.204",
+          "decoded_value": "37.28.154.204",
+          "description": "Domain/IP serving the malicious text file"
+        },
+        {
+          "type": "file_name",
+          "original_value": "powershell_attack.txt",
+          "decoded_value": "powershell_attack.txt",
+          "description": "Name of the downloaded payload file"
+        }
+      ],
+      "processing_time": 20.188254833221436,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 4,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1_score": 0.8571428571428571,
+        "obfuscated_precision": 0.75,
+        "obfuscated_recall": 1.0,
+        "obfuscated_f1_score": 0.8571428571428571,
+        "detailed_matches": [
+          {
+            "extracted": "http://37.28.154.204/powershell_attack.txt",
+            "ground_truth": "http://37.28.154.204/powershell_attack.txt",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovLzM3LjI4LjE1NC4yMDQvcG93ZXJzaGVsbF9hdHRhY2sudHh0",
+              "decoded_value": "http://37.28.154.204/powershell_attack.txt",
+              "description": "Remote payload URL downloaded via Net.WebClient"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "37.28.154.204",
+            "ground_truth": "37.28.154.204",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "ip",
+              "original_value": "37.28.154.204",
+              "decoded_value": "37.28.154.204",
+              "description": "IP address hosting the second-stage payload"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "37.28.154.204",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "37.28.154.204",
+              "decoded_value": "37.28.154.204",
+              "description": "Domain/IP serving the malicious text file"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "powershell_attack.txt",
+            "ground_truth": "powershell_attack.txt",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "powershell_attack.txt",
+              "decoded_value": "powershell_attack.txt",
+              "description": "Name of the downloaded payload file"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [],
+        "false_positives": [
+          "37.28.154.204"
+        ]
+      }
+    },
+    {
+      "sample_name": "3d9cf577eff98b291eb2da68542a33c5f2973353788953044fbad22999300982.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "file_name",
+          "original_value": "QzpcV2luZG93c1xUZW1wXHRhc2sueG1s",
+          "decoded_value": "C:\\Windows\\Temp\\task.xml",
+          "description": "XML task definition file used to create a scheduled task named Microsoft\\Windows\\DynAmit\\Backdoor"
+        },
+        {
+          "type": "file_name",
+          "original_value": "QzpcV2luZG93c1xUZW1wXHRGFNrMi54bWw=",
+          "decoded_value": "C:\\Windows\\Temp\\task2.xml",
+          "description": "XML task definition file used to create a scheduled task named Microsoft\\Windows\\DynAmit\\Keylogger"
+        },
+        {
+          "type": "file_name",
+          "original_value": "QzpcV2luZG93c1xUZW1wXCoueG1s",
+          "decoded_value": "C:\\Windows\\Temp\\*.xml",
+          "description": "Wildcard pattern used to delete all XML files in the Windows temp directory after task creation"
+        }
+      ],
+      "processing_time": 2.877577781677246,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 2,
+        "total_obfuscated_gt": 2,
+        "total_extracted": 3,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [
+          {
+            "extracted": "C:\\Windows\\Temp\\task.xml",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "QzpcV2luZG93c1xUZW1wXHRhc2sueG1s",
+              "decoded_value": "C:\\Windows\\Temp\\task.xml",
+              "description": "XML task definition file used to create a scheduled task named Microsoft\\Windows\\DynAmit\\Backdoor"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "C:\\Windows\\Temp\\task2.xml",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "QzpcV2luZG93c1xUZW1wXHRGFNrMi54bWw=",
+              "decoded_value": "C:\\Windows\\Temp\\task2.xml",
+              "description": "XML task definition file used to create a scheduled task named Microsoft\\Windows\\DynAmit\\Keylogger"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "C:\\Windows\\Temp\\*.xml",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "QzpcV2luZG93c1xUZW1wXCoueG1s",
+              "decoded_value": "C:\\Windows\\Temp\\*.xml",
+              "description": "Wildcard pattern used to delete all XML files in the Windows temp directory after task creation"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "task.xml",
+          "task2.xml"
+        ],
+        "false_positives": [
+          "C:\\Windows\\Temp\\task.xml",
+          "C:\\Windows\\Temp\\task2.xml",
+          "C:\\Windows\\Temp\\*.xml"
+        ]
+      }
+    },
+    {
+      "sample_name": "3ef8f0de3383fb1d3133919f85f3999038b191aca3877f86ffbac001eed26b66.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovL3d3dy5icnlvbnouY29tL2Vtb3Rpb25zL2ZpbGVzL2xud2UuZXhl",
+          "decoded_value": "http://www.bryonz.com/emotions/files/lnwe.exe",
+          "description": "Download URL for the second-stage payload"
+        },
+        {
+          "type": "domain",
+          "original_value": "d3d3LmJyeW9uei5jb20=",
+          "decoded_value": "www.bryonz.com",
+          "description": "Domain hosting the second-stage payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "bG53ZS5leGU=",
+          "decoded_value": "lnwe.exe",
+          "description": "Name of the downloaded executable file"
+        }
+      ],
+      "processing_time": 26.93250799179077,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 1.0,
+        "obfuscated_f1_score": 1.0,
+        "detailed_matches": [
+          {
+            "extracted": "http://www.bryonz.com/emotions/files/lnwe.exe",
+            "ground_truth": "http://www.bryonz.com/emotions/files/lnwe.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovL3d3dy5icnlvbnouY29tL2Vtb3Rpb25zL2ZpbGVzL2xud2UuZXhl",
+              "decoded_value": "http://www.bryonz.com/emotions/files/lnwe.exe",
+              "description": "Download URL for the second-stage payload"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "www.bryonz.com",
+            "ground_truth": "bryonz.com",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "d3d3LmJyeW9uei5jb20=",
+              "decoded_value": "www.bryonz.com",
+              "description": "Domain hosting the second-stage payload"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "lnwe.exe",
+            "ground_truth": "lnwe.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "bG53ZS5leGU=",
+              "decoded_value": "lnwe.exe",
+              "description": "Name of the downloaded executable file"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "3f9a3d8c99143b6faf589504b417c1fbc82df5fc574562e9d4c8a6acf4537049.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "file_name",
+          "original_value": "r1.exe",
+          "decoded_value": "r1.exe",
+          "description": "Executable file dropped into %APPDATA%\\JczZzG and then launched via pcalua.exe"
+        }
+      ],
+      "processing_time": 1.4801955223083496,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 1,
+        "total_extracted": 1,
+        "matches": 1,
+        "obfuscated_matches": 1,
+        "precision": 1.0,
+        "recall": 0.3333333333333333,
+        "f1_score": 0.5,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 1.0,
+        "obfuscated_f1_score": 1.0,
+        "detailed_matches": [
+          {
+            "extracted": "r1.exe",
+            "ground_truth": "r1.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "r1.exe",
+              "decoded_value": "r1.exe",
+              "description": "Executable file dropped into %APPDATA%\\JczZzG and then launched via pcalua.exe"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "4b56551812b4f12263778d284de42b1d3b5ffc52aa8f4b742a295f094660a6fd.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "https://file.garden/aB0_peiHdjBBXCQF/Uninstall.dlx",
+          "decoded_value": "https://file.garden/aB0_peiHdjBBXCQF/Uninstall.dlx",
+          "description": "First-stage payload download URL"
+        },
+        {
+          "type": "url",
+          "original_value": "https://pixeldrain.com/api/file/um3Jorcz",
+          "decoded_value": "https://pixeldrain.com/api/file/um3Jorcz",
+          "description": "Second-stage payload download URL"
+        },
+        {
+          "type": "url",
+          "original_value": "https://file.garden/aB0_peiHdjBBXCQF/sv.dlx",
+          "decoded_value": "https://file.garden/aB0_peiHdjBBXCQF/sv.dlx",
+          "description": "Third-stage payload download URL"
+        },
+        {
+          "type": "domain",
+          "original_value": "file.garden",
+          "decoded_value": "file.garden",
+          "description": "Hosting domain for first- and third-stage payloads"
+        },
+        {
+          "type": "domain",
+          "original_value": "pixeldrain.com",
+          "decoded_value": "pixeldrain.com",
+          "description": "Hosting domain for second-stage payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "j3owB.exe",
+          "decoded_value": "j3owB.exe",
+          "description": "First-stage payload filename dropped to ProgramData"
+        },
+        {
+          "type": "file_name",
+          "original_value": "SVrB5SO0.exe",
+          "decoded_value": "SVrB5SO0.exe",
+          "description": "Second-stage payload filename dropped to ProgramData"
+        },
+        {
+          "type": "file_name",
+          "original_value": "cZp98.exe",
+          "decoded_value": "cZp98.exe",
+          "description": "Third-stage payload filename dropped to ProgramData"
+        }
+      ],
+      "processing_time": 8.17685055732727,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 6,
+        "total_obfuscated_gt": 6,
+        "total_extracted": 8,
+        "matches": 6,
+        "obfuscated_matches": 6,
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1_score": 0.8571428571428571,
+        "obfuscated_precision": 0.75,
+        "obfuscated_recall": 1.0,
+        "obfuscated_f1_score": 0.8571428571428571,
+        "detailed_matches": [
+          {
+            "extracted": "https://file.garden/aB0_peiHdjBBXCQF/Uninstall.dlx",
+            "ground_truth": "https://file.garden/aB0_peiHdjBBXCQF/Uninstall.dlx",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "https://file.garden/aB0_peiHdjBBXCQF/Uninstall.dlx",
+              "decoded_value": "https://file.garden/aB0_peiHdjBBXCQF/Uninstall.dlx",
+              "description": "First-stage payload download URL"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "https://pixeldrain.com/api/file/um3Jorcz",
+            "ground_truth": "https://pixeldrain.com/api/file/um3Jorcz",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "https://pixeldrain.com/api/file/um3Jorcz",
+              "decoded_value": "https://pixeldrain.com/api/file/um3Jorcz",
+              "description": "Second-stage payload download URL"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "https://file.garden/aB0_peiHdjBBXCQF/sv.dlx",
+            "ground_truth": "https://file.garden/aB0_peiHdjBBXCQF/sv.dlx",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "https://file.garden/aB0_peiHdjBBXCQF/sv.dlx",
+              "decoded_value": "https://file.garden/aB0_peiHdjBBXCQF/sv.dlx",
+              "description": "Third-stage payload download URL"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "file.garden",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "file.garden",
+              "decoded_value": "file.garden",
+              "description": "Hosting domain for first- and third-stage payloads"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "pixeldrain.com",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "pixeldrain.com",
+              "decoded_value": "pixeldrain.com",
+              "description": "Hosting domain for second-stage payload"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "j3owB.exe",
+            "ground_truth": "j3owB.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "j3owB.exe",
+              "decoded_value": "j3owB.exe",
+              "description": "First-stage payload filename dropped to ProgramData"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "SVrB5SO0.exe",
+            "ground_truth": "SVrB5SO0.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "SVrB5SO0.exe",
+              "decoded_value": "SVrB5SO0.exe",
+              "description": "Second-stage payload filename dropped to ProgramData"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "cZp98.exe",
+            "ground_truth": "cZp98.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "cZp98.exe",
+              "decoded_value": "cZp98.exe",
+              "description": "Third-stage payload filename dropped to ProgramData"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [],
+        "false_positives": [
+          "file.garden",
+          "pixeldrain.com"
+        ]
+      }
+    },
+    {
+      "sample_name": "004c132ffcd37650da7d319b82ec36f055fd6c5cec568b8d1898d5417693de02.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovL3d3dy53ZWFsdGhhbmRoZWFsdGhvcHMuY29tL21vZHVsZXMvbW9kX2Vhc3libG9ncXVpY2twb3N0L2xhd2RzaWpkb2VmLmV4ZQ==",
+          "decoded_value": "http://www.wealthandhealthops.com/modules/mod_easyblogquickpost/lawdsijdoef.exe",
+          "description": "Remote URL from which the second-stage payload is downloaded"
+        },
+        {
+          "type": "domain",
+          "original_value": "d3d3LndlYWx0aGFuZGhlYWx0aG9wcy5jb20=",
+          "decoded_value": "www.wealthandhealthops.com",
+          "description": "Domain hosting the malicious executable"
+        },
+        {
+          "type": "file_name",
+          "original_value": "bGF3ZHNpamRvZWYuZXhl",
+          "decoded_value": "lawdsijdoef.exe",
+          "description": "Name of the downloaded executable file stored in %TEMP%"
+        }
+      ],
+      "processing_time": 4.5896008014678955,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 1.0,
+        "obfuscated_f1_score": 1.0,
+        "detailed_matches": [
+          {
+            "extracted": "http://www.wealthandhealthops.com/modules/mod_easyblogquickpost/lawdsijdoef.exe",
+            "ground_truth": "http://www.wealthandhealthops.com/modules/mod_easyblogquickpost/lawdsijdoef.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovL3d3dy53ZWFsdGhhbmRoZWFsdGhvcHMuY29tL21vZHVsZXMvbW9kX2Vhc3libG9ncXVpY2twb3N0L2xhd2RzaWpkb2VmLmV4ZQ==",
+              "decoded_value": "http://www.wealthandhealthops.com/modules/mod_easyblogquickpost/lawdsijdoef.exe",
+              "description": "Remote URL from which the second-stage payload is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "www.wealthandhealthops.com",
+            "ground_truth": "wealthandhealthops.com",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "d3d3LndlYWx0aGFuZGhlYWx0aG9wcy5jb20=",
+              "decoded_value": "www.wealthandhealthops.com",
+              "description": "Domain hosting the malicious executable"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "lawdsijdoef.exe",
+            "ground_truth": "lawdsijdoef.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "bGF3ZHNpamRvZWYuZXhl",
+              "decoded_value": "lawdsijdoef.exe",
+              "description": "Name of the downloaded executable file stored in %TEMP%"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "4c0246368346e30fad438c16f6e1f87c5913db5d068f2c33415c2b59c978c276.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cHM6Ly82ZTg5MWJiZDBhYjQ4NDI0YzcwMjdkNWIyMWRlNDQzZC5zZXJ2ZW8ubmV0L0VrZ1l3R3JoSXFEcEdzakZQRnVE",
+          "decoded_value": "https://6e891bbd0ab48424c7027d5b21de443d.serveo.net/EkgYwGrhIqDpGsjVPFuD",
+          "description": "Download URL used to fetch the second-stage payload"
+        },
+        {
+          "type": "domain",
+          "original_value": "6e891bbd0ab48424c7027d5b21de443d.serveo.net",
+          "decoded_value": "6e891bbd0ab48424c7027d5b21de443d.serveo.net",
+          "description": "Dynamic DNS domain hosting the second-stage payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "RWtnWXdHcmhJcURwR3NqVlBGdUQ=",
+          "decoded_value": "EkgYwGrhIqDpGsjVPFuD",
+          "description": "Name of the downloaded second-stage payload file saved to %TEMP%"
+        }
+      ],
+      "processing_time": 28.64823818206787,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 3,
+        "matches": 1,
+        "obfuscated_matches": 1,
+        "precision": 0.3333333333333333,
+        "recall": 0.25,
+        "f1_score": 0.28571428571428575,
+        "obfuscated_precision": 0.3333333333333333,
+        "obfuscated_recall": 0.25,
+        "obfuscated_f1_score": 0.28571428571428575,
+        "detailed_matches": [
+          {
+            "extracted": "https://6e891bbd0ab48424c7027d5b21de443d.serveo.net/EkgYwGrhIqDpGsjVPFuD",
+            "ground_truth": "https://6e891bbd0ab48424c7027d5b21de443d.serveo.net/EkgYwGrhIqDpGsjVPFuD",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cHM6Ly82ZTg5MWJiZDBhYjQ4NDI0YzcwMjdkNWIyMWRlNDQzZC5zZXJ2ZW8ubmV0L0VrZ1l3R3JoSXFEcEdzakZQRnVE",
+              "decoded_value": "https://6e891bbd0ab48424c7027d5b21de443d.serveo.net/EkgYwGrhIqDpGsjVPFuD",
+              "description": "Download URL used to fetch the second-stage payload"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "6e891bbd0ab48424c7027d5b21de443d.serveo.net",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "6e891bbd0ab48424c7027d5b21de443d.serveo.net",
+              "decoded_value": "6e891bbd0ab48424c7027d5b21de443d.serveo.net",
+              "description": "Dynamic DNS domain hosting the second-stage payload"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "EkgYwGrhIqDpGsjVPFuD",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "RWtnWXdHcmhJcURwR3NqVlBGdUQ=",
+              "decoded_value": "EkgYwGrhIqDpGsjVPFuD",
+              "description": "Name of the downloaded second-stage payload file saved to %TEMP%"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "serveo.net",
+          "Kernel32.dll",
+          "user32.dll"
+        ],
+        "false_positives": [
+          "6e891bbd0ab48424c7027d5b21de443d.serveo.net",
+          "EkgYwGrhIqDpGsjVPFuD"
+        ]
+      }
+    },
+    {
+      "sample_name": "4cfec7dc963c2c1d63978072b64b7ab8dd8b7cdf77c7b59470717954bac0f1c5.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2Rya3N0LXNoZHcvdGVzdHMvcmVmcy9oZWFkcy9tYWluL3N0YWdlNS5wczE=",
+          "decoded_value": "https://raw.githubusercontent.com/drkst-shdw/tests/refs/heads/main/stage5.ps1",
+          "description": "Base64-encoded URL from which the next-stage PowerShell payload is downloaded"
+        },
+        {
+          "type": "domain",
+          "original_value": "raw.githubusercontent.com",
+          "decoded_value": "raw.githubusercontent.com",
+          "description": "Domain hosting the second-stage payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "stage5.ps1",
+          "decoded_value": "stage5.ps1",
+          "description": "Name of the second-stage PowerShell script retrieved from the remote URL"
+        }
+      ],
+      "processing_time": 23.924668788909912,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 1.0,
+        "obfuscated_f1_score": 1.0,
+        "detailed_matches": [
+          {
+            "extracted": "https://raw.githubusercontent.com/drkst-shdw/tests/refs/heads/main/stage5.ps1",
+            "ground_truth": "https://raw.githubusercontent.com/drkst-shdw/tests/refs/heads/main/stage5.ps1",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2Rya3N0LXNoZHcvdGVzdHMvcmVmcy9oZWFkcy9tYWluL3N0YWdlNS5wczE=",
+              "decoded_value": "https://raw.githubusercontent.com/drkst-shdw/tests/refs/heads/main/stage5.ps1",
+              "description": "Base64-encoded URL from which the next-stage PowerShell payload is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "raw.githubusercontent.com",
+            "ground_truth": "githubusercontent.com",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "raw.githubusercontent.com",
+              "decoded_value": "raw.githubusercontent.com",
+              "description": "Domain hosting the second-stage payload"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "stage5.ps1",
+            "ground_truth": "stage5.ps1",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "stage5.ps1",
+              "decoded_value": "stage5.ps1",
+              "description": "Name of the second-stage PowerShell script retrieved from the remote URL"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "4d24f57dad98ef27fb063d020fc7a072201806d6d1d0b4b431b59b28d6a69261.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [],
+      "processing_time": 8.342644929885864,
+      "success": false,
+      "error_message": "400 Client Error: Bad Request for url: https://openrouter.ai/api/v1/chat/completions",
+      "ground_truth_match": null
+    },
+    {
+      "sample_name": "4dac4a02fa8f07252c3932130865b68ef6b4b8e3bc2dc8fd32a735a716c9f72a.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovLzE4NS4xNDEuMjcuMjgvdXBkYXRlLmV4ZQ==",
+          "decoded_value": "http://185.141.27.28/update.exe",
+          "description": "Remote URL from which the second-stage executable is downloaded"
+        },
+        {
+          "type": "ip",
+          "original_value": "MTg1LjE0MS4yNy4yOA==",
+          "decoded_value": "185.141.27.28",
+          "description": "IP address hosting the download server"
+        },
+        {
+          "type": "file_name",
+          "original_value": "ZmlsZTJ4ODYuZXhl",
+          "decoded_value": "file2x86.exe",
+          "description": "Local filename used to save the downloaded payload in %TEMP%"
+        }
+      ],
+      "processing_time": 25.15283203125,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 2,
+        "total_obfuscated_gt": 2,
+        "total_extracted": 3,
+        "matches": 2,
+        "obfuscated_matches": 2,
+        "precision": 0.6666666666666666,
+        "recall": 1.0,
+        "f1_score": 0.8,
+        "obfuscated_precision": 0.6666666666666666,
+        "obfuscated_recall": 1.0,
+        "obfuscated_f1_score": 0.8,
+        "detailed_matches": [
+          {
+            "extracted": "http://185.141.27.28/update.exe",
+            "ground_truth": "http://185.141.27.28/update.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovLzE4NS4xNDEuMjcuMjgvdXBkYXRlLmV4ZQ==",
+              "decoded_value": "http://185.141.27.28/update.exe",
+              "description": "Remote URL from which the second-stage executable is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "185.141.27.28",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "ip",
+              "original_value": "MTg1LjE0MS4yNy4yOA==",
+              "decoded_value": "185.141.27.28",
+              "description": "IP address hosting the download server"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "file2x86.exe",
+            "ground_truth": "file2x86.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "ZmlsZTJ4ODYuZXhl",
+              "decoded_value": "file2x86.exe",
+              "description": "Local filename used to save the downloaded payload in %TEMP%"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [],
+        "false_positives": [
+          "185.141.27.28"
+        ]
+      }
+    },
+    {
+      "sample_name": "4ef94a07e217bac8b4c142a9f111d4b716f0dce37d89988abc67f5d6e8e816ff.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cHM6Ly9naXRodWIuY29tL21lbG8xOTQ4L01FTE8xMi9yYXcvcmVmcy9oZWFkcy9tYWluL01FTE8xLmV4ZQ==",
+          "decoded_value": "https://github.com/melo1948/MELO12/raw/refs/heads/main/MELO1.exe",
+          "description": "Base64-encoded URL from which the second-stage payload is downloaded"
+        },
+        {
+          "type": "domain",
+          "original_value": "github.com",
+          "decoded_value": "github.com",
+          "description": "Domain hosting the second-stage payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "payload.exe",
+          "decoded_value": "payload.exe",
+          "description": "Local filename used to save the downloaded payload in %TEMP%"
+        },
+        {
+          "type": "file_name",
+          "original_value": "MELO1.exe",
+          "decoded_value": "MELO1.exe",
+          "description": "Name of the executable payload hosted on GitHub"
+        }
+      ],
+      "processing_time": 16.926076412200928,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 2,
+        "total_obfuscated_gt": 1,
+        "total_extracted": 4,
+        "matches": 2,
+        "obfuscated_matches": 1,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1_score": 0.6666666666666666,
+        "obfuscated_precision": 0.25,
+        "obfuscated_recall": 1.0,
+        "obfuscated_f1_score": 0.4,
+        "detailed_matches": [
+          {
+            "extracted": "https://github.com/melo1948/MELO12/raw/refs/heads/main/MELO1.exe",
+            "ground_truth": "https://github.com/melo1948/MELO12/raw/refs/heads/main/MELO1.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cHM6Ly9naXRodWIuY29tL21lbG8xOTQ4L01FTE8xMi9yYXcvcmVmcy9oZWFkcy9tYWluL01FTE8xLmV4ZQ==",
+              "decoded_value": "https://github.com/melo1948/MELO12/raw/refs/heads/main/MELO1.exe",
+              "description": "Base64-encoded URL from which the second-stage payload is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "github.com",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "github.com",
+              "decoded_value": "github.com",
+              "description": "Domain hosting the second-stage payload"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "payload.exe",
+            "ground_truth": "payload.exe",
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "payload.exe",
+              "decoded_value": "payload.exe",
+              "description": "Local filename used to save the downloaded payload in %TEMP%"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "MELO1.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "MELO1.exe",
+              "decoded_value": "MELO1.exe",
+              "description": "Name of the executable payload hosted on GitHub"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [],
+        "false_positives": [
+          "github.com",
+          "MELO1.exe"
+        ]
+      }
+    },
+    {
+      "sample_name": "4fac2e28190f67d01c83e715bf66b44fe0e12997922056943be7c95921890afe.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cHM6Ly9maWxlcy5jYXRib3gubW9lL3hyY3ZvNy5iaW4=",
+          "decoded_value": "https://files.catbox.moe/xrcvo7.bin",
+          "description": "Base64-encoded URL from which the second-stage payload is downloaded"
+        },
+        {
+          "type": "domain",
+          "original_value": "files.catbox.moe",
+          "decoded_value": "files.catbox.moe",
+          "description": "Domain hosting the second-stage binary payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "xrcvo7.bin",
+          "decoded_value": "xrcvo7.bin",
+          "description": "Temporary filename used when the downloaded payload is first saved"
+        },
+        {
+          "type": "file_name",
+          "original_value": "xrcvo7.exe",
+          "decoded_value": "xrcvo7.exe",
+          "description": "Filename after renaming the downloaded payload to an executable"
+        },
+        {
+          "type": "url",
+          "original_value": "https://christitus.com/win",
+          "decoded_value": "https://christitus.com/win",
+          "description": "URL invoked via IEX to download and execute the PC optimizer script"
+        }
+      ],
+      "processing_time": 11.110410690307617,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 2,
+        "total_extracted": 5,
+        "matches": 4,
+        "obfuscated_matches": 2,
+        "precision": 0.8,
+        "recall": 1.0,
+        "f1_score": 0.888888888888889,
+        "obfuscated_precision": 0.4,
+        "obfuscated_recall": 1.0,
+        "obfuscated_f1_score": 0.5714285714285715,
+        "detailed_matches": [
+          {
+            "extracted": "https://files.catbox.moe/xrcvo7.bin",
+            "ground_truth": "https://files.catbox.moe/xrcvo7.bin",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cHM6Ly9maWxlcy5jYXRib3gubW9lL3hyY3ZvNy5iaW4=",
+              "decoded_value": "https://files.catbox.moe/xrcvo7.bin",
+              "description": "Base64-encoded URL from which the second-stage payload is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "files.catbox.moe",
+            "ground_truth": "files.catbox.moe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "files.catbox.moe",
+              "decoded_value": "files.catbox.moe",
+              "description": "Domain hosting the second-stage binary payload"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "xrcvo7.bin",
+            "ground_truth": "xrcvo7.bin",
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "xrcvo7.bin",
+              "decoded_value": "xrcvo7.bin",
+              "description": "Temporary filename used when the downloaded payload is first saved"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "xrcvo7.exe",
+            "ground_truth": "xrcvo7.exe",
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "xrcvo7.exe",
+              "decoded_value": "xrcvo7.exe",
+              "description": "Filename after renaming the downloaded payload to an executable"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "https://christitus.com/win",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "https://christitus.com/win",
+              "decoded_value": "https://christitus.com/win",
+              "description": "URL invoked via IEX to download and execute the PC optimizer script"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [],
+        "false_positives": [
+          "https://christitus.com/win"
+        ]
+      }
+    },
+    {
+      "sample_name": "5ab5044f76b0427b94b3f883862feb42bf5bc22375ea5bcfdd1adc2069da47ad.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovL3d3dy53ZWFsdGhhbmRoZWFsdGhob3BzLmNvbS9tb2R1bGVzL21vZF9lYXN5YmxvZ3F1aWNrcG9zdC9sYXdkc2lqZG9lZi5leGU=",
+          "decoded_value": "http://www.wealthandhealthhops.com/modules/mod_easyblogquickpost/lawdsijdoef.exe",
+          "description": "Remote executable downloaded by the PowerShell dropper"
+        },
+        {
+          "type": "domain",
+          "original_value": "d3d3LndlYWx0aGFuZGhlYWx0aGhvcHMuY29t",
+          "decoded_value": "wealthandhealthhops.com",
+          "description": "Domain hosting the second-stage payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "bGF3ZHNpamRvZWYuZXhl",
+          "decoded_value": "lawdsijdoef.exe",
+          "description": "Name of the executable file dropped to %TEMP% and executed"
+        }
+      ],
+      "processing_time": 2.6121044158935547,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 3,
+        "matches": 2,
+        "obfuscated_matches": 2,
+        "precision": 0.6666666666666666,
+        "recall": 0.6666666666666666,
+        "f1_score": 0.6666666666666666,
+        "obfuscated_precision": 0.6666666666666666,
+        "obfuscated_recall": 0.6666666666666666,
+        "obfuscated_f1_score": 0.6666666666666666,
+        "detailed_matches": [
+          {
+            "extracted": "http://www.wealthandhealthhops.com/modules/mod_easyblogquickpost/lawdsijdoef.exe",
+            "ground_truth": "http://www.wealthandhealthops.com/modules/mod_easyblogquickpost/lawdsijdoef.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovL3d3dy53ZWFsdGhhbmRoZWFsdGhob3BzLmNvbS9tb2R1bGVzL21vZF9lYXN5YmxvZ3F1aWNrcG9zdC9sYXdkc2lqZG9lZi5leGU=",
+              "decoded_value": "http://www.wealthandhealthhops.com/modules/mod_easyblogquickpost/lawdsijdoef.exe",
+              "description": "Remote executable downloaded by the PowerShell dropper"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "wealthandhealthhops.com",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "d3d3LndlYWx0aGFuZGhlYWx0aGhvcHMuY29t",
+              "decoded_value": "wealthandhealthhops.com",
+              "description": "Domain hosting the second-stage payload"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "lawdsijdoef.exe",
+            "ground_truth": "lawdsijdoef.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "bGF3ZHNpamRvZWYuZXhl",
+              "decoded_value": "lawdsijdoef.exe",
+              "description": "Name of the executable file dropped to %TEMP% and executed"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "wealthandhealthops.com"
+        ],
+        "false_positives": [
+          "wealthandhealthhops.com"
+        ]
+      }
+    },
+    {
+      "sample_name": "5afb0d5681256a6af1ed0d31a2ff24b078c2416b76c6d4581aa4d1650cca0f08.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovL2RkbDcuZGF0YS5odS9nZXQvMC85NTA3MTQ4L1BhdGxvYWQuZXhl",
+          "decoded_value": "http://ddl7.data.hu/get/0/9507148/Payload.exe",
+          "description": "Remote URL from which the second-stage payload is downloaded"
+        },
+        {
+          "type": "domain",
+          "original_value": "ZGRsNy5kYXRhLmh1",
+          "decoded_value": "ddl7.data.hu",
+          "description": "Domain hosting the second-stage payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "ZmxlZWJsZS5leGU=",
+          "decoded_value": "fleeble.exe",
+          "description": "Name under which the downloaded payload is saved and executed"
+        },
+        {
+          "type": "file_name",
+          "original_value": "UGF5bG9hZC5leGU=",
+          "decoded_value": "Payload.exe",
+          "description": "Name of the remote file being downloaded"
+        }
+      ],
+      "processing_time": 4.714782238006592,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 4,
+        "matches": 2,
+        "obfuscated_matches": 2,
+        "precision": 0.5,
+        "recall": 0.6666666666666666,
+        "f1_score": 0.5714285714285715,
+        "obfuscated_precision": 0.5,
+        "obfuscated_recall": 0.6666666666666666,
+        "obfuscated_f1_score": 0.5714285714285715,
+        "detailed_matches": [
+          {
+            "extracted": "http://ddl7.data.hu/get/0/9507148/Payload.exe",
+            "ground_truth": "http://ddl7.data.hu/get/0/9507148/Patload.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovL2RkbDcuZGF0YS5odS9nZXQvMC85NTA3MTQ4L1BhdGxvYWQuZXhl",
+              "decoded_value": "http://ddl7.data.hu/get/0/9507148/Payload.exe",
+              "description": "Remote URL from which the second-stage payload is downloaded"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "ddl7.data.hu",
+            "ground_truth": "ddl7.data.hu",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "ZGRsNy5kYXRhLmh1",
+              "decoded_value": "ddl7.data.hu",
+              "description": "Domain hosting the second-stage payload"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "fleeble.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "ZmxlZWJsZS5leGU=",
+              "decoded_value": "fleeble.exe",
+              "description": "Name under which the downloaded payload is saved and executed"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "Payload.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "UGF5bG9hZC5leGU=",
+              "decoded_value": "Payload.exe",
+              "description": "Name of the remote file being downloaded"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "Patload.exe"
+        ],
+        "false_positives": [
+          "fleeble.exe",
+          "Payload.exe"
+        ]
+      }
+    },
+    {
+      "sample_name": "5b27c53f9bf67dee6fab0e8c7994ec4b5cd772ab2df74ffe62e69a634aea3e46.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [],
+      "processing_time": 3.7048497200012207,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 1,
+        "total_obfuscated_gt": 1,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "kernel32.dll"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "5c1938f0c03e4d07600cde8906b5793dd235b43d80613c1ad49934c3a2729b39.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "domain",
+          "original_value": "Z2l0bGxtLmRldg==",
+          "decoded_value": "gitllm.dev",
+          "description": "Base64-encoded domain used for payload hosting"
+        },
+        {
+          "type": "url",
+          "original_value": "https://$domain$path1",
+          "decoded_value": "https://gitllm.dev/crypted.exe",
+          "description": "Full URL to download the first-stage executable"
+        },
+        {
+          "type": "url",
+          "original_value": "https://$domain$path2",
+          "decoded_value": "https://gitllm.dev/code",
+          "description": "Full URL to download the second-stage PowerShell payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "$r1.exe",
+          "decoded_value": "[random-GUID].exe",
+          "description": "Randomly-named executable dropped in %LOCALAPPDATA% folder"
+        },
+        {
+          "type": "file_name",
+          "original_value": "code",
+          "decoded_value": "code",
+          "description": "Second-stage payload file name stored in %APPDATA%"
+        }
+      ],
+      "processing_time": 3.5621654987335205,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 5,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 5,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 0.6,
+        "recall": 0.6,
+        "f1_score": 0.6,
+        "obfuscated_precision": 0.6,
+        "obfuscated_recall": 0.75,
+        "obfuscated_f1_score": 0.6666666666666665,
+        "detailed_matches": [
+          {
+            "extracted": "gitllm.dev",
+            "ground_truth": "gitllm.dev",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "Z2l0bGxtLmRldg==",
+              "decoded_value": "gitllm.dev",
+              "description": "Base64-encoded domain used for payload hosting"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "https://gitllm.dev/crypted.exe",
+            "ground_truth": "https://gitllm.dev/crypted.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "https://$domain$path1",
+              "decoded_value": "https://gitllm.dev/crypted.exe",
+              "description": "Full URL to download the first-stage executable"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "https://gitllm.dev/code",
+            "ground_truth": "https://gitllm.dev/code",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "https://$domain$path2",
+              "decoded_value": "https://gitllm.dev/code",
+              "description": "Full URL to download the second-stage PowerShell payload"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "[random-GUID].exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "$r1.exe",
+              "decoded_value": "[random-GUID].exe",
+              "description": "Randomly-named executable dropped in %LOCALAPPDATA% folder"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "code",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "code",
+              "decoded_value": "code",
+              "description": "Second-stage payload file name stored in %APPDATA%"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "kernel32.dll"
+        ],
+        "false_positives": [
+          "[random-GUID].exe",
+          "code"
+        ]
+      }
+    },
+    {
+      "sample_name": "5cb356c0abf945dd881ed6301509bb6d3289a47f9c35e36b65b94e1b0cc38edc.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "ZnRwOi8vODguMTk4LjM1LjUw",
+          "decoded_value": "ftp://88.198.35.50/upload/",
+          "description": "FTP server URL used as the C2 upload destination"
+        },
+        {
+          "type": "ip",
+          "original_value": "ODguMTk4LjM1LjUw",
+          "decoded_value": "88.198.35.50",
+          "description": "IP address of the FTP server hosting the C2 infrastructure"
+        },
+        {
+          "type": "domain",
+          "original_value": "cmFkaW5ib29rc3RvcmUuY29t",
+          "decoded_value": "radinbookstore.com",
+          "description": "Domain portion of the FTP server hostname used for C2 communications"
+        },
+        {
+          "type": "file_name",
+          "original_value": "log_*.txt",
+          "decoded_value": "log_*.txt",
+          "description": "Randomly-named encrypted log file created in %TEMP% to track execution progress"
+        },
+        {
+          "type": "file_name",
+          "original_value": "processed_systems.txt",
+          "decoded_value": "processed_systems.txt",
+          "description": "Remote file on the FTP server used to track which systems have already been processed"
+        }
+      ],
+      "processing_time": 3.5237557888031006,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 5,
+        "matches": 2,
+        "obfuscated_matches": 2,
+        "precision": 0.4,
+        "recall": 0.5,
+        "f1_score": 0.4444444444444445,
+        "obfuscated_precision": 0.4,
+        "obfuscated_recall": 0.6666666666666666,
+        "obfuscated_f1_score": 0.5,
+        "detailed_matches": [
+          {
+            "extracted": "ftp://88.198.35.50/upload/",
+            "ground_truth": "ftp://88.198.35.50",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "ZnRwOi8vODguMTk4LjM1LjUw",
+              "decoded_value": "ftp://88.198.35.50/upload/",
+              "description": "FTP server URL used as the C2 upload destination"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "88.198.35.50",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "ip",
+              "original_value": "ODguMTk4LjM1LjUw",
+              "decoded_value": "88.198.35.50",
+              "description": "IP address of the FTP server hosting the C2 infrastructure"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "radinbookstore.com",
+            "ground_truth": "radinbookstore.com",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "cmFkaW5ib29rc3RvcmUuY29t",
+              "decoded_value": "radinbookstore.com",
+              "description": "Domain portion of the FTP server hostname used for C2 communications"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "log_*.txt",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "log_*.txt",
+              "decoded_value": "log_*.txt",
+              "description": "Randomly-named encrypted log file created in %TEMP% to track execution progress"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "processed_systems.txt",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "processed_systems.txt",
+              "decoded_value": "processed_systems.txt",
+              "description": "Remote file on the FTP server used to track which systems have already been processed"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "BookStore@radinbookstore.com"
+        ],
+        "false_positives": [
+          "88.198.35.50",
+          "log_*.txt",
+          "processed_systems.txt"
+        ]
+      }
+    },
+    {
+      "sample_name": "5ddbafbc30495e2853119135f2abf7b93f5457e9d39edd621237b52b38aa6837.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovL21hdGthbHYuNWdiZnJlZS5jb20vb3dlZS9vd2UuZXhl",
+          "decoded_value": "http://matkalv.5gbfree.com/owee/owe.exe",
+          "description": "Remote URL from which the second-stage payload is downloaded"
+        },
+        {
+          "type": "domain",
+          "original_value": "bWF0a2FsdjUuZ2JmcmVlLmNvbQ==",
+          "decoded_value": "matkalv.5gbfree.com",
+          "description": "Domain hosting the second-stage payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "ZmxlZWJsZS5leGU=",
+          "decoded_value": "fleeble.exe",
+          "description": "Name of the file dropped to disk and executed after download"
+        }
+      ],
+      "processing_time": 2.1992218494415283,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 1.0,
+        "obfuscated_f1_score": 1.0,
+        "detailed_matches": [
+          {
+            "extracted": "http://matkalv.5gbfree.com/owee/owe.exe",
+            "ground_truth": "http://matkalv.5gbfree.com/owee/owe.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovL21hdGthbHYuNWdiZnJlZS5jb20vb3dlZS9vd2UuZXhl",
+              "decoded_value": "http://matkalv.5gbfree.com/owee/owe.exe",
+              "description": "Remote URL from which the second-stage payload is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "matkalv.5gbfree.com",
+            "ground_truth": "matkalv.5gbfree.com",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "bWF0a2FsdjUuZ2JmcmVlLmNvbQ==",
+              "decoded_value": "matkalv.5gbfree.com",
+              "description": "Domain hosting the second-stage payload"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "fleeble.exe",
+            "ground_truth": "fleeble.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "ZmxlZWJsZS5leGU=",
+              "decoded_value": "fleeble.exe",
+              "description": "Name of the file dropped to disk and executed after download"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "5dfde4bff42949705c4bbce0b37dfc88b0fd5d447fd8f5aed00850b6264d1160.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cHM6Ly9iaXRibG9iLmNvbS9Eb3dubG9hZC9PcTc1UmQzYkZUaVU0Zy91cGRhdGUuanBn",
+          "decoded_value": "https://bitblob.com/Download/Oq75Rd3bFTiU4g/update.jpg",
+          "description": "Download URL for the payload (base64-encoded in script)"
+        },
+        {
+          "type": "domain",
+          "original_value": "aHR0cHM6Ly9iaXRibG9iLmNvbS9Eb3dubG9hZC9PcTc1UmQzYkZUaVU0Zy91cGRhdGUuanBn",
+          "decoded_value": "bitblob.com",
+          "description": "Domain hosting the payload download"
+        },
+        {
+          "type": "file_name",
+          "original_value": "YS5sbms=",
+          "decoded_value": "a.lnk",
+          "description": "Name of the shortcut (.lnk) file created in the Startup folder (base64-encoded in script)"
+        },
+        {
+          "type": "file_name",
+          "original_value": "LmpwZw==",
+          "decoded_value": ".jpg",
+          "description": "Temporary file extension used during download (base64-encoded in script)"
+        },
+        {
+          "type": "file_name",
+          "original_value": "LmV4ZQ==",
+          "decoded_value": ".exe",
+          "description": "Final file extension after renaming the downloaded file (base64-encoded in script)"
+        }
+      ],
+      "processing_time": 4.895879745483398,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 5,
+        "matches": 1,
+        "obfuscated_matches": 1,
+        "precision": 0.2,
+        "recall": 0.3333333333333333,
+        "f1_score": 0.25,
+        "obfuscated_precision": 0.2,
+        "obfuscated_recall": 0.3333333333333333,
+        "obfuscated_f1_score": 0.25,
+        "detailed_matches": [
+          {
+            "extracted": "https://bitblob.com/Download/Oq75Rd3bFTiU4g/update.jpg",
+            "ground_truth": "https://biteblob.com/Download/Oq75Rd3bFTiU4g/update.jpg",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cHM6Ly9iaXRibG9iLmNvbS9Eb3dubG9hZC9PcTc1UmQzYkZUaVU0Zy91cGRhdGUuanBn",
+              "decoded_value": "https://bitblob.com/Download/Oq75Rd3bFTiU4g/update.jpg",
+              "description": "Download URL for the payload (base64-encoded in script)"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "bitblob.com",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "aHR0cHM6Ly9iaXRibG9iLmNvbS9Eb3dubG9hZC9PcTc1UmQzYkZUaVU0Zy91cGRhdGUuanBn",
+              "decoded_value": "bitblob.com",
+              "description": "Domain hosting the payload download"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "a.lnk",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "YS5sbms=",
+              "decoded_value": "a.lnk",
+              "description": "Name of the shortcut (.lnk) file created in the Startup folder (base64-encoded in script)"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": ".jpg",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "LmpwZw==",
+              "decoded_value": ".jpg",
+              "description": "Temporary file extension used during download (base64-encoded in script)"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": ".exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "LmV4ZQ==",
+              "decoded_value": ".exe",
+              "description": "Final file extension after renaming the downloaded file (base64-encoded in script)"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "biteblob.com",
+          "update.jpg"
+        ],
+        "false_positives": [
+          "bitblob.com",
+          "a.lnk",
+          ".jpg",
+          ".exe"
+        ]
+      }
+    },
+    {
+      "sample_name": "5fa1efefeeb492398f9ecf8bddd9234e9397ace0487c6d62d7b44ca2c768e966.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovL2x2cnhkLjNlZXdlYi5jb20vbmFuby9DYWxjdWxhdG9yLmV4ZQ==",
+          "decoded_value": "http://lvrxd.3eeweb.com/nano/Calculator.exe",
+          "description": "Remote payload URL used to download the executable"
+        },
+        {
+          "type": "domain",
+          "original_value": "aHR0cDovL2x2cnhkLjNlZXdlYi5jb20vbmFuby9DYWxjdWxhdG9yLmV4ZQ==",
+          "decoded_value": "lvrxd.3eeweb.com",
+          "description": "Domain hosting the remote payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "dGVzdC5leGU=",
+          "decoded_value": "test.exe",
+          "description": "Local filename under %TEMP% where the downloaded payload is saved and executed"
+        }
+      ],
+      "processing_time": 4.002502918243408,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 1.0,
+        "obfuscated_f1_score": 1.0,
+        "detailed_matches": [
+          {
+            "extracted": "http://lvrxd.3eeweb.com/nano/Calculator.exe",
+            "ground_truth": "http://lvrxd.3eeweb.com/nano/Calculator.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovL2x2cnhkLjNlZXdlYi5jb20vbmFuby9DYWxjdWxhdG9yLmV4ZQ==",
+              "decoded_value": "http://lvrxd.3eeweb.com/nano/Calculator.exe",
+              "description": "Remote payload URL used to download the executable"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "lvrxd.3eeweb.com",
+            "ground_truth": "lvrxd.3eeweb.com",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "aHR0cDovL2x2cnhkLjNlZXdlYi5jb20vbmFuby9DYWxjdWxhdG9yLmV4ZQ==",
+              "decoded_value": "lvrxd.3eeweb.com",
+              "description": "Domain hosting the remote payload"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "test.exe",
+            "ground_truth": "test.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "dGVzdC5leGU=",
+              "decoded_value": "test.exe",
+              "description": "Local filename under %TEMP% where the downloaded payload is saved and executed"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "ff9c02e3d77c5e002a9c93a64fc33c184b94802642fa23eae8d6e88e18c41c35.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "d3d3LmxvbmRvbm9mZmljZXMud2Vic2l0ZS9kb3dubG9hZC9zdGFydHVwLmV4ZQ==",
+          "decoded_value": "https://www.londonoffices.website/download/startup.exe",
+          "description": "Base64-encoded URL from which the second-stage payload (startup.exe) is downloaded"
+        },
+        {
+          "type": "domain",
+          "original_value": "www.londonoffices.website",
+          "decoded_value": "www.londonoffices.website",
+          "description": "Domain hosting the second-stage payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "startup.exe",
+          "decoded_value": "startup.exe",
+          "description": "Name of the executable file downloaded and executed from %TEMP%"
+        }
+      ],
+      "processing_time": 4.015679836273193,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 1.0,
+        "obfuscated_f1_score": 1.0,
+        "detailed_matches": [
+          {
+            "extracted": "https://www.londonoffices.website/download/startup.exe",
+            "ground_truth": "www.londonoffices.website/download/startup.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "d3d3LmxvbmRvbm9mZmljZXMud2Vic2l0ZS9kb3dubG9hZC9zdGFydHVwLmV4ZQ==",
+              "decoded_value": "https://www.londonoffices.website/download/startup.exe",
+              "description": "Base64-encoded URL from which the second-stage payload (startup.exe) is downloaded"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "www.londonoffices.website",
+            "ground_truth": "londonoffices.website",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "www.londonoffices.website",
+              "decoded_value": "www.londonoffices.website",
+              "description": "Domain hosting the second-stage payload"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "startup.exe",
+            "ground_truth": "startup.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "startup.exe",
+              "decoded_value": "startup.exe",
+              "description": "Name of the executable file downloaded and executed from %TEMP%"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "ff6bb9932a2c146b69d95f2c3a38baf4c7170a1bf3807636231eb653198b36d6.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovL1lPVVJfU0VSVkVSX0lQOjgwODAvdTk0ZzFuN3guZXhl",
+          "decoded_value": "http://YOUR_SERVER_IP:8080/u94g1n7x.exe",
+          "description": "URL from which the miner payload (helpctr.exe) is downloaded"
+        },
+        {
+          "type": "url",
+          "original_value": "aHR0cDovL1lPVVJfU0VSVkVSX0lQOjgwODAvcTloMmsxczMudHh0",
+          "decoded_value": "http://YOUR_SERVER_IP:8080/q9h2k1s3.txt",
+          "description": "URL that returns the wallet address for the miner"
+        },
+        {
+          "type": "url",
+          "original_value": "aHR0cDovL1lPVVJfU0VSVkVSX0lQOjgwODAvejhsNG02YjUudHh0",
+          "decoded_value": "http://YOUR_SERVER_IP:8080/z8l4m6b5.txt",
+          "description": "URL that returns the mining pool address"
+        },
+        {
+          "type": "file_name",
+          "original_value": "aGVscGN0ci5leGU=",
+          "decoded_value": "helpctr.exe",
+          "description": "Name of the dropped miner executable stored in %PUBLIC%\\helpctr.exe"
+        }
+      ],
+      "processing_time": 13.766921520233154,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 5,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 4,
+        "matches": 3,
+        "obfuscated_matches": 2,
+        "precision": 0.75,
+        "recall": 0.6,
+        "f1_score": 0.6666666666666665,
+        "obfuscated_precision": 0.5,
+        "obfuscated_recall": 0.5,
+        "obfuscated_f1_score": 0.5,
+        "detailed_matches": [
+          {
+            "extracted": "http://YOUR_SERVER_IP:8080/u94g1n7x.exe",
+            "ground_truth": "http://YOUR_SERVER_IP:8080/u94g1n7x.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovL1lPVVJfU0VSVkVSX0lQOjgwODAvdTk0ZzFuN3guZXhl",
+              "decoded_value": "http://YOUR_SERVER_IP:8080/u94g1n7x.exe",
+              "description": "URL from which the miner payload (helpctr.exe) is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "http://YOUR_SERVER_IP:8080/q9h2k1s3.txt",
+            "ground_truth": "http://YOUR_SERVER_IP:8080/q9h2k1s3.txt",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovL1lPVVJfU0VSVkVSX0lQOjgwODAvcTloMmsxczMudHh0",
+              "decoded_value": "http://YOUR_SERVER_IP:8080/q9h2k1s3.txt",
+              "description": "URL that returns the wallet address for the miner"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "http://YOUR_SERVER_IP:8080/z8l4m6b5.txt",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovL1lPVVJfU0VSVkVSX0lQOjgwODAvejhsNG02YjUudHh0",
+              "decoded_value": "http://YOUR_SERVER_IP:8080/z8l4m6b5.txt",
+              "description": "URL that returns the mining pool address"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "helpctr.exe",
+            "ground_truth": "helpctr.exe",
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "aGVscGN0ci5leGU=",
+              "decoded_value": "helpctr.exe",
+              "description": "Name of the dropped miner executable stored in %PUBLIC%\\helpctr.exe"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "u94g1n7x.exe",
+          "q9h2k1s3.txt"
+        ],
+        "false_positives": [
+          "http://YOUR_SERVER_IP:8080/z8l4m6b5.txt"
+        ]
+      }
+    },
+    {
+      "sample_name": "fea75fc54e0117e0c1f7caa00db61414c517fb162a898d43aa27f612324974d8.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [],
+      "processing_time": 5.777146100997925,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://toxicsolutions.ru/upload/praisefud.exe",
+          "praisefud.exe",
+          "fleeble.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "fdf1d959e3b07dfd9804f1e8e8783d5505c2030e24e98a1872f527f173910617.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [],
+      "processing_time": 7.386487007141113,
+      "success": false,
+      "error_message": "400 Client Error: Bad Request for url: https://openrouter.ai/api/v1/chat/completions",
+      "ground_truth_match": null
+    },
+    {
+      "sample_name": "fc7bef03f846865a81209de2bf31ea78192a72f2f459ff633c57f8e2cff2a8a3.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovL25ldC5nZXRob3N0LnB3L3dpbmRyby5leGU=",
+          "decoded_value": "http://net.gethost.pw/windro.exe",
+          "description": "URL from which the second-stage executable is downloaded"
+        },
+        {
+          "type": "domain",
+          "original_value": "bmV0LmdldGhvc3QucHc=",
+          "decoded_value": "net.gethost.pw",
+          "description": "Domain hosting the payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "ZmxlZWJsZS5leGU=",
+          "decoded_value": "fleele.exe",
+          "description": "Name under which the downloaded payload is saved and executed"
+        }
+      ],
+      "processing_time": 4.328561067581177,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 3,
+        "matches": 2,
+        "obfuscated_matches": 2,
+        "precision": 0.6666666666666666,
+        "recall": 0.5,
+        "f1_score": 0.5714285714285715,
+        "obfuscated_precision": 0.6666666666666666,
+        "obfuscated_recall": 0.5,
+        "obfuscated_f1_score": 0.5714285714285715,
+        "detailed_matches": [
+          {
+            "extracted": "http://net.gethost.pw/windro.exe",
+            "ground_truth": "http://net.gethost.pw/windro.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovL25ldC5nZXRob3N0LnB3L3dpbmRyby5leGU=",
+              "decoded_value": "http://net.gethost.pw/windro.exe",
+              "description": "URL from which the second-stage executable is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "net.gethost.pw",
+            "ground_truth": "net.gethost.pw",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "bmV0LmdldGhvc3QucHc=",
+              "decoded_value": "net.gethost.pw",
+              "description": "Domain hosting the payload"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "fleele.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "ZmxlZWJsZS5leGU=",
+              "decoded_value": "fleele.exe",
+              "description": "Name under which the downloaded payload is saved and executed"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "fleeble.exe",
+          "windro.exe"
+        ],
+        "false_positives": [
+          "fleele.exe"
+        ]
+      }
+    },
+    {
+      "sample_name": "fbe36b0c463f99c13cbda03431c693050dedb057b55ffcce76bd433185f00450.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "ip",
+          "original_value": "91.92.66.242",
+          "decoded_value": "91.92.66.242",
+          "description": "Primary DNS server IP address hard-coded in the script"
+        },
+        {
+          "type": "ip",
+          "original_value": "8.8.8.8",
+          "decoded_value": "8.8.8.8",
+          "description": "Secondary DNS server IP address (Google public DNS) hard-coded in the script"
+        },
+        {
+          "type": "file_name",
+          "original_value": "certutil.exe",
+          "decoded_value": "certutil.exe",
+          "description": "Windows built-in certificate utility invoked to install the embedded certificate"
+        },
+        {
+          "type": "file_name",
+          "original_value": "certificate.cer",
+          "decoded_value": "certificate.cer",
+          "description": "Temporary certificate file written to %TEMP%\\certificate.cer before installation"
+        },
+        {
+          "type": "file_name",
+          "original_value": "powershell.exe",
+          "decoded_value": "powershell.exe",
+          "description": "PowerShell interpreter re-launched with elevated privileges if not already running as Administrator"
+        }
+      ],
+      "processing_time": 18.006760597229004,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 5,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 0.6,
+        "recall": 1.0,
+        "f1_score": 0.7499999999999999,
+        "obfuscated_precision": 0.6,
+        "obfuscated_recall": 1.0,
+        "obfuscated_f1_score": 0.7499999999999999,
+        "detailed_matches": [
+          {
+            "extracted": "91.92.66.242",
+            "ground_truth": "91.92.66.242",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "ip",
+              "original_value": "91.92.66.242",
+              "decoded_value": "91.92.66.242",
+              "description": "Primary DNS server IP address hard-coded in the script"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "8.8.8.8",
+            "ground_truth": "8.8.8.8",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "ip",
+              "original_value": "8.8.8.8",
+              "decoded_value": "8.8.8.8",
+              "description": "Secondary DNS server IP address (Google public DNS) hard-coded in the script"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "certutil.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "certutil.exe",
+              "decoded_value": "certutil.exe",
+              "description": "Windows built-in certificate utility invoked to install the embedded certificate"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "certificate.cer",
+            "ground_truth": "certificate.cer",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "certificate.cer",
+              "decoded_value": "certificate.cer",
+              "description": "Temporary certificate file written to %TEMP%\\certificate.cer before installation"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "powershell.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "powershell.exe",
+              "decoded_value": "powershell.exe",
+              "description": "PowerShell interpreter re-launched with elevated privileges if not already running as Administrator"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [],
+        "false_positives": [
+          "certutil.exe",
+          "powershell.exe"
+        ]
+      }
+    },
+    {
+      "sample_name": "fbdd6850741bd495c5b5e21057eee523e9653267c82a8c093e83ab9b6d12c37e.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovL2RkbDMuZGF0YS5odS9nZXQvMC85NTUxMTYyL3NrZS5leGU=",
+          "decoded_value": "http://ddl3.data.hu/get/0/9551162/ske.exe",
+          "description": "Remote URL from which the second-stage payload is downloaded"
+        },
+        {
+          "type": "domain",
+          "original_value": "ZGRsMy5kYXRhLmh1",
+          "decoded_value": "ddl3.data.hu",
+          "description": "Domain hosting the second-stage payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "ZmxlZWJsZS5leGU=",
+          "decoded_value": "fleeble.exe",
+          "description": "Name of the executable file downloaded and executed on the victim system"
+        }
+      ],
+      "processing_time": 2.1927525997161865,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 0.75,
+        "f1_score": 0.8571428571428571,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 0.75,
+        "obfuscated_f1_score": 0.8571428571428571,
+        "detailed_matches": [
+          {
+            "extracted": "http://ddl3.data.hu/get/0/9551162/ske.exe",
+            "ground_truth": "http://ddl3.data.hu/get/0/9551162/ske.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovL2RkbDMuZGF0YS5odS9nZXQvMC85NTUxMTYyL3NrZS5leGU=",
+              "decoded_value": "http://ddl3.data.hu/get/0/9551162/ske.exe",
+              "description": "Remote URL from which the second-stage payload is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "ddl3.data.hu",
+            "ground_truth": "ddl3.data.hu",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "ZGRsMy5kYXRhLmh1",
+              "decoded_value": "ddl3.data.hu",
+              "description": "Domain hosting the second-stage payload"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "fleeble.exe",
+            "ground_truth": "fleeble.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "ZmxlZWJsZS5leGU=",
+              "decoded_value": "fleeble.exe",
+              "description": "Name of the executable file downloaded and executed on the victim system"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "ske.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "fbcba7e01d26c06572fdc00530ee7345301fc8639a37ad48cf4be84b46bc8074.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cHM6Ly91bmRvLnNnL2ZpbGUuZXhl",
+          "decoded_value": "https://undo.sg/file.exe",
+          "description": "Base64-encoded URL used to download the first-stage payload (updater.exe)"
+        },
+        {
+          "type": "url",
+          "original_value": "aHR0cHM6Ly91bmRvLnNnL3NjcmlwdC5wczE=",
+          "decoded_value": "https://undo.sg/script.ps1",
+          "description": "Base64-encoded URL used to download the persistence PowerShell script (WindowsUpdate.ps1)"
+        },
+        {
+          "type": "domain",
+          "original_value": "undo.sg",
+          "decoded_value": "undo.sg",
+          "description": "Domain hosting both the initial executable and the persistence script"
+        },
+        {
+          "type": "file_name",
+          "original_value": "updater.exe",
+          "decoded_value": "updater.exe",
+          "description": "Name of the downloaded executable payload stored in a hidden folder"
+        },
+        {
+          "type": "file_name",
+          "original_value": "WindowsUpdate.ps1",
+          "decoded_value": "WindowsUpdate.ps1",
+          "description": "Name of the downloaded PowerShell script used for persistence via Run registry key"
+        }
+      ],
+      "processing_time": 6.622837781906128,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 8,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 5,
+        "matches": 5,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 0.625,
+        "f1_score": 0.7692307692307693,
+        "obfuscated_precision": 0.6,
+        "obfuscated_recall": 0.75,
+        "obfuscated_f1_score": 0.6666666666666665,
+        "detailed_matches": [
+          {
+            "extracted": "https://undo.sg/file.exe",
+            "ground_truth": "https://undo.sg/file.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cHM6Ly91bmRvLnNnL2ZpbGUuZXhl",
+              "decoded_value": "https://undo.sg/file.exe",
+              "description": "Base64-encoded URL used to download the first-stage payload (updater.exe)"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "https://undo.sg/script.ps1",
+            "ground_truth": "https://undo.sg/script.ps1",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cHM6Ly91bmRvLnNnL3NjcmlwdC5wczE=",
+              "decoded_value": "https://undo.sg/script.ps1",
+              "description": "Base64-encoded URL used to download the persistence PowerShell script (WindowsUpdate.ps1)"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "undo.sg",
+            "ground_truth": "undo.sg",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "undo.sg",
+              "decoded_value": "undo.sg",
+              "description": "Domain hosting both the initial executable and the persistence script"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "updater.exe",
+            "ground_truth": "updater.exe",
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "updater.exe",
+              "decoded_value": "updater.exe",
+              "description": "Name of the downloaded executable payload stored in a hidden folder"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "WindowsUpdate.ps1",
+            "ground_truth": "WindowsUpdate.ps1",
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "WindowsUpdate.ps1",
+              "decoded_value": "WindowsUpdate.ps1",
+              "description": "Name of the downloaded PowerShell script used for persistence via Run registry key"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "file.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "fb6555c2a569fef4ca9b0f6a5a0ee18caa773e75cbf11a522fc64fd50084d38b.sample",
+      "model_name": "moonshotai/kimi-k2",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovL2JvaXNlZGVsYXJpdmllcmUuY29tL2JhY2t1cC9jc3MvbmV3Y29uZmlnLmV4ZQ==",
+          "decoded_value": "http://boisedelariviere.com/backup/css/newconfig.exe",
+          "description": "Remote payload URL from which the next-stage executable is downloaded"
+        },
+        {
+          "type": "domain",
+          "original_value": "aHR0cDovL2JvaXNlZGVsYXJpdmllcmUuY29t",
+          "decoded_value": "boisedelariviere.com",
+          "description": "Domain hosting the malicious payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "bmVvbmU2LmV4ZQ==",
+          "decoded_value": "neone6.exe",
+          "description": "Local filename used to save and execute the downloaded payload"
+        }
+      ],
+      "processing_time": 10.63251781463623,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 0.75,
+        "f1_score": 0.8571428571428571,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 0.75,
+        "obfuscated_f1_score": 0.8571428571428571,
+        "detailed_matches": [
+          {
+            "extracted": "http://boisedelariviere.com/backup/css/newconfig.exe",
+            "ground_truth": "http://boisedelariviere.com/backup/css/newconfig.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovL2JvaXNlZGVsYXJpdmllcmUuY29tL2JhY2t1cC9jc3MvbmV3Y29uZmlnLmV4ZQ==",
+              "decoded_value": "http://boisedelariviere.com/backup/css/newconfig.exe",
+              "description": "Remote payload URL from which the next-stage executable is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "boisedelariviere.com",
+            "ground_truth": "boisedelariviere.com",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "aHR0cDovL2JvaXNlZGVsYXJpdmllcmUuY29t",
+              "decoded_value": "boisedelariviere.com",
+              "description": "Domain hosting the malicious payload"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "neone6.exe",
+            "ground_truth": "neone6.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "bmVvbmU2LmV4ZQ==",
+              "decoded_value": "neone6.exe",
+              "description": "Local filename used to save and execute the downloaded payload"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "newconfig.exe"
+        ],
+        "false_positives": []
+      }
+    }
+  ],
+  "ioc_statistics": {
+    "total_iocs_extracted": 194,
+    "ioc_type_distribution": {
+      "url": 61,
+      "domain": 46,
+      "file_name": 79,
+      "ip": 8
+    },
+    "average_iocs_per_sample": 3.5272727272727273
+  }
+}

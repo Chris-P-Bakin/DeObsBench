@@ -1,0 +1,3650 @@
+{
+  "model_name": "deepseek/deepseek-r1-0528",
+  "total_samples": 58,
+  "successful_samples": 54,
+  "failed_samples": 4,
+  "total_processing_time": 3057.1873672008514,
+  "average_processing_time": 52.710127020704334,
+  "sample_results": [
+    {
+      "sample_name": "0a0b5f95f37a91f99e849ab14a53c740198abca9b4fe3322e6ff9f34b810dfe7.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "'http://labid.com.my/spe/spendy.exe'",
+          "decoded_value": "http://labid.com.my/spe/spendy.exe",
+          "description": "URL from which the malicious file is downloaded"
+        },
+        {
+          "type": "file_name",
+          "original_value": "\"$Env:TEMP\\spendy.exe\"",
+          "decoded_value": "spendy.exe",
+          "description": "Filename of the downloaded malicious executable"
+        },
+        {
+          "type": "domain",
+          "original_value": "labid.com.my",
+          "decoded_value": "labid.com.my",
+          "description": "Domain hosting the malicious file"
+        }
+      ],
+      "processing_time": 1.698683500289917,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 3,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 1.0,
+        "obfuscated_f1_score": 1.0,
+        "detailed_matches": [
+          {
+            "extracted": "http://labid.com.my/spe/spendy.exe",
+            "ground_truth": "http://labid.com.my/spe/spendy.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "'http://labid.com.my/spe/spendy.exe'",
+              "decoded_value": "http://labid.com.my/spe/spendy.exe",
+              "description": "URL from which the malicious file is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "spendy.exe",
+            "ground_truth": "spendy.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "\"$Env:TEMP\\spendy.exe\"",
+              "decoded_value": "spendy.exe",
+              "description": "Filename of the downloaded malicious executable"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "labid.com.my",
+            "ground_truth": "labid.com.my",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "labid.com.my",
+              "decoded_value": "labid.com.my",
+              "description": "Domain hosting the malicious file"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "0b0988f4dff15d243c5c7283c2e8833050de97bda8f8e2b7b920b47d6839f77f.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cHM6Ly93d3cudXBsb2FkLmVlL2Rvd25sb2FkLzE4MTg1MDQ0NDQvNDQzNDkM5YzVhNmM3MjBjYWI2MjIydm0uZXhl==",
+          "decoded_value": "https://www.uploadee/download/18185044/443499c5a6c720cab622/vm.exe",
+          "description": "URL from which the malicious file is downloaded"
+        },
+        {
+          "type": "file_name",
+          "original_value": "$env:Temp\\SystemCache.exe",
+          "decoded_value": "SystemCache.exe",
+          "description": "Filename of the malicious file is saved to."
+        }
+      ],
+      "processing_time": 9.518542051315308,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 2,
+        "matches": 1,
+        "obfuscated_matches": 1,
+        "precision": 0.5,
+        "recall": 0.3333333333333333,
+        "f1_score": 0.4,
+        "obfuscated_precision": 0.5,
+        "obfuscated_recall": 0.3333333333333333,
+        "obfuscated_f1_score": 0.4,
+        "detailed_matches": [
+          {
+            "extracted": "https://www.uploadee/download/18185044/443499c5a6c720cab622/vm.exe",
+            "ground_truth": "https://www.upload.ee/download/18185044/443499c5a6c720cab622/vm.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cHM6Ly93d3cudXBsb2FkLmVlL2Rvd25sb2FkLzE4MTg1MDQ0NDQvNDQzNDkM5YzVhNmM3MjBjYWI2MjIydm0uZXhl==",
+              "decoded_value": "https://www.uploadee/download/18185044/443499c5a6c720cab622/vm.exe",
+              "description": "URL from which the malicious file is downloaded"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "SystemCache.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "$env:Temp\\SystemCache.exe",
+              "decoded_value": "SystemCache.exe",
+              "description": "Filename of the malicious file is saved to."
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "vm.exe",
+          "upload.ee"
+        ],
+        "false_positives": [
+          "SystemCache.exe"
+        ]
+      }
+    },
+    {
+      "sample_name": "0b4208640831c9ef68a1bb3942cfc2d552f2971a7e3ab0baa7fe2f5e400506d3.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "'http://cajos.in/0x/1.exe'",
+          "decoded_value": "http://cajos.in/0x/1.exe",
+          "description": "URL from which the malicious file is downloaded"
+        },
+        {
+          "type": "file_name",
+          "original_value": "'mess.exe'",
+          "decoded_value": "mess.exe",
+          "description": "Filename of the downloaded malicious executable"
+        },
+        {
+          "type": "file_name",
+          "original_value": "'mess.exe'",
+          "decoded_value": "mess.exe",
+          "description": "Filename of the executable started by the script"
+        }
+      ],
+      "processing_time": 24.38519859313965,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 3,
+        "matches": 2,
+        "obfuscated_matches": 2,
+        "precision": 0.6666666666666666,
+        "recall": 0.5,
+        "f1_score": 0.5714285714285715,
+        "obfuscated_precision": 0.6666666666666666,
+        "obfuscated_recall": 0.5,
+        "obfuscated_f1_score": 0.5714285714285715,
+        "detailed_matches": [
+          {
+            "extracted": "http://cajos.in/0x/1.exe",
+            "ground_truth": "http://cajos.in/0x/1.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "'http://cajos.in/0x/1.exe'",
+              "decoded_value": "http://cajos.in/0x/1.exe",
+              "description": "URL from which the malicious file is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "mess.exe",
+            "ground_truth": "mess.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "'mess.exe'",
+              "decoded_value": "mess.exe",
+              "description": "Filename of the downloaded malicious executable"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "mess.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "'mess.exe'",
+              "decoded_value": "mess.exe",
+              "description": "Filename of the executable started by the script"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "1.exe",
+          "cajos.in"
+        ],
+        "false_positives": [
+          "mess.exe"
+        ]
+      }
+    },
+    {
+      "sample_name": "0c42a151babf7a4fd94564156245d0ac8e934282b996b3bb14cbe151f4233863.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [],
+      "processing_time": 15.879134178161621,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 1,
+        "total_obfuscated_gt": 1,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "wuauclt.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "0cc81d1e13103af100095ec09ba7fdcb8a837bd463686bb09402e0d23b3f622f.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovLzcvNi43NC4xMjcuMzgvZGVmYXVsdC1uY28uaHRtbA==",
+          "decoded_value": "http://76.74.127.38/default-nco.html",
+          "description": "URL used to download malicious content"
+        }
+      ],
+      "processing_time": 31.977720022201538,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 1,
+        "matches": 1,
+        "obfuscated_matches": 1,
+        "precision": 1.0,
+        "recall": 0.3333333333333333,
+        "f1_score": 0.5,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 0.3333333333333333,
+        "obfuscated_f1_score": 0.5,
+        "detailed_matches": [
+          {
+            "extracted": "http://76.74.127.38/default-nco.html",
+            "ground_truth": "http://76.74.127.38/default-nco.html",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovLzcvNi43NC4xMjcuMzgvZGVmYXVsdC1uY28uaHRtbA==",
+              "decoded_value": "http://76.74.127.38/default-nco.html",
+              "description": "URL used to download malicious content"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "76.74.127.38",
+          "default-nco.html"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "0e0b81f4d5a791840493297b29c6715fb391ae7ae07c665dede01507bb59352f.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "'hxxp://aircraftpns[.]_layout/images/sysmonitor.exe', 'exe'",
+          "decoded_value": "http://aircraftpnns.com/_layout/images/symmonitor.exe",
+          "description": "URL used to download malicious file"
+        },
+        {
+          "type": "file_name",
+          "original_value": "'fleebble.exe",
+          "decoded_value": "fleebble.exe",
+          "description": "Malicious executable file name"
+        }
+      ],
+      "processing_time": 12.591390609741211,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 2,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [
+          {
+            "extracted": "http://aircraftpnns.com/_layout/images/symmonitor.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "'hxxp://aircraftpns[.]_layout/images/sysmonitor.exe', 'exe'",
+              "decoded_value": "http://aircraftpnns.com/_layout/images/symmonitor.exe",
+              "description": "URL used to download malicious file"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "fleebble.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "'fleebble.exe",
+              "decoded_value": "fleebble.exe",
+              "description": "Malicious executable file name"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "http://aircraftpns.com/_layout/images/sysmonitor.exe",
+          "sysmonitor.exe",
+          "aircraftpns.com",
+          "fleeble.exe"
+        ],
+        "false_positives": [
+          "http://aircraftpnns.com/_layout/images/symmonitor.exe",
+          "fleebble.exe"
+        ]
+      }
+    },
+    {
+      "sample_name": "0eb254d9e890cc98ef789293cfef3f127063ec2130cb02a9adeded544debaeb9.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "http://ddl7.data.hu/get/get/0/9552103/PIfdp.exe",
+          "decoded_value": "http://dll7.data.hu/get/0/9552103/PIfdp.exe",
+          "description": "URL used to download a malicious executable"
+        },
+        {
+          "type": "file_name",
+          "original_value": "'fleeble.exe'",
+          "decoded_value": "fleeble.exe",
+          "description": "Filename of the malicious executable to be executed"
+        }
+      ],
+      "processing_time": 11.54836630821228,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 2,
+        "matches": 1,
+        "obfuscated_matches": 1,
+        "precision": 0.5,
+        "recall": 0.25,
+        "f1_score": 0.3333333333333333,
+        "obfuscated_precision": 0.5,
+        "obfuscated_recall": 0.25,
+        "obfuscated_f1_score": 0.3333333333333333,
+        "detailed_matches": [
+          {
+            "extracted": "http://dll7.data.hu/get/0/9552103/PIfdp.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "http://ddl7.data.hu/get/get/0/9552103/PIfdp.exe",
+              "decoded_value": "http://dll7.data.hu/get/0/9552103/PIfdp.exe",
+              "description": "URL used to download a malicious executable"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "fleeble.exe",
+            "ground_truth": "fleeble.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "'fleeble.exe'",
+              "decoded_value": "fleeble.exe",
+              "description": "Filename of the malicious executable to be executed"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "http://ddl7.data.hu/get/0/9552103/PFIfdp.exe",
+          "PFIfdp.exe",
+          "ddl7.data.hu"
+        ],
+        "false_positives": [
+          "http://dll7.data.hu/get/0/9552103/PIfdp.exe"
+        ]
+      }
+    },
+    {
+      "sample_name": "0eddca25fecf32891549287656e25867fa7b787e0245d5ee0a537b55299f78cf.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cHM6Ly9vL3JpY2tldC5jb20vdmpiZHdiLmV4ZQ==",
+          "decoded_value": "https://a.pomf.cat/vjadwb.exe",
+          "description": "URL from which the malware downloads the executable"
+        },
+        {
+          "type": "file_name",
+          "original_value": "$Env:TEMP\\euioko.exe",
+          "decoded_value": "C:\\Users\\Admin\\AppData\\euioko.exe",
+          "description": "File name and path where the downloaded executable"
+        }
+      ],
+      "processing_time": 15.027131795883179,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 2,
+        "matches": 1,
+        "obfuscated_matches": 1,
+        "precision": 0.5,
+        "recall": 0.25,
+        "f1_score": 0.3333333333333333,
+        "obfuscated_precision": 0.5,
+        "obfuscated_recall": 0.25,
+        "obfuscated_f1_score": 0.3333333333333333,
+        "detailed_matches": [
+          {
+            "extracted": "https://a.pomf.cat/vjadwb.exe",
+            "ground_truth": "https://a.pomf.cat/vjadwb.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cHM6Ly9vL3JpY2tldC5jb20vdmpiZHdiLmV4ZQ==",
+              "decoded_value": "https://a.pomf.cat/vjadwb.exe",
+              "description": "URL from which the malware downloads the executable"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "C:\\Users\\Admin\\AppData\\euioko.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "$Env:TEMP\\euioko.exe",
+              "decoded_value": "C:\\Users\\Admin\\AppData\\euioko.exe",
+              "description": "File name and path where the downloaded executable"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "a.pomf.cat",
+          "vjadwb.exe",
+          "euioko.exe"
+        ],
+        "false_positives": [
+          "C:\\Users\\Admin\\AppData\\euioko.exe"
+        ]
+      }
+    },
+    {
+      "sample_name": "0ee311f11c655bf10ee6b58c8aaba3c0d888aca264bca8bbe462d336fecfc7ee.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "http://94.102.50 39/keyt.exe",
+          "decoded_value": "http://94.102.50 39/keyt.exe",
+          "description": "Source URL for downloading malicious file download"
+        },
+        {
+          "type": "file_name",
+          "original_value": "keyt.exe",
+          "decoded_value": "keyt.exe",
+          "description": "Malicious executable file downloaded and executed."
+        },
+        {
+          "type": "file_path",
+          "original_value": "94.102.50 39",
+          "decoded_value": "94.102.50 39",
+          "description": "IP address hosting the malicious file."
+        }
+      ],
+      "processing_time": 87.01761174201965,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 3,
+        "matches": 2,
+        "obfuscated_matches": 2,
+        "precision": 0.6666666666666666,
+        "recall": 0.6666666666666666,
+        "f1_score": 0.6666666666666666,
+        "obfuscated_precision": 0.6666666666666666,
+        "obfuscated_recall": 0.6666666666666666,
+        "obfuscated_f1_score": 0.6666666666666666,
+        "detailed_matches": [
+          {
+            "extracted": "http://94.102.50 39/keyt.exe",
+            "ground_truth": "http://94.102.50.39/keyt.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "http://94.102.50 39/keyt.exe",
+              "decoded_value": "http://94.102.50 39/keyt.exe",
+              "description": "Source URL for downloading malicious file download"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "keyt.exe",
+            "ground_truth": "keyt.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "keyt.exe",
+              "decoded_value": "keyt.exe",
+              "description": "Malicious executable file downloaded and executed."
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "94.102.50 39",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_path",
+              "original_value": "94.102.50 39",
+              "decoded_value": "94.102.50 39",
+              "description": "IP address hosting the malicious file."
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "94.102.50.39"
+        ],
+        "false_positives": [
+          "94.102.50 39"
+        ]
+      }
+    },
+    {
+      "sample_name": "0f58742ab1e15f8aa0dfc32ac17b4c8178138f68e9948455369f1857a54847c0.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cHM6Ly9vcHRpbWFzb2x1dGlvbnMuc3RvcmUvWENsaWVudC5leGU=",
+          "decoded_value": "https://optimasolutions.store/XClient.exe",
+          "description": "URL from which malicious executable is downloaded"
+        },
+        {
+          "type": "file_name",
+          "original_value": "WENsaWVudC5leGU=",
+          "decoded_value": "XClient.exe",
+          "description": "Filename of downloaded malicious executable"
+        }
+      ],
+      "processing_time": 1.6751952171325684,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 2,
+        "matches": 2,
+        "obfuscated_matches": 2,
+        "precision": 1.0,
+        "recall": 0.6666666666666666,
+        "f1_score": 0.8,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 0.6666666666666666,
+        "obfuscated_f1_score": 0.8,
+        "detailed_matches": [
+          {
+            "extracted": "https://optimasolutions.store/XClient.exe",
+            "ground_truth": "https://optimasolutions.store/XClient.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cHM6Ly9vcHRpbWFzb2x1dGlvbnMuc3RvcmUvWENsaWVudC5leGU=",
+              "decoded_value": "https://optimasolutions.store/XClient.exe",
+              "description": "URL from which malicious executable is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "XClient.exe",
+            "ground_truth": "XClient.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "WENsaWVudC5leGU=",
+              "decoded_value": "XClient.exe",
+              "description": "Filename of downloaded malicious executable"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "optimasolutions.store"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "1ab8a62202d1991253b308c16d147a8721aa1b71f9399eae0f44a407cfca8f84.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "'http://ddl2.data.hu/get/0/9589621k000.exe'",
+          "decoded_value": "http://ddl2.data.hu/get/0/958621/k000.exe",
+          "description": "URL used to download malicious file"
+        },
+        {
+          "type": "file_name",
+          "original_value": "'fleebble.exeexe'",
+          "decoded_value": "fleeble.exe",
+          "description": "File name of the executable to be executed"
+        }
+      ],
+      "processing_time": 6.677708387374878,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 2,
+        "matches": 2,
+        "obfuscated_matches": 2,
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1_score": 0.6666666666666666,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 0.5,
+        "obfuscated_f1_score": 0.6666666666666666,
+        "detailed_matches": [
+          {
+            "extracted": "http://ddl2.data.hu/get/0/958621/k000.exe",
+            "ground_truth": "http://ddl2.data.hu/get/0/9589621/k000.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "'http://ddl2.data.hu/get/0/9589621k000.exe'",
+              "decoded_value": "http://ddl2.data.hu/get/0/958621/k000.exe",
+              "description": "URL used to download malicious file"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "fleeble.exe",
+            "ground_truth": "fleeble.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "'fleebble.exeexe'",
+              "decoded_value": "fleeble.exe",
+              "description": "File name of the executable to be executed"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "ddl2.data.hu",
+          "k000.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "1b1ba49163765e2072e15f5b02598e88209e91c89f58d71ca99e2e2ee241dc44.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "https://dfiwod.com/2.php",
+          "decoded_value": "https://dfiwod.com/2.php",
+          "description": "URL used in web request"
+        },
+        {
+          "type": "url",
+          "original_value": "https://www.python.org/ftp/python/3.11.8/python-3.11.8-embed-amd64.zip",
+          "decoded_value": "https://www.python.org/ftp/python/3.11.8/python-3.11.8-embed-amd64.zip",
+          "description": "URL used to download Python embedded package"
+        },
+        {
+          "type": "url",
+          "original_value": "https://bootstrap.pypa.io/get-pip.py",
+          "decoded_value": "https://bootstrap.pypa.io/get-pip.py",
+          "description": "URL used to download pip installer script"
+        },
+        {
+          "type": "url",
+          "original_value": "https://dfiwod.com/up.py",
+          "decoded_value": "https://dfiwod.com/up.py",
+          "description": "URL used to download malicious Python script"
+        },
+        {
+          "type": "file_name",
+          "original_value": "runme.ps1",
+          "decoded_value": "runme.ps1",
+          "description": "Filename of PowerShell script executed"
+        },
+        {
+          "type": "file_name",
+          "original_value": "runagain.ps1",
+          "decoded_value": "runagain.ps1",
+          "description": "Filename of PowerShell script executed"
+        },
+        {
+          "type": "file_name",
+          "original_value": "up.py",
+          "decoded_value": "up.py",
+          "description": "Filename of Python script downloaded and executed"
+        },
+        {
+          "type": "file_name",
+          "original_value": "Y4TFCR",
+          "decoded_value": "Y4TFCR",
+          "description": "Directory name created in AppData"
+        }
+      ],
+      "processing_time": 2.7563369274139404,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 22,
+        "total_obfuscated_gt": 20,
+        "total_extracted": 8,
+        "matches": 6,
+        "obfuscated_matches": 6,
+        "precision": 0.75,
+        "recall": 0.2727272727272727,
+        "f1_score": 0.39999999999999997,
+        "obfuscated_precision": 0.75,
+        "obfuscated_recall": 0.3,
+        "obfuscated_f1_score": 0.4285714285714285,
+        "detailed_matches": [
+          {
+            "extracted": "https://dfiwod.com/2.php",
+            "ground_truth": "https://dfiwod.com/2.php",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "https://dfiwod.com/2.php",
+              "decoded_value": "https://dfiwod.com/2.php",
+              "description": "URL used in web request"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "https://www.python.org/ftp/python/3.11.8/python-3.11.8-embed-amd64.zip",
+            "ground_truth": "https://www.python.org/ftp/python/3.11.8/python-3.11.8-embed-amd64.zip",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "https://www.python.org/ftp/python/3.11.8/python-3.11.8-embed-amd64.zip",
+              "decoded_value": "https://www.python.org/ftp/python/3.11.8/python-3.11.8-embed-amd64.zip",
+              "description": "URL used to download Python embedded package"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "https://bootstrap.pypa.io/get-pip.py",
+            "ground_truth": "https://bootstrap.pypa.io/get-pip.py",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "https://bootstrap.pypa.io/get-pip.py",
+              "decoded_value": "https://bootstrap.pypa.io/get-pip.py",
+              "description": "URL used to download pip installer script"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "https://dfiwod.com/up.py",
+            "ground_truth": "https://dfiwod.com/up.py",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "https://dfiwod.com/up.py",
+              "decoded_value": "https://dfiwod.com/up.py",
+              "description": "URL used to download malicious Python script"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "runme.ps1",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "runme.ps1",
+              "decoded_value": "runme.ps1",
+              "description": "Filename of PowerShell script executed"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "runagain.ps1",
+            "ground_truth": "runagain.ps1",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "runagain.ps1",
+              "decoded_value": "runagain.ps1",
+              "description": "Filename of PowerShell script executed"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "up.py",
+            "ground_truth": "up.py",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "up.py",
+              "decoded_value": "up.py",
+              "description": "Filename of Python script downloaded and executed"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "Y4TFCR",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "Y4TFCR",
+              "decoded_value": "Y4TFCR",
+              "description": "Directory name created in AppData"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "script.lock",
+          "finish.lock",
+          "py_embedded.zip",
+          "finish.lock",
+          "get-pip.py",
+          "python.exe",
+          "py_embedded.zip",
+          "python-3.11.8-embed-amd64.zip",
+          "python311._pth",
+          "python.exe",
+          "python.exe",
+          "dfiwod.com",
+          "www.python.org",
+          "bootstrap.pypa.io"
+        ],
+        "false_positives": [
+          "runme.ps1",
+          "Y4TFCR"
+        ]
+      }
+    },
+    {
+      "sample_name": "1bd928c17f49ac9b2e91738c97e7341940671662a136f0bb215acaf3c1eb4d48.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [],
+      "processing_time": 18.27791666984558,
+      "success": false,
+      "error_message": "400 Client Error: Bad Request for url: https://openrouter.ai/api/v1/chat/completions",
+      "ground_truth_match": null
+    },
+    {
+      "sample_name": "1c087a48e272726651fe5d50c109c1670aecf4d7320ccb30d09e786048b6212a.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "'hxxp://worldnit[.]compu.exe'",
+          "decoded_value": "http://worldnit.com/compu.exe",
+          "description": "URL used to download malicious file"
+        },
+        {
+          "type": "file_name",
+          "original_value": "'fleeble.exe",
+          "decoded_value": "fleeble.exe",
+          "description": "Filename of the downloaded malicious executable"
+        }
+      ],
+      "processing_time": 5.290984869003296,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 2,
+        "matches": 2,
+        "obfuscated_matches": 2,
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1_score": 0.6666666666666666,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 0.5,
+        "obfuscated_f1_score": 0.6666666666666666,
+        "detailed_matches": [
+          {
+            "extracted": "http://worldnit.com/compu.exe",
+            "ground_truth": "http://worldnit.com/compu.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "'hxxp://worldnit[.]compu.exe'",
+              "decoded_value": "http://worldnit.com/compu.exe",
+              "description": "URL used to download malicious file"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "fleeble.exe",
+            "ground_truth": "fleeble.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "'fleeble.exe",
+              "decoded_value": "fleeble.exe",
+              "description": "Filename of the downloaded malicious executable"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "compu.exe",
+          "worldnit.com"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "1ccb9d6a0b855160528c7dbb5f2d12df49724c102c7238846c478f1c4fd02d32.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "https://github.com/filer404xyz/filer/raw/refs/heads/main/OneDrive.exe",
+          "decoded_value": "https://github.com/filer404xyz/filer/raw/refs/heads/main/main/OneDrive.exe",
+          "description": "URL used to download malicious executable"
+        },
+        {
+          "type": "file_name",
+          "original_value": "$env:AppData\\OneDrive.exe",
+          "decoded_value": "C:\\Users\\<USER}\\AppData\\Roaming\\OneDrive.exe",
+          "description": "Path where the downloaded executable is saved"
+        },
+        {
+          "type": "file_name",
+          "original_value": "$env:AppData\\runhidden.vbs",
+          "decoded_value": "C:\\Users\\{USER}\\AppData\\Roaming\\runhidden.vbs",
+          "description": "Path where the VBS script is saved"
+        },
+        {
+          "type": "registry",
+          "original_value": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+          "decoded_value": "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+          "description": "Registry key where the executable for persistence"
+        }
+      ],
+      "processing_time": 60.931727170944214,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 4,
+        "matches": 1,
+        "obfuscated_matches": 1,
+        "precision": 0.25,
+        "recall": 0.25,
+        "f1_score": 0.25,
+        "obfuscated_precision": 0.25,
+        "obfuscated_recall": 0.25,
+        "obfuscated_f1_score": 0.25,
+        "detailed_matches": [
+          {
+            "extracted": "https://github.com/filer404xyz/filer/raw/refs/heads/main/main/OneDrive.exe",
+            "ground_truth": "https://github.com/filer404xyz/filer/raw/refs/heads/main/OneDrive.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "https://github.com/filer404xyz/filer/raw/refs/heads/main/OneDrive.exe",
+              "decoded_value": "https://github.com/filer404xyz/filer/raw/refs/heads/main/main/OneDrive.exe",
+              "description": "URL used to download malicious executable"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "C:\\Users\\<USER}\\AppData\\Roaming\\OneDrive.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "$env:AppData\\OneDrive.exe",
+              "decoded_value": "C:\\Users\\<USER}\\AppData\\Roaming\\OneDrive.exe",
+              "description": "Path where the downloaded executable is saved"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "C:\\Users\\{USER}\\AppData\\Roaming\\runhidden.vbs",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "$env:AppData\\runhidden.vbs",
+              "decoded_value": "C:\\Users\\{USER}\\AppData\\Roaming\\runhidden.vbs",
+              "description": "Path where the VBS script is saved"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "registry",
+              "original_value": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+              "decoded_value": "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+              "description": "Registry key where the executable for persistence"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "runhidden.vbs",
+          "OneDrive.exe",
+          "github.com"
+        ],
+        "false_positives": [
+          "C:\\Users\\<USER}\\AppData\\Roaming\\OneDrive.exe",
+          "C:\\Users\\{USER}\\AppData\\Roaming\\runhidden.vbs",
+          "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run"
+        ]
+      }
+    },
+    {
+      "sample_name": "1d9f60b7100431f3e9eb6bea0855c101289a3fb2c60d53ebccb6166491ad9d7a.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [],
+      "processing_time": 96.45161390304565,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "fleeb.exe",
+          "https://1fichier.com/?v8w3g736hj",
+          "1fichier.com"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "01e4fa6a0b5f7f8838fea407ff7177c0a49f8fe19b35e0eb90a7aee327cf7a7b.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "'http://cajos.in/0x/1.exe'",
+          "decoded_value": "http://cajos.in/0x/1.exe",
+          "description": "URL from which the malicious file is downloaded"
+        },
+        {
+          "type": "file_name",
+          "original_value": "'mess.exe'",
+          "decoded_value": "mess.exe",
+          "description": "Filename of the downloaded malicious executable"
+        },
+        {
+          "type": "file_name",
+          "original_value": "'mess.exe'",
+          "decoded_value": "mess.exe",
+          "description": "Filename of the process to be started"
+        }
+      ],
+      "processing_time": 1.2667076587677002,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 3,
+        "matches": 2,
+        "obfuscated_matches": 2,
+        "precision": 0.6666666666666666,
+        "recall": 0.5,
+        "f1_score": 0.5714285714285715,
+        "obfuscated_precision": 0.6666666666666666,
+        "obfuscated_recall": 0.5,
+        "obfuscated_f1_score": 0.5714285714285715,
+        "detailed_matches": [
+          {
+            "extracted": "http://cajos.in/0x/1.exe",
+            "ground_truth": "http://cajos.in/0x/1.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "'http://cajos.in/0x/1.exe'",
+              "decoded_value": "http://cajos.in/0x/1.exe",
+              "description": "URL from which the malicious file is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "mess.exe",
+            "ground_truth": "mess.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "'mess.exe'",
+              "decoded_value": "mess.exe",
+              "description": "Filename of the downloaded malicious executable"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "mess.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "'mess.exe'",
+              "decoded_value": "mess.exe",
+              "description": "Filename of the process to be started"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "cajos.in",
+          "1.exe"
+        ],
+        "false_positives": [
+          "mess.exe"
+        ]
+      }
+    },
+    {
+      "sample_name": "1e303accaa28f4730d4fb5e21fdda1bb89b8ceb2acafcbfcc4dda301d46c5377.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "hxxp://94.102.50[.]39/keyt.exe",
+          "decoded_value": "http://94.102.50[.]39/keyt.exe",
+          "description": "URL used to download malicious executable"
+        },
+        {
+          "type": "ip",
+          "original_value": "94.102.50[.]39",
+          "decoded_value": "94.102.50[.]39",
+          "description": "IP address hosting malicious file"
+        },
+        {
+          "type": "file_name",
+          "original_value": "key.exe",
+          "decoded_value": "key.exe",
+          "description": "Malicious executable file downloaded and run"
+        }
+      ],
+      "processing_time": 23.535943269729614,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 3,
+        "matches": 1,
+        "obfuscated_matches": 1,
+        "precision": 0.3333333333333333,
+        "recall": 0.3333333333333333,
+        "f1_score": 0.3333333333333333,
+        "obfuscated_precision": 0.3333333333333333,
+        "obfuscated_recall": 0.3333333333333333,
+        "obfuscated_f1_score": 0.3333333333333333,
+        "detailed_matches": [
+          {
+            "extracted": "http://94.102.50[.]39/keyt.exe",
+            "ground_truth": "http://94.102.50.39/keyt.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "hxxp://94.102.50[.]39/keyt.exe",
+              "decoded_value": "http://94.102.50[.]39/keyt.exe",
+              "description": "URL used to download malicious executable"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "94.102.50[.]39",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "ip",
+              "original_value": "94.102.50[.]39",
+              "decoded_value": "94.102.50[.]39",
+              "description": "IP address hosting malicious file"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "key.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "key.exe",
+              "decoded_value": "key.exe",
+              "description": "Malicious executable file downloaded and run"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "keyt.exe",
+          "94.102.50.39"
+        ],
+        "false_positives": [
+          "94.102.50[.]39",
+          "key.exe"
+        ]
+      }
+    },
+    {
+      "sample_name": "1efa9413f5aed5dcd15a9319e011c3efe7a16d8f0c3abdb437ae436684f3571b.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [],
+      "processing_time": 274.5759780406952,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "fleeble.exe",
+          "http://andersonken4791.pserver.ru/doc.exe",
+          "andersonken4791.pserver.ru",
+          "doc.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "1f45fdcf220c685872911587a8b4d89bb5eb720561d691a50a1338fdaf533d87.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [],
+      "processing_time": 1.8425414562225342,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 1,
+        "total_obfuscated_gt": 1,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "PrograminAdi.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "2a4e98b8d197ab3365c84f431a457c90f8ac34792c490af0c2287c3b28b3cbe3.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "'hxxp://worldnit[.]nigga.exe'",
+          "decoded_value": "http://worldnit.com/nigga.exe",
+          "description": "URL from which the malicious file is downloaded"
+        },
+        {
+          "type": "file_name",
+          "original_value": "'mess.exe'",
+          "decoded_value": "mess.exe",
+          "description": "Filename of the downloaded file that is executed."
+        }
+      ],
+      "processing_time": 6.2955803871154785,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 2,
+        "matches": 2,
+        "obfuscated_matches": 2,
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1_score": 0.6666666666666666,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 0.5,
+        "obfuscated_f1_score": 0.6666666666666666,
+        "detailed_matches": [
+          {
+            "extracted": "http://worldnit.com/nigga.exe",
+            "ground_truth": "http://worldnit.com/nigga.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "'hxxp://worldnit[.]nigga.exe'",
+              "decoded_value": "http://worldnit.com/nigga.exe",
+              "description": "URL from which the malicious file is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "mess.exe",
+            "ground_truth": "mess.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "'mess.exe'",
+              "decoded_value": "mess.exe",
+              "description": "Filename of the downloaded file that is executed."
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "nigga.exe",
+          "worldnit.com"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "2b21ed2780d69cea18217dc57e40056c18d70673dabec19675fcc7f71a70e5aa.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [],
+      "processing_time": 145.37433910369873,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "https://www.upload.ee/download/18185044/443499c5a6c720cab622/vm.exe",
+          "vm.exe",
+          "upload.ee"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "2b6572810e4bae8e8d1995917caf047a988b1a0f8407b677d6610d29782e9e19.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "'http://worldnit.com/aba.exe'",
+          "decoded_value": "http://worldnit.com/aba.exe",
+          "description": "URL used to download malicious executable"
+        },
+        {
+          "type": "file_name",
+          "original_value": "'fleeble.exe'",
+          "decoded_value": "fleeble.exe",
+          "description": "Malicious executable file name"
+        },
+        {
+          "type": "file_name",
+          "original_value": "'fleeble.exe'",
+          "decoded_value": "fleeble.exe",
+          "description": "Process name executed by the script"
+        }
+      ],
+      "processing_time": 1.4174108505249023,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 3,
+        "matches": 2,
+        "obfuscated_matches": 2,
+        "precision": 0.6666666666666666,
+        "recall": 0.5,
+        "f1_score": 0.5714285714285715,
+        "obfuscated_precision": 0.6666666666666666,
+        "obfuscated_recall": 0.5,
+        "obfuscated_f1_score": 0.5714285714285715,
+        "detailed_matches": [
+          {
+            "extracted": "http://worldnit.com/aba.exe",
+            "ground_truth": "http://worldnit.com/aba.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "'http://worldnit.com/aba.exe'",
+              "decoded_value": "http://worldnit.com/aba.exe",
+              "description": "URL used to download malicious executable"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "fleeble.exe",
+            "ground_truth": "fleeble.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "'fleeble.exe'",
+              "decoded_value": "fleeble.exe",
+              "description": "Malicious executable file name"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "fleeble.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "'fleeble.exe'",
+              "decoded_value": "fleeble.exe",
+              "description": "Process name executed by the script"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "aba.exe",
+          "worldnit.com"
+        ],
+        "false_positives": [
+          "fleeble.exe"
+        ]
+      }
+    },
+    {
+      "sample_name": "2c1d6585c4e4e9d12f527d697f7a833ce15cfe7cc85904d8b89dd749aecf9090.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [],
+      "processing_time": 126.04251503944397,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://matkalv.5gbfree.com/loso/fasoo.exe",
+          "fasoo.exe",
+          "matkalv.5gbfree.com",
+          "fleeble.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "2d3a932260b3308d0e5f084baf3dd07633c4f0269ce85a268ba6e31778605e51.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovL3dvcmxkbmkuY29tL2NvbS5leGUKQ==",
+          "decoded_value": "http://worldnit.com/com.exe",
+          "description": "URL from which the file is downloaded"
+        },
+        {
+          "type": "file_name",
+          "original_value": "ZmxlZWJsZS5leGUKQ==",
+          "decoded_value": "fleeble.exe",
+          "description": "File name of the downloaded file"
+        }
+      ],
+      "processing_time": 8.72425389289856,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 2,
+        "matches": 2,
+        "obfuscated_matches": 2,
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1_score": 0.6666666666666666,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 0.5,
+        "obfuscated_f1_score": 0.6666666666666666,
+        "detailed_matches": [
+          {
+            "extracted": "http://worldnit.com/com.exe",
+            "ground_truth": "http://worldnit.com/com.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovL3dvcmxkbmkuY29tL2NvbS5leGUKQ==",
+              "decoded_value": "http://worldnit.com/com.exe",
+              "description": "URL from which the file is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "fleeble.exe",
+            "ground_truth": "fleeble.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "ZmxlZWJsZS5leGUKQ==",
+              "decoded_value": "fleeble.exe",
+              "description": "File name of the downloaded file"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "com.exe",
+          "worldnit.com"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "2d28cbe79e0477307fa4a7a03524fffd10dffb515e38043546f70c4fa694e768.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [],
+      "processing_time": 141.59368205070496,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://doc.cherrycoffeeequipment.com/nw/logo.png",
+          "logo.png",
+          "cherrycoffeeequipment.com",
+          "grtsndebdgfsytewrw.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "2d72f6bc11f9ae4d19743b760c4b4f537165672ef37d3db95cec5047100f255a.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "original string as found",
+          "original_value": "original string as found",
+          "decoded_value": "original string as found",
+          "description": "brief description of what this IOC represents"
+        }
+      ],
+      "processing_time": 112.24723291397095,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 14,
+        "total_obfuscated_gt": 10,
+        "total_extracted": 1,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [
+          {
+            "extracted": "original string as found",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "original string as found",
+              "original_value": "original string as found",
+              "decoded_value": "original string as found",
+              "description": "brief description of what this IOC represents"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "https://files.catbox.moe/3tjarr.secro013228973",
+          "files.catbox.moe",
+          "3tjarr.secro013228973",
+          "https://files.catbox.moe/cfuoi8.fuk",
+          "cfuoi8.fuk",
+          "https://files.catbox.moe/n8nug3.fuck",
+          "n8nug3.fuck",
+          "https://files.catbox.moe/hbl2ig.secro",
+          "hbl2ig.secro",
+          "hbl2ig.secro"
+        ],
+        "false_positives": [
+          "original string as found"
+        ]
+      }
+    },
+    {
+      "sample_name": "2e054e7fcf74881cf97df42c4bd641bfd3ac04e65ad31aef44b7c83a1ecf8415.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [],
+      "processing_time": 154.48921918869019,
+      "success": false,
+      "error_message": "No response content after all retries",
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "KjGryNSu.exe",
+          "rebrand.ly/openCaptcha",
+          "rebrand.ly"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "3ab06576949538089258232f6dd37714ecd1782acc14015d3dd52fa7ad6b073e.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "domain",
+          "original_value": "YWxsYWl2by5tZS9jcnlwdGVkLmV4ZQ==",
+          "decoded_value": "allaivo.me/crypted.exe",
+          "description": "Base64 encoded download URL for the updater executable"
+        },
+        {
+          "type": "domain",
+          "original_value": "YWxsYWl2by5tZS9zY3JpcHQucHMx",
+          "decoded_value": "allaivo.me/script.p1",
+          "description": "Base64 encoded download URL for the persistence script"
+        },
+        {
+          "type": "file_name",
+          "original_value": "updater.exe",
+          "decoded_value": "updater.exe",
+          "description": "The executable file downloaded and executed"
+        },
+        {
+          "type": "file_name",
+          "original_value": "WindowsUpdate.ps1",
+          "decoded_value": "WindowsUpdate.ps1",
+          "description": "The persistence script saved in the UpdateCache folder"
+        },
+        {
+          "type": "domain",
+          "original_value": "allaivo.me",
+          "decoded_value": "allaivo.me",
+          "description": "Domain hosting malicious files"
+        }
+      ],
+      "processing_time": 19.862066745758057,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 5,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 5,
+        "matches": 4,
+        "obfuscated_matches": 3,
+        "precision": 0.8,
+        "recall": 0.8,
+        "f1_score": 0.8000000000000002,
+        "obfuscated_precision": 0.6,
+        "obfuscated_recall": 1.0,
+        "obfuscated_f1_score": 0.7499999999999999,
+        "detailed_matches": [
+          {
+            "extracted": "allaivo.me/crypted.exe",
+            "ground_truth": "allaivo.me/crypted.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "YWxsYWl2by5tZS9jcnlwdGVkLmV4ZQ==",
+              "decoded_value": "allaivo.me/crypted.exe",
+              "description": "Base64 encoded download URL for the updater executable"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "allaivo.me/script.p1",
+            "ground_truth": "allaivo.me/script.ps1",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "YWxsYWl2by5tZS9zY3JpcHQucHMx",
+              "decoded_value": "allaivo.me/script.p1",
+              "description": "Base64 encoded download URL for the persistence script"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "updater.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "updater.exe",
+              "decoded_value": "updater.exe",
+              "description": "The executable file downloaded and executed"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "WindowsUpdate.ps1",
+            "ground_truth": "WindowsUpdate.ps1",
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "WindowsUpdate.ps1",
+              "decoded_value": "WindowsUpdate.ps1",
+              "description": "The persistence script saved in the UpdateCache folder"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "allaivo.me",
+            "ground_truth": "allaivo.me",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "allaivo.me",
+              "decoded_value": "allaivo.me",
+              "description": "Domain hosting malicious files"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [],
+        "false_positives": [
+          "updater.exe"
+        ]
+      }
+    },
+    {
+      "sample_name": "3ad6decf6ea52b0304bab8d1dcb275882d686df9cc28ea3e76e528b987d6cde1.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "URL",
+          "original_value": "aHR0cDovLzM3LjI4LjE1NTC4yMDQvcG93ZXJzaGVsbF9hdHRhY2sudHh0",
+          "decoded_value": "http://37[REDACTED]",
+          "description": "URL used to download malicious payload"
+        },
+        {
+          "type": "domain",
+          "original_value": "MzcuMjguMTU0LjIwNA==",
+          "decoded_value": "37.28.154.204",
+          "description": "Domain hosting malicious payload"
+        }
+      ],
+      "processing_time": 11.159154415130615,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 2,
+        "matches": 1,
+        "obfuscated_matches": 1,
+        "precision": 0.5,
+        "recall": 0.3333333333333333,
+        "f1_score": 0.4,
+        "obfuscated_precision": 0.5,
+        "obfuscated_recall": 0.3333333333333333,
+        "obfuscated_f1_score": 0.4,
+        "detailed_matches": [
+          {
+            "extracted": "http://37[REDACTED]",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "URL",
+              "original_value": "aHR0cDovLzM3LjI4LjE1NTC4yMDQvcG93ZXJzaGVsbF9hdHRhY2sudHh0",
+              "decoded_value": "http://37[REDACTED]",
+              "description": "URL used to download malicious payload"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "37.28.154.204",
+            "ground_truth": "37.28.154.204",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "MzcuMjguMTU0LjIwNA==",
+              "decoded_value": "37.28.154.204",
+              "description": "Domain hosting malicious payload"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "http://37.28.154.204/powershell_attack.txt",
+          "powershell_attack.txt"
+        ],
+        "false_positives": [
+          "http://37[REDACTED]"
+        ]
+      }
+    },
+    {
+      "sample_name": "3d9cf577eff98b291eb2da68542a33c5f2973353788953044fbad22999300982.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [],
+      "processing_time": 2.5394320487976074,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 2,
+        "total_obfuscated_gt": 2,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "task.xml",
+          "task2.xml"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "3ef8f0de3383fb1d3133919f85f3999038b191aca3877f86ffbac001eed26b66.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [],
+      "processing_time": 1.8445093631744385,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://www.bryonz.com/emotions/files/lnwe.exe",
+          "lnwe.exe",
+          "bryonz.com"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "3f9a3d8c99143b6faf589504b417c1fbc82df5fc574562e9d4c8a6acf4537049.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [],
+      "processing_time": 288.67282724380493,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 1,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "r1.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "4b56551812b4f12263778d284de42b1d3b5ffc52aa8f4b742a295f094660a6fd.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "iocs",
+          "original_value": "iocs",
+          "decoded_value": "d",
+          "description": "d_c "
+        }
+      ],
+      "processing_time": 7.94545316696167,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 6,
+        "total_obfuscated_gt": 6,
+        "total_extracted": 1,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [
+          {
+            "extracted": "d",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "iocs",
+              "original_value": "iocs",
+              "decoded_value": "d",
+              "description": "d_c "
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "https://file.garden/aB0_peiHdjBBXCQF/Uninstall.dlx",
+          "j3owB.exe",
+          "https://pixeldrain.com/api/file/um3Jorcz",
+          "SVrB5SO0.exe",
+          "https://file.garden/aB0_peiHdjBBXCQF/sv.dlx",
+          "cZp98.exe"
+        ],
+        "false_positives": [
+          "d"
+        ]
+      }
+    },
+    {
+      "sample_name": "004c132ffcd37650da7d319b82ec36f055fd6c5cec568b8d1898d5417693de02.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [],
+      "processing_time": 1.7665276527404785,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://www.wealthandhealthops.com/modules/mod_easyblogquickpost/lawdsijdoef.exe",
+          "lawdsijdoef.exe",
+          "wealthandhealthops.com"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "4c0246368346e30fad438c16f6e1f87c5913db5d068f2c33415c2b59c978c276.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [],
+      "processing_time": 2.9527509212493896,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "https://6e891bbd0ab48424c7027d5b21de443d.serveo.net/EkgYwGrhIqDpGsjVPFuD",
+          "serveo.net",
+          "Kernel32.dll",
+          "user32.dll"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "4cfec7dc963c2c1d63978072b64b7ab8dd8b7cdf77c7b59470717954bac0f1c5.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2Rya3N0LXNoaGR3L3Rlc3RzL3JlZnMvaGVhZHMvbS9tYWluL3N0YWdlNS5wczE=",
+          "decoded_value": "https://raw.githubusercontent.com/drkst-shdw/tests/refs/heads/main/stage5.ps1",
+          "description": "URL used to download the next stage PowerShell script"
+        }
+      ],
+      "processing_time": 55.49462556838989,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 1,
+        "matches": 1,
+        "obfuscated_matches": 1,
+        "precision": 1.0,
+        "recall": 0.3333333333333333,
+        "f1_score": 0.5,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 0.3333333333333333,
+        "obfuscated_f1_score": 0.5,
+        "detailed_matches": [
+          {
+            "extracted": "https://raw.githubusercontent.com/drkst-shdw/tests/refs/heads/main/stage5.ps1",
+            "ground_truth": "https://raw.githubusercontent.com/drkst-shdw/tests/refs/heads/main/stage5.ps1",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2Rya3N0LXNoaGR3L3Rlc3RzL3JlZnMvaGVhZHMvbS9tYWluL3N0YWdlNS5wczE=",
+              "decoded_value": "https://raw.githubusercontent.com/drkst-shdw/tests/refs/heads/main/stage5.ps1",
+              "description": "URL used to download the next stage PowerShell script"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "stage5.ps1",
+          "githubusercontent.com"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "4d24f57dad98ef27fb063d020fc7a072201806d6d1d0b4b431b59b28d6a69261.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [],
+      "processing_time": 33.769076108932495,
+      "success": false,
+      "error_message": "400 Client Error: Bad Request for url: https://openrouter.ai/api/v1/chat/completions",
+      "ground_truth_match": null
+    },
+    {
+      "sample_name": "4dac4a02fa8f07252c3932130865b68ef6b4b8e3bc2dc8fd32a735a716c9f72a.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [],
+      "processing_time": 180.010502576828,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 2,
+        "total_obfuscated_gt": 2,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://185.141.27.28/update.exe",
+          "file2x86.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "4ef94a07e217bac8b4c142a9f111d4b716f0dce37d89988abc67f5d6e8e816ff.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [],
+      "processing_time": 11.489344596862793,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 2,
+        "total_obfuscated_gt": 1,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "https://github.com/melo1948/MELO12/raw/refs/heads/main/MELO1.exe"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "4fac2e28190f67d01c83e715bf66b44fe0e12997922056943be7c95921890afe.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "iocs",
+          "original_value": "decoded_value ",
+          "decoded_value": "decoded_value, ",
+          "description": "decoded_value "
+        },
+        {
+          "type": "decoded_value ",
+          "original_value": "decoded_value, ",
+          "decoded_value": "decoded_value ",
+          "description": "decade_value, "
+        },
+        {
+          "type": "decade, ",
+          "original_value": "decade_value, ",
+          "decoded_value": "decade, ",
+          "description": "decade, "
+        },
+        {
+          "type": "decade, ",
+          "original_value": "decog_value ",
+          "decoded_value": "decade, ",
+          "description": "decade, "
+        },
+        {
+          "type": "decade, ",
+          "original_value": "decog_value, ",
+          "decoded_value": "decoded_value, ",
+          "description": "decade, "
+        },
+        {
+          "type": "decade, ",
+          "original_value": "decog_value, ",
+          "decoded_value": "decade_value ",
+          "description": "decade, "
+        },
+        {
+          "type": "decade, ",
+          "original_value": "decade, ",
+          "decoded_value": "                ",
+          "description": "decoded_value, "
+        }
+      ],
+      "processing_time": 61.24911379814148,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 2,
+        "total_extracted": 7,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [
+          {
+            "extracted": "decoded_value, ",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "iocs",
+              "original_value": "decoded_value ",
+              "decoded_value": "decoded_value, ",
+              "description": "decoded_value "
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "decoded_value ",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "decoded_value ",
+              "original_value": "decoded_value, ",
+              "decoded_value": "decoded_value ",
+              "description": "decade_value, "
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "decade, ",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "decade, ",
+              "original_value": "decade_value, ",
+              "decoded_value": "decade, ",
+              "description": "decade, "
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "decade, ",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "decade, ",
+              "original_value": "decog_value ",
+              "decoded_value": "decade, ",
+              "description": "decade, "
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "decoded_value, ",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "decade, ",
+              "original_value": "decog_value, ",
+              "decoded_value": "decoded_value, ",
+              "description": "decade, "
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "decade_value ",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "decade, ",
+              "original_value": "decog_value, ",
+              "decoded_value": "decade_value ",
+              "description": "decade, "
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "                ",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "decade, ",
+              "original_value": "decade, ",
+              "decoded_value": "                ",
+              "description": "decoded_value, "
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "https://files.catbox.moe/xrcvo7.bin",
+          "files.catbox.moe"
+        ],
+        "false_positives": [
+          "decoded_value, ",
+          "decoded_value ",
+          "decade, ",
+          "decade, ",
+          "decoded_value, ",
+          "decade_value ",
+          "                "
+        ]
+      }
+    },
+    {
+      "sample_name": "5ab5044f76b0427b94b3f883862feb42bf5bc22375ea5bcfdd1adc2069da47ad.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "decayed_value",
+          "original_value": "decayed_value",
+          "decoded_value": " ",
+          "description": "decayed_value"
+        }
+      ],
+      "processing_time": 3.415009021759033,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 1,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [
+          {
+            "extracted": " ",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "decayed_value",
+              "original_value": "decayed_value",
+              "decoded_value": " ",
+              "description": "decayed_value"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "http://www.wealthandhealthops.com/modules/mod_easyblogquickpost/lawdsijdoef.exe",
+          "lawdsijdoef.exe",
+          "wealthandhealthops.com"
+        ],
+        "false_positives": [
+          " "
+        ]
+      }
+    },
+    {
+      "sample_name": "5afb0d5681256a6af1ed0d31a2ff24b078c2416b76c6d4581aa4d1650cca0f08.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [],
+      "processing_time": 124.50260710716248,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://ddl7.data.hu/get/0/9507148/Patload.exe",
+          "Patload.exe",
+          "ddl7.data.hu"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "5b27c53f9bf67dee6fab0e8c7994ec4b5cd772ab2df74ffe62e69a634aea3e46.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [],
+      "processing_time": 285.1936309337616,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 1,
+        "total_obfuscated_gt": 1,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "kernel32.dll"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "5c1938f0c03e4d07600cde8906b5793dd235b43d80613c1ad49934c3a2729b39.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "domain",
+          "original_value": "Z2l0bGxtLmRldg==",
+          "decoded_value": "gitllm.dev",
+          "description": "Malicious domain used for downloading payloads"
+        },
+        {
+          "type": "url",
+          "original_value": "https://gitllm.dev/L2cryptd.exe",
+          "decoded_value": "https://gitllm.dev/crypte",
+          "description": "URL for downloading malicious executable"
+        },
+        {
+          "type": "url",
+          "original_value": "https://gitllm.dev/code",
+          "decoded_value": "https://gitllm.dev/code",
+          "description": "URL to download malicious PowerShell script"
+        },
+        {
+          "type": "file_name",
+          "original_value": "$exe",
+          "decoded_value": "randomly generated .exe file",
+          "description": "Malicious executable file name"
+        },
+        {
+          "type": "file_name",
+          "original_value": "code",
+          "decoded_value": "code",
+          "description": "PowerShell script file name"
+        }
+      ],
+      "processing_time": 9.609840154647827,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 5,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 5,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 0.6,
+        "recall": 0.6,
+        "f1_score": 0.6,
+        "obfuscated_precision": 0.6,
+        "obfuscated_recall": 0.75,
+        "obfuscated_f1_score": 0.6666666666666665,
+        "detailed_matches": [
+          {
+            "extracted": "gitllm.dev",
+            "ground_truth": "gitllm.dev",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "Z2l0bGxtLmRldg==",
+              "decoded_value": "gitllm.dev",
+              "description": "Malicious domain used for downloading payloads"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "https://gitllm.dev/crypte",
+            "ground_truth": "https://gitllm.dev/code",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "https://gitllm.dev/L2cryptd.exe",
+              "decoded_value": "https://gitllm.dev/crypte",
+              "description": "URL for downloading malicious executable"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "https://gitllm.dev/code",
+            "ground_truth": "https://gitllm.dev/crypted.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "https://gitllm.dev/code",
+              "decoded_value": "https://gitllm.dev/code",
+              "description": "URL to download malicious PowerShell script"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "randomly generated .exe file",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "$exe",
+              "decoded_value": "randomly generated .exe file",
+              "description": "Malicious executable file name"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "code",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "code",
+              "decoded_value": "code",
+              "description": "PowerShell script file name"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "kernel32.dll"
+        ],
+        "false_positives": [
+          "randomly generated .exe file",
+          "code"
+        ]
+      }
+    },
+    {
+      "sample_name": "5cb356c0abf945dd881ed6301509bb6d3289a47f9c35e36b65b94e1b0cc38edc.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "ZnRwOi8vODguMTk4LjM1LjUw",
+          "decoded_value": "ftp://88.198.35.50/upload/",
+          "description": "FTP server URL used for uploading stolen data"
+        },
+        {
+          "type": "domain",
+          "original_value": "Qm9va1N0b3JlQHJhZGluYm9va3N0b3JlLmNvbQ==",
+          "decoded_value": "BookStore@radinbookstore.com",
+          "description": "FTP username decoded from base64"
+        },
+        {
+          "type": "domain",
+          "original_value": "Qm9va1N0b3Jl",
+          "decoded_value": "BookStore",
+          "description": "FTP password decoded from base64"
+        },
+        {
+          "type": "url",
+          "original_value": "L3VwbG9hZC8=",
+          "decoded_value": "/upload/",
+          "description": "FTP base path decoded from base64"
+        },
+        {
+          "type": "url",
+          "original_value": "ftpBase variable",
+          "decoded_value": "ftp://88.198.35.50/upload/",
+          "description": "Full FTP base URL constructed from decoded components"
+        },
+        {
+          "type": "url",
+          "original_value": "$ftpBase/processed_systems.txt",
+          "decoded_value": "ftp://88.198.35.50/upload/processed_systems.txt",
+          "description": "URL for the processed systems tracking file"
+        },
+        {
+          "type": "ip",
+          "original_value": "88.198.35.50",
+          "decoded_value": "88.198.35.50",
+          "description": "IP address of FTP server"
+        },
+        {
+          "type": "domain",
+          "original_value": "radinbookstore.com",
+          "decoded_value": "radinbookstore.com",
+          "description": "Domain extracted from FTP username"
+        }
+      ],
+      "processing_time": 3.3851099014282227,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 8,
+        "matches": 3,
+        "obfuscated_matches": 3,
+        "precision": 0.375,
+        "recall": 0.75,
+        "f1_score": 0.5,
+        "obfuscated_precision": 0.375,
+        "obfuscated_recall": 1.0,
+        "obfuscated_f1_score": 0.5454545454545454,
+        "detailed_matches": [
+          {
+            "extracted": "ftp://88.198.35.50/upload/",
+            "ground_truth": "ftp://88.198.35.50",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "ZnRwOi8vODguMTk4LjM1LjUw",
+              "decoded_value": "ftp://88.198.35.50/upload/",
+              "description": "FTP server URL used for uploading stolen data"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "BookStore@radinbookstore.com",
+            "ground_truth": "BookStore@radinbookstore.com",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "Qm9va1N0b3JlQHJhZGluYm9va3N0b3JlLmNvbQ==",
+              "decoded_value": "BookStore@radinbookstore.com",
+              "description": "FTP username decoded from base64"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "BookStore",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "Qm9va1N0b3Jl",
+              "decoded_value": "BookStore",
+              "description": "FTP password decoded from base64"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "/upload/",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "L3VwbG9hZC8=",
+              "decoded_value": "/upload/",
+              "description": "FTP base path decoded from base64"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "ftp://88.198.35.50/upload/",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "ftpBase variable",
+              "decoded_value": "ftp://88.198.35.50/upload/",
+              "description": "Full FTP base URL constructed from decoded components"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "ftp://88.198.35.50/upload/processed_systems.txt",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "$ftpBase/processed_systems.txt",
+              "decoded_value": "ftp://88.198.35.50/upload/processed_systems.txt",
+              "description": "URL for the processed systems tracking file"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "88.198.35.50",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "ip",
+              "original_value": "88.198.35.50",
+              "decoded_value": "88.198.35.50",
+              "description": "IP address of FTP server"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "radinbookstore.com",
+            "ground_truth": "radinbookstore.com",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "domain",
+              "original_value": "radinbookstore.com",
+              "decoded_value": "radinbookstore.com",
+              "description": "Domain extracted from FTP username"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [],
+        "false_positives": [
+          "BookStore",
+          "/upload/",
+          "ftp://88.198.35.50/upload/",
+          "ftp://88.198.35.50/upload/processed_systems.txt",
+          "88.198.35.50"
+        ]
+      }
+    },
+    {
+      "sample_name": "5ddbafbc30495e2853119135f2abf7b93f5457e9d39edd621237b52b38aa6837.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "'http://matkalv.5gbfree.com/owee/owe.exe'",
+          "decoded_value": "http://matkalv.5gbfree.com/owee/owe.exe",
+          "description": "URL from which malicious file is downloaded"
+        },
+        {
+          "type": "file_name",
+          "original_value": "'fleeble.exe'",
+          "decoded_value": "fleeble.exe",
+          "description": "Malicious executable file name"
+        },
+        {
+          "type": "file_name",
+          "original_value": "'fleeble.exe'",
+          "decoded_value": "fleeble.exe",
+          "description": "Process name started by the script"
+        }
+      ],
+      "processing_time": 37.092785120010376,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 3,
+        "matches": 2,
+        "obfuscated_matches": 2,
+        "precision": 0.6666666666666666,
+        "recall": 0.6666666666666666,
+        "f1_score": 0.6666666666666666,
+        "obfuscated_precision": 0.6666666666666666,
+        "obfuscated_recall": 0.6666666666666666,
+        "obfuscated_f1_score": 0.6666666666666666,
+        "detailed_matches": [
+          {
+            "extracted": "http://matkalv.5gbfree.com/owee/owe.exe",
+            "ground_truth": "http://matkalv.5gbfree.com/owee/owe.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "'http://matkalv.5gbfree.com/owee/owe.exe'",
+              "decoded_value": "http://matkalv.5gbfree.com/owee/owe.exe",
+              "description": "URL from which malicious file is downloaded"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "fleeble.exe",
+            "ground_truth": "fleeble.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "'fleeble.exe'",
+              "decoded_value": "fleeble.exe",
+              "description": "Malicious executable file name"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "fleeble.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "'fleeble.exe'",
+              "decoded_value": "fleeble.exe",
+              "description": "Process name started by the script"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "matkalv.5gbfree.com"
+        ],
+        "false_positives": [
+          "fleeble.exe"
+        ]
+      }
+    },
+    {
+      "sample_name": "5dfde4bff42949705c4bbce0b37dfc88b0fd5d447fd8f5aed00850b6264d1160.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cHM6Ly9iaXRlYmxvYi5jb20vRG93bmxvYWQvT3E3NVJkM2JGVGlVNGcvdXBkYXRlLmpwZw==",
+          "decoded_value": "https://bitelob.com/Download/Oq75Rd3bFTiU4g/update.jpg",
+          "description": "URL from which the script downloads a file."
+        },
+        {
+          "type": "file_name",
+          "original_value": "U3RhcnR1cA",
+          "decoded_value": "Startup",
+          "description": "Folder path where the shortcut is created."
+        },
+        {
+          "type": "file_name",
+          "original_value": "YS5sbms=",
+          "decoded_value": "a.lnk",
+          "description": "Shortcut file name created in the Startup folder."
+        },
+        {
+          "type": "file_name",
+          "original_value": "LmpwZw==",
+          "decoded_value": ".jpg",
+          "description": "File extension used for the downloaded file."
+        },
+        {
+          "type": "file_name",
+          "original_value": "LmV4ZQ==",
+          "decoded_value": ".exe",
+          "description": "File extension to which the file is renamed."
+        },
+        {
+          "type": "file_name",
+          "original_value": "$r$extJpg",
+          "decoded_value": "random8characters.jpg",
+          "description": "Temporary file name for the downloaded file."
+        },
+        {
+          "type": "file_name",
+          "original_value": "$e",
+          "decoded_value": "random8characters.exe",
+          "description": "Executable file name after renaming."
+        }
+      ],
+      "processing_time": 10.338412523269653,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 7,
+        "matches": 1,
+        "obfuscated_matches": 1,
+        "precision": 0.14285714285714285,
+        "recall": 0.3333333333333333,
+        "f1_score": 0.2,
+        "obfuscated_precision": 0.14285714285714285,
+        "obfuscated_recall": 0.3333333333333333,
+        "obfuscated_f1_score": 0.2,
+        "detailed_matches": [
+          {
+            "extracted": "https://bitelob.com/Download/Oq75Rd3bFTiU4g/update.jpg",
+            "ground_truth": "https://biteblob.com/Download/Oq75Rd3bFTiU4g/update.jpg",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cHM6Ly9iaXRlYmxvYi5jb20vRG93bmxvYWQvT3E3NVJkM2JGVGlVNGcvdXBkYXRlLmpwZw==",
+              "decoded_value": "https://bitelob.com/Download/Oq75Rd3bFTiU4g/update.jpg",
+              "description": "URL from which the script downloads a file."
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "Startup",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "U3RhcnR1cA",
+              "decoded_value": "Startup",
+              "description": "Folder path where the shortcut is created."
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "a.lnk",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "YS5sbms=",
+              "decoded_value": "a.lnk",
+              "description": "Shortcut file name created in the Startup folder."
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": ".jpg",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "LmpwZw==",
+              "decoded_value": ".jpg",
+              "description": "File extension used for the downloaded file."
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": ".exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "LmV4ZQ==",
+              "decoded_value": ".exe",
+              "description": "File extension to which the file is renamed."
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "random8characters.jpg",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "$r$extJpg",
+              "decoded_value": "random8characters.jpg",
+              "description": "Temporary file name for the downloaded file."
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "random8characters.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "$e",
+              "decoded_value": "random8characters.exe",
+              "description": "Executable file name after renaming."
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "biteblob.com",
+          "update.jpg"
+        ],
+        "false_positives": [
+          "Startup",
+          "a.lnk",
+          ".jpg",
+          ".exe",
+          "random8characters.jpg",
+          "random8characters.exe"
+        ]
+      }
+    },
+    {
+      "sample_name": "5fa1efefeeb492398f9ecf8bddd9234e9397ace0487c6d62d7b44ca2c768e966.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "http://lvrxd.eeweb.com/nano/Calculator.exe",
+          "decoded_value": "http://lvrxd.eeweb.com/nano/Calculator.exe",
+          "description": "URL from which the malware downloads the payload"
+        },
+        {
+          "type": "file_name",
+          "original_value": "$ENv:TEMP\\test.exe",
+          "decoded_value": "test.exe",
+          "description": "File name of the downloaded file"
+        }
+      ],
+      "processing_time": 3.6262331008911133,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 2,
+        "matches": 2,
+        "obfuscated_matches": 2,
+        "precision": 1.0,
+        "recall": 0.6666666666666666,
+        "f1_score": 0.8,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 0.6666666666666666,
+        "obfuscated_f1_score": 0.8,
+        "detailed_matches": [
+          {
+            "extracted": "http://lvrxd.eeweb.com/nano/Calculator.exe",
+            "ground_truth": "http://lvrxd.3eeweb.com/nano/Calculator.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "http://lvrxd.eeweb.com/nano/Calculator.exe",
+              "decoded_value": "http://lvrxd.eeweb.com/nano/Calculator.exe",
+              "description": "URL from which the malware downloads the payload"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "test.exe",
+            "ground_truth": "test.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "$ENv:TEMP\\test.exe",
+              "decoded_value": "test.exe",
+              "description": "File name of the downloaded file"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "lvrxd.3eeweb.com"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "ff9c02e3d77c5e002a9c93a64fc33c184b94802642fa23eae8d6e88e18c41c35.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [],
+      "processing_time": 81.93739986419678,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "www.londonoffices.website/download/startup.exe",
+          "startup.exe",
+          "londonoffices.website"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "ff6bb9932a2c146b69d95f2c3a38baf4c7170a1bf3807636231eb653198b36d6.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "{ \"iocs\"",
+          "original_value": "[ { \"type\": \"url\", \"original_value\": \"aHR0cDovL1lPVVJfU0VSVkVSX0lQOjgwODAvdTk0ZzFuN3guZXhl\", \"decoded_value\": \"http://YOUR_SERVER_IP:8080/u94g1n7x.exe\", \"description\": \"URL for downloading malicious executable\" }, { \"type\": \"url\", \"original_value\": \"aHR0cDovL1lPVVJfU0VSVkVSX0lQOjgwODAv/cTloMmsxczMudHh0\", \"decoded_value\": \"http://YOUR_SERVERIDIP:8080/q9h2k1s3.txt\", \"description\": \"URL for fetching wallet address\" }, { \"type\": \"url\", \"original_value\": \"aHR0cDovL1lPVVJfU0VSVkVSf0lQOjgwODAvejhsNG02YjUudHh0\", \"decoded_value\": \"http://YOUR_SERVERIDIP:8080/z8l4m6b5.txt\", \"description\": \"URL for fetching the pool\" }, { \"type\": \"file_name\", \"original_value\": \"XGhlbHBjdHIuZXhl\", \"decoded_value\": \"\\\\helpctr.exe\", \"description\": \"Malicious executable file name\" }, { \"type\": \"file_name\", \"original_value\": \"U3lzdGVtVXBkYXRl\", \"decoded_value\": \"SystemUpdate\", \"description\": \"Task name for persistence\" }, { \"type\": \"registry\", \"original_value\": \"SEtDVTo7U29mdHdhcmVcTWljcm9zb2Z0XFdpbmRvd3Mg3VycmVudFZlcnNpb25cUnVu\", \"decoded_value\": \"HKCU:\\\\Software\\\\Software\\\\Microsoft\\\\Windows CurrentVersion\\\\Run\", \"description\": \"Registry key for persistence \" }, { \"type\": \"port\", \"original_value\": \"NDQ1LDgwLDgwODAsNTAwMCw1NTU0LDkxMDAsMjMw==\", \"decoded_value\": \"445,80,,8080,5000,,554,,9100,23\", \"description\": \"Ports scanned for propagation\" }, { \"type\": \"username\", \"original_value\": \"YWRtaW4=,cm9vdA==,dXNlcg==,...\", \"decoded_value\": \"admin,root,user,...\", \"description\": \"List of usernames for brute force\" }, { \"type\": \"password\", \"original_value\": \"YWRtaW4=,...\", \"decoded_value\": \"admin,password,1234,...\", \"description\": \"List of passwords for brute force attempts } ] } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } | } } } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } |  } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } | } } } } } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | }",
+          "decoded_value": "[ { \"type\": \"url\", \"original_value\": \"aHR0cDovL1lPVVJfU0VSVkVSX0lQOjgwODAvdTk0ZzFuN3guZXhl\", \"decoded_value\": \"http://YOUR_SERVER_IP:8080/u94g1n7x.exe\", \"description\": \"URL for downloading malicious executable\" }, { \"type\": \"url\", \"original_value\": \"aHR0cDovL1lPVVJfU0VSVkVSX0lQOjgwODAv/cTloMmsxczMudHh0\", \"decoded_value\": \"http://YOUR_SERVERIDIP:8080/q9h2k1s3.txt\", \"description\": \"URL for fetching wallet address\" }, { \"type\": \"url\", \"original_value\": \"aHR0cDovL1lPVVJfU0VSVkVSf0lQOjgwODAvejhsNG02YjUudHh0\", \"decoded_value\": \"http://YOUR_SERVERIDIP:8080/z8l4m6b5.txt\", \"description\": \"URL for fetching the pool\" }, { \"type\": \"file_name\", \"original_value\": \"XGhlbHBjdHIuZXhl\", \"decoded_value\": \"\\\\helpctr.exe\", \"description\": \"Malicious executable file name\" }, { \"type\": \"file_name\", \"original_value\": \"U3lzdGVtVXBkYXRl\", \"decoded_value\": \"SystemUpdate\", \"description\": \"Task name for persistence\" }, { \"type\": \"registry\", \"original_value\": \"SEtDVTo7U29mdHdhcmVcTWljcm9zb2Z0XFdpbmRvd3Mg3VycmVudFZlcnNpb25cUnVu\", \"decoded_value\": \"HKCU:\\\\Software\\\\Software\\\\Microsoft\\\\Windows CurrentVersion\\\\Run\", \"description\": \"Registry key for persistence \" }, { \"type\": \"port\", \"original_value\": \"NDQ1LDgwLDgwODAsNTAwMCw1NTU0LDkxMDAsMjMw==\", \"decoded_value\": \"445,80,,8080,5000,,554,,9100,23\", \"description\": \"Ports scanned for propagation\" }, { \"type\": \"username\", \"original_value\": \"YWRtaW4=,cm9vdA==,dXNlcg==,...\", \"decoded_value\": \"admin,root,user,...\", \"description\": \"List of usernames for brute force\" }, { \"type\": \"password\", \"original_value\": \"YWRtaW4=,...\", \"decoded_value\": \"admin,password,1234,...\", \"description\": \"List of passwords for brute force attempts } ] } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } | } } } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } |  } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } | } } } } } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | }",
+          "description": "Extracted from text: { \"iocs\""
+        }
+      ],
+      "processing_time": 51.54243278503418,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 5,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 1,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [
+          {
+            "extracted": "[ { \"type\": \"url\", \"original_value\": \"aHR0cDovL1lPVVJfU0VSVkVSX0lQOjgwODAvdTk0ZzFuN3guZXhl\", \"decoded_value\": \"http://YOUR_SERVER_IP:8080/u94g1n7x.exe\", \"description\": \"URL for downloading malicious executable\" }, { \"type\": \"url\", \"original_value\": \"aHR0cDovL1lPVVJfU0VSVkVSX0lQOjgwODAv/cTloMmsxczMudHh0\", \"decoded_value\": \"http://YOUR_SERVERIDIP:8080/q9h2k1s3.txt\", \"description\": \"URL for fetching wallet address\" }, { \"type\": \"url\", \"original_value\": \"aHR0cDovL1lPVVJfU0VSVkVSf0lQOjgwODAvejhsNG02YjUudHh0\", \"decoded_value\": \"http://YOUR_SERVERIDIP:8080/z8l4m6b5.txt\", \"description\": \"URL for fetching the pool\" }, { \"type\": \"file_name\", \"original_value\": \"XGhlbHBjdHIuZXhl\", \"decoded_value\": \"\\\\helpctr.exe\", \"description\": \"Malicious executable file name\" }, { \"type\": \"file_name\", \"original_value\": \"U3lzdGVtVXBkYXRl\", \"decoded_value\": \"SystemUpdate\", \"description\": \"Task name for persistence\" }, { \"type\": \"registry\", \"original_value\": \"SEtDVTo7U29mdHdhcmVcTWljcm9zb2Z0XFdpbmRvd3Mg3VycmVudFZlcnNpb25cUnVu\", \"decoded_value\": \"HKCU:\\\\Software\\\\Software\\\\Microsoft\\\\Windows CurrentVersion\\\\Run\", \"description\": \"Registry key for persistence \" }, { \"type\": \"port\", \"original_value\": \"NDQ1LDgwLDgwODAsNTAwMCw1NTU0LDkxMDAsMjMw==\", \"decoded_value\": \"445,80,,8080,5000,,554,,9100,23\", \"description\": \"Ports scanned for propagation\" }, { \"type\": \"username\", \"original_value\": \"YWRtaW4=,cm9vdA==,dXNlcg==,...\", \"decoded_value\": \"admin,root,user,...\", \"description\": \"List of usernames for brute force\" }, { \"type\": \"password\", \"original_value\": \"YWRtaW4=,...\", \"decoded_value\": \"admin,password,1234,...\", \"description\": \"List of passwords for brute force attempts } ] } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } | } } } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } |  } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } | } } } } } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | }",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "{ \"iocs\"",
+              "original_value": "[ { \"type\": \"url\", \"original_value\": \"aHR0cDovL1lPVVJfU0VSVkVSX0lQOjgwODAvdTk0ZzFuN3guZXhl\", \"decoded_value\": \"http://YOUR_SERVER_IP:8080/u94g1n7x.exe\", \"description\": \"URL for downloading malicious executable\" }, { \"type\": \"url\", \"original_value\": \"aHR0cDovL1lPVVJfU0VSVkVSX0lQOjgwODAv/cTloMmsxczMudHh0\", \"decoded_value\": \"http://YOUR_SERVERIDIP:8080/q9h2k1s3.txt\", \"description\": \"URL for fetching wallet address\" }, { \"type\": \"url\", \"original_value\": \"aHR0cDovL1lPVVJfU0VSVkVSf0lQOjgwODAvejhsNG02YjUudHh0\", \"decoded_value\": \"http://YOUR_SERVERIDIP:8080/z8l4m6b5.txt\", \"description\": \"URL for fetching the pool\" }, { \"type\": \"file_name\", \"original_value\": \"XGhlbHBjdHIuZXhl\", \"decoded_value\": \"\\\\helpctr.exe\", \"description\": \"Malicious executable file name\" }, { \"type\": \"file_name\", \"original_value\": \"U3lzdGVtVXBkYXRl\", \"decoded_value\": \"SystemUpdate\", \"description\": \"Task name for persistence\" }, { \"type\": \"registry\", \"original_value\": \"SEtDVTo7U29mdHdhcmVcTWljcm9zb2Z0XFdpbmRvd3Mg3VycmVudFZlcnNpb25cUnVu\", \"decoded_value\": \"HKCU:\\\\Software\\\\Software\\\\Microsoft\\\\Windows CurrentVersion\\\\Run\", \"description\": \"Registry key for persistence \" }, { \"type\": \"port\", \"original_value\": \"NDQ1LDgwLDgwODAsNTAwMCw1NTU0LDkxMDAsMjMw==\", \"decoded_value\": \"445,80,,8080,5000,,554,,9100,23\", \"description\": \"Ports scanned for propagation\" }, { \"type\": \"username\", \"original_value\": \"YWRtaW4=,cm9vdA==,dXNlcg==,...\", \"decoded_value\": \"admin,root,user,...\", \"description\": \"List of usernames for brute force\" }, { \"type\": \"password\", \"original_value\": \"YWRtaW4=,...\", \"decoded_value\": \"admin,password,1234,...\", \"description\": \"List of passwords for brute force attempts } ] } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } | } } } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } |  } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } | } } } } } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | }",
+              "decoded_value": "[ { \"type\": \"url\", \"original_value\": \"aHR0cDovL1lPVVJfU0VSVkVSX0lQOjgwODAvdTk0ZzFuN3guZXhl\", \"decoded_value\": \"http://YOUR_SERVER_IP:8080/u94g1n7x.exe\", \"description\": \"URL for downloading malicious executable\" }, { \"type\": \"url\", \"original_value\": \"aHR0cDovL1lPVVJfU0VSVkVSX0lQOjgwODAv/cTloMmsxczMudHh0\", \"decoded_value\": \"http://YOUR_SERVERIDIP:8080/q9h2k1s3.txt\", \"description\": \"URL for fetching wallet address\" }, { \"type\": \"url\", \"original_value\": \"aHR0cDovL1lPVVJfU0VSVkVSf0lQOjgwODAvejhsNG02YjUudHh0\", \"decoded_value\": \"http://YOUR_SERVERIDIP:8080/z8l4m6b5.txt\", \"description\": \"URL for fetching the pool\" }, { \"type\": \"file_name\", \"original_value\": \"XGhlbHBjdHIuZXhl\", \"decoded_value\": \"\\\\helpctr.exe\", \"description\": \"Malicious executable file name\" }, { \"type\": \"file_name\", \"original_value\": \"U3lzdGVtVXBkYXRl\", \"decoded_value\": \"SystemUpdate\", \"description\": \"Task name for persistence\" }, { \"type\": \"registry\", \"original_value\": \"SEtDVTo7U29mdHdhcmVcTWljcm9zb2Z0XFdpbmRvd3Mg3VycmVudFZlcnNpb25cUnVu\", \"decoded_value\": \"HKCU:\\\\Software\\\\Software\\\\Microsoft\\\\Windows CurrentVersion\\\\Run\", \"description\": \"Registry key for persistence \" }, { \"type\": \"port\", \"original_value\": \"NDQ1LDgwLDgwODAsNTAwMCw1NTU0LDkxMDAsMjMw==\", \"decoded_value\": \"445,80,,8080,5000,,554,,9100,23\", \"description\": \"Ports scanned for propagation\" }, { \"type\": \"username\", \"original_value\": \"YWRtaW4=,cm9vdA==,dXNlcg==,...\", \"decoded_value\": \"admin,root,user,...\", \"description\": \"List of usernames for brute force\" }, { \"type\": \"password\", \"original_value\": \"YWRtaW4=,...\", \"decoded_value\": \"admin,password,1234,...\", \"description\": \"List of passwords for brute force attempts } ] } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } | } } } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } |  } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } | } } } } } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | }",
+              "description": "Extracted from text: { \"iocs\""
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "http://YOUR_SERVER_IP:8080/u94g1n7x.exe",
+          "http://YOUR_SERVER_IP:8080/q9h2k1s3.txt",
+          "u94g1n7x.exe",
+          "q9h2k1s3.txt"
+        ],
+        "false_positives": [
+          "[ { \"type\": \"url\", \"original_value\": \"aHR0cDovL1lPVVJfU0VSVkVSX0lQOjgwODAvdTk0ZzFuN3guZXhl\", \"decoded_value\": \"http://YOUR_SERVER_IP:8080/u94g1n7x.exe\", \"description\": \"URL for downloading malicious executable\" }, { \"type\": \"url\", \"original_value\": \"aHR0cDovL1lPVVJfU0VSVkVSX0lQOjgwODAv/cTloMmsxczMudHh0\", \"decoded_value\": \"http://YOUR_SERVERIDIP:8080/q9h2k1s3.txt\", \"description\": \"URL for fetching wallet address\" }, { \"type\": \"url\", \"original_value\": \"aHR0cDovL1lPVVJfU0VSVkVSf0lQOjgwODAvejhsNG02YjUudHh0\", \"decoded_value\": \"http://YOUR_SERVERIDIP:8080/z8l4m6b5.txt\", \"description\": \"URL for fetching the pool\" }, { \"type\": \"file_name\", \"original_value\": \"XGhlbHBjdHIuZXhl\", \"decoded_value\": \"\\\\helpctr.exe\", \"description\": \"Malicious executable file name\" }, { \"type\": \"file_name\", \"original_value\": \"U3lzdGVtVXBkYXRl\", \"decoded_value\": \"SystemUpdate\", \"description\": \"Task name for persistence\" }, { \"type\": \"registry\", \"original_value\": \"SEtDVTo7U29mdHdhcmVcTWljcm9zb2Z0XFdpbmRvd3Mg3VycmVudFZlcnNpb25cUnVu\", \"decoded_value\": \"HKCU:\\\\Software\\\\Software\\\\Microsoft\\\\Windows CurrentVersion\\\\Run\", \"description\": \"Registry key for persistence \" }, { \"type\": \"port\", \"original_value\": \"NDQ1LDgwLDgwODAsNTAwMCw1NTU0LDkxMDAsMjMw==\", \"decoded_value\": \"445,80,,8080,5000,,554,,9100,23\", \"description\": \"Ports scanned for propagation\" }, { \"type\": \"username\", \"original_value\": \"YWRtaW4=,cm9vdA==,dXNlcg==,...\", \"decoded_value\": \"admin,root,user,...\", \"description\": \"List of usernames for brute force\" }, { \"type\": \"password\", \"original_value\": \"YWRtaW4=,...\", \"decoded_value\": \"admin,password,1234,...\", \"description\": \"List of passwords for brute force attempts } ] } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } | } } } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } |  } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } } | } } } } } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | } | }"
+        ]
+      }
+    },
+    {
+      "sample_name": "fea75fc54e0117e0c1f7caa00db61414c517fb162a898d43aa27f612324974d8.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "http://toxicoolutions.ru/upload/praisefud.exe",
+          "decoded_value": "http://toxicoolutions.ru/upload/praisefud.exe",
+          "description": "URL used to download malicious executable"
+        },
+        {
+          "type": "file_name",
+          "original_value": "fleeble.exe",
+          "decoded_value": "fleebie.exe",
+          "description": "Filename of downloaded executable"
+        },
+        {
+          "type": "file_name",
+          "original_value": "fleebie.exe",
+          "decoded_value": "fleebie.exe",
+          "description": "Filename of executed process"
+        }
+      ],
+      "processing_time": 1.6353662014007568,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 3,
+        "matches": 1,
+        "obfuscated_matches": 1,
+        "precision": 0.3333333333333333,
+        "recall": 0.3333333333333333,
+        "f1_score": 0.3333333333333333,
+        "obfuscated_precision": 0.3333333333333333,
+        "obfuscated_recall": 0.3333333333333333,
+        "obfuscated_f1_score": 0.3333333333333333,
+        "detailed_matches": [
+          {
+            "extracted": "http://toxicoolutions.ru/upload/praisefud.exe",
+            "ground_truth": "http://toxicsolutions.ru/upload/praisefud.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "http://toxicoolutions.ru/upload/praisefud.exe",
+              "decoded_value": "http://toxicoolutions.ru/upload/praisefud.exe",
+              "description": "URL used to download malicious executable"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "fleebie.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "fleeble.exe",
+              "decoded_value": "fleebie.exe",
+              "description": "Filename of downloaded executable"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          },
+          {
+            "extracted": "fleebie.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "fleebie.exe",
+              "decoded_value": "fleebie.exe",
+              "description": "Filename of executed process"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "praisefud.exe",
+          "fleeble.exe"
+        ],
+        "false_positives": [
+          "fleebie.exe",
+          "fleebie.exe"
+        ]
+      }
+    },
+    {
+      "sample_name": "fdf1d959e3b07dfd9804f1e8e8783d5505c2030e24e98a1872f527f173910617.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [],
+      "processing_time": 11.359737634658813,
+      "success": false,
+      "error_message": "400 Client Error: Bad Request for url: https://openrouter.ai/api/v1/chat/completions",
+      "ground_truth_match": null
+    },
+    {
+      "sample_name": "fc7bef03f846865a81209de2bf31ea78192a72f2f459ff633c57f8e2cff2a8a3.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cDovL25ldC5nZXRob3N0LnB3L3dpbmRyby5leGU=",
+          "decoded_value": "http://net.gethost.pw/windro.exe",
+          "description": "URL used to download a malicious executable"
+        },
+        {
+          "type": "file_name",
+          "original_value": "fleeble.exe",
+          "decoded_value": "fleeble.exe",
+          "description": "Malicious executable file_name"
+        }
+      ],
+      "processing_time": 40.630048990249634,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 2,
+        "matches": 2,
+        "obfuscated_matches": 2,
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1_score": 0.6666666666666666,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 0.5,
+        "obfuscated_f1_score": 0.6666666666666666,
+        "detailed_matches": [
+          {
+            "extracted": "http://net.gethost.pw/windro.exe",
+            "ground_truth": "http://net.gethost.pw/windro.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cDovL25ldC5nZXRob3N0LnB3L3dpbmRyby5leGU=",
+              "decoded_value": "http://net.gethost.pw/windro.exe",
+              "description": "URL used to download a malicious executable"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "fleeble.exe",
+            "ground_truth": "fleeble.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "fleeble.exe",
+              "decoded_value": "fleeble.exe",
+              "description": "Malicious executable file_name"
+            },
+            "match_type": "exact"
+          }
+        ],
+        "missed_obfuscated": [
+          "windro.exe",
+          "net.gethost.pw"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "fbe36b0c463f99c13cbda03431c693050dedb057b55ffcce76bd433185f00450.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [],
+      "processing_time": 46.893495321273804,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 3,
+        "total_obfuscated_gt": 3,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "91.92.66.242",
+          "8.8.8.8",
+          "certificate.cer"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "fbdd6850741bd495c5b5e21057eee523e9653267c82a8c093e83ab9b6d12c37e.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "'hXXp://dll3.data.hu/get/et/0/9551162/ske.exe",
+          "decoded_value": "http://dll3.data.hu/get/0/9551162/ske.exe",
+          "description": "URL used to download a malicious executable"
+        },
+        {
+          "type": "file_name",
+          "original_value": "'fleebl.exe",
+          "decoded_value": "fleebl.exe",
+          "description": "File name of the downloaded executable"
+        }
+      ],
+      "processing_time": 52.27160453796387,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 2,
+        "matches": 1,
+        "obfuscated_matches": 1,
+        "precision": 0.5,
+        "recall": 0.25,
+        "f1_score": 0.3333333333333333,
+        "obfuscated_precision": 0.5,
+        "obfuscated_recall": 0.25,
+        "obfuscated_f1_score": 0.3333333333333333,
+        "detailed_matches": [
+          {
+            "extracted": "http://dll3.data.hu/get/0/9551162/ske.exe",
+            "ground_truth": "http://ddl3.data.hu/get/0/9551162/ske.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "'hXXp://dll3.data.hu/get/et/0/9551162/ske.exe",
+              "decoded_value": "http://dll3.data.hu/get/0/9551162/ske.exe",
+              "description": "URL used to download a malicious executable"
+            },
+            "match_type": "partial"
+          },
+          {
+            "extracted": "fleebl.exe",
+            "ground_truth": null,
+            "is_obfuscated": false,
+            "extracted_ioc": {
+              "type": "file_name",
+              "original_value": "'fleebl.exe",
+              "decoded_value": "fleebl.exe",
+              "description": "File name of the downloaded executable"
+            },
+            "is_false_positive": true,
+            "match_type": "none"
+          }
+        ],
+        "missed_obfuscated": [
+          "ske.exe",
+          "ddl3.data.hu",
+          "fleeble.exe"
+        ],
+        "false_positives": [
+          "fleebl.exe"
+        ]
+      }
+    },
+    {
+      "sample_name": "fbcba7e01d26c06572fdc00530ee7345301fc8639a37ad48cf4be84b46bc8074.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [
+        {
+          "type": "url",
+          "original_value": "aHR0cHM6Ly91bmRvLnNnL2ZpbGUuZXhl",
+          "decoded_value": "https://undo.sg/file.exe",
+          "description": "Download URL for the malicious executable"
+        },
+        {
+          "type": "url",
+          "original_value": "aHR0cHM6Ly91bmRvLnNnL3NjcmlwdC5wzE=",
+          "decoded_value": "https://undo.sg/script.pss1",
+          "description": "URL for the persistence script"
+        }
+      ],
+      "processing_time": 36.6848669052124,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 8,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 2,
+        "matches": 2,
+        "obfuscated_matches": 2,
+        "precision": 1.0,
+        "recall": 0.25,
+        "f1_score": 0.4,
+        "obfuscated_precision": 1.0,
+        "obfuscated_recall": 0.5,
+        "obfuscated_f1_score": 0.6666666666666666,
+        "detailed_matches": [
+          {
+            "extracted": "https://undo.sg/file.exe",
+            "ground_truth": "https://undo.sg/file.exe",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cHM6Ly91bmRvLnNnL2ZpbGUuZXhl",
+              "decoded_value": "https://undo.sg/file.exe",
+              "description": "Download URL for the malicious executable"
+            },
+            "match_type": "exact"
+          },
+          {
+            "extracted": "https://undo.sg/script.pss1",
+            "ground_truth": "https://undo.sg/script.ps1",
+            "is_obfuscated": true,
+            "extracted_ioc": {
+              "type": "url",
+              "original_value": "aHR0cHM6Ly91bmRvLnNnL3NjcmlwdC5wzE=",
+              "decoded_value": "https://undo.sg/script.pss1",
+              "description": "URL for the persistence script"
+            },
+            "match_type": "partial"
+          }
+        ],
+        "missed_obfuscated": [
+          "file.exe",
+          "undo.sg"
+        ],
+        "false_positives": []
+      }
+    },
+    {
+      "sample_name": "fb6555c2a569fef4ca9b0f6a5a0ee18caa773e75cbf11a522fc64fd50084d38b.sample",
+      "model_name": "deepseek/deepseek-r1-0528",
+      "iocs": [],
+      "processing_time": 179.2027370929718,
+      "success": true,
+      "error_message": null,
+      "ground_truth_match": {
+        "ground_truth_available": true,
+        "total_ground_truth": 4,
+        "total_obfuscated_gt": 4,
+        "total_extracted": 0,
+        "matches": 0,
+        "obfuscated_matches": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "obfuscated_precision": 0.0,
+        "obfuscated_recall": 0.0,
+        "obfuscated_f1_score": 0.0,
+        "detailed_matches": [],
+        "missed_obfuscated": [
+          "http://boisedelariviere.com/backup/css/newconfig.exe",
+          "newconfig.exe",
+          "boisedelariviere.com",
+          "neone6.exe"
+        ],
+        "false_positives": []
+      }
+    }
+  ],
+  "ioc_statistics": {
+    "total_iocs_extracted": 102,
+    "ioc_type_distribution": {
+      "url": 36,
+      "file_name": 41,
+      "domain": 9,
+      "file_path": 1,
+      "registry": 1,
+      "ip": 2,
+      "original string as found": 1,
+      "URL": 1,
+      "iocs": 2,
+      "decoded_value ": 1,
+      "decade, ": 5,
+      "decayed_value": 1,
+      "{ \"iocs\"": 1
+    },
+    "average_iocs_per_sample": 1.8888888888888888
+  }
+}

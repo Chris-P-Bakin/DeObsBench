@@ -59,7 +59,7 @@ coverage.xml
 cover/
 
 # DeObsBench generated reports
-reports/
+#reports/
 *.json.backup_*
 
 # Translations

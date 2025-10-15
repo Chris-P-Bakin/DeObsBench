@@ -176,7 +176,7 @@ python ioc_extraction_test.py \
     --verbose
 ```
 
-### Generate Research Graphs
+### Generate Graphs
 
 After running tests, generate publication-quality visualizations:
 
@@ -237,14 +237,6 @@ The benchmark generates:
 - **Performance graphs**: Model comparison visualizations
 - **Accuracy metrics**: Precision, recall, F1 scores
 - **Timing analysis**: Processing time comparisons
-
-### Research Outputs
-
-For research publications, the tool generates:
-- Model performance comparison charts
-- IOC extraction accuracy graphs
-- Processing time analysis
-- Error rate visualizations
 
 ## API Integration
 

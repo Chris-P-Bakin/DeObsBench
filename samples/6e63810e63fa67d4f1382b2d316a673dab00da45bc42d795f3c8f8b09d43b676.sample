@@ -1,0 +1,39 @@
+$filePath = 'c:\windows\addins\productkey.txt'
+
+# Überprüfen, ob die Datei existiert
+if (Test-Path $filePath) {
+    $productKey = Get-Content $filePath -Raw
+    $productKey = $productKey.Trim()
+
+    # Überprüfen, ob der Inhalt der Datei nicht leer ist
+    if (![string]::IsNullOrWhiteSpace($productKey)) {
+        $uri = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String('aHR0cHM6Ly96ZW4ucGxhbnQuaG1jdy5kZS9ub3ZvX2tleV9jb2xsZWN0b3IucGhw'))
+
+        $headers = @{
+            'Authorization' = 'Bearer ' + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJrZXktY29sbGVjdG9yIiwiaWF0IjoxNzA5MjUxMjAwfQ.izNvtzkk-3Nc-OqqVSvl8Q_aPMRok_2OH02sDQU4tzw'
+        }
+
+        $body = @{
+            'action' = 'insert'
+            'key' = $productKey
+        }
+
+        $jsonBody = $body | ConvertTo-Json
+
+        $request = @{
+            Method = 'Post'
+            Uri = $uri
+            Headers = $headers
+            Body = $jsonBody
+            ContentType = 'application/json'
+            TimeoutSec = 5
+        }
+
+        $response = Invoke-RestMethod @request
+        Write-Host "Server responded successfully. Geschriebener Key: $productKey"
+    } else {
+        Write-Host "Kein BIOS Key vorhanden - es wird nichts geschrieben"
+    }
+} else {
+    Write-Host "Kein BIOS Key vorhanden - es wird nichts geschrieben"
+}

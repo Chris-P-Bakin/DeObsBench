@@ -1,0 +1,150 @@
+Clear-Host
+
+Add-Type -TypeDefinition @"
+using System;
+using System.Text;
+using System.Diagnostics;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
+
+public class MemScanner {
+    [DllImport("kernel32.dll")]
+    public static extern IntPtr OpenProcess(int dwDesiredAccess, bool bInheritHandle, int dwProcessId);
+    
+    [DllImport("kernel32.dll")]
+    public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] buffer, int size, out IntPtr lpNumberOfBytesRead);
+    
+    [DllImport("kernel32.dll")]
+    public static extern bool CloseHandle(IntPtr hObject);
+
+    [DllImport("kernel32.dll")]
+    public static extern bool VirtualQueryEx(IntPtr hProcess, IntPtr lpAddress, out MEMORY_BASIC_INFORMATION lpBuffer, uint dwLength);
+
+    public const int PROCESS_VM_READ = 0x0010;
+    public const int PROCESS_QUERY_INFORMATION = 0x0400;
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct MEMORY_BASIC_INFORMATION {
+        public IntPtr BaseAddress;
+        public IntPtr AllocationBase;
+        public uint AllocationProtect;
+        public IntPtr RegionSize;
+        public uint State;
+        public uint Protect;
+        public uint Type;
+    }
+}
+"@
+
+function Get-Patterns {
+    return @{
+        "Nova Client" = @(
+            "aHR0cDovL2FwaS5ub3ZhY2xpZW50LmxvbC93ZWJob29rLnR4dA==",
+            "novaclient",
+            "addFri",
+            "antiAttack",
+            "/assets/font/font.ttf",
+            "Lithium is not initialized! Skipping event: ",
+            "Error in hash",
+            "lithium/mixin/a.class",
+            "lithium/mixin/b.class",
+            "lithium/mixin/c.class",
+            "lithium/mixin/d.class",
+            "lithium/mixin/e.class",
+            "lithium/mixin/f.class",
+            "lithium/mixin/g.class",
+            "lithium/mixin/h.class",
+            "lithium/mixin/i.class",
+            "lithium/mixin/j.class",
+            "lithium/mixin/k.class",
+            "lithium/mixin/l.class",
+            "lithium/mixin/m.class",
+            "lithium/mixin/n.class",
+            "lithium/mixin/o.class",
+            "lithium/mixin/p.class",
+            "lithium/mixin/q.class",
+            "lithium/mixin/r.class",
+            "lithium/mixin/s.class",
+            "lithium/mixin/t.class",
+            "lithium/mixin/u.class",
+            "lithium/mixin/v.class",
+            "lithium/mixin/w.class",
+            "U2hpZWxkRGlzYWJsZXI=",
+            "QXV0b0p1bXBSZXNldA==",
+            "kingvon.gif",
+            "aHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L1g3NTY4RmZa"
+        )
+        "Universal" = @(
+           "AutoFirework",
+           "ModuleManager",
+           "SelfDestruct",
+           "AutoCrystal",
+           "dev/nixoly/scrim/Scrim",
+           "dev/lvstrng/argon",
+           "dev/krypton/a"
+        )
+    }
+}
+
+Write-Host "Screenshare tool | Made by lvstrng & Miami | Powershell Edition`n"
+
+$mcPid = Read-Host "Enter Minecraft PID"
+$hProcess = [MemScanner]::OpenProcess(
+    [MemScanner]::PROCESS_VM_READ -bor [MemScanner]::PROCESS_QUERY_INFORMATION,
+    $false,
+    [int]$mcPid
+)
+
+if ($hProcess -eq [IntPtr]::Zero) {
+    Write-Host "Invalid PID or access denied."
+    exit
+}
+
+$clients = Get-Patterns
+$choice = 1
+Write-Host "`nSelect Client to Scan For:"
+$clients.Keys | ForEach-Object { Write-Host "$choice. $_"; $choice++ }
+
+$selected = Read-Host "Enter option (1/2)"
+$patterns = if ($selected -eq "1") { $clients["Nova Client"] } else { $clients["Universal"] }
+
+$address = [IntPtr]::Zero
+$memInfoSize = [System.Runtime.InteropServices.Marshal]::SizeOf([type]([MemScanner+MEMORY_BASIC_INFORMATION]))
+$totalMatches = 0
+$maxReadSize = 10MB
+
+while ($true) {
+    $memInfo = New-Object MemScanner+MEMORY_BASIC_INFORMATION
+    $result = [MemScanner]::VirtualQueryEx($hProcess, $address, [ref]$memInfo, [uint32]$memInfoSize)
+
+    if ($result -eq 0) { break }
+
+    $regionSize = [Math]::Min($memInfo.RegionSize.ToInt64(), $maxReadSize)
+    if ($regionSize -le 0) {
+        $address = [IntPtr]::new($memInfo.BaseAddress.ToInt64() + $memInfo.RegionSize.ToInt64())
+        continue
+    }
+
+    $buffer = New-Object byte[] $regionSize
+    $bytesRead = [IntPtr]::Zero
+
+    $readSuccess = [MemScanner]::ReadProcessMemory($hProcess, $memInfo.BaseAddress, $buffer, $regionSize, [ref]$bytesRead)
+    
+    if ($readSuccess) {
+        $content = [System.Text.Encoding]::ASCII.GetString($buffer)
+        foreach ($pattern in $patterns) {
+            $matches = ([regex]::Matches($content, [regex]::Escape($pattern))).Count
+            if ($matches -gt 0) {
+                $totalMatches += $matches
+                Write-Host "[*] Found string '$pattern' $matches time(s) at region $($memInfo.BaseAddress)"
+            }
+        }
+    }
+
+    $address = [IntPtr]::new($memInfo.BaseAddress.ToInt64() + $memInfo.RegionSize.ToInt64())
+}
+
+[MemScanner]::CloseHandle($hProcess)
+
+Write-Host "`nScan complete. Found $totalMatches matches."
+Read-Host "Press Enter to exit"

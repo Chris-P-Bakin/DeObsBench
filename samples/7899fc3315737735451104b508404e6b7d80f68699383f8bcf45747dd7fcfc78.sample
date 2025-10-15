@@ -1,0 +1,17 @@
+﻿$encodedUrl = "aHR0cDovL21hbHdhcmUud2ljYXIub3JnL2RhdGEvbXMxNF8wNjRfb2xlX3hwLmh0bWw="
+
+# Decode the URL
+$decodedUrl = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($encodedUrl))
+
+# Try to connect
+try {
+    $response = Invoke-WebRequest -Uri $decodedUrl -UseBasicParsing -TimeoutSec 10
+    if ($response.StatusCode -eq 200) {
+        Write-Host "Connection successful! Status: $($response.StatusCode)"
+    } else {
+        Write-Host "Connected but got unexpected status: $($response.StatusCode)"
+    }
+}
+catch {
+    Write-Host "Connection failed: $($_.Exception.Message)"
+}

